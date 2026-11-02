@@ -1,0 +1,14 @@
+{
+  "jumpserver_url": "https://jumpserver.example.internal/",
+  "connect_url": "",
+  "display_selector": "",
+  "display_frame": null,
+  "pre_connect_clicks": [],
+  "viewport_width": 1600,
+  "viewport_height": 900,
+  "headless": true,
+  "browser_channel": "chrome",
+  "ignore_https_errors": false,
+  "storage_state": "state/storage.json",
+  "resource_dir": "resource"
+}
