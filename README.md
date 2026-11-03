@@ -102,9 +102,23 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 - 已通过 Python → Playwright CLI → 已连接 Chrome → Maa 控制器获得实际 `1920×1080` 截图；模拟页面验证了缩放坐标、输入以及原 MR3A AgentServer 的自定义动作调用。
 - 2026-11-03，`PSIDE_Demo` 在 HRDEV 实际窗口完成：Maa 内置 OCR 识别标题 → 原生按键节点发送 `Ctrl+O` → OCR 识别中文“打开定义” → 模板匹配并点击“取消”；最终截图确认返回主窗口。无对话框时，取消节点返回失败；模拟按键失败时，会尝试释放 Ctrl 并返回失败。另在对话框名称栏输入英文测试字符串并取消，未执行搜索或保存。
 
-**尚未完成的验证**：以上仅是一个 HRDEV 会话中的可恢复示例，真实中文输入、CLI 会话断线恢复及长时间无人值守运行仍需测试；本机远程桌面断开后曾完成截图和上述示例，但不能据此保证长期持续刷新。当前原始截图模式只支持已观察到的单层 canvas；分辨率或画布结构不符时停止，不能假定所有 JumpServer 页面都相同。MR3A 现有界面仍配置为 ADB；CLI 控制器通过 Python 入口连接，尚未接入原 GUI 的控制器选择。
+**尚未完成的验证**：以上仅是一个 HRDEV 会话中的可恢复示例，真实中文输入、CLI 本身断开后的恢复及长时间无人值守运行仍需测试；本机远程桌面断开后曾完成截图和上述示例，但不能据此保证长期持续刷新。原始截图支持已观察到的桌面 canvas，以及重连后额外出现的 64×64 小平移图层；分辨率、图层尺寸、数量或变换不符时停止。MR3A 现有界面仍配置为 ADB；CLI 控制器通过 Python 入口连接，尚未接入原 GUI 的控制器选择。
 
 配置、运行和测试方法见 [psauto/README.md](psauto/README.md)。登录态、业务截图和临时诊断文件保存在 Git 忽略目录，不应提交。
+
+#### PSIDE 新建操作探索
+
+2026-11-03 在 HRDEV 以可取消的方式验证了 Field、Record 和 App Engine Program 的新建入口。`Ctrl+N` 打开 `New Definition`，选择对象后进入对应的未保存编辑页；Field 显示类型和长度，Record 显示字段和 Record Type，AE 默认有 `MAIN` 与 `Step01`。AE 中选中 Step 后，`Ctrl+3` 可插入 Action；现场看到了 SQL、PeopleCode、Do While、Do Select、Call Section、Log Message 和 Do Until 等选项。AE 的 `Ctrl+S` 打开 `Save As` 名称对话框，测试时已取消，未保存业务对象。
+
+`assets/resource/pipeline/PSIDE/create_drafts.json` 中的 `PSIDE_OpenFieldDraft`、`PSIDE_OpenRecordDraft`、`PSIDE_OpenAEDraft` 是实验性的 Maa Pipeline 草稿入口，只负责打开未保存编辑页并识别结果，三个入口曾分别在该会话成功执行一次。运行前需要 PSIDE 处于空白主窗口；它们还没有自动检查所有窗口状态，不能在有人编辑其他对象时运行。PSIDE 会级联移动新建窗口，后续填写需要基于识别结果定位，不能假定编辑器始终处于固定坐标。
+
+这些入口**尚不是完整的新建操作，也不是 MCP 工具**：名称、类型、Record 字段、AE 的多个 Step 与各种 Action 的输入和保存、重名处理、保存后核验，以及 MCP 参数和调用接口均尚待实现与验证。Field 和 AE 对话框识别保护在首次实测后补充并各复测成功一次。不得把草稿打开成功视为对象已创建。
+
+#### 空闲超时恢复与 GM 测试对象
+
+2026-11-03 实际观察到 JumpServer“超过最大空闲时间120分钟，断开连接”，已由 Maa OCR 识别并关闭提示。Python 恢复入口另提供固定的刷新→识别资产连接页→使用浏览器已保存账号连接→检查 1920×1080 原始画布及 HRDEV 标题的流程；17:16 的真实退出再进入测试成功。恢复过程没有 AI 意图推理。`run_pipeline.py` 可在业务开始前触发恢复；业务执行中途失败不会自动重放。长期空闲后的完整恢复尚未再次等待验证，未覆盖 JumpServer 登录页或 MFA。
+
+用户授权创建的 `GM_CX26_F1` Field 已保存并重新打开核对；`GM_CX26_R1` Derived/Work Record 已保存，包含该 Field，重连后仍显示该定义。AE 尚未创建，完整创建流水线仍待固化。每次运行可自动保存 Maa 原生截图、OCR 框、动作、耗时和成功/失败事件到本机忽略目录。操作表、截图、命令和验证边界见 [恢复与对象开发记录](psauto/docs/recovery.md)。
 
 ## 致谢
 

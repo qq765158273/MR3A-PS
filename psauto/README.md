@@ -82,6 +82,8 @@ PSIDE 节点位于原 MR3A 资源目录 `assets/resource/pipeline/PSIDE/`。运�
 
 ## 测试
 
+空闲超时恢复、真实退出再进入命令、每个节点的 OCR/延迟/点击/失败检查，以及 GM 测试对象的截图见 [开发记录](docs/recovery.md)。`run_pipeline.py` 现在在业务任务开始前连接失败时尝试已识别的恢复路径，可用 `--no-recovery` 关闭；不会自动重放失败的业务任务。每次任务的 Maa 原生截图、识别和动作事件保存到本机 `out/runs/`，恢复证据位于 `out/recovery/`。
+
 ```powershell
 $env:PSAUTO_TEST_BROWSER_CHANNEL = 'chrome'
 $env:PSAUTO_TEST_OCR = '1'

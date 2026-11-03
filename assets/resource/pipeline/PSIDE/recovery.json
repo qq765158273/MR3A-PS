@@ -1,0 +1,58 @@
+{
+  "JumpServer_Recover": {
+    "action": "DoNothing", "next": ["JumpServer_ReconnectAfterIdleTimeout", "JumpServer_ConnectSavedAccount"],
+    "on_error": [], "timeout": 5000
+  },
+  "JumpServer_IdleTimeoutDetected": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "连接异常", "roi": [745, 285, 430, 335]},
+      {"recognition": "OCR", "expected": "超过最大空闲时间120分钟.*断开连接", "roi": [745, 285, 430, 335]}
+    ],
+    "action": "DoNothing", "timeout": 3000, "on_error": []
+  },
+  "JumpServer_AcknowledgeIdleTimeout": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "连接异常", "roi": [745, 285, 430, 335]},
+      {"recognition": "OCR", "expected": "超过最大空闲时间120分钟.*断开连接", "roi": [745, 285, 430, 335]}
+    ],
+    "action": "DoNothing", "timeout": 3000, "next": ["JumpServer_IdleTimeoutConfirm"], "on_error": []
+  },
+  "JumpServer_IdleTimeoutConfirm": {
+    "recognition": "OCR", "expected": "^确定$", "roi": [1090, 370, 80, 235],
+    "action": "Click", "post_delay": 1500, "timeout": 3000, "on_error": []
+  },
+  "JumpServer_ReconnectAfterIdleTimeout": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "连接异常", "roi": [745, 285, 430, 335]},
+      {"recognition": "OCR", "expected": "超过最大空闲时间120分钟.*断开连接", "roi": [745, 285, 430, 335]}
+    ],
+    "action": "DoNothing", "timeout": 3000,
+    "next": ["JumpServer_IdleConfirmAndReload"], "on_error": []
+  },
+  "JumpServer_IdleConfirmAndReload": {
+    "recognition": "OCR", "expected": "^确定$", "roi": [1090, 370, 80, 235],
+    "action": "Click", "post_delay": 1500, "timeout": 3000,
+    "next": ["JumpServer_ReloadSession"], "on_error": []
+  },
+  "JumpServer_ReloadSession": {
+    "action": "StartApp", "package": "jumpserver:reconnect", "post_delay": 3000,
+    "next": ["JumpServer_ConnectSavedAccount"], "on_error": [], "timeout": 15000
+  },
+  "JumpServer_ConnectSavedAccount": {
+    "recognition": "And", "all_of": [
+      {"recognition": "OCR", "expected": "连接.*PS开发测试", "roi": [550, 80, 850, 200]},
+      {"recognition": "OCR", "expected": "RDP", "roi": [550, 80, 850, 650]},
+      {"recognition": "OCR", "expected": "用户名", "roi": [550, 80, 850, 650]},
+      {"recognition": "OCR", "expected": "Web [Gg][Uu][Ii]", "roi": [550, 80, 850, 650]},
+      {"recognition": "OCR", "expected": "记住密码", "roi": [1080, 280, 220, 250]}
+    ],
+    "action": "DoNothing", "next": ["JumpServer_SavedAccountConnectButton"], "on_error": [], "timeout": 15000
+  },
+  "JumpServer_SavedAccountConnectButton": {
+    "recognition": "OCR", "expected": "连接.*当前在线", "roi": [550, 500, 850, 320],
+    "action": "Click", "post_delay": 5000, "timeout": 5000, "on_error": []
+  }
+}

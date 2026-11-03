@@ -38,19 +38,19 @@ class PlaywrightCliSession:
                    "selector": self.cfg.display_selector, "width": self.cfg.remote_width,
                    "height": self.cfg.remote_height, **params}
         code = _CLI_BODY.replace("__INSPECT__", _INSPECT).replace("__REQUEST__", json.dumps(request))
+        return self.run_code(code)
+
+    def run_code(self, code):
+        """Execute transport code in the existing CLI session without opening a browser."""
+        if self.poisoned:
+            raise RuntimeError("CLI session is disabled after a timeout; inspect the remote screen before restarting")
         filename = None
         try:
             with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", suffix=".js",
                                              prefix="psauto-cli-", dir=self.cwd, delete=False) as script:
                 filename = Path(script.name)
                 script.write(code)
-            try:
-                result = subprocess.run([self.node, str(self.script), f"-s={self.cfg.cli_session}",
-                                         "--raw", "run-code", f"--filename={filename}"], cwd=self.cwd,
-                                        capture_output=True, encoding="utf-8", errors="replace", timeout=45)
-            except subprocess.TimeoutExpired as exc:
-                self.poisoned = True
-                raise TimeoutError("CLI operation timed out and may still be running") from exc
+            result = self.invoke_cli(['run-code', f'--filename={filename}'])
         finally:
             if filename is not None:
                 filename.unlink(missing_ok=True)
@@ -60,6 +60,20 @@ class PlaywrightCliSession:
             return json.loads(result.stdout)
         except json.JSONDecodeError as exc:
             raise RuntimeError("Playwright CLI returned an invalid response") from exc
+
+    def invoke_cli(self, arguments, raw=True):
+        """Transport a structured CLI command; callers must not log its browser metadata."""
+        if self.poisoned:
+            raise RuntimeError('CLI session is disabled after a timeout')
+        command = [self.node, str(self.script), f'-s={self.cfg.cli_session}']
+        if raw:
+            command.append('--raw')
+        try:
+            return subprocess.run(command + list(arguments), cwd=self.cwd, capture_output=True,
+                                  encoding='utf-8', errors='replace', timeout=45)
+        except subprocess.TimeoutExpired as exc:
+            self.poisoned = True
+            raise TimeoutError('CLI operation timed out and may still be running') from exc
 
     def stop(self):
         # The attached browser and CLI session are owned by the user.
@@ -92,7 +106,7 @@ _CLI_BODY = """async (page) => {
   const point = async (x, y) => {
     if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || y < 0 || x >= request.width || y >= request.height)
       throw new Error('Point is outside the remote desktop');
-    const canvas = root.locator('canvas');
+    const canvas = root.locator('canvas').nth(info.canvasIndex);
     const box = await canvas.boundingBox(), clip = await root.boundingBox();
     if (!box || !clip) throw new Error('Remote display is not visible');
     const px = box.x + x * box.width / info.bitmapWidth, py = box.y + y * box.height / info.bitmapHeight;

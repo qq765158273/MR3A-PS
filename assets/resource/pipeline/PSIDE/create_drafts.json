@@ -1,0 +1,47 @@
+{
+  "PSIDE_OpenFieldDraft": {
+    "recognition": "And", "all_of": [
+      {"recognition": "OCR", "expected": "Applica", "roi": [0, 0, 900, 70]},
+      {"recognition": "OCR", "expected": "HRDEV", "roi": [0, 0, 900, 70]}
+    ], "action": "KeyDown", "key": 17, "next": ["PSIDE_FieldNewKey"], "on_error": [], "timeout": 5000
+  },
+  "PSIDE_FieldNewKey": {"action": "ClickKey", "key": 78, "next": ["PSIDE_FieldNewRelease"], "on_error": []},
+  "PSIDE_FieldNewRelease": {"action": "KeyUp", "key": 17, "next": ["PSIDE_FieldDialogReady"], "post_delay": 1000, "on_error": []},
+  "PSIDE_FieldDialogReady": {"recognition": "OCR", "expected": "New Definition", "roi": [790, 425, 340, 45], "action": "DoNothing", "next": ["PSIDE_FieldSelect"], "on_error": [], "timeout": 5000},
+  "PSIDE_FieldSelect": {"recognition": "OCR", "expected": "^Field$", "roi": [800, 460, 210, 170], "action": "Click", "next": ["PSIDE_FieldConfirm"], "on_error": [], "timeout": 5000},
+  "PSIDE_FieldConfirm": {"action": "ClickKey", "key": 13, "next": ["PSIDE_FieldDraftReady"], "post_delay": 1000, "on_error": []},
+  "PSIDE_FieldDraftReady": {"recognition": "And", "all_of": [
+    {"recognition": "OCR", "expected": "Field Type", "roi": [430, 75, 1000, 650]},
+    {"recognition": "OCR", "expected": "Field Length", "roi": [430, 75, 1000, 650]}
+  ], "action": "DoNothing", "on_error": [], "timeout": 5000},
+  "PSIDE_OpenRecordDraft": {
+    "recognition": "And", "all_of": [
+      {"recognition": "OCR", "expected": "Applica", "roi": [0, 0, 900, 70]},
+      {"recognition": "OCR", "expected": "HRDEV", "roi": [0, 0, 900, 70]}
+    ], "action": "KeyDown", "key": 17, "next": ["PSIDE_RecordNewKey"], "on_error": [], "timeout": 5000
+  },
+  "PSIDE_RecordNewKey": {"action": "ClickKey", "key": 78, "next": ["PSIDE_RecordNewRelease"], "on_error": []},
+  "PSIDE_RecordNewRelease": {"action": "KeyUp", "key": 17, "next": ["PSIDE_RecordSeek"], "post_delay": 1000, "on_error": []},
+  "PSIDE_RecordSeek": {"recognition": "OCR", "expected": "New Definition", "roi": [790, 425, 340, 45], "action": "ClickKey", "key": 82, "next": ["PSIDE_RecordSelect"], "on_error": [], "timeout": 5000},
+  "PSIDE_RecordSelect": {"recognition": "OCR", "expected": "^Record$", "roi": [800, 460, 210, 170], "action": "Click", "next": ["PSIDE_RecordConfirm"], "on_error": [], "timeout": 5000},
+  "PSIDE_RecordConfirm": {"action": "ClickKey", "key": 13, "next": ["PSIDE_RecordDraftReady"], "post_delay": 1000, "on_error": []},
+  "PSIDE_RecordDraftReady": {"recognition": "And", "all_of": [
+    {"recognition": "OCR", "expected": "Record Fields", "roi": [430, 75, 1000, 650]},
+    {"recognition": "OCR", "expected": "Record Type", "roi": [430, 75, 1000, 650]}
+  ], "action": "DoNothing", "on_error": [], "timeout": 5000},
+  "PSIDE_OpenAEDraft": {
+    "recognition": "And", "all_of": [
+      {"recognition": "OCR", "expected": "Applica", "roi": [0, 0, 900, 70]},
+      {"recognition": "OCR", "expected": "HRDEV", "roi": [0, 0, 900, 70]}
+    ], "action": "KeyDown", "key": 17, "next": ["PSIDE_AENewKey"], "on_error": [], "timeout": 5000
+  },
+  "PSIDE_AENewKey": {"action": "ClickKey", "key": 78, "next": ["PSIDE_AENewRelease"], "on_error": []},
+  "PSIDE_AENewRelease": {"action": "KeyUp", "key": 17, "next": ["PSIDE_AEDialogReady"], "post_delay": 1000, "on_error": []},
+  "PSIDE_AEDialogReady": {"recognition": "OCR", "expected": "New Definition", "roi": [790, 425, 340, 45], "action": "DoNothing", "next": ["PSIDE_AESelect"], "on_error": [], "timeout": 5000},
+  "PSIDE_AESelect": {"recognition": "OCR", "expected": "App Engine Program", "roi": [800, 460, 210, 170], "action": "Click", "next": ["PSIDE_AEConfirm"], "on_error": [], "timeout": 5000},
+  "PSIDE_AEConfirm": {"action": "ClickKey", "key": 13, "next": ["PSIDE_AEDraftReady"], "post_delay": 1000, "on_error": []},
+  "PSIDE_AEDraftReady": {"recognition": "And", "all_of": [
+    {"recognition": "OCR", "expected": "MAIN", "roi": [430, 75, 1000, 650]},
+    {"recognition": "OCR", "expected": "Step01", "roi": [430, 75, 1000, 650]}
+  ], "action": "DoNothing", "on_error": [], "timeout": 5000}
+}

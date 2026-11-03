@@ -1,4 +1,4 @@
-"""Read a single Guacamole canvas and map native pixels to page coordinates."""
+"""Read Guacamole desktop pixels and map native pixels to page coordinates."""
 
 import base64
 import io
@@ -15,8 +15,27 @@ from .session import display
 # Guacamole may pad the canvas allocation; the parent's client size is the desktop size.
 _INSPECT = """(root, capture) => {
   const canvases = root.querySelectorAll('canvas');
-  if (canvases.length !== 1) throw new Error(`Expected one canvas, found ${canvases.length}`);
-  const canvas = canvases[0], surface = canvas.parentElement;
+  if (canvases.length < 1 || canvases.length > 2)
+    throw new Error(`Unsupported Guacamole layer count: ${canvases.length}`);
+  let canvas = canvases[0], cursor = null, cursorOffset = null;
+  if (canvases.length === 2) {
+    const candidates = [...canvases].filter(c => c.width >= 1024 && c.height >= 768);
+    if (candidates.length !== 1) throw new Error('Ambiguous Guacamole desktop layer');
+    canvas = candidates[0];
+    cursor = [...canvases].find(c => c !== canvas);
+    const layer = cursor.parentElement, desktop = canvas.parentElement;
+    const m = new DOMMatrixReadOnly(getComputedStyle(layer).transform);
+    if (cursor.width !== 64 || cursor.height !== 64 || !layer ||
+        layer.parentElement !== desktop.parentElement ||
+        layer.clientWidth <= 0 || layer.clientWidth > 64 || layer.clientHeight <= 0 || layer.clientHeight > 64 ||
+        getComputedStyle(layer).position !== 'absolute' || layer.offsetLeft !== 0 || layer.offsetTop !== 0 ||
+        cursor.offsetLeft !== 0 || cursor.offsetTop !== 0 ||
+        !m.is2D || m.a !== 1 || m.d !== 1 || m.b !== 0 || m.c !== 0 ||
+        getComputedStyle(layer).opacity !== '1' || getComputedStyle(layer).visibility !== 'visible')
+      throw new Error('Unsupported Guacamole overlay; only a small translated 64x64 layer is supported');
+    cursorOffset = {x: m.e, y: m.f, width: layer.clientWidth, height: layer.clientHeight};
+  }
+  const surface = canvas.parentElement;
   if (!surface) throw new Error('Canvas surface is missing');
   for (let el = canvas; el; el = el.parentElement) {
     const style = getComputedStyle(el);
@@ -29,10 +48,27 @@ _INSPECT = """(root, capture) => {
     }
   }
   const rect = canvas.getBoundingClientRect();
+  let data = null;
+  if (capture) {
+    if (!cursor) data = canvas.toDataURL('image/png');
+    else {
+      const merged = document.createElement('canvas');
+      merged.width = canvas.width; merged.height = canvas.height;
+      const ctx = merged.getContext('2d');
+      ctx.drawImage(canvas, 0, 0);
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0, 0, surface.clientWidth, surface.clientHeight); ctx.clip();
+      ctx.drawImage(cursor, 0, 0, cursorOffset.width, cursorOffset.height,
+                    cursorOffset.x, cursorOffset.y, cursorOffset.width, cursorOffset.height);
+      ctx.restore();
+      data = merged.toDataURL('image/png');
+    }
+  }
   return {width: surface.clientWidth, height: surface.clientHeight,
+    canvasIndex: [...canvases].indexOf(canvas), layerCount: canvases.length,
     bitmapWidth: canvas.width, bitmapHeight: canvas.height,
     cssWidth: rect.width, cssHeight: rect.height,
-    data: capture ? canvas.toDataURL('image/png') : null};
+    data};
 }"""
 
 
@@ -70,7 +106,8 @@ def native_point(page: Page, cfg: Config, x: int, y: int) -> tuple[float, float]
         raise ValueError(f"Point ({x}, {y}) is outside the remote desktop")
     info = inspect_canvas(page, cfg)
     root = display(page, cfg)
-    canvas_box = root.locator("canvas").bounding_box()
+    canvas = root.locator("canvas").nth(info.get("canvasIndex", 0))
+    canvas_box = canvas.bounding_box()
     display_box = root.bounding_box()
     if canvas_box is None or display_box is None:
         raise RuntimeError("Remote display is not visible")
@@ -84,7 +121,7 @@ def native_point(page: Page, cfg: Config, x: int, y: int) -> tuple[float, float]
     viewport = page.evaluate("() => ({width: innerWidth, height: innerHeight})")
     if not (0 <= px < viewport["width"] and 0 <= py < viewport["height"]):
         raise RuntimeError("Remote point is outside the browser viewport")
-    reachable = root.locator("canvas").evaluate("""(canvas, point) => {
+    reachable = canvas.evaluate("""(canvas, point) => {
       const rect = canvas.getBoundingClientRect();
       const hit = document.elementFromPoint(rect.x + point.x * rect.width / canvas.width,
                                             rect.y + point.y * rect.height / canvas.height);

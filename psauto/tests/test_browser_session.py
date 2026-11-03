@@ -199,6 +199,35 @@ class BrowserSessionTests(unittest.TestCase):
         point = self.session.call(lambda page: page.frame_locator("#frame").locator("body").get_attribute("data-point"))
         self.assertEqual(point, "120,140")
 
+    def test_native_canvas_composes_small_translated_layer_and_rejects_unknown_overlay(self):
+        from psauto.native_canvas import capture_native
+
+        self.cfg.connect_url = self.base + '/native'
+        self.cfg.capture_mode = 'native_canvas'
+        open_remote(self.session, self.cfg)
+        self.session.call(lambda page: page.evaluate('''() => {
+            const screen=document.querySelector('#surface'), canvas=document.querySelector('#native');
+            const desktop=document.createElement('div');
+            desktop.style='width:1920px;height:1080px;position:absolute;left:0;top:0;overflow:hidden';
+            screen.appendChild(desktop);desktop.appendChild(canvas);
+            const layer=document.createElement('div');layer.id='cursor-layer';
+            layer.style='width:41px;height:39px;position:absolute;left:0;top:0;overflow:hidden;transform:translate(300px,200px)';
+            const cursor=document.createElement('canvas');cursor.width=64;cursor.height=64;
+            cursor.style='position:absolute;left:0;top:0';
+            const ctx=cursor.getContext('2d');ctx.fillStyle='rgb(255,0,255)';ctx.fillRect(0,0,8,8);
+            layer.appendChild(cursor);screen.appendChild(layer);
+        }'''))
+        image = self.session.call(lambda page: capture_native(page, self.cfg))
+        self.assertEqual(image.shape, (1080, 1920, 3))
+        self.assertEqual(image[204, 304].tolist(), [255, 0, 255])
+        self.assertEqual(image[120, 120].tolist(), [40, 230, 0])
+        self.session.call(lambda page: page.locator('#cursor-layer').evaluate("el=>el.style.transform='rotate(30deg)'"))
+        with self.assertRaises(Exception):
+            self.session.call(lambda page: capture_native(page, self.cfg))
+        self.session.call(lambda page: page.locator('#cursor-layer').evaluate("el=>{el.style.transform='translate(300px,200px)';el.firstElementChild.width=128;}"))
+        with self.assertRaises(Exception):
+            self.session.call(lambda page: capture_native(page, self.cfg))
+
     def test_native_canvas_rejects_resolution_change_and_multiple_layers(self):
         from maa.toolkit import Toolkit
         from psauto.controller import JumpServerController
