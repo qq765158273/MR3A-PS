@@ -42,6 +42,26 @@ let overlay = document.getElementById('overlay').getContext('2d');
 overlay.fillStyle = 'rgb(0,230,40)'; overlay.fillRect(5, 5, 25, 25);
 </script></body></html>"""
 
+NATIVE_HTML = b"""<!doctype html><html><body style="margin:0">
+<div id="remote" style="position:absolute;left:30px;top:40px;width:960px;height:540px;overflow:hidden">
+<div id="surface" style="width:1920px;height:1080px;transform:scale(.5);transform-origin:top left;overflow:hidden">
+<canvas id="native" tabindex="0" width="1920" height="1088" style="display:block"></canvas></div></div>
+<script>
+const canvas = document.querySelector('#native'), ctx = canvas.getContext('2d');
+ctx.fillStyle='rgb(240,10,20)'; ctx.fillRect(0,0,1920,1080);
+ctx.fillStyle='rgb(0,230,40)'; ctx.fillRect(100,100,80,80);
+ctx.fillStyle='blue'; ctx.fillRect(0,1080,1920,8);
+ctx.fillStyle='white'; ctx.fillRect(0,0,900,70);
+ctx.fillStyle='black'; ctx.font='32px Arial'; ctx.fillText('Application Designer - HRDEV', 10, 45);
+canvas.addEventListener('click', e => {
+  const r=canvas.getBoundingClientRect();
+  document.body.dataset.point = Math.round((e.clientX-r.left)*canvas.width/r.width) + ',' +
+    Math.round((e.clientY-r.top)*canvas.height/r.height);
+});
+canvas.addEventListener('mousedown', () => { document.body.dataset.drag='down'; });
+canvas.addEventListener('mouseup', () => { document.body.dataset.drag='up'; });
+</script></body></html>"""
+
 
 class Handler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -57,6 +77,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
             content = OCR_HTML
         elif self.path == "/canvas":
             content = CANVAS_HTML
+        elif self.path == "/native":
+            content = NATIVE_HTML
+        elif self.path == "/native-frame":
+            content = b"<iframe id='frame' src='/native' style='margin:25px;width:1100px;height:650px'></iframe>"
         else:
             content = DISPLAY_HTML
         self.send_response(200)
@@ -152,6 +176,101 @@ class BrowserSessionTests(unittest.TestCase):
         self.assertEqual(image[40, 60].tolist(), [20, 10, 240])
         self.assertTrue(controller.post_click(10, 15).wait().succeeded)
         self.assertEqual(self.session.call(lambda page: page.locator("#remote").get_attribute("data-click")), "10,15")
+
+    def test_native_canvas_screenshot_and_scaled_click_in_iframe(self):
+        from maa.toolkit import Toolkit
+        from psauto.controller import JumpServerController
+
+        Toolkit.init_option(".")
+        self.cfg.connect_url = self.base + "/native-frame"
+        self.cfg.display_frame = "#frame"
+        self.cfg.capture_mode = "native_canvas"
+        open_remote(self.session, self.cfg)
+        controller = JumpServerController(self.session, self.cfg)
+        self.assertTrue(controller.set_screenshot_use_raw_size(True))
+        self.assertTrue(controller.post_connection().wait().succeeded)
+        job = controller.post_screencap().wait()
+        self.assertTrue(job.succeeded)
+        image = job.get()
+        self.assertEqual(image.shape, (1080, 1920, 3))
+        self.assertEqual(image[120, 120].tolist(), [40, 230, 0])
+        self.assertEqual(image[1079, 100].tolist(), [20, 10, 240])
+        self.assertTrue(controller.post_click(120, 140).wait().succeeded)
+        point = self.session.call(lambda page: page.frame_locator("#frame").locator("body").get_attribute("data-point"))
+        self.assertEqual(point, "120,140")
+
+    def test_native_canvas_rejects_resolution_change_and_multiple_layers(self):
+        from maa.toolkit import Toolkit
+        from psauto.controller import JumpServerController
+
+        Toolkit.init_option(".")
+        self.cfg.connect_url = self.base + "/native"
+        self.cfg.capture_mode = "native_canvas"
+        open_remote(self.session, self.cfg)
+        controller = JumpServerController(self.session, self.cfg)
+        self.assertTrue(controller.set_screenshot_use_raw_size(True))
+        self.assertTrue(controller.post_connection().wait().succeeded)
+        self.session.call(lambda page: page.locator("#surface").evaluate("el => el.style.width='1600px'"))
+        with self.assertLogs("psauto.controller", level="ERROR"):
+            self.assertFalse(controller.click(120, 140))
+        with self.assertLogs("psauto.controller", level="ERROR"):
+            self.assertTrue(controller.post_screencap().wait().failed)
+        self.session.call(lambda page: page.locator("#surface").evaluate("el => { el.style.width='1920px'; el.appendChild(document.createElement('canvas')); }"))
+        with self.assertLogs("psauto.controller", level="ERROR"):
+            self.assertFalse(controller.click(120, 140))
+        self.assertIsNone(self.session.call(lambda page: page.locator("body").get_attribute("data-point")))
+
+    def test_native_canvas_rejects_overlay(self):
+        from maa.toolkit import Toolkit
+        from psauto.controller import JumpServerController
+
+        Toolkit.init_option(".")
+        self.cfg.connect_url = self.base + "/native"
+        self.cfg.capture_mode = "native_canvas"
+        open_remote(self.session, self.cfg)
+        controller = JumpServerController(self.session, self.cfg)
+        self.assertTrue(controller.post_connection().wait().succeeded)
+        self.session.call(lambda page: page.evaluate("""() => {
+            const overlay=document.createElement('div');
+            overlay.style='position:absolute;left:30px;top:40px;width:100px;height:100px;z-index:999';
+            document.body.appendChild(overlay);
+        }"""))
+        with self.assertLogs("psauto.controller", level="ERROR"):
+            self.assertFalse(controller.click(120, 140))
+        self.assertIsNone(self.session.call(lambda page: page.locator("body").get_attribute("data-point")))
+
+    @unittest.skipUnless(os.environ.get("PSAUTO_TEST_OCR"), "OCR integration not enabled")
+    def test_pside_ready_pipeline_on_native_canvas(self):
+        from maa.toolkit import Toolkit
+        from psauto.controller import JumpServerController
+        from psauto.pipeline import create_tasker
+
+        Toolkit.init_option(".")
+        self.cfg.connect_url = self.base + "/native"
+        self.cfg.capture_mode = "native_canvas"
+        open_remote(self.session, self.cfg)
+        controller = JumpServerController(self.session, self.cfg)
+        self.assertTrue(controller.set_screenshot_use_raw_size(True))
+        self.assertTrue(controller.post_connection().wait().succeeded)
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle = Path(tmp)
+            source = Path(__file__).resolve().parents[2] / "assets/resource/pipeline/PSIDE/ready.json"
+            (bundle / "pipeline").mkdir()
+            shutil.copy(source, bundle / "pipeline/pside_ready.json")
+            (bundle / "default_pipeline.json").write_text(
+                json.dumps({"Default": {"on_error": "Default_on_error"}}), encoding="utf-8")
+            (bundle / "pipeline/default.json").write_text(
+                json.dumps({"Default_on_error": {}}), encoding="utf-8")
+            model = Path(__file__).resolve().parents[2] / "assets/MaaCommonAssets/OCR/ppocr_v5/zh_cn"
+            shutil.copytree(model, bundle / "model/ocr")
+            tasker = create_tasker(str(bundle), controller)
+            job = tasker.post_task("PSIDE_WindowReady").wait()
+            self.assertTrue(job.succeeded)
+            self.assertTrue(job.get().nodes[0].recognition.hit)
+            self.session.call(lambda page: page.locator("#native").evaluate(
+                "c => { const ctx=c.getContext('2d'); ctx.fillStyle='white'; ctx.fillRect(0,0,900,70); }"))
+            failed = tasker.post_task("PSIDE_WindowReady", {"PSIDE_WindowReady": {"timeout": 200}}).wait()
+            self.assertTrue(failed.failed)
 
     def test_storage_state_is_restored_in_new_session(self):
         self.session.call(lambda page: page.goto(self.base + "/display"))
@@ -296,7 +415,7 @@ class BrowserSessionTests(unittest.TestCase):
         with self.assertLogs("psauto.controller", level="ERROR"):
             self.assertTrue(controller.post_screencap().wait().failed)
 
-    def test_maa_pipeline_calls_hotkey(self):
+    def test_maa_pipeline_calls_native_key(self):
         from maa.toolkit import Toolkit
         from psauto.controller import JumpServerController
         from psauto.pipeline import create_tasker
@@ -311,14 +430,13 @@ class BrowserSessionTests(unittest.TestCase):
             pipeline = Path(tmp) / "pipeline"
             pipeline.mkdir()
             (pipeline / "test.json").write_text(json.dumps({
-                "LocalHotkey": {
+                "LocalKey": {
                     "recognition": {"type": "DirectHit"},
-                    "action": {"type": "Custom", "param": {"custom_action": "Hotkey",
-                        "custom_action_param": {"keys": ["Enter"]}}}
+                    "action": {"type": "ClickKey", "param": {"key": 13}}
                 }
             }), encoding="utf-8")
             tasker = create_tasker(tmp, controller)
-            job = tasker.post_task("LocalHotkey").wait()
+            job = tasker.post_task("LocalKey").wait()
             self.assertTrue(job.succeeded)
         self.assertEqual(self.session.call(lambda page: page.locator("#remote").get_attribute("data-key")), "Enter")
 

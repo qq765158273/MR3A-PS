@@ -4,11 +4,18 @@
   "display_selector": "",
   "display_frame": null,
   "pre_connect_clicks": [],
-  "viewport_width": 1600,
-  "viewport_height": 900,
+  "viewport_width": 1920,
+  "viewport_height": 1080,
   "headless": true,
   "browser_channel": "chrome",
+  "connection_mode": "cli",
+  "cli_session": "psauto-discovery",
+  "cli_script": "../.psauto-runtime/node_modules/@playwright/cli/playwright-cli.js",
+  "cli_workdir": "../.psauto-runtime",
+  "capture_mode": "native_canvas",
+  "remote_width": 1920,
+  "remote_height": 1080,
   "ignore_https_errors": false,
   "storage_state": "state/storage.json",
-  "resource_dir": "resource"
+  "resource_dir": "../assets/resource"
 }

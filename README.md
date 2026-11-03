@@ -90,6 +90,22 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 更多说明请前往 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 主仓库查看。
 
+### JumpServer / PSIDE 自动化验证
+
+本仓库的 `psauto/` 是 JumpServer Web RDP 控制器的验证入口：通过 Playwright CLI 获取画面并发送输入，复用 MR3A 的 MaaFramework、AgentServer、自定义组件、OCR 模型和 Pipeline。目标环境仅限 PeopleSoft dev/test，当前开发基准为远程桌面 **1920×1080**。
+
+截至 2026-11-03，已确认和验证：
+
+- JumpServer 保存了 `1920×1080` 的 RDP 分辨率。当前 Guacamole 画布的逻辑有效区域为 `1920×1080`，底层 canvas 缓冲区为 `1920×1088`；多出的 8 行不能当作桌面内容。
+- 同一远程画面会随浏览器空间缩放。人工全屏能改善观看，但自动化识别以原始画布为准；截图坐标必须按实际缩放比例换算为网页坐标。
+- 曾对一张真实 PSIDE 截图做离线 OCR 比较：原图中选取的 6 个标题或菜单词均识别到，缩至约 `763×429` 的模拟预览中均未命中。小字的识别仍会变化，将标题区域裁剪并放大两倍后识别到了 `Application Designer`。这是单张截图的结果，不代表整体准确率。
+- 已通过 Python → Playwright CLI → 已连接 Chrome → Maa 控制器获得实际 `1920×1080` 截图；模拟页面验证了缩放坐标、输入以及原 MR3A AgentServer 的自定义动作调用。
+- 2026-11-03，`PSIDE_Demo` 在 HRDEV 实际窗口完成：Maa 内置 OCR 识别标题 → 原生按键节点发送 `Ctrl+O` → OCR 识别中文“打开定义” → 模板匹配并点击“取消”；最终截图确认返回主窗口。无对话框时，取消节点返回失败；模拟按键失败时，会尝试释放 Ctrl 并返回失败。另在对话框名称栏输入英文测试字符串并取消，未执行搜索或保存。
+
+**尚未完成的验证**：以上仅是一个 HRDEV 会话中的可恢复示例，真实中文输入、CLI 会话断线恢复及长时间无人值守运行仍需测试；本机远程桌面断开后曾完成截图和上述示例，但不能据此保证长期持续刷新。当前原始截图模式只支持已观察到的单层 canvas；分辨率或画布结构不符时停止，不能假定所有 JumpServer 页面都相同。MR3A 现有界面仍配置为 ADB；CLI 控制器通过 Python 入口连接，尚未接入原 GUI 的控制器选择。
+
+配置、运行和测试方法见 [psauto/README.md](psauto/README.md)。登录态、业务截图和临时诊断文件保存在 Git 忽略目录，不应提交。
+
 ## 致谢
 
 ### 核心框架

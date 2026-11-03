@@ -1,0 +1,56 @@
+{
+  "PSIDE_WindowReady": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "Applica", "roi": [0, 0, 900, 70]},
+      {"recognition": "OCR", "expected": "HRDEV", "roi": [0, 0, 900, 70]}
+    ],
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000
+  },
+  "PSIDE_CancelOpenDialog": {
+    "recognition": "OCR",
+    "expected": "打开定义",
+    "roi": [650, 300, 600, 100],
+    "action": "DoNothing",
+    "next": ["PSIDE_OpenDialogCancelButton"],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "PSIDE_OpenDialogCancelButton": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/cancel.png",
+    "roi": [1100, 350, 160, 150],
+    "threshold": 0.85,
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000
+  },
+  "PSIDE_Demo": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "Applica", "roi": [0, 0, 900, 70]},
+      {"recognition": "OCR", "expected": "HRDEV", "roi": [0, 0, 900, 70]}
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": ["PSIDE_DemoPressO"],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "PSIDE_DemoPressO": {
+    "action": "ClickKey",
+    "key": 79,
+    "next": ["PSIDE_DemoReleaseCtrl"],
+    "on_error": []
+  },
+  "PSIDE_DemoReleaseCtrl": {
+    "action": "KeyUp",
+    "key": 17,
+    "post_delay": 1000,
+    "next": ["PSIDE_CancelOpenDialog"],
+    "on_error": [],
+    "timeout": 10000
+  }
+}

@@ -16,6 +16,13 @@ class Config:
     viewport_height: int = 900
     headless: bool = True
     browser_channel: str | None = None
+    connection_mode: str = "launch"
+    cli_session: str = "psauto-discovery"
+    cli_script: str = "../.psauto-runtime/node_modules/@playwright/cli/playwright-cli.js"
+    cli_workdir: str = "../.psauto-runtime"
+    capture_mode: str = "viewport"
+    remote_width: int = 1920
+    remote_height: int = 1080
     ignore_https_errors: bool = False
     storage_state: str = "state/storage.json"
     resource_dir: str = "resource"

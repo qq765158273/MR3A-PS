@@ -1,6 +1,7 @@
 """Interactive login and remote-display diagnostics."""
 
 import argparse
+import io
 import json
 import os
 import time
@@ -68,6 +69,24 @@ def cmd_discover(cfg, args) -> None:
 def cmd_probe(cfg, args) -> None:
     output_dir = cfg.resolve_path("out")
     output_dir.mkdir(exist_ok=True)
+    if cfg.connection_mode == "cli":
+        from psauto.controller import connect_controller
+
+        session, controller = connect_controller(cfg)
+        try:
+            start = time.monotonic()
+            for index, delay in enumerate((0, 3, 10)):
+                time.sleep(max(0, start + delay - time.monotonic()))
+                job = controller.post_screencap().wait()
+                if not job.succeeded:
+                    raise RuntimeError("Maa screenshot failed")
+                image = job.get()
+                path = output_dir / f"probe_{index}.png"
+                Image.fromarray(image[:, :, ::-1]).save(path)
+                print(f"{path}: image={(image.shape[1], image.shape[0])}")
+        finally:
+            session.stop()
+        return
     session = BrowserSession(cfg)
     session.start()
     try:
@@ -75,9 +94,18 @@ def cmd_probe(cfg, args) -> None:
         start = time.monotonic()
         for index, delay in enumerate((0, 3, 10)):
             time.sleep(max(0, start + delay - time.monotonic()))
-            png, box = session.call(
-                lambda page: (display(page, cfg).screenshot(), display(page, cfg).bounding_box())
-            )
+            if cfg.capture_mode == "native_canvas":
+                from psauto.native_canvas import capture_native
+                image, box = session.call(lambda page: (
+                    capture_native(page, cfg), display(page, cfg).bounding_box()))
+                stream = io.BytesIO()
+                Image.fromarray(image[:, :, ::-1]).save(stream, format="PNG")
+                png = stream.getvalue()
+            elif cfg.capture_mode == "viewport":
+                png, box = session.call(
+                    lambda page: (display(page, cfg).screenshot(), display(page, cfg).bounding_box()))
+            else:
+                raise ValueError(f"Unsupported capture mode: {cfg.capture_mode}")
             path = output_dir / f"probe_{index}.png"
             path.write_bytes(png)
             with Image.open(path) as image:

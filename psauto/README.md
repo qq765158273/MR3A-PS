@@ -1,10 +1,10 @@
 # psauto
 
-在 JumpServer 的 Web 远程桌面中，通过 Playwright 获取画面和发送输入，再由 MaaFramework 运行识别流水线。仅针对 dev/test 环境使用。当前只完成本地模拟页面的验证，JumpServer、RDP 和 PSIDE 的实际行为仍须现场验证。
+在 JumpServer 的 Web 远程桌面中，通过 Playwright CLI 获取画面和发送输入，复用 MR3A 的 MaaFramework、原 AgentServer、资源和 Pipeline。仅针对 dev/test 环境使用。HRDEV 中已实际验证截图、坐标点击、组合键、英文输入及最小 Pipeline；真实中文输入、CLI 会话恢复及长期无人值守运行仍须验证。
 
 ## 环境
 
-需要 Windows、Python 3.11 x64 和已安装的 Google Chrome。`config.example.json` 的 `browser_channel` 为 `chrome`，Playwright 会启动独立的临时浏览器配置，不会直接使用已打开的 Chrome 标签页或其登录状态。若要使用 Playwright 自带 Chromium，可将该值设为 `null` 并运行 `python -m playwright install chromium`。
+需要 Windows、Python 3.11 x64、Node.js、Playwright CLI 和已安装的 Google Chrome。示例配置的 `connection_mode` 是 `cli`：Python 复用已授权的 CLI 会话，不启动新浏览器，也不要求再次登录。CLI 会话和 Chrome 扩展连接须持续有效。
 
 在已安装 Python 3.11 的机器上，从本目录执行：
 
@@ -30,24 +30,21 @@ $python = '..\.psauto-runtime\venv\Scripts\python.exe'
 Copy-Item config.example.json config.json
 ```
 
-在 `config.json` 填写 `jumpserver_url`，然后运行：
-
-```powershell
-& $python runner.py login
-& $python runner.py discover
-```
-
-`login` 会打开浏览器供用户完成登录和 MFA，按回车后保存登录态。`discover` 中手动打开 dev/test 资产，看到远程桌面后按回车，检查输出的页面、frame、canvas 尺寸和父元素。输出 URL 可能带有临时凭据，不要直接公开。
-
-配置中的登录态、资源目录及相对输出路径均相对于配置文件所在目录解析，避免从其他工作目录运行时把敏感文件写到仓库根目录。
-
-根据实际页面填写 `connect_url`、`display_selector`，必要时填写 `display_frame` 和 `pre_connect_clicks`。画面元素应覆盖远程桌面所有图层。连接 URL 可能是一次性的；是否能够重用，以及登录态是否足以恢复会话，必须在目标环境验证。Playwright 的 storage state 不包含所有站点可能使用的会话信息，例如 `sessionStorage`。
+在 `config.json` 配置 `cli_session`、`cli_script`、`cli_workdir`、`display_frame` 和 `display_selector`。其中 `cli_script` 应指向**启动该会话时使用的同一份 CLI**；本机现有会话由 npm 缓存中的 CLI 创建，所以本地配置指向那份缓存，而非新安装的副本。
 
 ```powershell
 & $python runner.py probe
 ```
 
-`probe` 在 0、3、10 秒截图至 `out/`，重复执行会覆盖这三张图片。检查截图是否完整、清晰，像素尺寸是否和画布实际尺寸一致。即使 `device_scale_factor=1`，RDP 或页面仍可能缩放，必须实际验证坐标。
+`probe` 直接使用已连接的会话。`login` 和 `discover` 属于早期独立浏览器模式，当前 CLI 方式不需要执行。CLI 会话失效时须重新连接并授权，自动重连还没有实现。
+
+配置中的登录态、资源目录及相对输出路径均相对于配置文件所在目录解析，避免从其他工作目录运行时把敏感文件写到仓库根目录。
+
+当前现场观察到的 frame 为 `iframe[src*="/lion/connect"]`，画面元素为 `#display`。不要把连接地址中的临时参数写入示例或提交。
+
+`probe` 在 0、3、10 秒截图至 `out/`，重复执行会覆盖这三张图片。示例配置采用 `native_canvas` 和 `1920×1080` 基准：读取原始 canvas 并裁掉 Guacamole 缓冲区填充，不以缩小后的浏览器截图做识别。每次截图及操作前检查逻辑分辨率；出现多层 canvas、分辨率不符、不可见或不支持的变换时失败，不自动点击。坐标换算已在本地模拟页面及真实 JumpServer 上验证，仍需针对其他画面与环境继续验证。
+
+只读测量中，JumpServer 画布曾是 `1920×1088`，其父元素逻辑尺寸为 `1920×1080`，因此截图裁掉底部 8 行。浏览器显示可能是缩小的，点击时会按实时画布尺寸换算；坐标被裁剪、遮挡或位于视口外时拒绝点击。画布结构变化时不要强行绕过检查，应重新测量适配。`viewport` 模式保留原来的网页元素截图方式，不适用于本项目的固定原始像素坐标。
 
 画面和安全点击位置确认后，可使用 `capture` 做进一步验证：
 
@@ -63,20 +60,23 @@ Copy-Item config.example.json config.json
 
 ## Maa 流水线
 
-模型可从本仓库复制，无需重新下载：
+使用 MR3A 自带的资源包和 OCR 模型。在 `psauto` 目录执行原项目的资源准备脚本：
 
 ```powershell
-New-Item -ItemType Directory -Force resource\model\ocr | Out-Null
-Copy-Item ..\assets\MaaCommonAssets\OCR\ppocr_v5\zh_cn\* resource\model\ocr\ -Recurse
+& $python ..\tools\ci\configure.py
 ```
 
-在 `resource/pipeline/` 放入经过现场验证的流水线，在 `resource/image/` 放入相应模板后运行：
+PSIDE 节点位于原 MR3A 资源目录 `assets/resource/pipeline/PSIDE/`。运行时加载原资源包，启动原 `agent/main.py` 的 AgentServer 并通过 Maa AgentClient 绑定其已有组件：
 
 ```powershell
 & $python run_pipeline.py <entry>
 ```
 
-`Hotkey` 自定义动作接受 Playwright 键名列表，例如 `{"keys": ["Control", "o"]}`。PSIDE 的文字、按钮模板和坐标需从实际测试环境确认，不能直接把模拟页面的验证结果当作现场结论。
+`PSIDE_WindowReady` 是只读检查节点，使用 Maa 内置 OCR 和 `And` 检查标题中的 `Applica` 与 `HRDEV`。`PSIDE_Demo` 使用 Maa 内置的 `KeyDown`、`ClickKey`、`KeyUp`、OCR 和模板匹配，完成 `Ctrl+O` → 识别“打开定义” → 点击“取消”；2026-11-03 已在 HRDEV 完整验证并返回主窗口。对话框不存在时取消流程失败；按键失败时控制器会尽力释放已按下的键，但若连接已断开不能保证释放成功。另已在名称输入框测试英文输入并取消，未执行搜索或保存。
+
+这些节点及“取消”模板基于当前 HRDEV、中文对话框和 `1920×1080` 画面，不应直接用于其他环境。节点显式覆盖 MR3A 的默认 `on_error`，避免未识别到目标时走通用回退并误报成功。输入编码和不同版本界面仍须现场验证。
+
+自定义控制器仅替代截图和输入通道，不改造 OCR 或 Pipeline 引擎。现有 `assets/interface.json` 仍使用 ADB，当前通过 Python 入口接入 CLI，尚未修改 MR3A GUI 的控制器选择。
 
 `config.json`、`state/`、`out/`、`debug/` 及复制的 OCR 模型已被 Git 忽略。登录态和截图可能包含敏感数据。
 
@@ -85,6 +85,7 @@ Copy-Item ..\assets\MaaCommonAssets\OCR\ppocr_v5\zh_cn\* resource\model\ocr\ -Re
 ```powershell
 $env:PSAUTO_TEST_BROWSER_CHANNEL = 'chrome'
 $env:PSAUTO_TEST_OCR = '1'
+$env:PSAUTO_TEST_CLI = '1'
 & $python -m unittest discover -s tests -v
 ```
 
