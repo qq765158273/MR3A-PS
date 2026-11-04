@@ -1,0 +1,43 @@
+{
+  "source": "out/objects/20261104_183010_506938",
+  "task_seconds": 905.796,
+  "elapsed_seconds_to_result_file": 971.59,
+  "event_counts": {
+    "Node.PipelineNode.Starting": 226,
+    "Node.NextList.Starting": 226,
+    "Node.Recognition.Starting": 246,
+    "Node.Recognition.Succeeded": 226,
+    "Node.NextList.Succeeded": 226,
+    "Node.Action.Starting": 226,
+    "Node.Action.Succeeded": 226,
+    "Node.PipelineNode.Succeeded": 226,
+    "Node.Recognition.Failed": 20
+  },
+  "phase_seconds": {
+    "recognition_s": 28.591,
+    "before_action_s": 45.656,
+    "action_s": 238.439,
+    "after_action_s": 56.805,
+    "next_scan_prepare_s": 532.227,
+    "initial_s": 4.078
+  },
+  "action_counts": {
+    "DoNothing": 89,
+    "KeyDown": 10,
+    "ClickKey": 24,
+    "KeyUp": 10,
+    "Click": 81,
+    "InputText": 7,
+    "Custom": 5
+  },
+  "algorithm_counts": {
+    "And": 10,
+    "DirectHit": 65,
+    "TemplateMatch": 48,
+    "OCR": 103
+  },
+  "repeated_candidates_per_scan": 0,
+  "failed_actions": 0,
+  "completed_nodes": 226,
+  "screenshots_on_disk": 473
+}
