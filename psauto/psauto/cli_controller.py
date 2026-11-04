@@ -97,6 +97,11 @@ _CLI_BODY = """async (page) => {
   const inspect = __INSPECT__;
   const root = request.frame ? page.frameLocator(request.frame).locator(request.selector).first()
                              : page.locator(request.selector).first();
+  if (request.operation === 'screencap' && await page.evaluate(() => document.visibilityState === 'hidden')) {
+    // Hidden Chrome can defer Guacamole's drawing callbacks. Flush a browser
+    // frame first, then read the native canvas without scaling its pixels.
+    await page.screenshot({animations: 'disabled'});
+  }
   const info = await root.evaluate(inspect, request.operation === 'screencap');
   if (info.width !== request.width || info.height !== request.height)
     throw new Error(`Remote desktop is ${info.width}x${info.height}, expected ${request.width}x${request.height}`);
