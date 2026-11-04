@@ -24,9 +24,12 @@ def main() -> int:
     parser.add_argument("--config", default="config.json")
     parser.add_argument("--override", help="JSON file passed directly to Maa pipeline_override")
     parser.add_argument("--no-recovery", action="store_true", help="Stop immediately if the RDP preflight fails")
+    parser.add_argument("--text-input-mode", choices=['keyboard', 'clipboard'], help="Override the CLI InputText transport")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO)
     cfg = load_config(args.config)
+    if args.text_input_mode:
+        cfg.text_input_mode = args.text_input_mode
     override = json.loads(Path(args.override).read_text(encoding='utf-8')) if args.override else {}
     os.chdir(cfg.base_dir)
     Toolkit.init_option(str(cfg.base_dir))

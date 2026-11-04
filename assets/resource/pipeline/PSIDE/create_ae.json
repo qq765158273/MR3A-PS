@@ -1,0 +1,4222 @@
+{
+  "PSIDE_CreateAE": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "next": [
+      "PSIDE_CreateAE_query"
+    ],
+    "enabled": false,
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "PSIDE_CreateAE_query": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateAE_query_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_query_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 79,
+    "next": [
+      "PSIDE_CreateAE_query_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_query_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateAE_query_dialog"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateAE_query_dialog": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      650,
+      300,
+      600,
+      100
+    ],
+    "next": [
+      "PSIDE_CreateAE_query_type_focus"
+    ],
+    "template": "PSIDE/lookup_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateAE_query_type_focus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      690,
+      370,
+      90,
+      40
+    ],
+    "target_offset": [
+      130,
+      0,
+      0,
+      0
+    ],
+    "next": [
+      "PSIDE_CreateAE_query_type"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/lookup_type_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateAE_query_type": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "PSIDE_CreateAE_query_type_home"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_query_type_home": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 36,
+    "next": [
+      "PSIDE_CreateAE_query_type_down1"
+    ],
+    "post_delay": 50
+  },
+  "PSIDE_CreateAE_query_type_down1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "PSIDE_CreateAE_query_type_down2"
+    ],
+    "post_delay": 50
+  },
+  "PSIDE_CreateAE_query_type_down2": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "PSIDE_CreateAE_query_type_down3"
+    ],
+    "post_delay": 50
+  },
+  "PSIDE_CreateAE_query_type_down3": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "PSIDE_CreateAE_query_type_enter"
+    ],
+    "post_delay": 50
+  },
+  "PSIDE_CreateAE_query_type_enter": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 13,
+    "next": [
+      "PSIDE_CreateAE_query_type_check"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateAE_query_type_check": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      770,
+      368,
+      168,
+      38
+    ],
+    "next": [
+      "PSIDE_CreateAE_query_name_focus"
+    ],
+    "template": "PSIDE/lookup_type_ae.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateAE_query_name_focus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      695,
+      420,
+      100,
+      25
+    ],
+    "target_offset": [
+      110,
+      5,
+      -30,
+      -10
+    ],
+    "next": [
+      "PSIDE_CreateAE_query_name_clear"
+    ],
+    "template": "PSIDE/lookup_name_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateAE_query_name_clear": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 36,
+    "next": [
+      "PSIDE_CreateAE_query_name_clear_select"
+    ]
+  },
+  "PSIDE_CreateAE_query_name_clear_select": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "PSIDE_CreateAE_query_name_clear_select_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_query_name_clear_select_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 35,
+    "next": [
+      "PSIDE_CreateAE_query_name_clear_select_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_query_name_clear_select_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "PSIDE_CreateAE_query_name_clear_input"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateAE_query_name_clear_input": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_name__",
+    "next": [
+      "PSIDE_CreateAE_query_name_check"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateAE_query_name_check": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "PSIDE_CreateAE_query_open"
+    ]
+  },
+  "PSIDE_CreateAE_query_open": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "post_delay": 700,
+    "next": [
+      "PSIDE_CreateAE_query_found",
+      "PSIDE_CreateAE_query_missing"
+    ],
+    "template": "PSIDE/lookup_open_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateAE_query_found": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      0,
+      0,
+      1100,
+      70
+    ],
+    "next": [
+      "PSIDE_CreateAE_already_exists"
+    ]
+  },
+  "PSIDE_CreateAE_query_missing": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "next": [
+      "PSIDE_CreateAE_cancel_query"
+    ],
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/lookup_title.png",
+        "roi": [
+          675,
+          332,
+          130,
+          40
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/zero_count_digit.png",
+        "roi": [
+          696,
+          719,
+          7,
+          11
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "PSIDE_CreateAE_cancel_query": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "A_OpenNewDefinition"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/lookup_cancel_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateAE_already_exists": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateAE_already_exists_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_already_exists_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "PSIDE_CreateAE_already_exists_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateAE_already_exists_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateAE_conflict_closed"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateAE_conflict_closed": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "A0_SelectStep": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "next": [
+      "A0_CheckStepNumber"
+    ],
+    "template": "PSIDE/step01_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A0_AddAction": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A0_AddAction_1"
+    ],
+    "post_delay": 100
+  },
+  "A0_AddAction_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 51,
+    "next": [
+      "A0_AddAction_2"
+    ],
+    "post_delay": 100
+  },
+  "A0_AddAction_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A0_TypeFocus"
+    ],
+    "post_delay": 300
+  },
+  "A0_TypeFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": "A0_SelectStep",
+    "roi_offset": [
+      73,
+      50,
+      90,
+      35
+    ],
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "A0_Arrow"
+    ],
+    "template": [
+      "PSIDE/action_sql_label.png",
+      "PSIDE/action_sql_label_focused.png"
+    ],
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A0_Arrow": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A0_Arrow_1"
+    ],
+    "post_delay": 100
+  },
+  "A0_Arrow_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "A0_Arrow_2"
+    ],
+    "post_delay": 100
+  },
+  "A0_Arrow_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A0_ChoosePeopleCode"
+    ],
+    "post_delay": 300
+  },
+  "A0_ChoosePeopleCode": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^PeopleCode$",
+    "roi": "A0_SelectStep",
+    "roi_offset": [
+      65,
+      60,
+      320,
+      135
+    ],
+    "target_offset": [
+      5,
+      6,
+      -10,
+      -12
+    ],
+    "next": [
+      "A0_CommitType"
+    ],
+    "post_delay": 400
+  },
+  "A0_CommitType": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": "A0_TypeFocus",
+    "next": [
+      "A0_CheckCommitNumber"
+    ],
+    "roi_offset": [
+      -76,
+      -60,
+      35,
+      6
+    ],
+    "template": "PSIDE/step01_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A0_StructureSave": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A0_StructureSave_1"
+    ],
+    "post_delay": 100
+  },
+  "A0_StructureSave_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 83,
+    "next": [
+      "A0_StructureSave_2"
+    ],
+    "post_delay": 100
+  },
+  "A0_StructureSave_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A0_StructureSave_as"
+    ],
+    "post_delay": 300
+  },
+  "A0_StructureSave_as": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Save As",
+    "roi": [
+      800,
+      440,
+      330,
+      160
+    ],
+    "input_text": "__PARAM_name__",
+    "next": [
+      "A0_StructureSave_name"
+    ],
+    "post_delay": 300
+  },
+  "A0_StructureSave_name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      840,
+      520,
+      160,
+      30
+    ],
+    "next": [
+      "A0_StructureSave_ok"
+    ]
+  },
+  "A0_StructureSave_ok": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^OK$",
+    "roi": [
+      1000,
+      500,
+      100,
+      45
+    ],
+    "target_offset": [
+      2,
+      4,
+      -4,
+      -8
+    ],
+    "next": [
+      "A0_StructureSave_named"
+    ],
+    "post_delay": 700
+  },
+  "A0_StructureSave_named": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      0,
+      0,
+      1100,
+      70
+    ],
+    "next": [
+      "A0_TypeSaved"
+    ]
+  },
+  "A0_TypeSaved": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_step_0_type_regex__",
+        "roi": "A0_TypeFocus",
+        "roi_offset": [
+          0,
+          -1,
+          55,
+          6
+        ],
+        "only_rec": false
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A0_ActionIcon"
+    ]
+  },
+  "A0_ActionIcon": {
+    "action": "Click",
+    "on_error": [
+      "A0_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/action_icon.png",
+      "PSIDE/action_icon_selected.png"
+    ],
+    "roi": "A0_TypeFocus",
+    "roi_offset": [
+      -24,
+      -6,
+      11,
+      12
+    ],
+    "threshold": 0.85,
+    "next": [
+      "A0_ActionSelected"
+    ],
+    "target_offset": [
+      -150,
+      5,
+      30,
+      -10
+    ],
+    "post_delay": 300,
+    "order_by": "Score"
+  },
+  "A0_ViewMenu": {
+    "action": "Click",
+    "on_error": [
+      "A0_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "target": [
+      90,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "A0_ViewCode"
+    ],
+    "post_delay": 300
+  },
+  "A0_ViewCode": {
+    "action": "DoNothing",
+    "on_error": [
+      "A0_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      75,
+      44,
+      230,
+      46
+    ],
+    "next": [
+      "A0_ViewCodeEnabled"
+    ],
+    "post_delay": 200,
+    "template": "__PARAM_step_0_view_template__",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A0_EditorReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 30000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step01",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_0_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A0_FocusSQLCode"
+    ]
+  },
+  "A0_Paste": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_code_0__",
+    "next": [
+      "A0_Dirty"
+    ],
+    "post_delay": 500
+  },
+  "A0_PSIDE_SaveCodeEditor": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "A0_PSIDE_SaveCodeEditorS"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "A0_PSIDE_SaveCodeEditorS": {
+    "action": "ClickKey",
+    "key": 83,
+    "next": [
+      "A0_PSIDE_SaveCodeEditorRelease"
+    ],
+    "on_error": []
+  },
+  "A0_PSIDE_SaveCodeEditorRelease": {
+    "action": "KeyUp",
+    "key": 17,
+    "post_delay": 1000,
+    "next": [
+      "A0_PSIDE_CodeEditorSaved"
+    ],
+    "on_error": [],
+    "timeout": 30000
+  },
+  "A0_PSIDE_CodeEditorSaved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "A0_PSIDE_PeopleCodeSaveFeedback"
+    ]
+  },
+  "A0_PSIDE_PeopleCodeSaveFeedback": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      1100,
+      1018,
+      650,
+      25
+    ],
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "next": [
+      "A0_CloseEditor"
+    ],
+    "template": "PSIDE/peoplecode_updated_marker.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A0_Dirty": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step01",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_0_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A0_PSIDE_SaveCodeEditor"
+    ]
+  },
+  "A0_CloseEditor": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A0_CloseEditor_1"
+    ],
+    "post_delay": 100
+  },
+  "A0_CloseEditor_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "A0_CloseEditor_2"
+    ],
+    "post_delay": 100
+  },
+  "A0_CloseEditor_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A0_ParentReady"
+    ],
+    "post_delay": 300
+  },
+  "A0_ParentReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          350
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A1_SelectPrevious"
+    ]
+  },
+  "A1_SelectPrevious": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "next": [
+      "A1_CheckPreviousNumber"
+    ],
+    "template": "PSIDE/step01_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A1_NewStep": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A1_NewStep_1"
+    ],
+    "post_delay": 100
+  },
+  "A1_NewStep_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 50,
+    "next": [
+      "A1_NewStep_2"
+    ],
+    "post_delay": 100
+  },
+  "A1_NewStep_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A1_SelectStep"
+    ],
+    "post_delay": 300
+  },
+  "A1_SelectStep": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "next": [
+      "A1_CheckStepNumber"
+    ],
+    "template": "PSIDE/step02_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A1_TypeFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": "A1_SelectStep",
+    "roi_offset": [
+      73,
+      50,
+      90,
+      35
+    ],
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "A1_Arrow"
+    ],
+    "template": [
+      "PSIDE/action_sql_label.png",
+      "PSIDE/action_sql_label_focused.png"
+    ],
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A1_Arrow": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A1_Arrow_1"
+    ],
+    "post_delay": 100
+  },
+  "A1_Arrow_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "A1_Arrow_2"
+    ],
+    "post_delay": 100
+  },
+  "A1_Arrow_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A1_ChoosePeopleCode"
+    ],
+    "post_delay": 300
+  },
+  "A1_ChoosePeopleCode": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^PeopleCode$",
+    "roi": "A1_SelectStep",
+    "roi_offset": [
+      65,
+      60,
+      320,
+      135
+    ],
+    "target_offset": [
+      5,
+      6,
+      -10,
+      -12
+    ],
+    "next": [
+      "A1_CommitType"
+    ],
+    "post_delay": 400
+  },
+  "A1_CommitType": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": "A1_TypeFocus",
+    "next": [
+      "A1_CheckCommitNumber"
+    ],
+    "roi_offset": [
+      -76,
+      -60,
+      35,
+      6
+    ],
+    "template": "PSIDE/step02_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A1_StructureSave": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A1_StructureSave_1"
+    ],
+    "post_delay": 100
+  },
+  "A1_StructureSave_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 83,
+    "next": [
+      "A1_StructureSave_2"
+    ],
+    "post_delay": 100
+  },
+  "A1_StructureSave_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A1_TypeSaved"
+    ],
+    "post_delay": 300
+  },
+  "A1_TypeSaved": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_step_1_type_regex__",
+        "roi": "A1_TypeFocus",
+        "roi_offset": [
+          0,
+          -1,
+          55,
+          6
+        ],
+        "only_rec": false
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A1_ActionIcon"
+    ]
+  },
+  "A1_ActionIcon": {
+    "action": "Click",
+    "on_error": [
+      "A1_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/action_icon.png",
+      "PSIDE/action_icon_selected.png"
+    ],
+    "roi": "A1_TypeFocus",
+    "roi_offset": [
+      -24,
+      -6,
+      11,
+      12
+    ],
+    "threshold": 0.85,
+    "next": [
+      "A1_ActionSelected"
+    ],
+    "target_offset": [
+      -150,
+      5,
+      30,
+      -10
+    ],
+    "post_delay": 300,
+    "order_by": "Score"
+  },
+  "A1_ViewMenu": {
+    "action": "Click",
+    "on_error": [
+      "A1_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "target": [
+      90,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "A1_ViewCode"
+    ],
+    "post_delay": 300
+  },
+  "A1_ViewCode": {
+    "action": "DoNothing",
+    "on_error": [
+      "A1_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      75,
+      44,
+      230,
+      46
+    ],
+    "next": [
+      "A1_ViewCodeEnabled"
+    ],
+    "post_delay": 200,
+    "template": "__PARAM_step_1_view_template__",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A1_EditorReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 30000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step02",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_1_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A1_FocusSQLCode"
+    ]
+  },
+  "A1_Paste": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_code_1__",
+    "next": [
+      "A1_Dirty"
+    ],
+    "post_delay": 500
+  },
+  "A1_PSIDE_SaveCodeEditor": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "A1_PSIDE_SaveCodeEditorS"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "A1_PSIDE_SaveCodeEditorS": {
+    "action": "ClickKey",
+    "key": 83,
+    "next": [
+      "A1_PSIDE_SaveCodeEditorRelease"
+    ],
+    "on_error": []
+  },
+  "A1_PSIDE_SaveCodeEditorRelease": {
+    "action": "KeyUp",
+    "key": 17,
+    "post_delay": 1000,
+    "next": [
+      "A1_PSIDE_CodeEditorSaved"
+    ],
+    "on_error": [],
+    "timeout": 30000
+  },
+  "A1_PSIDE_CodeEditorSaved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "A1_PSIDE_PeopleCodeSaveFeedback"
+    ]
+  },
+  "A1_PSIDE_PeopleCodeSaveFeedback": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      1100,
+      1018,
+      650,
+      25
+    ],
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "next": [
+      "A1_CloseEditor"
+    ],
+    "template": "PSIDE/peoplecode_updated_marker.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A1_Dirty": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step02",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_1_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A1_PSIDE_SaveCodeEditor"
+    ]
+  },
+  "A1_CloseEditor": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A1_CloseEditor_1"
+    ],
+    "post_delay": 100
+  },
+  "A1_CloseEditor_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "A1_CloseEditor_2"
+    ],
+    "post_delay": 100
+  },
+  "A1_CloseEditor_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A1_ParentReady"
+    ],
+    "post_delay": 300
+  },
+  "A1_ParentReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          350
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A2_SelectPrevious"
+    ]
+  },
+  "A2_SelectPrevious": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "next": [
+      "A2_CheckPreviousNumber"
+    ],
+    "template": "PSIDE/step02_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A2_NewStep": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A2_NewStep_1"
+    ],
+    "post_delay": 100
+  },
+  "A2_NewStep_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 50,
+    "next": [
+      "A2_NewStep_2"
+    ],
+    "post_delay": 100
+  },
+  "A2_NewStep_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A2_NewActionAnchor"
+    ],
+    "post_delay": 300
+  },
+  "A2_SelectStep": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Step03$",
+    "roi": "A2_NewActionAnchor",
+    "next": [
+      "A2_TypeFocus"
+    ],
+    "roi_offset": [
+      -74,
+      -59,
+      31,
+      0
+    ],
+    "only_rec": true
+  },
+  "A2_TypeFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": "A2_SelectStep",
+    "roi_offset": [
+      73,
+      50,
+      90,
+      35
+    ],
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "A2_Arrow"
+    ],
+    "template": [
+      "PSIDE/action_sql_label.png",
+      "PSIDE/action_sql_label_focused.png"
+    ],
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A2_Arrow": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A2_Arrow_1"
+    ],
+    "post_delay": 100
+  },
+  "A2_Arrow_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "A2_Arrow_2"
+    ],
+    "post_delay": 100
+  },
+  "A2_Arrow_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A2_ChoosePeopleCode"
+    ],
+    "post_delay": 300
+  },
+  "A2_ChoosePeopleCode": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^PeopleCode$",
+    "roi": "A2_SelectStep",
+    "roi_offset": [
+      65,
+      60,
+      320,
+      135
+    ],
+    "target_offset": [
+      5,
+      6,
+      -10,
+      -12
+    ],
+    "next": [
+      "A2_CommitType"
+    ],
+    "post_delay": 400
+  },
+  "A2_CommitType": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^\\s*-?Step03\\s*$",
+    "roi": "A2_TypeFocus",
+    "next": [
+      "A2_StructureSave"
+    ],
+    "target_offset": [
+      6,
+      3,
+      -12,
+      -4
+    ],
+    "roi_offset": [
+      -74,
+      -59,
+      31,
+      0
+    ],
+    "only_rec": true
+  },
+  "A2_StructureSave": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A2_StructureSave_1"
+    ],
+    "post_delay": 100
+  },
+  "A2_StructureSave_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 83,
+    "next": [
+      "A2_StructureSave_2"
+    ],
+    "post_delay": 100
+  },
+  "A2_StructureSave_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A2_TypeSaved"
+    ],
+    "post_delay": 300
+  },
+  "A2_TypeSaved": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_step_2_type_regex__",
+        "roi": "A2_TypeFocus",
+        "roi_offset": [
+          0,
+          -1,
+          55,
+          6
+        ],
+        "only_rec": false
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A2_ActionIcon"
+    ]
+  },
+  "A2_ActionIcon": {
+    "action": "Click",
+    "on_error": [
+      "A2_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/action_icon.png",
+      "PSIDE/action_icon_selected.png"
+    ],
+    "roi": "A2_TypeFocus",
+    "roi_offset": [
+      -24,
+      -6,
+      11,
+      12
+    ],
+    "threshold": 0.85,
+    "next": [
+      "A2_ActionSelected"
+    ],
+    "target_offset": [
+      -150,
+      5,
+      30,
+      -10
+    ],
+    "post_delay": 300,
+    "order_by": "Score"
+  },
+  "A2_ViewMenu": {
+    "action": "Click",
+    "on_error": [
+      "A2_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "target": [
+      90,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "A2_ViewCode"
+    ],
+    "post_delay": 300
+  },
+  "A2_ViewCode": {
+    "action": "DoNothing",
+    "on_error": [
+      "A2_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      75,
+      44,
+      230,
+      46
+    ],
+    "next": [
+      "A2_ViewCodeEnabled"
+    ],
+    "post_delay": 200,
+    "template": "__PARAM_step_2_view_template__",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A2_EditorReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 30000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step03",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_2_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A2_FocusSQLCode"
+    ]
+  },
+  "A2_Paste": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_code_2__",
+    "next": [
+      "A2_Dirty"
+    ],
+    "post_delay": 500
+  },
+  "A2_PSIDE_SaveCodeEditor": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "A2_PSIDE_SaveCodeEditorS"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "A2_PSIDE_SaveCodeEditorS": {
+    "action": "ClickKey",
+    "key": 83,
+    "next": [
+      "A2_PSIDE_SaveCodeEditorRelease"
+    ],
+    "on_error": []
+  },
+  "A2_PSIDE_SaveCodeEditorRelease": {
+    "action": "KeyUp",
+    "key": 17,
+    "post_delay": 1000,
+    "next": [
+      "A2_PSIDE_CodeEditorSaved"
+    ],
+    "on_error": [],
+    "timeout": 30000
+  },
+  "A2_PSIDE_CodeEditorSaved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "A2_PSIDE_PeopleCodeSaveFeedback"
+    ]
+  },
+  "A2_PSIDE_PeopleCodeSaveFeedback": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      1100,
+      1018,
+      650,
+      25
+    ],
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "next": [
+      "A2_CloseEditor"
+    ],
+    "template": "PSIDE/peoplecode_updated_marker.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A2_Dirty": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step03",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_2_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A2_PSIDE_SaveCodeEditor"
+    ]
+  },
+  "A2_CloseEditor": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A2_CloseEditor_1"
+    ],
+    "post_delay": 100
+  },
+  "A2_CloseEditor_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "A2_CloseEditor_2"
+    ],
+    "post_delay": 100
+  },
+  "A2_CloseEditor_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A2_ParentReady"
+    ],
+    "post_delay": 300
+  },
+  "A2_ParentReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          350
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A3_SelectPrevious"
+    ]
+  },
+  "A3_SelectPrevious": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Step03$",
+    "roi": "A2_TypeFocus",
+    "next": [
+      "A3_NewStep"
+    ],
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "roi_offset": [
+      -74,
+      -59,
+      31,
+      0
+    ],
+    "only_rec": true
+  },
+  "A3_NewStep": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A3_NewStep_1"
+    ],
+    "post_delay": 100
+  },
+  "A3_NewStep_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 50,
+    "next": [
+      "A3_NewStep_2"
+    ],
+    "post_delay": 100
+  },
+  "A3_NewStep_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A3_NewActionAnchor"
+    ],
+    "post_delay": 300
+  },
+  "A3_SelectStep": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Step04$",
+    "roi": "A3_NewActionAnchor",
+    "next": [
+      "A3_TypeFocus"
+    ],
+    "roi_offset": [
+      -74,
+      -59,
+      31,
+      0
+    ],
+    "only_rec": true
+  },
+  "A3_TypeFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": "A3_SelectStep",
+    "roi_offset": [
+      73,
+      50,
+      90,
+      35
+    ],
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "A3_Arrow"
+    ],
+    "template": [
+      "PSIDE/action_sql_label.png",
+      "PSIDE/action_sql_label_focused.png"
+    ],
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A3_Arrow": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A3_Arrow_1"
+    ],
+    "post_delay": 100
+  },
+  "A3_Arrow_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "A3_Arrow_2"
+    ],
+    "post_delay": 100
+  },
+  "A3_Arrow_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 18,
+    "next": [
+      "A3_ChoosePeopleCode"
+    ],
+    "post_delay": 300
+  },
+  "A3_ChoosePeopleCode": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^PeopleCode$",
+    "roi": "A3_SelectStep",
+    "roi_offset": [
+      65,
+      60,
+      320,
+      135
+    ],
+    "target_offset": [
+      5,
+      6,
+      -10,
+      -12
+    ],
+    "next": [
+      "A3_CommitType"
+    ],
+    "post_delay": 400
+  },
+  "A3_CommitType": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^\\s*-?Step04\\s*$",
+    "roi": "A3_TypeFocus",
+    "next": [
+      "A3_StructureSave"
+    ],
+    "target_offset": [
+      6,
+      3,
+      -12,
+      -4
+    ],
+    "roi_offset": [
+      -74,
+      -59,
+      31,
+      0
+    ],
+    "only_rec": true
+  },
+  "A3_StructureSave": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A3_StructureSave_1"
+    ],
+    "post_delay": 100
+  },
+  "A3_StructureSave_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 83,
+    "next": [
+      "A3_StructureSave_2"
+    ],
+    "post_delay": 100
+  },
+  "A3_StructureSave_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A3_TypeSaved"
+    ],
+    "post_delay": 300
+  },
+  "A3_TypeSaved": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_step_3_type_regex__",
+        "roi": "A3_TypeFocus",
+        "roi_offset": [
+          0,
+          -1,
+          55,
+          6
+        ],
+        "only_rec": false
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A3_ActionIcon"
+    ]
+  },
+  "A3_ActionIcon": {
+    "action": "Click",
+    "on_error": [
+      "A3_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/action_icon.png",
+      "PSIDE/action_icon_selected.png"
+    ],
+    "roi": "A3_TypeFocus",
+    "roi_offset": [
+      -24,
+      -6,
+      11,
+      12
+    ],
+    "threshold": 0.85,
+    "next": [
+      "A3_ActionSelected"
+    ],
+    "target_offset": [
+      -150,
+      5,
+      30,
+      -10
+    ],
+    "post_delay": 300,
+    "order_by": "Score"
+  },
+  "A3_ViewMenu": {
+    "action": "Click",
+    "on_error": [
+      "A3_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "target": [
+      90,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "A3_ViewCode"
+    ],
+    "post_delay": 300
+  },
+  "A3_ViewCode": {
+    "action": "DoNothing",
+    "on_error": [
+      "A3_CodeEntryRetryEscape"
+    ],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      75,
+      44,
+      230,
+      46
+    ],
+    "next": [
+      "A3_ViewCodeEnabled"
+    ],
+    "post_delay": 200,
+    "template": "__PARAM_step_3_view_template__",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A3_EditorReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 30000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step04",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_3_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A3_FocusSQLCode"
+    ]
+  },
+  "A3_Paste": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_code_3__",
+    "next": [
+      "A3_Dirty"
+    ],
+    "post_delay": 500
+  },
+  "A3_PSIDE_SaveCodeEditor": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "A3_PSIDE_SaveCodeEditorS"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "A3_PSIDE_SaveCodeEditorS": {
+    "action": "ClickKey",
+    "key": 83,
+    "next": [
+      "A3_PSIDE_SaveCodeEditorRelease"
+    ],
+    "on_error": []
+  },
+  "A3_PSIDE_SaveCodeEditorRelease": {
+    "action": "KeyUp",
+    "key": 17,
+    "post_delay": 1000,
+    "next": [
+      "A3_PSIDE_CodeEditorSaved"
+    ],
+    "on_error": [],
+    "timeout": 30000
+  },
+  "A3_PSIDE_CodeEditorSaved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "A3_PSIDE_PeopleCodeSaveFeedback"
+    ]
+  },
+  "A3_PSIDE_PeopleCodeSaveFeedback": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      1100,
+      1018,
+      650,
+      25
+    ],
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "next": [
+      "A3_CloseEditor"
+    ],
+    "template": "PSIDE/peoplecode_updated_marker.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A3_Dirty": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step04",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "template": "__PARAM_step_3_editor_template__",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "A3_PSIDE_SaveCodeEditor"
+    ]
+  },
+  "A3_CloseEditor": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A3_CloseEditor_1"
+    ],
+    "post_delay": 100
+  },
+  "A3_CloseEditor_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "A3_CloseEditor_2"
+    ],
+    "post_delay": 100
+  },
+  "A3_CloseEditor_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A3_ParentReady"
+    ],
+    "post_delay": 300
+  },
+  "A3_ParentReady": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          350
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "next": [
+      "PSIDE_CreateAE_Saved"
+    ]
+  },
+  "A_OpenNewDefinition": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "Applica",
+        "roi": [
+          0,
+          0,
+          900,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV",
+        "roi": [
+          0,
+          0,
+          900,
+          70
+        ]
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "A_PressN"
+    ],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "A_PressN": {
+    "action": "ClickKey",
+    "key": 78,
+    "next": [
+      "A_ReleaseCtrl"
+    ],
+    "on_error": []
+  },
+  "A_ReleaseCtrl": {
+    "action": "KeyUp",
+    "key": 17,
+    "next": [
+      "A_NewDefinitionDialog"
+    ],
+    "post_delay": 1000,
+    "on_error": []
+  },
+  "A_NewDefinitionDialog": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      790,
+      425,
+      340,
+      45
+    ],
+    "action": "ClickKey",
+    "next": [
+      "A_ChooseTypeDown1"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "template": "PSIDE/new_definition_title.png",
+    "threshold": 0.85,
+    "order_by": "Score",
+    "key": 36
+  },
+  "A_SelectAE": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      800,
+      460,
+      210,
+      170
+    ],
+    "action": "DoNothing",
+    "next": [
+      "A_ConfirmNewAE"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "template": "PSIDE/new_definition_ae_selected.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "A_ConfirmNewAE": {
+    "action": "ClickKey",
+    "key": 13,
+    "next": [
+      "A_AEEditorReady"
+    ],
+    "post_delay": 1000,
+    "on_error": []
+  },
+  "A_AEEditorReady": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ],
+        "template": "PSIDE/ae_section_header.png",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Step01",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "next": [
+      "A0_SelectStep"
+    ]
+  },
+  "PSIDE_CreateAE_Saved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "A_CloseSaved"
+    ]
+  },
+  "A_CloseSaved": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "A_CloseSaved_1"
+    ],
+    "post_delay": 100
+  },
+  "A_CloseSaved_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "A_CloseSaved_2"
+    ],
+    "post_delay": 100
+  },
+  "A_CloseSaved_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateAE_SavedAndClosed"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateAE_SavedAndClosed": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "A0_CheckStepNumber": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/step01_number.png",
+    "roi": "A0_SelectStep",
+    "roi_offset": [
+      34,
+      0,
+      -34,
+      -1
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "next": [
+      "A0_AddAction"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "target": "A0_SelectStep",
+    "target_offset": [
+      6,
+      3,
+      -12,
+      -4
+    ]
+  },
+  "A0_CheckCommitNumber": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/step01_number.png",
+    "roi": "A0_CommitType",
+    "roi_offset": [
+      34,
+      0,
+      -34,
+      -1
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "next": [
+      "A0_StructureSave"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "target": "A0_CommitType",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ]
+  },
+  "A1_CheckStepNumber": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/step02_number.png",
+    "roi": "A1_SelectStep",
+    "roi_offset": [
+      34,
+      0,
+      -34,
+      -1
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "A1_TypeFocus"
+    ],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "A1_CheckCommitNumber": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/step02_number.png",
+    "roi": "A1_CommitType",
+    "roi_offset": [
+      34,
+      0,
+      -34,
+      -1
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "next": [
+      "A1_StructureSave"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "target": "A1_CommitType",
+    "target_offset": [
+      6,
+      3,
+      -12,
+      -4
+    ]
+  },
+  "A1_CheckPreviousNumber": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/step01_number.png",
+    "roi": "A1_SelectPrevious",
+    "roi_offset": [
+      34,
+      0,
+      -34,
+      -1
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target": "A1_SelectPrevious",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "A1_NewStep"
+    ],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "A2_CheckPreviousNumber": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/step02_number.png",
+    "roi": "A2_SelectPrevious",
+    "roi_offset": [
+      34,
+      0,
+      -34,
+      -1
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target": "A2_SelectPrevious",
+    "target_offset": [
+      6,
+      3,
+      -12,
+      -4
+    ],
+    "next": [
+      "A2_NewStep"
+    ],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "A_ChooseTypeDown1": {
+    "action": "ClickKey",
+    "key": 40,
+    "post_delay": 100,
+    "next": [
+      "A_ChooseTypeDown2"
+    ],
+    "on_error": []
+  },
+  "A_ChooseTypeDown2": {
+    "action": "ClickKey",
+    "key": 40,
+    "post_delay": 100,
+    "next": [
+      "A_ChooseTypeDown3"
+    ],
+    "on_error": []
+  },
+  "A_ChooseTypeDown3": {
+    "action": "ClickKey",
+    "key": 40,
+    "post_delay": 100,
+    "next": [
+      "A_SelectAE"
+    ],
+    "on_error": []
+  },
+  "A0_ActionSelected": {
+    "recognition": "ColorMatch",
+    "roi": "A0_ActionIcon",
+    "roi_offset": [
+      -160,
+      1,
+      23,
+      -5
+    ],
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        40,
+        40,
+        40
+      ]
+    ],
+    "count": 400,
+    "connected": false,
+    "action": "DoNothing",
+    "next": [
+      "A0_ViewMenu"
+    ],
+    "on_error": [],
+    "timeout": 10000
+  },
+  "A0_ViewCodeEnabled": {
+    "recognition": "ColorMatch",
+    "roi": "A0_ViewCode",
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        50,
+        50,
+        50
+      ]
+    ],
+    "count": 10,
+    "connected": false,
+    "action": "Click",
+    "target": "A0_ViewCode",
+    "target_offset": [
+      5,
+      4,
+      -10,
+      -8
+    ],
+    "next": [
+      "A0_EditorReady"
+    ],
+    "on_error": [],
+    "timeout": 30000,
+    "post_delay": 1000
+  },
+  "A0_CodeEntryRetryEscape": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          350
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "max_hit": 1,
+    "action": "ClickKey",
+    "key": 27,
+    "next": [
+      "A0_ActionIcon"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "post_delay": 200
+  },
+  "A1_ActionSelected": {
+    "recognition": "ColorMatch",
+    "roi": "A1_ActionIcon",
+    "roi_offset": [
+      -160,
+      1,
+      23,
+      -5
+    ],
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        40,
+        40,
+        40
+      ]
+    ],
+    "count": 400,
+    "connected": false,
+    "action": "DoNothing",
+    "next": [
+      "A1_ViewMenu"
+    ],
+    "on_error": [],
+    "timeout": 10000
+  },
+  "A1_ViewCodeEnabled": {
+    "recognition": "ColorMatch",
+    "roi": "A1_ViewCode",
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        50,
+        50,
+        50
+      ]
+    ],
+    "count": 10,
+    "connected": false,
+    "action": "Click",
+    "target": "A1_ViewCode",
+    "target_offset": [
+      5,
+      4,
+      -10,
+      -8
+    ],
+    "next": [
+      "A1_EditorReady"
+    ],
+    "on_error": [],
+    "timeout": 30000,
+    "post_delay": 1000
+  },
+  "A1_CodeEntryRetryEscape": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          350
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "max_hit": 1,
+    "action": "ClickKey",
+    "key": 27,
+    "next": [
+      "A1_ActionIcon"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "post_delay": 200
+  },
+  "A2_ActionSelected": {
+    "recognition": "ColorMatch",
+    "roi": "A2_ActionIcon",
+    "roi_offset": [
+      -160,
+      1,
+      23,
+      -5
+    ],
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        40,
+        40,
+        40
+      ]
+    ],
+    "count": 400,
+    "connected": false,
+    "action": "DoNothing",
+    "next": [
+      "A2_ViewMenu"
+    ],
+    "on_error": [],
+    "timeout": 10000
+  },
+  "A2_ViewCodeEnabled": {
+    "recognition": "ColorMatch",
+    "roi": "A2_ViewCode",
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        50,
+        50,
+        50
+      ]
+    ],
+    "count": 10,
+    "connected": false,
+    "action": "Click",
+    "target": "A2_ViewCode",
+    "target_offset": [
+      5,
+      4,
+      -10,
+      -8
+    ],
+    "next": [
+      "A2_EditorReady"
+    ],
+    "on_error": [],
+    "timeout": 30000,
+    "post_delay": 1000
+  },
+  "A2_CodeEntryRetryEscape": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "max_hit": 1,
+    "action": "ClickKey",
+    "key": 27,
+    "next": [
+      "A2_ActionIcon"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "post_delay": 200
+  },
+  "A3_ActionSelected": {
+    "recognition": "ColorMatch",
+    "roi": "A3_ActionIcon",
+    "roi_offset": [
+      -160,
+      1,
+      23,
+      -5
+    ],
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        40,
+        40,
+        40
+      ]
+    ],
+    "count": 400,
+    "connected": false,
+    "action": "DoNothing",
+    "next": [
+      "A3_ViewMenu"
+    ],
+    "on_error": [],
+    "timeout": 10000
+  },
+  "A3_ViewCodeEnabled": {
+    "recognition": "ColorMatch",
+    "roi": "A3_ViewCode",
+    "method": 4,
+    "lower": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "upper": [
+      [
+        50,
+        50,
+        50
+      ]
+    ],
+    "count": 10,
+    "connected": false,
+    "action": "Click",
+    "target": "A3_ViewCode",
+    "target_offset": [
+      5,
+      4,
+      -10,
+      -8
+    ],
+    "next": [
+      "A3_EditorReady"
+    ],
+    "on_error": [],
+    "timeout": 30000,
+    "post_delay": 1000
+  },
+  "A3_CodeEntryRetryEscape": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_section_header.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          810
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ],
+    "max_hit": 1,
+    "action": "ClickKey",
+    "key": 27,
+    "next": [
+      "A3_ActionIcon"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "post_delay": 200
+  },
+  "A0_FocusSQLCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/sql_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      35,
+      30,
+      10
+    ],
+    "next": [
+      "A0_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A0_FocusPeopleCodeCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/peoplecode_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      70,
+      30,
+      10
+    ],
+    "next": [
+      "A0_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A1_FocusSQLCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/sql_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      35,
+      30,
+      10
+    ],
+    "next": [
+      "A1_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A1_FocusPeopleCodeCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/peoplecode_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      70,
+      30,
+      10
+    ],
+    "next": [
+      "A1_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A2_FocusSQLCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/sql_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      35,
+      30,
+      10
+    ],
+    "next": [
+      "A2_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A2_FocusPeopleCodeCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/peoplecode_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      70,
+      30,
+      10
+    ],
+    "next": [
+      "A2_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A3_FocusSQLCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/sql_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      35,
+      30,
+      10
+    ],
+    "next": [
+      "A3_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A3_FocusPeopleCodeCode": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/peoplecode_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "Click",
+    "target_offset": [
+      35,
+      70,
+      30,
+      10
+    ],
+    "next": [
+      "A3_Paste"
+    ],
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 200
+  },
+  "A2_NewActionAnchor": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/action_sql_label_focused.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "A2_SelectStep"
+    ],
+    "on_error": [],
+    "timeout": 10000
+  },
+  "A3_NewActionAnchor": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/action_sql_label_focused.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      810
+    ],
+    "threshold": 0.85,
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "A3_SelectStep"
+    ],
+    "on_error": [],
+    "timeout": 10000
+  }
+}
