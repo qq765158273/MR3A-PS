@@ -5,6 +5,7 @@ This diagnostic entry prints that narrower result and retains its screenshot.
 """
 
 import argparse
+import json
 import os
 import time
 from datetime import datetime
@@ -21,7 +22,7 @@ from psauto.controller import connect_controller
 from psauto.evidence import EvidenceSink, export_task_evidence
 
 
-def recover_idle_session(cfg, simulate_disconnect=False):
+def recover_idle_session(cfg, simulate_disconnect=False, verbose=True):
     """Run one recognized recovery path, then independently verify RDP and HRDEV.
 
     Callers must not replay a business operation after this function returns.
@@ -29,6 +30,9 @@ def recover_idle_session(cfg, simulate_disconnect=False):
     """
     Tasker.set_debug_mode(True)
     output = cfg.resolve_path('out/recovery/' + datetime.now().strftime('%Y%m%d_%H%M%S_%f'))
+    probe = PlaywrightCliSession(cfg)
+    transport = probe.request('transport_state')
+    closed_tunnel = transport.get('known') and transport.get('tunnel_state') == 2
     if simulate_disconnect:
         before_session, before_controller = connect_controller(cfg)
         try:
@@ -43,16 +47,16 @@ def recover_idle_session(cfg, simulate_disconnect=False):
     session, controller = connect_recovery_controller(cfg)
     try:
         tasker = create_tasker(str(cfg.resolve_path(cfg.resource_dir)), controller)
-        entry = 'JumpServer_ReloadSession' if simulate_disconnect else 'JumpServer_Recover'
+        entry = 'JumpServer_ReloadSession' if simulate_disconnect or closed_tunnel else 'JumpServer_Recover'
         trace = EvidenceSink(tasker)
         job = tasker.post_task(entry).wait()
         export_task_evidence(job, output, trace)
+        (output / 'transport_before.json').write_text(json.dumps(transport, indent=2), encoding='utf-8')
         if not job.succeeded:
             raise RuntimeError('No supported recovery state completed; inspect the local recovery report')
     finally:
         session.stop()
 
-    probe = PlaywrightCliSession(cfg)
     deadline = time.monotonic() + 45
     while True:
         try:
@@ -70,8 +74,9 @@ def recover_idle_session(cfg, simulate_disconnect=False):
         export_task_evidence(verified, output / 'remote_check', native_trace)
         if not verified.succeeded:
             raise RuntimeError('RDP returned but HRDEV was not recognized; business task remains stopped')
-        print('Recovery verified: native RDP canvas and HRDEV title; business task was not replayed')
-        print(f'Evidence: {output}')
+        if verbose:
+            print('Recovery verified: native RDP canvas and HRDEV title; business task was not replayed')
+            print(f'Evidence: {output}')
     finally:
         native_session.stop()
 

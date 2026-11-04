@@ -85,6 +85,41 @@ class JumpClipboardTests(unittest.TestCase):
         self.assertEqual(self.call('async (page)=>await page.frameLocator("#frame").locator("body")'
                                   '.evaluate(()=>pasteCount)'), 0)
 
+    def test_closed_tunnel_rejects_a_stale_canvas_and_remote_input(self):
+        self.assertTrue(self.controller.post_key_down(17).wait().succeeded)
+        self.call('''async page=>{
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            el.__vue__={$options:{name:'GuacamoleConnect'},tunnel:{state:2},clientState:'Connected'};
+            window.canvasClicks=0;
+            document.querySelector('canvas').onclick=()=>window.canvasClicks++;
+          });
+          return true;
+        }''')
+        state = self.session.request('transport_state')
+        self.assertTrue(state['known'])
+        self.assertEqual(state['tunnel_state'], 2)
+        with self.assertLogs('psauto.controller', level='ERROR'):
+            self.assertFalse(self.controller.post_screencap().wait().succeeded)
+        self.assertEqual(self.controller._held_keys, set())
+        with self.assertLogs('psauto.cli_controller', level='ERROR'):
+            self.assertFalse(self.controller.post_click(120,140).wait().succeeded)
+            self.assertFalse(self.controller.post_input_text('must not paste').wait().succeeded)
+        counters=self.call('async page=>await page.frameLocator("#frame").locator("body")'
+                           '.evaluate(()=>({paste:pasteCount,click:canvasClicks}))')
+        self.assertEqual(counters, {'paste':0,'click':0})
+
+    def test_open_tunnel_does_not_use_the_legacy_connected_flag(self):
+        self.call('''async page=>{
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            el.__vue__={$options:{name:'GuacamoleConnect'},tunnel:{state:1},clientState:'Connected',connected:false};
+          });
+          return true;
+        }''')
+        self.assertTrue(self.controller.post_input_text('live tunnel').wait().succeeded)
+        result=self.call('async page=>await page.frameLocator("#frame").locator("body")'
+                         '.evaluate(()=>({text:received,count:pasteCount}))')
+        self.assertEqual(result, {'text':'live tunnel','count':1})
+
     def test_leaving_drawer_finishes_before_the_next_canvas_click(self):
         self.call('''async page=>{
           await page.frameLocator('#frame').locator('body').evaluate(()=>{

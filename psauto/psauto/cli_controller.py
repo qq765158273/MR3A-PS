@@ -37,7 +37,8 @@ class PlaywrightCliSession:
             raise RuntimeError("CLI session is disabled after a timeout; inspect the remote screen before restarting")
         request = {"operation": operation, "frame": self.cfg.display_frame,
                    "selector": self.cfg.display_selector, "width": self.cfg.remote_width,
-                   "height": self.cfg.remote_height, **params}
+                   "height": self.cfg.remote_height,
+                   "clipboard_required": self.cfg.text_input_mode == 'clipboard', **params}
         code = _CLI_BODY.replace("__INSPECT__", _INSPECT).replace("__REQUEST__", json.dumps(request))
         return self.run_code(code)
 
@@ -97,6 +98,24 @@ _CLI_BODY = """async (page) => {
   const inspect = __INSPECT__;
   const root = request.frame ? page.frameLocator(request.frame).locator(request.selector).first()
                              : page.locator(request.selector).first();
+  const transport = await root.count() ? await root.evaluate(el => {
+    const buttons = [...el.ownerDocument.querySelectorAll('button')]
+      .filter(button => button.textContent.trim() === '\\u526a\\u8d34\\u677f');
+    let component = buttons[0]?.__vue__;
+    while (component && component.$options?.name !== 'GuacamoleConnect') component = component.$parent;
+    return {has_display: true, known: !!component,
+      tunnel_state: component?.tunnel?.state ?? null,
+      client_state: component?.clientState ?? null,
+      clipboard_ready: buttons.length === 1 && !buttons[0].disabled};
+  }) : {has_display: false, known: false, clipboard_ready: false};
+  if (request.operation === 'transport_state') return transport;
+  if (!transport.has_display) throw new Error('Remote display is unavailable');
+  // A closed tunnel can leave a perfectly recognizable last frame on the canvas.
+  // clientState can also remain "Connected" after closure; require the live tunnel.
+  if (transport.known && (transport.tunnel_state !== 1 || transport.client_state !== 'Connected'))
+    throw new Error('RDP transport is not connected; cached canvas is not a live screenshot');
+  if (request.clipboard_required && !transport.clipboard_ready)
+    throw new Error('JumpServer clipboard channel is unavailable');
   if (request.operation === 'screencap' && await page.evaluate(() => document.visibilityState === 'hidden')) {
     // Hidden Chrome can defer Guacamole's drawing callbacks. Flush a browser
     // frame first, then read the native canvas without scaling its pixels.
