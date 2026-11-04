@@ -1,0 +1,8087 @@
+{
+  "PSIDE_CreateRecord": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "next": [
+      "PSIDE_CreateRecord_query"
+    ],
+    "enabled": false,
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "PSIDE_CreateRecord_query": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateRecord_query_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_query_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 79,
+    "next": [
+      "PSIDE_CreateRecord_query_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_query_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateRecord_query_dialog"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateRecord_query_dialog": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      650,
+      300,
+      600,
+      100
+    ],
+    "next": [
+      "PSIDE_CreateRecord_query_type_focus"
+    ],
+    "template": "PSIDE/lookup_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateRecord_query_type_focus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      690,
+      370,
+      90,
+      40
+    ],
+    "target_offset": [
+      130,
+      0,
+      0,
+      0
+    ],
+    "next": [
+      "PSIDE_CreateRecord_query_type"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/lookup_type_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateRecord_query_type": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "PSIDE_CreateRecord_query_type_select"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_query_type_select": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 82,
+    "next": [
+      "PSIDE_CreateRecord_query_type_enter"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_query_type_enter": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 13,
+    "next": [
+      "PSIDE_CreateRecord_query_type_check"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateRecord_query_type_check": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      770,
+      368,
+      168,
+      38
+    ],
+    "next": [
+      "PSIDE_CreateRecord_query_name_focus"
+    ],
+    "template": "PSIDE/lookup_type_record.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateRecord_query_name_focus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      695,
+      420,
+      100,
+      25
+    ],
+    "target_offset": [
+      110,
+      5,
+      -30,
+      -10
+    ],
+    "next": [
+      "PSIDE_CreateRecord_query_name_clear"
+    ],
+    "template": "PSIDE/lookup_name_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateRecord_query_name_clear": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 36,
+    "next": [
+      "PSIDE_CreateRecord_query_name_clear_select"
+    ]
+  },
+  "PSIDE_CreateRecord_query_name_clear_select": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "PSIDE_CreateRecord_query_name_clear_select_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_query_name_clear_select_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 35,
+    "next": [
+      "PSIDE_CreateRecord_query_name_clear_select_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_query_name_clear_select_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "PSIDE_CreateRecord_query_name_clear_input"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateRecord_query_name_clear_input": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_name__",
+    "next": [
+      "PSIDE_CreateRecord_query_name_check"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateRecord_query_name_check": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "PSIDE_CreateRecord_query_open"
+    ]
+  },
+  "PSIDE_CreateRecord_query_open": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "post_delay": 700,
+    "next": [
+      "PSIDE_CreateRecord_query_found",
+      "PSIDE_CreateRecord_query_missing"
+    ],
+    "template": "PSIDE/lookup_open_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateRecord_query_found": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      0,
+      0,
+      1100,
+      70
+    ],
+    "next": [
+      "PSIDE_CreateRecord_already_exists"
+    ]
+  },
+  "PSIDE_CreateRecord_query_missing": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "next": [
+      "PSIDE_CreateRecord_cancel_query"
+    ],
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/lookup_title.png",
+        "roi": [
+          675,
+          332,
+          130,
+          40
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/zero_count_digit.png",
+        "roi": [
+          696,
+          719,
+          7,
+          11
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "PSIDE_CreateRecord_cancel_query": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_OpenNewDefinition"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/lookup_cancel_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateRecord_already_exists": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateRecord_already_exists_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_already_exists_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "PSIDE_CreateRecord_already_exists_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateRecord_already_exists_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateRecord_conflict_closed"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateRecord_conflict_closed": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "R_Field0_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field0_MenuField"
+    ]
+  },
+  "R_Field0_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field0_Dialog"
+    ]
+  },
+  "R_Field0_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field0_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field0_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_0_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field0_Insert"
+    ]
+  },
+  "R_Field0_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field0_AutoInserted",
+      "R_Field0_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field0_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field0_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field0_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_0_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field1_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field1_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field1_MenuField"
+    ]
+  },
+  "R_Field1_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field1_Dialog"
+    ]
+  },
+  "R_Field1_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field1_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field1_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_1_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field1_Insert"
+    ]
+  },
+  "R_Field1_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field1_AutoInserted",
+      "R_Field1_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field1_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field1_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field1_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_1_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field2_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field2_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field2_MenuField"
+    ]
+  },
+  "R_Field2_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field2_Dialog"
+    ]
+  },
+  "R_Field2_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field2_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field2_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_2_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field2_Insert"
+    ]
+  },
+  "R_Field2_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field2_AutoInserted",
+      "R_Field2_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field2_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field2_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field2_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_2_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field3_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field3_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field3_MenuField"
+    ]
+  },
+  "R_Field3_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field3_Dialog"
+    ]
+  },
+  "R_Field3_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field3_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field3_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_3_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field3_Insert"
+    ]
+  },
+  "R_Field3_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field3_AutoInserted",
+      "R_Field3_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field3_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field3_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field3_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_3_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field4_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field4_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field4_MenuField"
+    ]
+  },
+  "R_Field4_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field4_Dialog"
+    ]
+  },
+  "R_Field4_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field4_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field4_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_4_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field4_Insert"
+    ]
+  },
+  "R_Field4_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field4_AutoInserted",
+      "R_Field4_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field4_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field4_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field4_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_4_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field5_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field5_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field5_MenuField"
+    ]
+  },
+  "R_Field5_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field5_Dialog"
+    ]
+  },
+  "R_Field5_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field5_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field5_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_5_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field5_Insert"
+    ]
+  },
+  "R_Field5_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field5_AutoInserted",
+      "R_Field5_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field5_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field5_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field5_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_5_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field6_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field6_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field6_MenuField"
+    ]
+  },
+  "R_Field6_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field6_Dialog"
+    ]
+  },
+  "R_Field6_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field6_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field6_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_6_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field6_Insert"
+    ]
+  },
+  "R_Field6_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field6_AutoInserted",
+      "R_Field6_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field6_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field6_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field6_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_6_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field7_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field7_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field7_MenuField"
+    ]
+  },
+  "R_Field7_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field7_Dialog"
+    ]
+  },
+  "R_Field7_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field7_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field7_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_7_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field7_Insert"
+    ]
+  },
+  "R_Field7_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field7_AutoInserted",
+      "R_Field7_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field7_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field7_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field7_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_7_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field8_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field8_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field8_MenuField"
+    ]
+  },
+  "R_Field8_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field8_Dialog"
+    ]
+  },
+  "R_Field8_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field8_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field8_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_8_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field8_Insert"
+    ]
+  },
+  "R_Field8_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field8_AutoInserted",
+      "R_Field8_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field8_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field8_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field8_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_8_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field9_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field9_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field9_MenuField"
+    ]
+  },
+  "R_Field9_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field9_Dialog"
+    ]
+  },
+  "R_Field9_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field9_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field9_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_9_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field9_Insert"
+    ]
+  },
+  "R_Field9_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field9_AutoInserted",
+      "R_Field9_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field9_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field9_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field9_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_9_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field10_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field10_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field10_MenuField"
+    ]
+  },
+  "R_Field10_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field10_Dialog"
+    ]
+  },
+  "R_Field10_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field10_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field10_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_10_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field10_Insert"
+    ]
+  },
+  "R_Field10_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field10_AutoInserted",
+      "R_Field10_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field10_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field10_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field10_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_10_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field11_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field11_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field11_MenuField"
+    ]
+  },
+  "R_Field11_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field11_Dialog"
+    ]
+  },
+  "R_Field11_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field11_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field11_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_11_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field11_Insert"
+    ]
+  },
+  "R_Field11_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field11_AutoInserted",
+      "R_Field11_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field11_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field11_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field11_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_11_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field12_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field12_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field12_MenuField"
+    ]
+  },
+  "R_Field12_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field12_Dialog"
+    ]
+  },
+  "R_Field12_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field12_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field12_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_12_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field12_Insert"
+    ]
+  },
+  "R_Field12_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field12_AutoInserted",
+      "R_Field12_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field12_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field12_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field12_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_12_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field13_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field13_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field13_MenuField"
+    ]
+  },
+  "R_Field13_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field13_Dialog"
+    ]
+  },
+  "R_Field13_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field13_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field13_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_13_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field13_Insert"
+    ]
+  },
+  "R_Field13_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field13_AutoInserted",
+      "R_Field13_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field13_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field13_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field13_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_13_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field14_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field14_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field14_MenuField"
+    ]
+  },
+  "R_Field14_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field14_Dialog"
+    ]
+  },
+  "R_Field14_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field14_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field14_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_14_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field14_Insert"
+    ]
+  },
+  "R_Field14_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field14_AutoInserted",
+      "R_Field14_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field14_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field14_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field14_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_14_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field15_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field15_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field15_MenuField"
+    ]
+  },
+  "R_Field15_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field15_Dialog"
+    ]
+  },
+  "R_Field15_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field15_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field15_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_15_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field15_Insert"
+    ]
+  },
+  "R_Field15_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field15_AutoInserted",
+      "R_Field15_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field15_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field15_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field15_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_15_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field16_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field16_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field16_MenuField"
+    ]
+  },
+  "R_Field16_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field16_Dialog"
+    ]
+  },
+  "R_Field16_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field16_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field16_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_16_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field16_Insert"
+    ]
+  },
+  "R_Field16_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field16_AutoInserted",
+      "R_Field16_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field16_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field16_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field16_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_16_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field17_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field17_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field17_MenuField"
+    ]
+  },
+  "R_Field17_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field17_Dialog"
+    ]
+  },
+  "R_Field17_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field17_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field17_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_17_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field17_Insert"
+    ]
+  },
+  "R_Field17_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field17_AutoInserted",
+      "R_Field17_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field17_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field17_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field17_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_17_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field18_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field18_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field18_MenuField"
+    ]
+  },
+  "R_Field18_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field18_Dialog"
+    ]
+  },
+  "R_Field18_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field18_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field18_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_18_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field18_Insert"
+    ]
+  },
+  "R_Field18_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field18_AutoInserted",
+      "R_Field18_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field18_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field18_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field18_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_18_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_Field19_Menu"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_Field19_Menu": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "target": [
+      133,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_Field19_MenuField"
+    ]
+  },
+  "R_Field19_MenuField": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^Field",
+    "roi": [
+      125,
+      42,
+      200,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field19_Dialog"
+    ]
+  },
+  "R_Field19_Dialog": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Insert Field",
+    "roi": [
+      680,
+      335,
+      560,
+      45
+    ],
+    "next": [
+      "R_Field19_Paste"
+    ],
+    "post_delay": 300,
+    "target": [
+      800,
+      432,
+      20,
+      10
+    ]
+  },
+  "R_Field19_Name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_19_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "R_Field19_Insert"
+    ]
+  },
+  "R_Field19_Insert": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field19_AutoInserted",
+      "R_Field19_ResultSelect"
+    ],
+    "post_delay": 500
+  },
+  "R_Field19_Cancel": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "取消",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field19_Inserted"
+    ],
+    "post_delay": 300
+  },
+  "R_Field19_Inserted": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_19_row_regex__",
+    "roi": "R_FieldNameHeader",
+    "next": [
+      "R_TypeTab"
+    ],
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ]
+  },
+  "R_TypeTab": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Record\\s*Type",
+    "target_offset": [
+      6,
+      5,
+      -12,
+      -10
+    ],
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "next": [
+      "R_RecordTypeGroup"
+    ]
+  },
+  "R_TypeChoice": {
+    "recognition": "DirectHit",
+    "action": "Click",
+    "target": "R_RecordTypeGroup",
+    "target_offset": [
+      18,
+      26,
+      -50,
+      -4
+    ],
+    "next": [
+      "R_TypeSelected"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_TypeSelected": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/radio_selected.png",
+      "PSIDE/radio_selected_focus.png"
+    ],
+    "roi": "R_RecordTypeGroup",
+    "roi_offset": [
+      -2,
+      18,
+      -36,
+      14
+    ],
+    "threshold": 0.95,
+    "next": [
+      "R_Save"
+    ],
+    "order_by": "Score"
+  },
+  "R_Save": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "R_Save_1"
+    ],
+    "post_delay": 100
+  },
+  "R_Save_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 83,
+    "next": [
+      "R_Save_2"
+    ],
+    "post_delay": 100
+  },
+  "R_Save_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "R_Save_as"
+    ],
+    "post_delay": 300
+  },
+  "R_Save_as": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "Save As",
+    "roi": [
+      800,
+      440,
+      330,
+      160
+    ],
+    "input_text": "__PARAM_name__",
+    "next": [
+      "R_Save_name"
+    ],
+    "post_delay": 300
+  },
+  "R_Save_name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      840,
+      520,
+      160,
+      30
+    ],
+    "next": [
+      "R_Save_ok"
+    ]
+  },
+  "R_Save_ok": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "^OK$",
+    "roi": [
+      1000,
+      500,
+      100,
+      45
+    ],
+    "target_offset": [
+      2,
+      4,
+      -4,
+      -8
+    ],
+    "next": [
+      "PSIDE_CreateRecord_Saved",
+      "R_ChangeSpace"
+    ],
+    "post_delay": 700
+  },
+  "R_OpenNewDefinition": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "Applica",
+        "roi": [
+          0,
+          0,
+          900,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV",
+        "roi": [
+          0,
+          0,
+          900,
+          70
+        ]
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "R_PressN"
+    ],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "R_PressN": {
+    "action": "ClickKey",
+    "key": 78,
+    "next": [
+      "R_ReleaseCtrl"
+    ],
+    "on_error": []
+  },
+  "R_ReleaseCtrl": {
+    "action": "KeyUp",
+    "key": 17,
+    "next": [
+      "R_SeekRecord"
+    ],
+    "post_delay": 1000,
+    "on_error": []
+  },
+  "R_SeekRecord": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      790,
+      425,
+      340,
+      45
+    ],
+    "action": "ClickKey",
+    "key": 36,
+    "next": [
+      "R_ChooseTypeInitial"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "template": "PSIDE/new_definition_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "R_SelectRecord": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      800,
+      460,
+      210,
+      170
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_ConfirmNewRecord"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "template": "PSIDE/new_definition_record_selected.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "R_ConfirmNewRecord": {
+    "action": "ClickKey",
+    "key": 13,
+    "next": [
+      "R_RecordEditorReady"
+    ],
+    "post_delay": 1000,
+    "on_error": []
+  },
+  "R_RecordEditorReady": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "Record Fields",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "Record Type",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "next": [
+      "R_FieldNameHeader"
+    ]
+  },
+  "PSIDE_CreateRecord_Saved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "R_CloseSaved"
+    ]
+  },
+  "R_ChangeSpace": {
+    "recognition": "OCR",
+    "expected": "Change Space",
+    "roi": [
+      710,
+      355,
+      500,
+      35
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_SpaceOpen"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_CloseSaved": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "R_CloseSaved_1"
+    ],
+    "post_delay": 100
+  },
+  "R_CloseSaved_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "R_CloseSaved_2"
+    ],
+    "post_delay": 100
+  },
+  "R_CloseSaved_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateRecord_SavedAndClosed"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateRecord_SavedAndClosed": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "R_Field0_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_0__",
+    "next": [
+      "R_Field0_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field0_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field0_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field1_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_1__",
+    "next": [
+      "R_Field1_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field1_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field1_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field2_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_2__",
+    "next": [
+      "R_Field2_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field2_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field2_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field3_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_3__",
+    "next": [
+      "R_Field3_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field3_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field3_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field4_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_4__",
+    "next": [
+      "R_Field4_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field4_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field4_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field5_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_5__",
+    "next": [
+      "R_Field5_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field5_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field5_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field6_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_6__",
+    "next": [
+      "R_Field6_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field6_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field6_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field7_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_7__",
+    "next": [
+      "R_Field7_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field7_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field7_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field8_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_8__",
+    "next": [
+      "R_Field8_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field8_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field8_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field9_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_9__",
+    "next": [
+      "R_Field9_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field9_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field9_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field10_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_10__",
+    "next": [
+      "R_Field10_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field10_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field10_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field11_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_11__",
+    "next": [
+      "R_Field11_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field11_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field11_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field12_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_12__",
+    "next": [
+      "R_Field12_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field12_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field12_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field13_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_13__",
+    "next": [
+      "R_Field13_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field13_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field13_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field14_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_14__",
+    "next": [
+      "R_Field14_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field14_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field14_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field15_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_15__",
+    "next": [
+      "R_Field15_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field15_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field15_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field16_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_16__",
+    "next": [
+      "R_Field16_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field16_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field16_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field17_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_17__",
+    "next": [
+      "R_Field17_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field17_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field17_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field18_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_18__",
+    "next": [
+      "R_Field18_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field18_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field18_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field19_Paste": {
+    "action": "InputText",
+    "input_text": "__PARAM_field_19__",
+    "next": [
+      "R_Field19_Blur"
+    ],
+    "post_delay": 300,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_Field19_Blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "next": [
+      "R_Field19_Name"
+    ],
+    "post_delay": 100,
+    "on_error": [],
+    "timeout": 10000
+  },
+  "R_FieldNameHeader": {
+    "recognition": "OCR",
+    "expected": "Field\\s*Name",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field0_Menu"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field0_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_0_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field0_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field0_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_0_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field0_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field0_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field0_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field1_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_1_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field1_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field1_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_1_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field1_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field1_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field1_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field2_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_2_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field2_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field2_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_2_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field2_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field2_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field2_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field3_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_3_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field3_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field3_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_3_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field3_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field3_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field3_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field4_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_4_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field4_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field4_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_4_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field4_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field4_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field4_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field5_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_5_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field5_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field5_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_5_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field5_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field5_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field5_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field6_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_6_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field6_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field6_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_6_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field6_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field6_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field6_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field7_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_7_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field7_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field7_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_7_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field7_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field7_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field7_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field8_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_8_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field8_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field8_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_8_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field8_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field8_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field8_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field9_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_9_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field9_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field9_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_9_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field9_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field9_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field9_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field10_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_10_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field10_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field10_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_10_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field10_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field10_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field10_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field11_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_11_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field11_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field11_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_11_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field11_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field11_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field11_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field12_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_12_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field12_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field12_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_12_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field12_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field12_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field12_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field13_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_13_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field13_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field13_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_13_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field13_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field13_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field13_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field14_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_14_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field14_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field14_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_14_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field14_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field14_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field14_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field15_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_15_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field15_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field15_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_15_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field15_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field15_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field15_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field16_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_16_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field16_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field16_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_16_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field16_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field16_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field16_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field17_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_17_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field17_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field17_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_17_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field17_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field17_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field17_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field18_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_18_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field18_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field18_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_18_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field18_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field18_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field18_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Field19_AutoInserted": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "ColorMatch",
+        "roi": [
+          700,
+          557,
+          500,
+          16
+        ],
+        "lower": [
+          0,
+          110,
+          200
+        ],
+        "upper": [
+          15,
+          140,
+          235
+        ],
+        "count": 1000
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_field_19_row_regex__",
+        "roi": [
+          700,
+          550,
+          300,
+          30
+        ]
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_Field19_Cancel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field19_ResultSelect": {
+    "recognition": "OCR",
+    "expected": "__PARAM_field_19_row_regex__",
+    "roi": [
+      700,
+      550,
+      300,
+      140
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "next": [
+      "R_Field19_ConfirmResult"
+    ],
+    "post_delay": 150,
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_Field19_ConfirmResult": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "插入",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_Field19_Cancel"
+    ],
+    "post_delay": 500
+  },
+  "R_Attr0_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_0_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_0_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_0_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_0_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_0_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_0_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr1_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_1_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_1_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_1_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_1_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_1_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_1_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr2_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_2_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_2_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_2_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_2_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_2_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_2_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr3_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_3_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_3_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_3_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_3_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_3_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_3_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr4_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_4_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_4_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_4_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_4_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_4_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_4_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr5_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_5_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_5_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_5_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_5_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_5_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_5_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr6_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_6_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_6_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_6_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_6_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_6_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_6_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr7_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_7_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_7_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_7_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_7_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_7_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_7_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr8_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_8_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_8_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_8_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_8_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_8_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_8_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr9_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_9_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_9_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_9_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_9_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_9_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_9_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr10_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_10_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_10_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_10_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_10_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_10_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_10_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr11_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_11_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_11_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_11_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_11_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_11_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_11_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr12_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_12_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_12_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_12_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_12_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_12_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_12_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr13_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_13_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_13_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_13_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_13_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_13_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_13_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr14_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_14_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_14_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_14_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_14_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_14_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_14_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr15_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_15_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_15_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_15_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_15_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_15_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_15_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr16_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_16_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_16_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_16_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_16_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_16_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_16_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr17_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_17_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_17_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_17_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_17_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_17_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_17_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr18_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_18_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_18_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_18_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_18_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_18_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_18_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_Attr19_Bind": {
+    "action": "Custom",
+    "on_error": [],
+    "timeout": 5000,
+    "custom_action": "NodeOverride",
+    "custom_action_param": {
+      "R_AttrFocus": {
+        "expected": "__PARAM_field_19_row_regex__"
+      },
+      "R_AttrKeyLabel": {
+        "next": "__PARAM_attr_19_key__"
+      },
+      "R_AttrAlternateLabel": {
+        "next": "__PARAM_attr_19_alternate_search_key__"
+      },
+      "R_AttrListLabel": {
+        "next": "__PARAM_attr_19_listbox__"
+      },
+      "R_AttrSearchLabel": {
+        "next": "__PARAM_attr_19_search_key__"
+      },
+      "R_AttrDone": {
+        "next": [
+          "__PARAM_attr_19_next__"
+        ]
+      }
+    },
+    "next": [
+      "R_AttrFocus"
+    ]
+  },
+  "R_AttrFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "(?!)",
+    "roi": "R_FieldNameHeader",
+    "roi_offset": [
+      -5,
+      20,
+      100,
+      400
+    ],
+    "target_offset": [
+      5,
+      4,
+      -10,
+      -8
+    ],
+    "next": [
+      "R_AttrControl"
+    ]
+  },
+  "R_AttrControl": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 5000,
+    "key": 17,
+    "next": [
+      "R_AttrEnter"
+    ]
+  },
+  "R_AttrEnter": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 5000,
+    "key": 13,
+    "next": [
+      "R_AttrControlUp"
+    ]
+  },
+  "R_AttrControlUp": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 5000,
+    "key": 17,
+    "post_delay": 500,
+    "next": [
+      "R_AttrDialog"
+    ]
+  },
+  "R_AttrDialog": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "Record Field Properties",
+    "roi": [
+      700,
+      195,
+      515,
+      45
+    ],
+    "next": [
+      "R_AttrUse"
+    ]
+  },
+  "R_AttrUse": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "target": [
+      736,
+      244,
+      4,
+      2
+    ],
+    "next": [
+      "R_AttrKeysHeader"
+    ]
+  },
+  "R_AttrKeyLabel": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "^[\\W_0O口]*Key\\s*$",
+    "roi": "R_AttrKeysHeader",
+    "next": [
+      "R_AttrKeyChecked",
+      "R_AttrKeyCheck"
+    ],
+    "roi_offset": [
+      -8,
+      12,
+      140,
+      180
+    ]
+  },
+  "R_AttrKeyChecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrKeyLabel",
+    "next": [
+      "R_AttrAlternateLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrKeyCheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrKeyLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrAlternateLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrKeyUnchecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrKeyLabel",
+    "next": [
+      "R_AttrAlternateLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrKeyUncheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrKeyLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrAlternateLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrAlternateLabel": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "A[lI]?ternate\\s*Search\\s*Key\\s*$",
+    "roi": "R_AttrKeysHeader",
+    "next": [
+      "R_AttrAlternateUnchecked",
+      "R_AttrAlternateUncheck"
+    ],
+    "roi_offset": [
+      -8,
+      12,
+      140,
+      180
+    ]
+  },
+  "R_AttrAlternateChecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrAlternateLabel",
+    "next": [
+      "R_AttrListLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrAlternateCheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrAlternateLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrListLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrAlternateUnchecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrAlternateLabel",
+    "next": [
+      "R_AttrListLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrAlternateUncheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrAlternateLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrListLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrListLabel": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "List\\s*Box\\s*[Il]tem\\s*$",
+    "roi": "R_AttrKeysHeader",
+    "next": [
+      "R_AttrListChecked",
+      "R_AttrListCheck"
+    ],
+    "roi_offset": [
+      -8,
+      12,
+      140,
+      180
+    ]
+  },
+  "R_AttrListChecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrListLabel",
+    "next": [
+      "R_AttrSearchLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrListCheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrListLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrSearchLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrListUnchecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrListLabel",
+    "next": [
+      "R_AttrSearchLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrListUncheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrListLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrSearchLabel"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrSearchLabel": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "^[\\W_0O口]*Search\\s*Key\\s*$",
+    "roi": "R_AttrKeysHeader",
+    "next": [
+      "R_AttrSearchChecked",
+      "R_AttrSearchCheck"
+    ],
+    "roi_offset": [
+      -8,
+      12,
+      140,
+      180
+    ]
+  },
+  "R_AttrSearchChecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrSearchLabel",
+    "next": [
+      "R_AttrOK"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrSearchCheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrSearchLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrOK"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrSearchUnchecked": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "threshold": 0.97,
+    "roi": "R_AttrSearchLabel",
+    "next": [
+      "R_AttrOK"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrSearchUncheck": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "threshold": 0.97,
+    "roi": "R_AttrSearchLabel",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_AttrOK"
+    ],
+    "roi_offset": [
+      -20,
+      -4,
+      30,
+      8
+    ],
+    "order_by": "Score"
+  },
+  "R_AttrOK": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "^确定$",
+    "roi": [
+      1046,
+      799,
+      78,
+      32
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "post_delay": 300,
+    "next": [
+      "R_AttrDone"
+    ]
+  },
+  "R_AttrDone": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "recognition": "OCR",
+    "expected": "Record Field Properties",
+    "roi": [
+      700,
+      195,
+      515,
+      45
+    ],
+    "inverse": true,
+    "next": [
+      "R_TypeTab"
+    ]
+  },
+  "R_AttrKeysHeader": {
+    "recognition": "OCR",
+    "expected": "^Keys$",
+    "roi": [
+      700,
+      270,
+      220,
+      70
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_AttrKeyLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_SpaceOpen": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "Change Space",
+    "roi": [
+      710,
+      355,
+      500,
+      35
+    ],
+    "target": [
+      1184,
+      423,
+      4,
+      3
+    ],
+    "next": [
+      "R_SpaceInitial"
+    ]
+  },
+  "R_SpaceInitial": {
+    "action": "ClickKey",
+    "timeout": 5000,
+    "on_error": [],
+    "key": 72,
+    "next": [
+      "R_SpaceOption",
+      "R_SpaceScroll"
+    ]
+  },
+  "R_SpaceOption": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "__PARAM_space_regex__",
+    "roi": [
+      970,
+      435,
+      214,
+      395
+    ],
+    "target_offset": [
+      3,
+      5,
+      -6,
+      -10
+    ],
+    "post_delay": 300,
+    "next": [
+      "R_SpaceAssigned"
+    ]
+  },
+  "R_SpaceScroll": {
+    "action": "ClickKey",
+    "timeout": 5000,
+    "on_error": [],
+    "key": 34,
+    "max_hit": 8,
+    "next": [
+      "R_SpaceOption",
+      "R_SpaceScroll"
+    ]
+  },
+  "R_SpaceAssigned": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "__PARAM_space_regex__",
+    "roi": [
+      720,
+      534,
+      235,
+      34
+    ],
+    "next": [
+      "R_ConfirmSpace"
+    ]
+  },
+  "R_ConfirmSpace": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "^OK$",
+    "roi": [
+      875,
+      675,
+      72,
+      36
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "post_delay": 500,
+    "next": [
+      "PSIDE_CreateRecord_Saved"
+    ]
+  },
+  "R_BuildMenu": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      0,
+      0,
+      1100,
+      70
+    ],
+    "target": [
+      178,
+      32,
+      1,
+      1
+    ],
+    "next": [
+      "R_BuildCurrent"
+    ],
+    "post_delay": 300
+  },
+  "R_BuildCurrent": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "Current\\s*Definition",
+    "roi": [
+      180,
+      42,
+      180,
+      32
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_BuildDialog"
+    ],
+    "post_delay": 300
+  },
+  "R_BuildDialog": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "^Build$",
+        "roi": [
+          778,
+          365,
+          365,
+          35
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          785,
+          422,
+          165,
+          70
+        ]
+      }
+    ],
+    "next": [
+      "R_BuildSettings"
+    ]
+  },
+  "R_BuildTablesChecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      513,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildIndexesChecked",
+      "R_BuildIndexesCheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTablesCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      513,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildIndexesChecked",
+      "R_BuildIndexesCheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTablesUnchecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      513,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildIndexesChecked",
+      "R_BuildIndexesCheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTablesUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      513,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildIndexesChecked",
+      "R_BuildIndexesCheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildIndexesChecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_selected.png",
+      "PSIDE/checkbox_disabled_selected.png",
+      "PSIDE/checkbox_disabled_selected_idle.png"
+    ],
+    "roi": [
+      972,
+      533,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildViewsUnchecked",
+      "R_BuildViewsUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildIndexesCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      533,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildViewsUnchecked",
+      "R_BuildViewsUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildIndexesUnchecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      533,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildViewsUnchecked",
+      "R_BuildViewsUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildIndexesUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      533,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildViewsUnchecked",
+      "R_BuildViewsUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildViewsChecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      553,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildAlterUnchecked",
+      "R_BuildAlterUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildViewsCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      553,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildAlterUnchecked",
+      "R_BuildAlterUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildViewsUnchecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      553,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildAlterUnchecked",
+      "R_BuildAlterUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildViewsUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      553,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildAlterUnchecked",
+      "R_BuildAlterUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildAlterChecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      573,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildTriggerUnchecked",
+      "R_BuildTriggerUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildAlterCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      573,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildTriggerUnchecked",
+      "R_BuildTriggerUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildAlterUnchecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      573,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildTriggerUnchecked",
+      "R_BuildTriggerUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildAlterUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      573,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildTriggerUnchecked",
+      "R_BuildTriggerUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTriggerChecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      593,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildExecuteNow"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTriggerCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      593,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildExecuteNow"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTriggerUnchecked": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      972,
+      593,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildExecuteNow"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildTriggerUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      972,
+      593,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildExecuteNow"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildExecuteNow": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "target": [
+      1030,
+      659,
+      6,
+      3
+    ],
+    "next": [
+      "R_BuildExecute"
+    ]
+  },
+  "R_BuildExecute": {
+    "action": "Click",
+    "timeout": 60000,
+    "on_error": [],
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "^Build$",
+        "roi": [
+          778,
+          365,
+          365,
+          35
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          785,
+          422,
+          165,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/checkbox_selected.png",
+        "roi": [
+          972,
+          513,
+          18,
+          22
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": [
+          "PSIDE/checkbox_selected.png",
+          "PSIDE/checkbox_disabled_selected.png",
+          "PSIDE/checkbox_disabled_selected_idle.png"
+        ],
+        "roi": [
+          972,
+          533,
+          18,
+          22
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/checkbox_unchecked.png",
+        "roi": [
+          972,
+          553,
+          18,
+          22
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/checkbox_unchecked.png",
+        "roi": [
+          972,
+          573,
+          18,
+          22
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/checkbox_unchecked.png",
+        "roi": [
+          972,
+          593,
+          18,
+          22
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": [
+          "PSIDE/radio_selected.png",
+          "PSIDE/radio_selected_focus.png",
+          "PSIDE/radio_blue_selected.png"
+        ],
+        "roi": [
+          972,
+          650,
+          18,
+          22
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "target": [
+      1088,
+      411,
+      4,
+      3
+    ],
+    "post_delay": 3000,
+    "next": [
+      "R_BuildFinished"
+    ]
+  },
+  "R_BuildFinished": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "已经处理了.*1.*记录.*0.*错误.*0.*警告",
+        "roi": [
+          10,
+          938,
+          900,
+          30
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "SQL.*在线执行",
+        "roi": [
+          10,
+          958,
+          400,
+          25
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 60000,
+    "on_error": [],
+    "next": [
+      "R_BuildFocusEditor"
+    ]
+  },
+  "R_BuildFocusEditor": {
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      430,
+      75,
+      1100,
+      300
+    ],
+    "action": "Click",
+    "target_offset": [
+      4,
+      4,
+      -8,
+      -8
+    ],
+    "timeout": 5000,
+    "on_error": [],
+    "next": [
+      "R_CloseSaved"
+    ]
+  },
+  "R_BuildSettings": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "Settings",
+    "roi": [
+      1050,
+      456,
+      85,
+      32
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_BuildCreateSettings"
+    ]
+  },
+  "R_BuildCreateSettings": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "Build Settings",
+    "roi": [
+      755,
+      325,
+      410,
+      35
+    ],
+    "target": [
+      786,
+      370,
+      3,
+      2
+    ],
+    "next": [
+      "R_BuildSkipExisting"
+    ]
+  },
+  "R_BuildSkipExisting": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "Skip table if it already exists",
+    "roi": [
+      799,
+      428,
+      174,
+      25
+    ],
+    "target_offset": [
+      4,
+      5,
+      -8,
+      -10
+    ],
+    "next": [
+      "R_BuildLoggingTab"
+    ]
+  },
+  "R_BuildLoggingTab": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "Logging",
+    "roi": [
+      845,
+      358,
+      65,
+      30
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_BuildLogWindowOn",
+      "R_BuildLogWindowCheck"
+    ]
+  },
+  "R_BuildLogWindowOn": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      784,
+      499,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildLogFileOff",
+      "R_BuildLogFileUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogWindowCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      784,
+      499,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildLogFileOff",
+      "R_BuildLogFileUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogWindowOff": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      784,
+      499,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildLogFileOff",
+      "R_BuildLogFileUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogWindowUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      784,
+      499,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildLogFileOff",
+      "R_BuildLogFileUncheck"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogFileOn": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      784,
+      521,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildSettingsOK"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogFileCheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      784,
+      521,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildSettingsOK"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogFileOff": {
+    "action": "DoNothing",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_unchecked.png",
+    "roi": [
+      784,
+      521,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "next": [
+      "R_BuildSettingsOK"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildLogFileUncheck": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/checkbox_selected.png",
+    "roi": [
+      784,
+      521,
+      18,
+      22
+    ],
+    "threshold": 0.97,
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "R_BuildSettingsOK"
+    ],
+    "order_by": "Score"
+  },
+  "R_BuildSettingsOK": {
+    "action": "Click",
+    "timeout": 5000,
+    "on_error": [],
+    "recognition": "OCR",
+    "expected": "^确定$",
+    "roi": [
+      1000,
+      712,
+      80,
+      35
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "R_BuildTablesChecked",
+      "R_BuildTablesCheck"
+    ]
+  },
+  "R_RecordTypeGroup": {
+    "recognition": "OCR",
+    "expected": "^Record\\s*[TI]ype$",
+    "roi": "R_TypeTab",
+    "roi_offset": [
+      -100,
+      24,
+      100,
+      16
+    ],
+    "action": "DoNothing",
+    "next": [
+      "R_TypeChoice"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_WorkTypeChoice": {
+    "recognition": "DirectHit",
+    "action": "Click",
+    "target": "R_RecordTypeGroup",
+    "target_offset": [
+      18,
+      90,
+      -50,
+      -4
+    ],
+    "next": [
+      "R_WorkTypeSelected"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_WorkTypeSelected": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/radio_selected.png",
+      "PSIDE/radio_selected_focus.png"
+    ],
+    "roi": "R_RecordTypeGroup",
+    "roi_offset": [
+      -2,
+      82,
+      -36,
+      14
+    ],
+    "threshold": 0.95,
+    "next": [
+      "R_Save"
+    ],
+    "order_by": "Score"
+  },
+  "R_ChooseTypeInitial": {
+    "action": "ClickKey",
+    "key": 82,
+    "post_delay": 200,
+    "next": [
+      "R_SelectRecord"
+    ],
+    "on_error": []
+  }
+}
