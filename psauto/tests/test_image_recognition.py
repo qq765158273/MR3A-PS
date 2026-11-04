@@ -46,6 +46,31 @@ class ImageRecognitionTests(unittest.TestCase):
     def image(self,name):
         return Image.open(self.fixtures/name).convert('RGB')
 
+    def test_lookup_name_is_exact_after_moving_the_insertion_caret(self):
+        from maa.pipeline import JOCR
+        for filename, expected in [('lookup_name_caret.png',False),('lookup_name_blurred.png',True)]:
+            frame=Image.new('RGB',(1920,1080),'white')
+            frame.paste(self.image(filename),(760,420))
+            pixels=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+            params=JOCR(roi=(770,420,150,40),expected=['GM[_ ]+MCP[_ ]+REC6'])
+            result=self.tasker.post_recognition('OCR',params,pixels).wait().get().nodes[0].recognition
+            with self.subTest(frame=filename):self.assertEqual(result.hit,expected)
+
+    def test_save_name_is_exact_without_the_caret_and_build_scope_uses_one_line(self):
+        from maa.pipeline import JOCR
+        for filename, box, roi, expected in [
+            ('save_name_caret.png',(840,520),(840,520,160,30),False),
+            ('save_name_blurred.png',(840,520),(840,520,160,30),True),
+            ('build_scope_name.png',(780,415),(785,422,165,70),False),
+            ('build_scope_name.png',(780,415),(785,420,165,25),True),
+        ]:
+            frame=Image.new('RGB',(1920,1080),'white')
+            frame.paste(self.image(filename),box)
+            pixels=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+            params=JOCR(roi=roi,expected=['GM[_ ]+MCP[_ ]+REC6'])
+            result=self.tasker.post_recognition('OCR',params,pixels).wait().get().nodes[0].recognition
+            with self.subTest(frame=filename,roi=roi):self.assertEqual(result.hit,expected)
+
     def test_checkbox_click_must_change_state_before_the_next_attribute(self):
         graph = json.loads((self.resource/'pipeline/PSIDE/create_record.json').read_text(encoding='utf-8'))
         pairs = json.loads((self.fixtures/'checkbox_pairs.json').read_text(encoding='utf-8'))

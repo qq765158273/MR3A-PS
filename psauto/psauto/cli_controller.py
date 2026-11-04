@@ -3,11 +3,14 @@
 import hashlib
 import json
 import logging
+import queue
 import re
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import threading
+import time
 
 from .controller import JumpServerController
 from .keymap import vk_to_key
@@ -20,6 +23,11 @@ class PlaywrightCliSession:
     def __init__(self, cfg):
         self.cfg = cfg
         self.poisoned = False
+        self._worker = None
+        self._responses = queue.Queue()
+        self._request_lock = threading.Lock()
+        self._request_id = 0
+        self.timings = []
         self.node = shutil.which("node")
         self.script = cfg.resolve_path(cfg.cli_script)
         if not self.node or not self.script.is_file():
@@ -40,7 +48,12 @@ class PlaywrightCliSession:
                    "height": self.cfg.remote_height,
                    "clipboard_required": self.cfg.text_input_mode == 'clipboard', **params}
         code = _CLI_BODY.replace("__INSPECT__", _INSPECT).replace("__REQUEST__", json.dumps(request))
-        return self.run_code(code)
+        started = time.perf_counter()
+        try:
+            return self.run_code(code)
+        finally:
+            self.timings.append({'operation': operation,
+                                 'elapsed_ms': round((time.perf_counter() - started) * 1000, 2)})
 
     def run_code(self, code):
         """Execute transport code in the existing CLI session without opening a browser."""
@@ -73,6 +86,26 @@ class PlaywrightCliSession:
         """Transport a structured CLI command; callers must not log its browser metadata."""
         if self.poisoned:
             raise RuntimeError('CLI session is disabled after a timeout')
+        if self.cfg.cli_persistent_client:
+            with self._request_lock:
+                if self._worker is None:
+                    self._start_worker()
+                self._request_id += 1
+                request_id = self._request_id
+                try:
+                    self._worker.stdin.write(json.dumps({'id': request_id, 'arguments': list(arguments),
+                                                         'raw': raw}) + '\n')
+                    self._worker.stdin.flush()
+                    response = self._read_response()
+                    if response.get('id') != request_id:
+                        raise RuntimeError('CLI client returned an unexpected response')
+                    return subprocess.CompletedProcess(arguments, response['returncode'],
+                                                       response['stdout'], response['stderr'])
+                except (BrokenPipeError, OSError, RuntimeError):
+                    # A broken client may already have submitted an action. Never replay it.
+                    self.poisoned = True
+                    self._stop_worker()
+                    raise
         command = [self.node, str(self.script), f'-s={self.cfg.cli_session}']
         if raw:
             command.append('--raw')
@@ -85,8 +118,58 @@ class PlaywrightCliSession:
             raise TimeoutError('CLI operation timed out and may still be running') from exc
 
     def stop(self):
-        # The attached browser and CLI session are owned by the user.
-        pass
+        # Stop only our client. The browser and the CLI daemon are owned by the user.
+        self._stop_worker()
+
+    def _start_worker(self):
+        helper = Path(__file__).with_name('cli_worker.cjs')
+        self._responses = queue.Queue()
+        self._worker = subprocess.Popen([self.node, str(helper), str(self.script.resolve()), self.cfg.cli_session],
+                                        cwd=self.cwd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                        stderr=subprocess.DEVNULL, text=True, encoding='utf-8',
+                                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+        worker, responses = self._worker, self._responses
+        def read():
+            try:
+                for line in worker.stdout:
+                    responses.put(json.loads(line))
+            except (ValueError, OSError):
+                pass
+            finally:
+                responses.put({'fatal': 'Playwright CLI client closed unexpectedly'})
+        threading.Thread(target=read, daemon=True, name='psauto-cli-output').start()
+        try:
+            response = self._read_response()
+        except Exception:
+            self._stop_worker()
+            raise
+        if response.get('ready') is not True:
+            self._stop_worker()
+            raise RuntimeError(response.get('fatal', 'CLI client could not start'))
+
+    def _read_response(self):
+        try:
+            response = self._responses.get(timeout=45)
+        except queue.Empty as exc:
+            self.poisoned = True
+            self._stop_worker()
+            raise TimeoutError('CLI operation timed out and may still be running') from exc
+        if 'fatal' in response:
+            raise RuntimeError(response['fatal'])
+        return response
+
+    def _stop_worker(self):
+        worker, self._worker = self._worker, None
+        if worker is None:
+            return
+        try:
+            worker.stdin.close()
+            worker.wait(timeout=2)
+        except (OSError, subprocess.TimeoutExpired):
+            worker.kill()
+            worker.wait(timeout=5)
+        finally:
+            worker.stdout.close()
 
 
 _CLI_BODY = """async (page) => {
@@ -187,7 +270,11 @@ _CLI_BODY = """async (page) => {
       }
     } finally { await page.mouse.up(); }
   } else if (request.operation === 'key') {
-    await page.keyboard.press(request.key);
+    try { await page.keyboard.press(request.key); }
+    finally {
+      for (const modifier of request.key.split('+').slice(0, -1))
+        await page.keyboard.up(modifier);
+    }
   } else if (request.operation === 'key_down') {
     await page.keyboard.down(request.key);
   } else if (request.operation === 'input_text') {
@@ -345,5 +432,6 @@ def connect_cli_controller(cfg):
     session = PlaywrightCliSession(cfg)
     controller = CliController(session, cfg)
     if not controller.set_screenshot_use_raw_size(True) or not controller.post_connection().wait().succeeded:
+        session.stop()
         raise RuntimeError("Maa CLI controller connection failed")
     return session, controller

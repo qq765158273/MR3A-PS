@@ -31,17 +31,20 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_query": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131151,
     "next": [
-      "PSIDE_CreateRecord_query_1"
+      "PSIDE_CreateRecord_query_dialog"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_1": {
     "action": "ClickKey",
@@ -51,7 +54,8 @@
     "next": [
       "PSIDE_CreateRecord_query_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_2": {
     "action": "KeyUp",
@@ -61,7 +65,8 @@
     "next": [
       "PSIDE_CreateRecord_query_dialog"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_dialog": {
     "action": "DoNothing",
@@ -79,7 +84,9 @@
     ],
     "template": "PSIDE/lookup_title.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_query_type_focus": {
     "action": "Click",
@@ -104,7 +111,8 @@
     "post_delay": 300,
     "template": "PSIDE/lookup_type_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_type": {
     "action": "ClickKey",
@@ -114,7 +122,8 @@
     "next": [
       "PSIDE_CreateRecord_query_type_select"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_type_select": {
     "action": "ClickKey",
@@ -124,7 +133,8 @@
     "next": [
       "PSIDE_CreateRecord_query_type_enter"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_type_enter": {
     "action": "ClickKey",
@@ -134,7 +144,8 @@
     "next": [
       "PSIDE_CreateRecord_query_type_check"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_type_check": {
     "action": "DoNothing",
@@ -152,7 +163,9 @@
     ],
     "template": "PSIDE/lookup_type_record.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_query_name_focus": {
     "action": "Click",
@@ -176,7 +189,8 @@
     ],
     "template": "PSIDE/lookup_name_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_name_clear": {
     "action": "ClickKey",
@@ -185,17 +199,19 @@
     "key": 36,
     "next": [
       "PSIDE_CreateRecord_query_name_clear_select"
-    ]
+    ],
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_name_clear_select": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 16,
+    "key": 65571,
     "next": [
-      "PSIDE_CreateRecord_query_name_clear_select_1"
+      "PSIDE_CreateRecord_query_name_clear_input"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_name_clear_select_1": {
     "action": "ClickKey",
@@ -205,7 +221,8 @@
     "next": [
       "PSIDE_CreateRecord_query_name_clear_select_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_name_clear_select_2": {
     "action": "KeyUp",
@@ -215,7 +232,8 @@
     "next": [
       "PSIDE_CreateRecord_query_name_clear_input"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_name_clear_input": {
     "action": "InputText",
@@ -223,9 +241,10 @@
     "timeout": 10000,
     "input_text": "__PARAM_name__",
     "next": [
-      "PSIDE_CreateRecord_query_name_check"
+      "PSIDE_CreateRecord_query_name_blur"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_name_check": {
     "action": "DoNothing",
@@ -241,7 +260,9 @@
     ],
     "next": [
       "PSIDE_CreateRecord_query_open"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_query_open": {
     "action": "Click",
@@ -267,7 +288,8 @@
     ],
     "template": "PSIDE/lookup_open_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_query_found": {
     "action": "DoNothing",
@@ -283,7 +305,9 @@
     ],
     "next": [
       "PSIDE_CreateRecord_already_exists"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_query_missing": {
     "action": "DoNothing",
@@ -318,7 +342,9 @@
         "threshold": 0.85,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_cancel_query": {
     "action": "Click",
@@ -343,17 +369,19 @@
     "post_delay": 300,
     "template": "PSIDE/lookup_cancel_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_already_exists": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "PSIDE_CreateRecord_already_exists_1"
+      "PSIDE_CreateRecord_conflict_closed"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_already_exists_1": {
     "action": "ClickKey",
@@ -363,7 +391,8 @@
     "next": [
       "PSIDE_CreateRecord_already_exists_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_already_exists_2": {
     "action": "KeyUp",
@@ -373,7 +402,8 @@
     "next": [
       "PSIDE_CreateRecord_conflict_closed"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_conflict_closed": {
     "action": "DoNothing",
@@ -403,7 +433,9 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field0_Menu": {
     "action": "Click",
@@ -417,7 +449,8 @@
     ],
     "next": [
       "R_Field0_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field0_MenuField": {
     "action": "Click",
@@ -439,7 +472,8 @@
     ],
     "next": [
       "R_Field0_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field0_Dialog": {
     "action": "Click",
@@ -462,7 +496,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field0_Name": {
     "action": "DoNothing",
@@ -478,7 +513,9 @@
     ],
     "next": [
       "R_Field0_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field0_Insert": {
     "action": "Click",
@@ -502,7 +539,8 @@
       "R_Field0_AutoInserted",
       "R_Field0_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field0_Cancel": {
     "action": "Click",
@@ -525,7 +563,8 @@
     "next": [
       "R_Field0_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field0_Inserted": {
     "action": "DoNothing",
@@ -542,7 +581,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field1_Menu": {
     "action": "Click",
@@ -556,7 +597,8 @@
     ],
     "next": [
       "R_Field1_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field1_MenuField": {
     "action": "Click",
@@ -578,7 +620,8 @@
     ],
     "next": [
       "R_Field1_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field1_Dialog": {
     "action": "Click",
@@ -601,7 +644,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field1_Name": {
     "action": "DoNothing",
@@ -617,7 +661,9 @@
     ],
     "next": [
       "R_Field1_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field1_Insert": {
     "action": "Click",
@@ -641,7 +687,8 @@
       "R_Field1_AutoInserted",
       "R_Field1_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field1_Cancel": {
     "action": "Click",
@@ -664,7 +711,8 @@
     "next": [
       "R_Field1_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field1_Inserted": {
     "action": "DoNothing",
@@ -681,7 +729,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field2_Menu": {
     "action": "Click",
@@ -695,7 +745,8 @@
     ],
     "next": [
       "R_Field2_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field2_MenuField": {
     "action": "Click",
@@ -717,7 +768,8 @@
     ],
     "next": [
       "R_Field2_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field2_Dialog": {
     "action": "Click",
@@ -740,7 +792,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field2_Name": {
     "action": "DoNothing",
@@ -756,7 +809,9 @@
     ],
     "next": [
       "R_Field2_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field2_Insert": {
     "action": "Click",
@@ -780,7 +835,8 @@
       "R_Field2_AutoInserted",
       "R_Field2_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field2_Cancel": {
     "action": "Click",
@@ -803,7 +859,8 @@
     "next": [
       "R_Field2_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field2_Inserted": {
     "action": "DoNothing",
@@ -820,7 +877,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field3_Menu": {
     "action": "Click",
@@ -834,7 +893,8 @@
     ],
     "next": [
       "R_Field3_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field3_MenuField": {
     "action": "Click",
@@ -856,7 +916,8 @@
     ],
     "next": [
       "R_Field3_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field3_Dialog": {
     "action": "Click",
@@ -879,7 +940,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field3_Name": {
     "action": "DoNothing",
@@ -895,7 +957,9 @@
     ],
     "next": [
       "R_Field3_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field3_Insert": {
     "action": "Click",
@@ -919,7 +983,8 @@
       "R_Field3_AutoInserted",
       "R_Field3_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field3_Cancel": {
     "action": "Click",
@@ -942,7 +1007,8 @@
     "next": [
       "R_Field3_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field3_Inserted": {
     "action": "DoNothing",
@@ -959,7 +1025,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field4_Menu": {
     "action": "Click",
@@ -973,7 +1041,8 @@
     ],
     "next": [
       "R_Field4_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field4_MenuField": {
     "action": "Click",
@@ -995,7 +1064,8 @@
     ],
     "next": [
       "R_Field4_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field4_Dialog": {
     "action": "Click",
@@ -1018,7 +1088,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field4_Name": {
     "action": "DoNothing",
@@ -1034,7 +1105,9 @@
     ],
     "next": [
       "R_Field4_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field4_Insert": {
     "action": "Click",
@@ -1058,7 +1131,8 @@
       "R_Field4_AutoInserted",
       "R_Field4_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field4_Cancel": {
     "action": "Click",
@@ -1081,7 +1155,8 @@
     "next": [
       "R_Field4_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field4_Inserted": {
     "action": "DoNothing",
@@ -1098,7 +1173,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field5_Menu": {
     "action": "Click",
@@ -1112,7 +1189,8 @@
     ],
     "next": [
       "R_Field5_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field5_MenuField": {
     "action": "Click",
@@ -1134,7 +1212,8 @@
     ],
     "next": [
       "R_Field5_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field5_Dialog": {
     "action": "Click",
@@ -1157,7 +1236,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field5_Name": {
     "action": "DoNothing",
@@ -1173,7 +1253,9 @@
     ],
     "next": [
       "R_Field5_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field5_Insert": {
     "action": "Click",
@@ -1197,7 +1279,8 @@
       "R_Field5_AutoInserted",
       "R_Field5_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field5_Cancel": {
     "action": "Click",
@@ -1220,7 +1303,8 @@
     "next": [
       "R_Field5_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field5_Inserted": {
     "action": "DoNothing",
@@ -1237,7 +1321,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field6_Menu": {
     "action": "Click",
@@ -1251,7 +1337,8 @@
     ],
     "next": [
       "R_Field6_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field6_MenuField": {
     "action": "Click",
@@ -1273,7 +1360,8 @@
     ],
     "next": [
       "R_Field6_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field6_Dialog": {
     "action": "Click",
@@ -1296,7 +1384,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field6_Name": {
     "action": "DoNothing",
@@ -1312,7 +1401,9 @@
     ],
     "next": [
       "R_Field6_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field6_Insert": {
     "action": "Click",
@@ -1336,7 +1427,8 @@
       "R_Field6_AutoInserted",
       "R_Field6_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field6_Cancel": {
     "action": "Click",
@@ -1359,7 +1451,8 @@
     "next": [
       "R_Field6_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field6_Inserted": {
     "action": "DoNothing",
@@ -1376,7 +1469,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field7_Menu": {
     "action": "Click",
@@ -1390,7 +1485,8 @@
     ],
     "next": [
       "R_Field7_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field7_MenuField": {
     "action": "Click",
@@ -1412,7 +1508,8 @@
     ],
     "next": [
       "R_Field7_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field7_Dialog": {
     "action": "Click",
@@ -1435,7 +1532,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field7_Name": {
     "action": "DoNothing",
@@ -1451,7 +1549,9 @@
     ],
     "next": [
       "R_Field7_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field7_Insert": {
     "action": "Click",
@@ -1475,7 +1575,8 @@
       "R_Field7_AutoInserted",
       "R_Field7_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field7_Cancel": {
     "action": "Click",
@@ -1498,7 +1599,8 @@
     "next": [
       "R_Field7_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field7_Inserted": {
     "action": "DoNothing",
@@ -1515,7 +1617,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field8_Menu": {
     "action": "Click",
@@ -1529,7 +1633,8 @@
     ],
     "next": [
       "R_Field8_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field8_MenuField": {
     "action": "Click",
@@ -1551,7 +1656,8 @@
     ],
     "next": [
       "R_Field8_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field8_Dialog": {
     "action": "Click",
@@ -1574,7 +1680,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field8_Name": {
     "action": "DoNothing",
@@ -1590,7 +1697,9 @@
     ],
     "next": [
       "R_Field8_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field8_Insert": {
     "action": "Click",
@@ -1614,7 +1723,8 @@
       "R_Field8_AutoInserted",
       "R_Field8_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field8_Cancel": {
     "action": "Click",
@@ -1637,7 +1747,8 @@
     "next": [
       "R_Field8_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field8_Inserted": {
     "action": "DoNothing",
@@ -1654,7 +1765,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field9_Menu": {
     "action": "Click",
@@ -1668,7 +1781,8 @@
     ],
     "next": [
       "R_Field9_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field9_MenuField": {
     "action": "Click",
@@ -1690,7 +1804,8 @@
     ],
     "next": [
       "R_Field9_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field9_Dialog": {
     "action": "Click",
@@ -1713,7 +1828,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field9_Name": {
     "action": "DoNothing",
@@ -1729,7 +1845,9 @@
     ],
     "next": [
       "R_Field9_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field9_Insert": {
     "action": "Click",
@@ -1753,7 +1871,8 @@
       "R_Field9_AutoInserted",
       "R_Field9_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field9_Cancel": {
     "action": "Click",
@@ -1776,7 +1895,8 @@
     "next": [
       "R_Field9_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field9_Inserted": {
     "action": "DoNothing",
@@ -1793,7 +1913,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field10_Menu": {
     "action": "Click",
@@ -1807,7 +1929,8 @@
     ],
     "next": [
       "R_Field10_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field10_MenuField": {
     "action": "Click",
@@ -1829,7 +1952,8 @@
     ],
     "next": [
       "R_Field10_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field10_Dialog": {
     "action": "Click",
@@ -1852,7 +1976,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field10_Name": {
     "action": "DoNothing",
@@ -1868,7 +1993,9 @@
     ],
     "next": [
       "R_Field10_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field10_Insert": {
     "action": "Click",
@@ -1892,7 +2019,8 @@
       "R_Field10_AutoInserted",
       "R_Field10_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field10_Cancel": {
     "action": "Click",
@@ -1915,7 +2043,8 @@
     "next": [
       "R_Field10_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field10_Inserted": {
     "action": "DoNothing",
@@ -1932,7 +2061,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field11_Menu": {
     "action": "Click",
@@ -1946,7 +2077,8 @@
     ],
     "next": [
       "R_Field11_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field11_MenuField": {
     "action": "Click",
@@ -1968,7 +2100,8 @@
     ],
     "next": [
       "R_Field11_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field11_Dialog": {
     "action": "Click",
@@ -1991,7 +2124,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field11_Name": {
     "action": "DoNothing",
@@ -2007,7 +2141,9 @@
     ],
     "next": [
       "R_Field11_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field11_Insert": {
     "action": "Click",
@@ -2031,7 +2167,8 @@
       "R_Field11_AutoInserted",
       "R_Field11_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field11_Cancel": {
     "action": "Click",
@@ -2054,7 +2191,8 @@
     "next": [
       "R_Field11_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field11_Inserted": {
     "action": "DoNothing",
@@ -2071,7 +2209,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field12_Menu": {
     "action": "Click",
@@ -2085,7 +2225,8 @@
     ],
     "next": [
       "R_Field12_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field12_MenuField": {
     "action": "Click",
@@ -2107,7 +2248,8 @@
     ],
     "next": [
       "R_Field12_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field12_Dialog": {
     "action": "Click",
@@ -2130,7 +2272,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field12_Name": {
     "action": "DoNothing",
@@ -2146,7 +2289,9 @@
     ],
     "next": [
       "R_Field12_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field12_Insert": {
     "action": "Click",
@@ -2170,7 +2315,8 @@
       "R_Field12_AutoInserted",
       "R_Field12_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field12_Cancel": {
     "action": "Click",
@@ -2193,7 +2339,8 @@
     "next": [
       "R_Field12_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field12_Inserted": {
     "action": "DoNothing",
@@ -2210,7 +2357,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field13_Menu": {
     "action": "Click",
@@ -2224,7 +2373,8 @@
     ],
     "next": [
       "R_Field13_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field13_MenuField": {
     "action": "Click",
@@ -2246,7 +2396,8 @@
     ],
     "next": [
       "R_Field13_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field13_Dialog": {
     "action": "Click",
@@ -2269,7 +2420,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field13_Name": {
     "action": "DoNothing",
@@ -2285,7 +2437,9 @@
     ],
     "next": [
       "R_Field13_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field13_Insert": {
     "action": "Click",
@@ -2309,7 +2463,8 @@
       "R_Field13_AutoInserted",
       "R_Field13_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field13_Cancel": {
     "action": "Click",
@@ -2332,7 +2487,8 @@
     "next": [
       "R_Field13_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field13_Inserted": {
     "action": "DoNothing",
@@ -2349,7 +2505,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field14_Menu": {
     "action": "Click",
@@ -2363,7 +2521,8 @@
     ],
     "next": [
       "R_Field14_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field14_MenuField": {
     "action": "Click",
@@ -2385,7 +2544,8 @@
     ],
     "next": [
       "R_Field14_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field14_Dialog": {
     "action": "Click",
@@ -2408,7 +2568,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field14_Name": {
     "action": "DoNothing",
@@ -2424,7 +2585,9 @@
     ],
     "next": [
       "R_Field14_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field14_Insert": {
     "action": "Click",
@@ -2448,7 +2611,8 @@
       "R_Field14_AutoInserted",
       "R_Field14_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field14_Cancel": {
     "action": "Click",
@@ -2471,7 +2635,8 @@
     "next": [
       "R_Field14_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field14_Inserted": {
     "action": "DoNothing",
@@ -2488,7 +2653,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field15_Menu": {
     "action": "Click",
@@ -2502,7 +2669,8 @@
     ],
     "next": [
       "R_Field15_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field15_MenuField": {
     "action": "Click",
@@ -2524,7 +2692,8 @@
     ],
     "next": [
       "R_Field15_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field15_Dialog": {
     "action": "Click",
@@ -2547,7 +2716,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field15_Name": {
     "action": "DoNothing",
@@ -2563,7 +2733,9 @@
     ],
     "next": [
       "R_Field15_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field15_Insert": {
     "action": "Click",
@@ -2587,7 +2759,8 @@
       "R_Field15_AutoInserted",
       "R_Field15_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field15_Cancel": {
     "action": "Click",
@@ -2610,7 +2783,8 @@
     "next": [
       "R_Field15_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field15_Inserted": {
     "action": "DoNothing",
@@ -2627,7 +2801,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field16_Menu": {
     "action": "Click",
@@ -2641,7 +2817,8 @@
     ],
     "next": [
       "R_Field16_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field16_MenuField": {
     "action": "Click",
@@ -2663,7 +2840,8 @@
     ],
     "next": [
       "R_Field16_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field16_Dialog": {
     "action": "Click",
@@ -2686,7 +2864,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field16_Name": {
     "action": "DoNothing",
@@ -2702,7 +2881,9 @@
     ],
     "next": [
       "R_Field16_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field16_Insert": {
     "action": "Click",
@@ -2726,7 +2907,8 @@
       "R_Field16_AutoInserted",
       "R_Field16_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field16_Cancel": {
     "action": "Click",
@@ -2749,7 +2931,8 @@
     "next": [
       "R_Field16_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field16_Inserted": {
     "action": "DoNothing",
@@ -2766,7 +2949,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field17_Menu": {
     "action": "Click",
@@ -2780,7 +2965,8 @@
     ],
     "next": [
       "R_Field17_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field17_MenuField": {
     "action": "Click",
@@ -2802,7 +2988,8 @@
     ],
     "next": [
       "R_Field17_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field17_Dialog": {
     "action": "Click",
@@ -2825,7 +3012,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field17_Name": {
     "action": "DoNothing",
@@ -2841,7 +3029,9 @@
     ],
     "next": [
       "R_Field17_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field17_Insert": {
     "action": "Click",
@@ -2865,7 +3055,8 @@
       "R_Field17_AutoInserted",
       "R_Field17_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field17_Cancel": {
     "action": "Click",
@@ -2888,7 +3079,8 @@
     "next": [
       "R_Field17_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field17_Inserted": {
     "action": "DoNothing",
@@ -2905,7 +3097,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field18_Menu": {
     "action": "Click",
@@ -2919,7 +3113,8 @@
     ],
     "next": [
       "R_Field18_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field18_MenuField": {
     "action": "Click",
@@ -2941,7 +3136,8 @@
     ],
     "next": [
       "R_Field18_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field18_Dialog": {
     "action": "Click",
@@ -2964,7 +3160,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field18_Name": {
     "action": "DoNothing",
@@ -2980,7 +3177,9 @@
     ],
     "next": [
       "R_Field18_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field18_Insert": {
     "action": "Click",
@@ -3004,7 +3203,8 @@
       "R_Field18_AutoInserted",
       "R_Field18_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field18_Cancel": {
     "action": "Click",
@@ -3027,7 +3227,8 @@
     "next": [
       "R_Field18_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field18_Inserted": {
     "action": "DoNothing",
@@ -3044,7 +3245,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field19_Menu": {
     "action": "Click",
@@ -3058,7 +3261,8 @@
     ],
     "next": [
       "R_Field19_MenuField"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field19_MenuField": {
     "action": "Click",
@@ -3080,7 +3284,8 @@
     ],
     "next": [
       "R_Field19_Dialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field19_Dialog": {
     "action": "Click",
@@ -3103,7 +3308,8 @@
       432,
       20,
       10
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Field19_Name": {
     "action": "DoNothing",
@@ -3119,7 +3325,9 @@
     ],
     "next": [
       "R_Field19_Insert"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field19_Insert": {
     "action": "Click",
@@ -3143,7 +3351,8 @@
       "R_Field19_AutoInserted",
       "R_Field19_ResultSelect"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field19_Cancel": {
     "action": "Click",
@@ -3166,7 +3375,8 @@
     "next": [
       "R_Field19_Inserted"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Field19_Inserted": {
     "action": "DoNothing",
@@ -3183,7 +3393,9 @@
       20,
       100,
       400
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_TypeTab": {
     "action": "Click",
@@ -3205,7 +3417,8 @@
     ],
     "next": [
       "R_RecordTypeGroup"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_TypeChoice": {
     "recognition": "DirectHit",
@@ -3221,7 +3434,8 @@
       "R_TypeSelected"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_TypeSelected": {
     "action": "DoNothing",
@@ -3243,17 +3457,20 @@
     "next": [
       "R_Save"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Save": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131155,
     "next": [
-      "R_Save_1"
+      "R_Save_as"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Save_1": {
     "action": "ClickKey",
@@ -3263,7 +3480,8 @@
     "next": [
       "R_Save_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "R_Save_2": {
     "action": "KeyUp",
@@ -3273,14 +3491,14 @@
     "next": [
       "R_Save_as"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_Save_as": {
     "action": "InputText",
     "on_error": [],
     "timeout": 10000,
-    "recognition": "OCR",
-    "expected": "Save As",
+    "recognition": "TemplateMatch",
     "roi": [
       800,
       440,
@@ -3289,9 +3507,13 @@
     ],
     "input_text": "__PARAM_name__",
     "next": [
-      "R_Save_name"
+      "R_Save_name_blur"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0,
+    "template": "PSIDE/save_as_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
   },
   "R_Save_name": {
     "action": "DoNothing",
@@ -3307,14 +3529,15 @@
     ],
     "next": [
       "R_Save_ok"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Save_ok": {
     "action": "Click",
     "on_error": [],
     "timeout": 10000,
-    "recognition": "OCR",
-    "expected": "^OK$",
+    "recognition": "TemplateMatch",
     "roi": [
       1000,
       500,
@@ -3331,7 +3554,11 @@
       "PSIDE_CreateRecord_Saved",
       "R_ChangeSpace"
     ],
-    "post_delay": 700
+    "post_delay": 700,
+    "pre_delay": 0,
+    "template": "PSIDE/save_as_ok.png",
+    "threshold": 0.85,
+    "order_by": "Score"
   },
   "R_OpenNewDefinition": {
     "recognition": "And",
@@ -3357,13 +3584,15 @@
         ]
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131150,
     "next": [
-      "R_PressN"
+      "R_SeekRecord"
     ],
     "on_error": [],
-    "timeout": 5000
+    "timeout": 5000,
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "R_PressN": {
     "action": "ClickKey",
@@ -3371,7 +3600,8 @@
     "next": [
       "R_ReleaseCtrl"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_ReleaseCtrl": {
     "action": "KeyUp",
@@ -3380,7 +3610,8 @@
       "R_SeekRecord"
     ],
     "post_delay": 1000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_SeekRecord": {
     "recognition": "TemplateMatch",
@@ -3399,7 +3630,8 @@
     "timeout": 5000,
     "template": "PSIDE/new_definition_title.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_SelectRecord": {
     "recognition": "TemplateMatch",
@@ -3417,7 +3649,9 @@
     "timeout": 5000,
     "template": "PSIDE/new_definition_record_selected.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_ConfirmNewRecord": {
     "action": "ClickKey",
@@ -3426,7 +3660,8 @@
       "R_RecordEditorReady"
     ],
     "post_delay": 1000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_RecordEditorReady": {
     "recognition": "And",
@@ -3457,7 +3692,9 @@
     "timeout": 5000,
     "next": [
       "R_FieldNameHeader"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateRecord_Saved": {
     "recognition": "And",
@@ -3502,7 +3739,9 @@
     "on_error": [],
     "next": [
       "R_CloseSaved"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_ChangeSpace": {
     "recognition": "OCR",
@@ -3518,17 +3757,20 @@
       "R_SpaceOpen"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_CloseSaved": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "R_CloseSaved_1"
+      "PSIDE_CreateRecord_SavedAndClosed"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_CloseSaved_1": {
     "action": "ClickKey",
@@ -3538,7 +3780,8 @@
     "next": [
       "R_CloseSaved_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "R_CloseSaved_2": {
     "action": "KeyUp",
@@ -3548,7 +3791,8 @@
     "next": [
       "PSIDE_CreateRecord_SavedAndClosed"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateRecord_SavedAndClosed": {
     "action": "DoNothing",
@@ -3578,7 +3822,9 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field0_Paste": {
     "action": "InputText",
@@ -3588,7 +3834,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field0_Blur": {
     "action": "ClickKey",
@@ -3598,7 +3845,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field1_Paste": {
     "action": "InputText",
@@ -3608,7 +3856,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field1_Blur": {
     "action": "ClickKey",
@@ -3618,7 +3867,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field2_Paste": {
     "action": "InputText",
@@ -3628,7 +3878,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field2_Blur": {
     "action": "ClickKey",
@@ -3638,7 +3889,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field3_Paste": {
     "action": "InputText",
@@ -3648,7 +3900,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field3_Blur": {
     "action": "ClickKey",
@@ -3658,7 +3911,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field4_Paste": {
     "action": "InputText",
@@ -3668,7 +3922,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field4_Blur": {
     "action": "ClickKey",
@@ -3678,7 +3933,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field5_Paste": {
     "action": "InputText",
@@ -3688,7 +3944,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field5_Blur": {
     "action": "ClickKey",
@@ -3698,7 +3955,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field6_Paste": {
     "action": "InputText",
@@ -3708,7 +3966,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field6_Blur": {
     "action": "ClickKey",
@@ -3718,7 +3977,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field7_Paste": {
     "action": "InputText",
@@ -3728,7 +3988,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field7_Blur": {
     "action": "ClickKey",
@@ -3738,7 +3999,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field8_Paste": {
     "action": "InputText",
@@ -3748,7 +4010,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field8_Blur": {
     "action": "ClickKey",
@@ -3758,7 +4021,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field9_Paste": {
     "action": "InputText",
@@ -3768,7 +4032,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field9_Blur": {
     "action": "ClickKey",
@@ -3778,7 +4043,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field10_Paste": {
     "action": "InputText",
@@ -3788,7 +4054,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field10_Blur": {
     "action": "ClickKey",
@@ -3798,7 +4065,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field11_Paste": {
     "action": "InputText",
@@ -3808,7 +4076,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field11_Blur": {
     "action": "ClickKey",
@@ -3818,7 +4087,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field12_Paste": {
     "action": "InputText",
@@ -3828,7 +4098,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field12_Blur": {
     "action": "ClickKey",
@@ -3838,7 +4109,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field13_Paste": {
     "action": "InputText",
@@ -3848,7 +4120,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field13_Blur": {
     "action": "ClickKey",
@@ -3858,7 +4131,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field14_Paste": {
     "action": "InputText",
@@ -3868,7 +4142,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field14_Blur": {
     "action": "ClickKey",
@@ -3878,7 +4153,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field15_Paste": {
     "action": "InputText",
@@ -3888,7 +4164,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field15_Blur": {
     "action": "ClickKey",
@@ -3898,7 +4175,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field16_Paste": {
     "action": "InputText",
@@ -3908,7 +4186,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field16_Blur": {
     "action": "ClickKey",
@@ -3918,7 +4197,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field17_Paste": {
     "action": "InputText",
@@ -3928,7 +4208,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field17_Blur": {
     "action": "ClickKey",
@@ -3938,7 +4219,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field18_Paste": {
     "action": "InputText",
@@ -3948,7 +4230,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field18_Blur": {
     "action": "ClickKey",
@@ -3958,7 +4241,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field19_Paste": {
     "action": "InputText",
@@ -3968,7 +4252,8 @@
     ],
     "post_delay": 300,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_Field19_Blur": {
     "action": "ClickKey",
@@ -3978,7 +4263,8 @@
     ],
     "post_delay": 100,
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0
   },
   "R_FieldNameHeader": {
     "recognition": "OCR",
@@ -3994,7 +4280,9 @@
       "R_Field0_Menu"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field0_AutoInserted": {
     "recognition": "And",
@@ -4035,7 +4323,9 @@
       "R_Field0_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field0_ResultSelect": {
     "recognition": "OCR",
@@ -4058,7 +4348,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field0_ConfirmResult": {
     "action": "Click",
@@ -4081,7 +4372,8 @@
     "next": [
       "R_Field0_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field1_AutoInserted": {
     "recognition": "And",
@@ -4122,7 +4414,9 @@
       "R_Field1_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field1_ResultSelect": {
     "recognition": "OCR",
@@ -4145,7 +4439,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field1_ConfirmResult": {
     "action": "Click",
@@ -4168,7 +4463,8 @@
     "next": [
       "R_Field1_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field2_AutoInserted": {
     "recognition": "And",
@@ -4209,7 +4505,9 @@
       "R_Field2_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field2_ResultSelect": {
     "recognition": "OCR",
@@ -4232,7 +4530,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field2_ConfirmResult": {
     "action": "Click",
@@ -4255,7 +4554,8 @@
     "next": [
       "R_Field2_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field3_AutoInserted": {
     "recognition": "And",
@@ -4296,7 +4596,9 @@
       "R_Field3_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field3_ResultSelect": {
     "recognition": "OCR",
@@ -4319,7 +4621,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field3_ConfirmResult": {
     "action": "Click",
@@ -4342,7 +4645,8 @@
     "next": [
       "R_Field3_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field4_AutoInserted": {
     "recognition": "And",
@@ -4383,7 +4687,9 @@
       "R_Field4_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field4_ResultSelect": {
     "recognition": "OCR",
@@ -4406,7 +4712,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field4_ConfirmResult": {
     "action": "Click",
@@ -4429,7 +4736,8 @@
     "next": [
       "R_Field4_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field5_AutoInserted": {
     "recognition": "And",
@@ -4470,7 +4778,9 @@
       "R_Field5_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field5_ResultSelect": {
     "recognition": "OCR",
@@ -4493,7 +4803,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field5_ConfirmResult": {
     "action": "Click",
@@ -4516,7 +4827,8 @@
     "next": [
       "R_Field5_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field6_AutoInserted": {
     "recognition": "And",
@@ -4557,7 +4869,9 @@
       "R_Field6_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field6_ResultSelect": {
     "recognition": "OCR",
@@ -4580,7 +4894,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field6_ConfirmResult": {
     "action": "Click",
@@ -4603,7 +4918,8 @@
     "next": [
       "R_Field6_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field7_AutoInserted": {
     "recognition": "And",
@@ -4644,7 +4960,9 @@
       "R_Field7_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field7_ResultSelect": {
     "recognition": "OCR",
@@ -4667,7 +4985,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field7_ConfirmResult": {
     "action": "Click",
@@ -4690,7 +5009,8 @@
     "next": [
       "R_Field7_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field8_AutoInserted": {
     "recognition": "And",
@@ -4731,7 +5051,9 @@
       "R_Field8_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field8_ResultSelect": {
     "recognition": "OCR",
@@ -4754,7 +5076,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field8_ConfirmResult": {
     "action": "Click",
@@ -4777,7 +5100,8 @@
     "next": [
       "R_Field8_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field9_AutoInserted": {
     "recognition": "And",
@@ -4818,7 +5142,9 @@
       "R_Field9_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field9_ResultSelect": {
     "recognition": "OCR",
@@ -4841,7 +5167,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field9_ConfirmResult": {
     "action": "Click",
@@ -4864,7 +5191,8 @@
     "next": [
       "R_Field9_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field10_AutoInserted": {
     "recognition": "And",
@@ -4905,7 +5233,9 @@
       "R_Field10_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field10_ResultSelect": {
     "recognition": "OCR",
@@ -4928,7 +5258,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field10_ConfirmResult": {
     "action": "Click",
@@ -4951,7 +5282,8 @@
     "next": [
       "R_Field10_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field11_AutoInserted": {
     "recognition": "And",
@@ -4992,7 +5324,9 @@
       "R_Field11_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field11_ResultSelect": {
     "recognition": "OCR",
@@ -5015,7 +5349,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field11_ConfirmResult": {
     "action": "Click",
@@ -5038,7 +5373,8 @@
     "next": [
       "R_Field11_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field12_AutoInserted": {
     "recognition": "And",
@@ -5079,7 +5415,9 @@
       "R_Field12_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field12_ResultSelect": {
     "recognition": "OCR",
@@ -5102,7 +5440,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field12_ConfirmResult": {
     "action": "Click",
@@ -5125,7 +5464,8 @@
     "next": [
       "R_Field12_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field13_AutoInserted": {
     "recognition": "And",
@@ -5166,7 +5506,9 @@
       "R_Field13_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field13_ResultSelect": {
     "recognition": "OCR",
@@ -5189,7 +5531,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field13_ConfirmResult": {
     "action": "Click",
@@ -5212,7 +5555,8 @@
     "next": [
       "R_Field13_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field14_AutoInserted": {
     "recognition": "And",
@@ -5253,7 +5597,9 @@
       "R_Field14_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field14_ResultSelect": {
     "recognition": "OCR",
@@ -5276,7 +5622,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field14_ConfirmResult": {
     "action": "Click",
@@ -5299,7 +5646,8 @@
     "next": [
       "R_Field14_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field15_AutoInserted": {
     "recognition": "And",
@@ -5340,7 +5688,9 @@
       "R_Field15_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field15_ResultSelect": {
     "recognition": "OCR",
@@ -5363,7 +5713,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field15_ConfirmResult": {
     "action": "Click",
@@ -5386,7 +5737,8 @@
     "next": [
       "R_Field15_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field16_AutoInserted": {
     "recognition": "And",
@@ -5427,7 +5779,9 @@
       "R_Field16_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field16_ResultSelect": {
     "recognition": "OCR",
@@ -5450,7 +5804,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field16_ConfirmResult": {
     "action": "Click",
@@ -5473,7 +5828,8 @@
     "next": [
       "R_Field16_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field17_AutoInserted": {
     "recognition": "And",
@@ -5514,7 +5870,9 @@
       "R_Field17_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field17_ResultSelect": {
     "recognition": "OCR",
@@ -5537,7 +5895,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field17_ConfirmResult": {
     "action": "Click",
@@ -5560,7 +5919,8 @@
     "next": [
       "R_Field17_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field18_AutoInserted": {
     "recognition": "And",
@@ -5601,7 +5961,9 @@
       "R_Field18_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field18_ResultSelect": {
     "recognition": "OCR",
@@ -5624,7 +5986,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field18_ConfirmResult": {
     "action": "Click",
@@ -5647,7 +6010,8 @@
     "next": [
       "R_Field18_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Field19_AutoInserted": {
     "recognition": "And",
@@ -5688,7 +6052,9 @@
       "R_Field19_Cancel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_Field19_ResultSelect": {
     "recognition": "OCR",
@@ -5711,7 +6077,8 @@
     ],
     "post_delay": 150,
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_Field19_ConfirmResult": {
     "action": "Click",
@@ -5734,7 +6101,8 @@
     "next": [
       "R_Field19_Cancel"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_Attr0_Bind": {
     "action": "Custom",
@@ -5765,7 +6133,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr1_Bind": {
     "action": "Custom",
@@ -5796,7 +6165,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr2_Bind": {
     "action": "Custom",
@@ -5827,7 +6197,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr3_Bind": {
     "action": "Custom",
@@ -5858,7 +6229,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr4_Bind": {
     "action": "Custom",
@@ -5889,7 +6261,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr5_Bind": {
     "action": "Custom",
@@ -5920,7 +6293,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr6_Bind": {
     "action": "Custom",
@@ -5951,7 +6325,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr7_Bind": {
     "action": "Custom",
@@ -5982,7 +6357,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr8_Bind": {
     "action": "Custom",
@@ -6013,7 +6389,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr9_Bind": {
     "action": "Custom",
@@ -6044,7 +6421,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr10_Bind": {
     "action": "Custom",
@@ -6075,7 +6453,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr11_Bind": {
     "action": "Custom",
@@ -6106,7 +6485,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr12_Bind": {
     "action": "Custom",
@@ -6137,7 +6517,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr13_Bind": {
     "action": "Custom",
@@ -6168,7 +6549,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr14_Bind": {
     "action": "Custom",
@@ -6199,7 +6581,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr15_Bind": {
     "action": "Custom",
@@ -6230,7 +6613,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr16_Bind": {
     "action": "Custom",
@@ -6261,7 +6645,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr17_Bind": {
     "action": "Custom",
@@ -6292,7 +6677,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr18_Bind": {
     "action": "Custom",
@@ -6323,7 +6709,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_Attr19_Bind": {
     "action": "Custom",
@@ -6354,7 +6741,8 @@
     },
     "next": [
       "R_AttrFocus"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_AttrFocus": {
     "action": "Click",
@@ -6377,16 +6765,19 @@
     ],
     "next": [
       "R_AttrControl"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_AttrControl": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 5000,
-    "key": 17,
+    "key": 131085,
     "next": [
-      "R_AttrEnter"
-    ]
+      "R_AttrDialog"
+    ],
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "R_AttrEnter": {
     "action": "ClickKey",
@@ -6395,7 +6786,8 @@
     "key": 13,
     "next": [
       "R_AttrControlUp"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_AttrControlUp": {
     "action": "KeyUp",
@@ -6405,7 +6797,8 @@
     "post_delay": 500,
     "next": [
       "R_AttrDialog"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_AttrDialog": {
     "action": "DoNothing",
@@ -6421,7 +6814,9 @@
     ],
     "next": [
       "R_AttrUse"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrUse": {
     "action": "Click",
@@ -6435,7 +6830,8 @@
     ],
     "next": [
       "R_AttrKeysHeader"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_AttrKeyLabel": {
     "action": "DoNothing",
@@ -6453,7 +6849,9 @@
       12,
       140,
       180
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrKeyChecked": {
     "action": "DoNothing",
@@ -6472,7 +6870,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrKeyCheck": {
     "action": "Click",
@@ -6498,7 +6898,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrKeyUnchecked": {
     "action": "DoNothing",
@@ -6517,7 +6918,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrKeyUncheck": {
     "action": "Click",
@@ -6543,7 +6946,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrAlternateLabel": {
     "action": "DoNothing",
@@ -6561,7 +6965,9 @@
       12,
       140,
       180
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrAlternateChecked": {
     "action": "DoNothing",
@@ -6580,7 +6986,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrAlternateCheck": {
     "action": "Click",
@@ -6606,7 +7014,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrAlternateUnchecked": {
     "action": "DoNothing",
@@ -6625,7 +7034,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrAlternateUncheck": {
     "action": "Click",
@@ -6651,7 +7062,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrListLabel": {
     "action": "DoNothing",
@@ -6669,7 +7081,9 @@
       12,
       140,
       180
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrListChecked": {
     "action": "DoNothing",
@@ -6688,7 +7102,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrListCheck": {
     "action": "Click",
@@ -6714,7 +7130,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrListUnchecked": {
     "action": "DoNothing",
@@ -6733,7 +7150,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrListUncheck": {
     "action": "Click",
@@ -6759,7 +7178,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrSearchLabel": {
     "action": "DoNothing",
@@ -6777,7 +7197,9 @@
       12,
       140,
       180
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrSearchChecked": {
     "action": "DoNothing",
@@ -6796,7 +7218,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrSearchCheck": {
     "action": "Click",
@@ -6822,7 +7246,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrSearchUnchecked": {
     "action": "DoNothing",
@@ -6841,7 +7266,9 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrSearchUncheck": {
     "action": "Click",
@@ -6867,7 +7294,8 @@
       8
     ],
     "order_by": "Score",
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "R_AttrOK": {
     "action": "Click",
@@ -6890,7 +7318,8 @@
     "post_delay": 300,
     "next": [
       "R_AttrDone"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_AttrDone": {
     "action": "DoNothing",
@@ -6907,7 +7336,9 @@
     "inverse": true,
     "next": [
       "R_TypeTab"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrKeysHeader": {
     "recognition": "OCR",
@@ -6923,7 +7354,9 @@
       "R_AttrKeyLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_SpaceOpen": {
     "action": "Click",
@@ -6945,7 +7378,8 @@
     ],
     "next": [
       "R_SpaceInitial"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_SpaceInitial": {
     "action": "ClickKey",
@@ -6955,7 +7389,8 @@
     "next": [
       "R_SpaceOption",
       "R_SpaceScroll"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_SpaceOption": {
     "action": "Click",
@@ -6978,7 +7413,8 @@
     "post_delay": 300,
     "next": [
       "R_SpaceAssigned"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_SpaceScroll": {
     "action": "ClickKey",
@@ -6989,7 +7425,8 @@
     "next": [
       "R_SpaceOption",
       "R_SpaceScroll"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_SpaceAssigned": {
     "action": "DoNothing",
@@ -7005,7 +7442,9 @@
     ],
     "next": [
       "R_ConfirmSpace"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_ConfirmSpace": {
     "action": "Click",
@@ -7028,7 +7467,8 @@
     "post_delay": 500,
     "next": [
       "PSIDE_CreateRecord_Saved"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildMenu": {
     "action": "Click",
@@ -7051,7 +7491,8 @@
     "next": [
       "R_BuildCurrent"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_BuildCurrent": {
     "action": "Click",
@@ -7074,7 +7515,8 @@
     "next": [
       "R_BuildDialog"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "R_BuildDialog": {
     "action": "DoNothing",
@@ -7097,15 +7539,17 @@
         "expected": "__PARAM_name_regex__",
         "roi": [
           785,
-          422,
+          420,
           165,
-          70
+          25
         ]
       }
     ],
     "next": [
       "R_BuildSettings"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildTablesChecked": {
     "action": "DoNothing",
@@ -7124,7 +7568,9 @@
       "R_BuildIndexesChecked",
       "R_BuildIndexesCheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildTablesCheck": {
     "action": "Click",
@@ -7149,7 +7595,8 @@
       "R_BuildIndexesChecked",
       "R_BuildIndexesCheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildTablesUnchecked": {
     "action": "DoNothing",
@@ -7168,7 +7615,9 @@
       "R_BuildIndexesChecked",
       "R_BuildIndexesCheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildTablesUncheck": {
     "action": "Click",
@@ -7193,7 +7642,8 @@
       "R_BuildIndexesChecked",
       "R_BuildIndexesCheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildIndexesChecked": {
     "action": "DoNothing",
@@ -7216,7 +7666,9 @@
       "R_BuildViewsUnchecked",
       "R_BuildViewsUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildIndexesCheck": {
     "action": "Click",
@@ -7241,7 +7693,8 @@
       "R_BuildViewsUnchecked",
       "R_BuildViewsUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildIndexesUnchecked": {
     "action": "DoNothing",
@@ -7260,7 +7713,9 @@
       "R_BuildViewsUnchecked",
       "R_BuildViewsUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildIndexesUncheck": {
     "action": "Click",
@@ -7285,7 +7740,8 @@
       "R_BuildViewsUnchecked",
       "R_BuildViewsUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildViewsChecked": {
     "action": "DoNothing",
@@ -7304,7 +7760,9 @@
       "R_BuildAlterUnchecked",
       "R_BuildAlterUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildViewsCheck": {
     "action": "Click",
@@ -7329,7 +7787,8 @@
       "R_BuildAlterUnchecked",
       "R_BuildAlterUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildViewsUnchecked": {
     "action": "DoNothing",
@@ -7348,7 +7807,9 @@
       "R_BuildAlterUnchecked",
       "R_BuildAlterUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildViewsUncheck": {
     "action": "Click",
@@ -7373,7 +7834,8 @@
       "R_BuildAlterUnchecked",
       "R_BuildAlterUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildAlterChecked": {
     "action": "DoNothing",
@@ -7392,7 +7854,9 @@
       "R_BuildTriggerUnchecked",
       "R_BuildTriggerUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildAlterCheck": {
     "action": "Click",
@@ -7417,7 +7881,8 @@
       "R_BuildTriggerUnchecked",
       "R_BuildTriggerUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildAlterUnchecked": {
     "action": "DoNothing",
@@ -7436,7 +7901,9 @@
       "R_BuildTriggerUnchecked",
       "R_BuildTriggerUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildAlterUncheck": {
     "action": "Click",
@@ -7461,7 +7928,8 @@
       "R_BuildTriggerUnchecked",
       "R_BuildTriggerUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildTriggerChecked": {
     "action": "DoNothing",
@@ -7479,7 +7947,9 @@
     "next": [
       "R_BuildExecuteNow"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildTriggerCheck": {
     "action": "Click",
@@ -7503,7 +7973,8 @@
     "next": [
       "R_BuildExecuteNow"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildTriggerUnchecked": {
     "action": "DoNothing",
@@ -7521,7 +7992,9 @@
     "next": [
       "R_BuildExecuteNow"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildTriggerUncheck": {
     "action": "Click",
@@ -7545,7 +8018,8 @@
     "next": [
       "R_BuildExecuteNow"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildExecuteNow": {
     "action": "Click",
@@ -7559,7 +8033,8 @@
     ],
     "next": [
       "R_BuildExecute"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildExecute": {
     "action": "Click",
@@ -7582,9 +8057,9 @@
         "expected": "__PARAM_name_regex__",
         "roi": [
           785,
-          422,
+          420,
           165,
-          70
+          25
         ]
       },
       {
@@ -7677,7 +8152,8 @@
     "post_delay": 3000,
     "next": [
       "R_BuildFinished"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildFinished": {
     "recognition": "And",
@@ -7720,7 +8196,9 @@
     "on_error": [],
     "next": [
       "R_BuildFocusEditor"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildFocusEditor": {
     "recognition": "OCR",
@@ -7742,7 +8220,8 @@
     "on_error": [],
     "next": [
       "R_CloseSaved"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildSettings": {
     "action": "Click",
@@ -7764,7 +8243,8 @@
     ],
     "next": [
       "R_BuildCreateSettings"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildCreateSettings": {
     "action": "Click",
@@ -7786,7 +8266,8 @@
     ],
     "next": [
       "R_BuildSkipExisting"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildSkipExisting": {
     "action": "Click",
@@ -7808,7 +8289,8 @@
     ],
     "next": [
       "R_BuildLoggingTab"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildLoggingTab": {
     "action": "Click",
@@ -7831,7 +8313,8 @@
     "next": [
       "R_BuildLogWindowOn",
       "R_BuildLogWindowCheck"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_BuildLogWindowOn": {
     "action": "DoNothing",
@@ -7850,7 +8333,9 @@
       "R_BuildLogFileOff",
       "R_BuildLogFileUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildLogWindowCheck": {
     "action": "Click",
@@ -7875,7 +8360,8 @@
       "R_BuildLogFileOff",
       "R_BuildLogFileUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildLogWindowOff": {
     "action": "DoNothing",
@@ -7894,7 +8380,9 @@
       "R_BuildLogFileOff",
       "R_BuildLogFileUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildLogWindowUncheck": {
     "action": "Click",
@@ -7919,7 +8407,8 @@
       "R_BuildLogFileOff",
       "R_BuildLogFileUncheck"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildLogFileOn": {
     "action": "DoNothing",
@@ -7937,7 +8426,9 @@
     "next": [
       "R_BuildSettingsOK"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildLogFileCheck": {
     "action": "Click",
@@ -7961,7 +8452,8 @@
     "next": [
       "R_BuildSettingsOK"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildLogFileOff": {
     "action": "DoNothing",
@@ -7979,7 +8471,9 @@
     "next": [
       "R_BuildSettingsOK"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_BuildLogFileUncheck": {
     "action": "Click",
@@ -8003,7 +8497,8 @@
     "next": [
       "R_BuildSettingsOK"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "R_BuildSettingsOK": {
     "action": "Click",
@@ -8026,7 +8521,8 @@
     "next": [
       "R_BuildTablesChecked",
       "R_BuildTablesCheck"
-    ]
+    ],
+    "pre_delay": 0
   },
   "R_RecordTypeGroup": {
     "recognition": "OCR",
@@ -8043,7 +8539,9 @@
       "R_TypeChoice"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_WorkTypeChoice": {
     "recognition": "DirectHit",
@@ -8059,7 +8557,8 @@
       "R_WorkTypeSelected"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_WorkTypeSelected": {
     "action": "DoNothing",
@@ -8081,7 +8580,9 @@
     "next": [
       "R_Save"
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_ChooseTypeInitial": {
     "action": "ClickKey",
@@ -8090,7 +8591,8 @@
     "next": [
       "R_SelectRecord"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "R_AttrKeyCheckResult": {
     "recognition": "TemplateMatch",
@@ -8106,7 +8608,9 @@
       "R_AttrAlternateLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrKeyUncheckResult": {
     "recognition": "TemplateMatch",
@@ -8122,7 +8626,9 @@
       "R_AttrAlternateLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrAlternateCheckResult": {
     "recognition": "TemplateMatch",
@@ -8138,7 +8644,9 @@
       "R_AttrListLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrAlternateUncheckResult": {
     "recognition": "TemplateMatch",
@@ -8154,7 +8662,9 @@
       "R_AttrListLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrListCheckResult": {
     "recognition": "TemplateMatch",
@@ -8170,7 +8680,9 @@
       "R_AttrSearchLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrListUncheckResult": {
     "recognition": "TemplateMatch",
@@ -8186,7 +8698,9 @@
       "R_AttrSearchLabel"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrSearchCheckResult": {
     "recognition": "TemplateMatch",
@@ -8202,7 +8716,9 @@
       "R_AttrOK"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "R_AttrSearchUncheckResult": {
     "recognition": "TemplateMatch",
@@ -8218,6 +8734,30 @@
       "R_AttrOK"
     ],
     "timeout": 5000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0,
+    "post_delay": 0
+  },
+  "PSIDE_CreateRecord_query_name_blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "timeout": 10000,
+    "on_error": [],
+    "next": [
+      "PSIDE_CreateRecord_query_name_check"
+    ]
+  },
+  "R_Save_name_blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "timeout": 10000,
+    "on_error": [],
+    "next": [
+      "R_Save_name"
+    ]
   }
 }

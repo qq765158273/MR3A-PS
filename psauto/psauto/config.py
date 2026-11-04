@@ -20,6 +20,7 @@ class Config:
     cli_session: str = "psauto-discovery"
     cli_script: str = "../.psauto-runtime/node_modules/@playwright/cli/playwright-cli.js"
     cli_workdir: str = "../.psauto-runtime"
+    cli_persistent_client: bool = True
     capture_mode: str = "viewport"
     text_input_mode: str = "keyboard"
     remote_width: int = 1920

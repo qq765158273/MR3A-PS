@@ -10,6 +10,14 @@ _NAMED = {
 
 
 def vk_to_key(vk: int) -> str:
+    # Windows Forms Keys modifier flags keep a chord in one Maa ClickKey integer.
+    # This mapping belongs to the input adapter; the pipeline still owns the action.
+    if vk > 0xFFFF:
+        if vk & ~0x700FF:
+            raise KeyError(vk)
+        modifiers = [name for flag, name in [(0x20000, 'Control'), (0x40000, 'Alt'), (0x10000, 'Shift')]
+                     if vk & flag]
+        return '+'.join([*modifiers, vk_to_key(vk & 0xFF)])
     if vk in _NAMED:
         return _NAMED[vk]
     if 0x30 <= vk <= 0x39:

@@ -1,5 +1,6 @@
 These are small crops of real PSIDE captures, containing static controls and counters only.
-They contain no login state, URLs, object names, or code.
+They contain no login state, URLs or code. The lookup/save/build name crops
+below contain the GM test object's name for the OCR regressions.
 
 - `count_0.png`: `out/objects/20261104_111909_622202/after.png`, crop `(690,714,870,738)`.
 - Other counters: the same crop from `out/objects/20261104_133313_970428/`:
@@ -22,3 +23,18 @@ on the right. Tests replay a changed frame and an unchanged frame, verifying
 that an acknowledged click without a visual state change cannot continue.
 Three additional inverse branches reuse the captured Key-uncheck pixels as
 composed cases; they do not represent additional live interactions.
+
+`lookup_name_caret.png` and `lookup_name_blurred.png` are crop
+`(760,420,930,460)` from `out/objects/20261104_203219_476963/after.png` and
+`out/runs/20261104_203429_948540/001_PSIDE_CreateRecord_query_name_check.png`.
+The name is GM_MCP_REC6 in both. OCR reads the focused field's final character
+as E; moving focus with Tab makes exact REC6 recognition pass. The test keeps
+the exact name rule and does not normalize E to 6.
+
+`save_name_caret.png` and `save_name_blurred.png`: crop `(840,520,1005,556)`
+from `out/objects/20261104_203522_630973/after.png` and
+`out/runs/20261104_204425_646013/001_R_Save_name.png`.
+`build_scope_name.png`: crop `(780,415,960,505)` from
+`out/runs/20261104_205014_802033/000_R_BuildDialog.png`.
+The build-scope regression rejects the old tall ROI's E/6 misread and verifies
+that the same real pixels pass the exact name rule in the 165×25 single line.

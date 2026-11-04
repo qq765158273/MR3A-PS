@@ -5,6 +5,7 @@ from datetime import datetime
 import json
 from pathlib import Path
 import threading
+import time
 
 from maa.define import LoggingLevelEnum
 from maa.tasker import Tasker
@@ -53,6 +54,7 @@ class ObjectService:
             trace = None
             task_started = False
             saved = workspace_ready = may_exist = False
+            timings = {}
             try:
                 try:
                     session, controller = connect_controller(cfg)
@@ -64,8 +66,12 @@ class ObjectService:
                     tasker = create_tasker(str(cfg.resolve_path(cfg.resource_dir)), controller, agent)
                     trace = EvidenceSink(tasker)
                     task_started = True
+                    started = time.perf_counter()
                     job = tasker.post_task(entry, override).wait()
+                    timings['pipeline_ms'] = round((time.perf_counter() - started) * 1000, 2)
+                    started = time.perf_counter()
                     report = export_task_evidence(job, output, trace)
+                    timings['evidence_export_ms'] = round((time.perf_counter() - started) * 1000, 2)
                     completed = {n['name'] for n in report['nodes'] if n['completed']}
                     may_exist = any(e['event'] == 'Node.Action.Starting' and e['details'].get('name', '').endswith('_ok')
                                     for e in trace.events)
@@ -106,4 +112,11 @@ class ObjectService:
                         'evidence_dir': str(output)}
             finally:
                 if session is not None:
-                    session.stop()
+                    try:
+                        transport = getattr(session, 'timings', [])
+                        if not isinstance(transport, list):
+                            transport = []
+                        (output / 'timings.json').write_text(json.dumps({**timings, 'transport': transport},
+                                                                        indent=2), encoding='utf-8')
+                    finally:
+                        session.stop()

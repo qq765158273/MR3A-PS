@@ -1,12 +1,33 @@
 """Export native Maa results and debug screenshots; does not make workflow decisions."""
 
 import json
+import hashlib
 import re
 import time
 from pathlib import Path
 
 from PIL import Image
 from maa.context import ContextEventSink
+
+
+class _ScreenshotStore:
+    """Share identical raw frames across node and recognition evidence."""
+    def __init__(self, directory):
+        self.directory = Path(directory)
+        self.frames = {}
+        self.recognitions = {}
+
+    def save(self, raw, filename, reco_id=None):
+        if reco_id in self.recognitions:
+            return self.recognitions[reco_id]
+        digest = (raw.shape, hashlib.sha256(raw.tobytes()).digest())
+        if digest not in self.frames:
+            Image.fromarray(raw[:, :, ::-1]).save(self.directory / filename, compress_level=1)
+            self.frames[digest] = filename
+        filename = self.frames[digest]
+        if reco_id is not None:
+            self.recognitions[reco_id] = filename
+        return filename
 
 
 class EvidenceSink(ContextEventSink):
@@ -22,18 +43,21 @@ class EvidenceSink(ContextEventSink):
         self.events.append({'event': msg, 'elapsed_ms': round((time.monotonic() - self.started) * 1000),
                             'details': details})
 
-    def write(self, directory):
+    def write(self, directory, screenshots=None):
+        screenshots = screenshots or _ScreenshotStore(directory)
         captured = set()
         for event in self.events:
             reco_id = event['details'].get('reco_id')
             if not reco_id or reco_id in captured or not event['event'].endswith(('Succeeded', 'Failed')):
                 continue
             captured.add(reco_id)
+            if reco_id in screenshots.recognitions:
+                event['screenshot'] = screenshots.recognitions[reco_id]
+                continue
             reco = self.tasker.get_recognition_detail(reco_id)
             if reco and reco.raw_image is not None and reco.raw_image.size:
                 filename = f'recognition_{reco_id}.png'
-                Image.fromarray(reco.raw_image[:, :, ::-1]).save(directory / filename)
-                event['screenshot'] = filename
+                event['screenshot'] = screenshots.save(reco.raw_image, filename, reco_id)
         (directory / 'events.json').write_text(json.dumps(self.events, ensure_ascii=False, indent=2), encoding='utf-8')
         if self.sink_id is not None:
             self.tasker.remove_context_sink(self.sink_id)
@@ -42,6 +66,7 @@ class EvidenceSink(ContextEventSink):
 def export_task_evidence(job, directory, trace=None):
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
+    screenshots = _ScreenshotStore(directory)
     detail = job.get()
     report = {"entry": detail.entry if detail else None, "succeeded": job.succeeded, "nodes": []}
     if detail:
@@ -55,13 +80,12 @@ def export_task_evidence(job, directory, trace=None):
                 if raw is not None and raw.size:
                     name = re.sub(r'[^A-Za-z0-9_-]', '_', node.name)
                     filename = f'{index:03d}_{name}.png'
-                    Image.fromarray(raw[:, :, ::-1]).save(directory / filename)
-                    item['screenshot'] = filename
+                    item['screenshot'] = screenshots.save(raw, filename, reco.reco_id)
             if node.action:
                 item['action'] = {"type": str(node.action.action), "success": node.action.success,
                                   "detail": node.action.raw_detail}
             report['nodes'].append(item)
     (directory / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     if trace is not None:
-        trace.write(directory)
+        trace.write(directory, screenshots)
     return report

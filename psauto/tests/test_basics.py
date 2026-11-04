@@ -50,6 +50,14 @@ class KeymapTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             vk_to_key(0xFF)
 
+    def test_windows_modifier_flags_form_one_playwright_chord(self):
+        self.assertEqual(vk_to_key(0x2000D), 'Control+Enter')
+        self.assertEqual(vk_to_key(0x20073), 'Control+F4')
+        self.assertEqual(vk_to_key(0x30041), 'Control+Shift+a')
+        self.assertEqual(vk_to_key(0x10023), 'Shift+End')
+        with self.assertRaises(KeyError):
+            vk_to_key(0x80041)
+
 
 if __name__ == "__main__":
     unittest.main()

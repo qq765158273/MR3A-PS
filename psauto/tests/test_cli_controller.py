@@ -76,6 +76,41 @@ class CliControllerTests(unittest.TestCase):
         finally:
             session.stop()
 
+    def test_batched_shortcut_and_client_shutdown_preserve_the_browser(self):
+        from maa.toolkit import Toolkit
+        from psauto.config import Config
+        from psauto.controller import connect_controller
+        Toolkit.init_option('.')
+        cfg = Config(jumpserver_url='http://127.0.0.1', display_selector='#remote',
+                     connection_mode='cli', cli_session=self.session_name,
+                     cli_script=str(self.cli), cli_workdir='.', capture_mode='native_canvas')
+        cfg.base_dir = Path(self.temp.name)
+        session, controller = connect_controller(cfg)
+        try:
+            session.run_code('''async page => {
+                await page.locator('#remote').evaluate(el => {
+                    const sink=document.createElement('textarea'); el.appendChild(sink); sink.focus();
+                    window.chordEvents=[];
+                    sink.addEventListener('keydown',e=>window.chordEvents.push({key:e.key,ctrl:e.ctrlKey}));
+                }); return true;
+            }''')
+            worker = session._worker
+            self.assertTrue(controller.post_click_key(0x2000D).wait().succeeded)
+            self.assertIs(session._worker, worker)
+            events=session.run_code('async page => page.evaluate(() => chordEvents)')
+            self.assertTrue(any(e['key']=='Enter' and e['ctrl'] for e in events))
+            session.stop()
+            self.assertIsNotNone(worker.poll())
+            # The official browser daemon survives our persistent client stopping.
+            check = subprocess.run([self.node,str(self.cli),f'-s={self.session_name}','--raw','eval',
+                                    '() => true'],cwd=self.temp.name,capture_output=True,text=True,timeout=30)
+            self.assertEqual(check.returncode,0)
+        finally:
+            subprocess.run([self.node,str(self.cli),f'-s={self.session_name}','--raw','goto',
+                            f'http://127.0.0.1:{self.server.server_port}/native'],
+                           cwd=self.temp.name,capture_output=True,timeout=30)
+            session.stop()
+
     def test_original_mr3a_agent_is_available(self):
         from maa.resource import Resource
         from maa.toolkit import Toolkit
