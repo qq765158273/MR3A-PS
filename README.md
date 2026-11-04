@@ -126,6 +126,8 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 模板迁移后已跑通完整 MCP 链路，并由 dbx 只读验收：
 
+原始 1920×1080 画面与来源见 [验收截图](psauto/docs/images/acceptance-20261104/README.md)。
+
 | 能力 | 本轮完整调用与结果 |
 | --- | --- |
 | Field | `GM_MCP_FLD12`、`GM_MCP_FLD13` 在同一会话连续从头成功，各约 284 秒；Character、长度 11、标签参数均正确 |

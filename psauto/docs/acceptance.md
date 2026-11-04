@@ -2,6 +2,8 @@
 
 创建操作使用 Maa 原生 Pipeline 和 Playwright CLI，数据库只读查询使用 dbx 的 `ps-dev / HRDEV`。DB 查询用于开发验收，不加入 MCP 创建流程。MCP 结束于保存、关闭、释放空白操作台，不重新打开核对对象。
 
+已提交的原始截图及来源见 [验收截图](images/acceptance-20261104/README.md)，包含 Field、Record 属性及 Build、四步 AE 和最终空白操作台。
+
 ## 当前结果
 
 完整 MCP 验收已完成下列样本；成功均表示保存、关闭并回到空白操作台，DBX 独立核验内容。AE 未执行。
