@@ -1,0 +1,987 @@
+{
+  "PSIDE_CreateField": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "next": [
+      "PSIDE_CreateField_query"
+    ],
+    "enabled": false,
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "PSIDE_CreateField_query": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateField_query_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_query_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 79,
+    "next": [
+      "PSIDE_CreateField_query_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_query_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateField_query_dialog"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateField_query_dialog": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      650,
+      300,
+      600,
+      100
+    ],
+    "next": [
+      "PSIDE_CreateField_query_type_focus"
+    ],
+    "template": "PSIDE/lookup_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateField_query_type_focus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      690,
+      370,
+      90,
+      40
+    ],
+    "target_offset": [
+      130,
+      0,
+      0,
+      0
+    ],
+    "next": [
+      "PSIDE_CreateField_query_type"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/lookup_type_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateField_query_type": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 40,
+    "next": [
+      "PSIDE_CreateField_query_type_select"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_query_type_select": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 70,
+    "next": [
+      "PSIDE_CreateField_query_type_enter"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_query_type_enter": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 13,
+    "next": [
+      "PSIDE_CreateField_query_type_check"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateField_query_type_check": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      770,
+      368,
+      168,
+      38
+    ],
+    "next": [
+      "PSIDE_CreateField_query_name_focus"
+    ],
+    "template": "PSIDE/lookup_type_field.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateField_query_name_focus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      695,
+      420,
+      100,
+      25
+    ],
+    "target_offset": [
+      110,
+      5,
+      -30,
+      -10
+    ],
+    "next": [
+      "PSIDE_CreateField_query_name_clear"
+    ],
+    "template": "PSIDE/lookup_name_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateField_query_name_clear": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 36,
+    "next": [
+      "PSIDE_CreateField_query_name_clear_select"
+    ]
+  },
+  "PSIDE_CreateField_query_name_clear_select": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "PSIDE_CreateField_query_name_clear_select_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_query_name_clear_select_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 35,
+    "next": [
+      "PSIDE_CreateField_query_name_clear_select_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_query_name_clear_select_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "PSIDE_CreateField_query_name_clear_input"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateField_query_name_clear_input": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_name__",
+    "next": [
+      "PSIDE_CreateField_query_name_check"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateField_query_name_check": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      775,
+      425,
+      140,
+      25
+    ],
+    "next": [
+      "PSIDE_CreateField_query_open"
+    ]
+  },
+  "PSIDE_CreateField_query_open": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1150,
+      370,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "post_delay": 700,
+    "next": [
+      "PSIDE_CreateField_query_found",
+      "PSIDE_CreateField_query_missing"
+    ],
+    "template": "PSIDE/lookup_open_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateField_query_found": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      0,
+      0,
+      1100,
+      70
+    ],
+    "next": [
+      "PSIDE_CreateField_already_exists"
+    ]
+  },
+  "PSIDE_CreateField_query_missing": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "next": [
+      "PSIDE_CreateField_cancel_query"
+    ],
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/lookup_title.png",
+        "roi": [
+          675,
+          332,
+          130,
+          40
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/zero_count_digit.png",
+        "roi": [
+          696,
+          719,
+          7,
+          11
+        ],
+        "threshold": 0.85,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "PSIDE_CreateField_cancel_query": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1150,
+      400,
+      80,
+      40
+    ],
+    "target_offset": [
+      3,
+      4,
+      -6,
+      -8
+    ],
+    "next": [
+      "F_OpenNewDefinition"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/lookup_cancel_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "PSIDE_CreateField_already_exists": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateField_already_exists_1"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_already_exists_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "PSIDE_CreateField_already_exists_2"
+    ],
+    "post_delay": 100
+  },
+  "PSIDE_CreateField_already_exists_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateField_conflict_closed"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateField_conflict_closed": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "F_TypeFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "target_offset": [
+      95,
+      8,
+      -50,
+      -15
+    ],
+    "next": [
+      "F_TypeSelect"
+    ],
+    "template": "PSIDE/field_type_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_TypeSelect": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 36,
+    "next": [
+      "F_TypeCommit"
+    ]
+  },
+  "F_DateSelect": {
+    "action": "ClickKey",
+    "key": 68,
+    "on_error": [],
+    "timeout": 10000,
+    "next": [
+      "F_TypeCommit"
+    ]
+  },
+  "F_TypeCommit": {
+    "action": "ClickKey",
+    "key": 13,
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 300,
+    "next": [
+      "F_TypeCheck"
+    ]
+  },
+  "F_TypeCheck": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_field_type_regex__",
+    "roi": "F_TypeFocus",
+    "roi_offset": [
+      70,
+      -5,
+      120,
+      12
+    ],
+    "next": [
+      "F_LengthFocus"
+    ]
+  },
+  "F_LengthFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "target_offset": [
+      85,
+      6,
+      -50,
+      -12
+    ],
+    "next": [
+      "F_LengthReplace"
+    ],
+    "template": "PSIDE/field_length_label.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_LengthReplace": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 36,
+    "next": [
+      "F_LengthReplace_select"
+    ]
+  },
+  "F_LengthReplace_select": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "F_LengthReplace_select_1"
+    ],
+    "post_delay": 100
+  },
+  "F_LengthReplace_select_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 35,
+    "next": [
+      "F_LengthReplace_select_2"
+    ],
+    "post_delay": 100
+  },
+  "F_LengthReplace_select_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 16,
+    "next": [
+      "F_LengthReplace_input"
+    ],
+    "post_delay": 300
+  },
+  "F_LengthReplace_input": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_length_text__",
+    "next": [
+      "F_LabelIDFocus"
+    ],
+    "post_delay": 300
+  },
+  "F_LabelIDFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "target_offset": [
+      5,
+      28,
+      -10,
+      -15
+    ],
+    "next": [
+      "F_LabelIDInput"
+    ],
+    "template": "PSIDE/field_label_id_header.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_LabelIDInput": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_label_id__",
+    "next": [
+      "F_LongNameFocus"
+    ],
+    "post_delay": 300
+  },
+  "F_LongNameFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "target_offset": [
+      5,
+      28,
+      -10,
+      -15
+    ],
+    "next": [
+      "F_LongNameInput"
+    ],
+    "template": "PSIDE/field_long_name_header.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_LongNameInput": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_long_name__",
+    "next": [
+      "F_ShortNameFocus"
+    ],
+    "post_delay": 300
+  },
+  "F_ShortNameFocus": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "target_offset": [
+      5,
+      28,
+      -10,
+      -15
+    ],
+    "next": [
+      "F_ShortNameInput"
+    ],
+    "template": "PSIDE/field_short_name_header.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_ShortNameInput": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "input_text": "__PARAM_short_name__",
+    "next": [
+      "F_Save"
+    ],
+    "post_delay": 300
+  },
+  "F_Save": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "F_Save_1"
+    ],
+    "post_delay": 100
+  },
+  "F_Save_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 83,
+    "next": [
+      "F_Save_2"
+    ],
+    "post_delay": 100
+  },
+  "F_Save_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "F_Save_as"
+    ],
+    "post_delay": 300
+  },
+  "F_Save_as": {
+    "action": "InputText",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      800,
+      440,
+      330,
+      160
+    ],
+    "input_text": "__PARAM_name__",
+    "next": [
+      "F_Save_name"
+    ],
+    "post_delay": 300,
+    "template": "PSIDE/save_as_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_Save_name": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "OCR",
+    "expected": "__PARAM_name_regex__",
+    "roi": [
+      840,
+      520,
+      160,
+      30
+    ],
+    "next": [
+      "F_Save_ok"
+    ]
+  },
+  "F_Save_ok": {
+    "action": "Click",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "TemplateMatch",
+    "roi": [
+      1000,
+      500,
+      100,
+      45
+    ],
+    "target_offset": [
+      2,
+      4,
+      -4,
+      -8
+    ],
+    "next": [
+      "PSIDE_CreateField_Saved"
+    ],
+    "post_delay": 700,
+    "template": "PSIDE/save_as_ok.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_OpenNewDefinition": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "Applica",
+        "roi": [
+          0,
+          0,
+          900,
+          70
+        ]
+      },
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV",
+        "roi": [
+          0,
+          0,
+          900,
+          70
+        ]
+      }
+    ],
+    "action": "KeyDown",
+    "key": 17,
+    "next": [
+      "F_PressN"
+    ],
+    "on_error": [],
+    "timeout": 5000
+  },
+  "F_PressN": {
+    "action": "ClickKey",
+    "key": 78,
+    "next": [
+      "F_ReleaseCtrl"
+    ],
+    "on_error": []
+  },
+  "F_ReleaseCtrl": {
+    "action": "KeyUp",
+    "key": 17,
+    "next": [
+      "F_NewDefinitionDialog"
+    ],
+    "post_delay": 1000,
+    "on_error": []
+  },
+  "F_NewDefinitionDialog": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      790,
+      425,
+      340,
+      45
+    ],
+    "action": "ClickKey",
+    "next": [
+      "F_ChooseTypeInitial"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "template": "PSIDE/new_definition_title.png",
+    "threshold": 0.85,
+    "order_by": "Score",
+    "key": 36
+  },
+  "F_SelectField": {
+    "recognition": "TemplateMatch",
+    "roi": [
+      800,
+      460,
+      210,
+      170
+    ],
+    "action": "DoNothing",
+    "next": [
+      "F_ConfirmNewField"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "template": "PSIDE/new_definition_field_selected.png",
+    "threshold": 0.85,
+    "order_by": "Score"
+  },
+  "F_ConfirmNewField": {
+    "action": "ClickKey",
+    "key": 13,
+    "next": [
+      "F_FieldEditorReady"
+    ],
+    "post_delay": 1000,
+    "on_error": []
+  },
+  "F_FieldEditorReady": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ],
+        "template": "PSIDE/field_type_label.png",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ],
+        "template": "PSIDE/field_length_label.png",
+        "threshold": 0.85,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 5000,
+    "next": [
+      "F_TypeFocus"
+    ]
+  },
+  "PSIDE_CreateField_Saved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
+    ],
+    "action": "DoNothing",
+    "timeout": 30000,
+    "on_error": [],
+    "next": [
+      "F_CloseSaved"
+    ]
+  },
+  "F_CloseSaved": {
+    "action": "KeyDown",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "F_CloseSaved_1"
+    ],
+    "post_delay": 100
+  },
+  "F_CloseSaved_1": {
+    "action": "ClickKey",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 115,
+    "next": [
+      "F_CloseSaved_2"
+    ],
+    "post_delay": 100
+  },
+  "F_CloseSaved_2": {
+    "action": "KeyUp",
+    "on_error": [],
+    "timeout": 10000,
+    "key": 17,
+    "next": [
+      "PSIDE_CreateField_SavedAndClosed"
+    ],
+    "post_delay": 300
+  },
+  "PSIDE_CreateField_SavedAndClosed": {
+    "action": "DoNothing",
+    "on_error": [],
+    "timeout": 10000,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "HRDEV.*Untitled\\s*$",
+        "roi": [
+          0,
+          0,
+          1100,
+          70
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/idle_toolbar.png",
+        "roi": [
+          5,
+          40,
+          52,
+          32
+        ],
+        "threshold": 0.97,
+        "order_by": "Score"
+      }
+    ]
+  },
+  "F_ChooseTypeInitial": {
+    "action": "ClickKey",
+    "key": 70,
+    "post_delay": 200,
+    "next": [
+      "F_SelectField"
+    ],
+    "on_error": []
+  }
+}
