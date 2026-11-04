@@ -54,6 +54,10 @@
 
 ![保存后的 Field](images/gm_field_saved.png)
 
-`GM_CX26_R1` Record 已保存；包含上述 Field，类型为 Derived/Work。中断前最后一次保存命令实际已执行，重连后通过名称标题和类型画面确认。AE 尚未创建。这些 Field/Record 的填写过程仍属于开发取证，不能作为完整创建 Pipeline 已工程化的证明；目前已固化的是草稿入口与上述会话恢复路径。
+`GM_CX26_R1` Record 已保存；包含上述 Field，类型为 Derived/Work。中断前最后一次保存命令实际已执行，重连后通过名称标题和类型画面确认。`GM_CX26_A1` AE 随后经 Maa 节点保存，包含 MAIN / Step01 / SQL。SQL 内容已通过输入后的 Maa OCR 核验并发送保存；PSIDE 自动格式化成两行后，两行的分区 OCR 核验也通过。SQL 关闭重开验证、PeopleCode 和多个 Step 尚待完成。这些对象的填写过程仍属于开发取证，不能作为完整参数化创建 Pipeline 已工程化的证明；目前已固化的是草稿入口与上述会话恢复路径。
+
+AE 试验还确认：选择动作图标后才能启用 View → SQL；SQL 编辑器 Edit → Display Font and Colors → Choose Font 可将 Courier New 从 9pt 调到 16pt。9pt 在 OCR 中出现 `M/I`、`N/H` 混淆；16pt 配合 Maa `only_rec` 对明确的单行范围识别后，输入前后核对通过。SQL 保存会自动格式化，不能用保存前的单行坐标去核对保存后的内容。字体设置过程及其点击偏移仍在试验，不应作为通用生产流程直接复用。
+
+以上代码 OCR 与重开检查是早期开发试验的历史记录。当前按用户要求，MCP 的 SQL/PeopleCode 流程只做远程剪贴板粘贴、保存反馈检查和关闭编辑器；代码内容由 dbx 验收，不再 OCR 比对正文，也不为识别正文修改字体。
 
 ![重连后已保存的 Record](images/gm_record_saved.png)
