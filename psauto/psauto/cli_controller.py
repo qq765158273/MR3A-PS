@@ -3,6 +3,7 @@
 import hashlib
 import json
 import logging
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -55,7 +56,13 @@ class PlaywrightCliSession:
             if filename is not None:
                 filename.unlink(missing_ok=True)
         if result.returncode != 0:
-            raise RuntimeError(f"Playwright CLI operation failed (exit {result.returncode}): {result.stderr.strip()[:500]}")
+            details = (result.stdout + '\n' + result.stderr).strip()
+            error_file = self.cfg.resolve_path('debug/cli-last-error.txt')
+            error_file.parent.mkdir(parents=True, exist_ok=True)
+            error_file.write_text(details[:16384], encoding='utf-8')
+            first_line = next((line for line in details.splitlines() if line and not line.startswith('### ')), '')
+            first_line = re.sub(r'https?://\S+', '[URL]', first_line)
+            raise RuntimeError(f"Playwright CLI operation failed (exit {result.returncode}): {first_line[:300]}")
         try:
             return json.loads(result.stdout)
         except json.JSONDecodeError as exc:
@@ -70,7 +77,8 @@ class PlaywrightCliSession:
             command.append('--raw')
         try:
             return subprocess.run(command + list(arguments), cwd=self.cwd, capture_output=True,
-                                  encoding='utf-8', errors='replace', timeout=45)
+                                  encoding='utf-8', errors='replace', timeout=45,
+                                  creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         except subprocess.TimeoutExpired as exc:
             self.poisoned = True
             raise TimeoutError('CLI operation timed out and may still be running') from exc
@@ -95,7 +103,15 @@ _CLI_BODY = """async (page) => {
   if (info.bitmapWidth < info.width || info.bitmapHeight < info.height || info.cssWidth <= 0 || info.cssHeight <= 0)
     throw new Error('Invalid canvas dimensions');
   if (request.operation === 'screencap') return info;
-  if (request.operation === 'inspect') return true;
+  if (request.operation === 'inspect') {
+    if (request.prepare) {
+      await page.screenshot({animations: 'disabled'});
+      const sink = root.locator('textarea');
+      if (await sink.count() !== 1) throw new Error('Expected one remote keyboard input sink');
+      await sink.focus();
+    }
+    return true;
+  }
   if (['key', 'key_down', 'input_text'].includes(request.operation)) {
     const keyboardReady = await root.evaluate(el => {
       const active = el.ownerDocument.activeElement;
@@ -151,7 +167,59 @@ _CLI_BODY = """async (page) => {
   } else if (request.operation === 'key_down') {
     await page.keyboard.down(request.key);
   } else if (request.operation === 'input_text') {
-    await page.keyboard.type(request.text);
+    if (request.clipboard) {
+      if (!request.frame) throw new Error('JumpServer clipboard input requires the configured remote iframe');
+      const frame = page.frameLocator(request.frame);
+      // These are browser utility controls, not PSIDE controls. Activate their DOM handlers
+      // directly so background/minimized Chrome does not need animation frames or OS focus.
+      const activateUtility = async button => button.evaluate(el => {
+        if (el.tagName !== 'BUTTON' || el.disabled) throw new Error('Clipboard utility button is unavailable');
+        el.click();
+      });
+      const clipboardButton = frame.locator('button').filter({hasText: '\u526a\u8d34\u677f'});
+      if (await clipboardButton.count() !== 1)
+        throw new Error('Expected one JumpServer clipboard toolbar button');
+      const closeSettings = async () => frame.locator('.background').evaluateAll(es => {
+        const open = es.filter(el => el.parentElement.classList.contains('show'));
+        if (open.length > 1) throw new Error('Ambiguous JumpServer settings overlays');
+        for (const mask of open) mask.click();
+      });
+      const closeClipboard = frame.locator('button[aria-label="close \u526a\u8d34\u677f"]');
+      let openedClipboard = false;
+      try {
+        await closeSettings();
+        // The clipboard button's handler is available while its toolbar is collapsed.
+        await activateUtility(clipboardButton); openedClipboard = true;
+        const clipboard = frame.locator('.el-drawer textarea.el-textarea__inner');
+        if (await clipboard.count() !== 1) throw new Error('Expected one JumpServer clipboard textbox');
+        await clipboard.fill(request.text, {timeout: 5000});
+        if ((await clipboard.inputValue()).replace(/\\r\\n/g, '\\n') !== request.text.replace(/\\r\\n/g, '\\n'))
+          throw new Error('Clipboard textbox did not accept the payload');
+        await clipboard.blur();
+        await page.waitForTimeout(1000);
+        await activateUtility(closeClipboard); openedClipboard = false;
+        await closeSettings();
+        // Finish the drawer's leaving transition even when Chrome is hidden.
+        // The original canvas alone cannot reveal this browser-side overlay.
+        await page.screenshot({animations: 'disabled'});
+        await frame.locator('.el-drawer__wrapper.clipboardDrawer').waitFor({state: 'hidden', timeout: 3000});
+        const after = await root.evaluate(inspect, false);
+        if (after.width !== request.width || after.height !== request.height)
+          throw new Error('Remote dimensions changed while preparing clipboard input');
+        const sink = root.locator('textarea');
+        if (await sink.count() !== 1) throw new Error('Expected one remote keyboard input sink');
+        await sink.focus();
+        if (!await root.evaluate(el => el.contains(el.ownerDocument.activeElement)))
+          throw new Error('Remote keyboard focus was not restored after clipboard input');
+        await page.keyboard.press('Control+v');
+      } finally {
+        if (openedClipboard) await activateUtility(closeClipboard).catch(() => {});
+        await closeSettings().catch(() => {});
+        await root.locator('textarea').focus({timeout: 1000}).catch(() => {});
+      }
+    } else {
+      await page.keyboard.type(request.text);
+    }
   } else {
     throw new Error('Unsupported operation');
   }
@@ -176,7 +244,7 @@ class CliController(JumpServerController):
             return False
 
     def connect(self):
-        return self._dispatch("inspect")
+        return self._dispatch("inspect", prepare=self.cfg.text_input_mode == 'clipboard')
 
     def connected(self):
         return self._dispatch("inspect")
@@ -240,7 +308,13 @@ class CliController(JumpServerController):
         return self._dispatch("key", key="+".join(keys))
 
     def input_text(self, text):
-        return self._dispatch("input_text", text=text)
+        if self.cfg.text_input_mode not in ('keyboard', 'clipboard'):
+            log.error('Unsupported text input mode')
+            return False
+        if not isinstance(text, str) or '\x00' in text or len(text.encode('utf-8')) > 65536:
+            log.error('Text payload is invalid or exceeds 64 KiB')
+            return False
+        return self._dispatch("input_text", text=text, clipboard=self.cfg.text_input_mode == 'clipboard')
 
 
 def connect_cli_controller(cfg):

@@ -21,6 +21,7 @@ class Config:
     cli_script: str = "../.psauto-runtime/node_modules/@playwright/cli/playwright-cli.js"
     cli_workdir: str = "../.psauto-runtime"
     capture_mode: str = "viewport"
+    text_input_mode: str = "keyboard"
     remote_width: int = 1920
     remote_height: int = 1080
     ignore_https_errors: bool = False
