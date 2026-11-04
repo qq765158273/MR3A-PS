@@ -82,6 +82,18 @@ PSIDE 节点位于原 MR3A 资源目录 `assets/resource/pipeline/PSIDE/`。运�
 
 ## 测试
 
+`mcp_server.py` 对外提供 `create_field`、`create_record`、`create_ae`。三个操作均在保存并关闭、返回空白操作台后结束，不重新打开对象，不核对已保存内容；内容交由 DB 验证。`success: true` 和 `status: saved_and_closed` 仅代表界面操作完成。`workspace_ready: false` 表示操作台尚未释放，该服务实例会阻止下一对象进入；检查操作台后重启服务。固定 UI 步骤位于 `assets/resource/pipeline/PSIDE/create_*.json`，Python 只绑定参数及调用 Maa。Record 字段可传名称字符串，或 `{name, key, alternate_search_key, listbox, search_key}`；普通 Search Key 要求 Key，非 Key 使用 Alternate Search Key。SQL Table 可传 `build: true`，表空间参数 `tablespace` 在当前 HRDEV 默认为 `HRAPP`。Build 只创建当前定义及其索引，使用 Skip existing，成功反馈后关闭。完整调用的实测进度见 [dbx 验收记录](docs/acceptance.md)。
+
+运行 MCP 服务（从 `psauto/` 目录）：
+
+```powershell
+..\.psauto-runtime\venv\Scripts\python.exe mcp_server.py --config config.json
+```
+
+这是 stdio MCP 服务，由 MCP 客户端启动和传参。`call_mcp.py` 是开发验收客户端，`out/` 下的参数文件只是某次调用的请求数据，不是业务 Pipeline，也不会提交到 Git。正式调用直接传 MCP 工具参数。
+
+`create_ae` 接收 1–4 个 `steps`，各项为 `{type: "SQL" | "PeopleCode", code: "..."}`，在 MAIN 下依次生成 Step01–Step04。代码通过 JumpServer 剪贴板输入，再识别保存反馈，最后关闭所有本次编辑窗口；不执行 AE。两步和四步已完整实测并通过 DBX 内容验收。各卡点的 ROI、图片/OCR 选择、延迟、有限重试与下一步条件见 [判决表](docs/recognition_decisions.md)。
+
 空闲超时恢复、真实退出再进入命令、每个节点的 OCR/延迟/点击/失败检查，以及 GM 测试对象的截图见 [开发记录](docs/recovery.md)。`run_pipeline.py` 现在在业务任务开始前连接失败时尝试已识别的恢复路径，可用 `--no-recovery` 关闭；不会自动重放失败的业务任务。每次任务的 Maa 原生截图、识别和动作事件保存到本机 `out/runs/`，恢复证据位于 `out/recovery/`。
 
 ```powershell

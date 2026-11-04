@@ -2,6 +2,38 @@
 
 创建操作使用 Maa 原生 Pipeline 和 Playwright CLI，数据库只读查询使用 dbx 的 `ps-dev / HRDEV`。DB 查询用于开发验收，不加入 MCP 创建流程。MCP 结束于保存、关闭、释放空白操作台，不重新打开核对对象。
 
+## 当前结果
+
+完整 MCP 验收已完成下列样本；成功均表示保存、关闭并回到空白操作台，DBX 独立核验内容。AE 未执行。
+
+| 完整调用 | 用时 | MCP 与 DBX 结果 | 本机证据 |
+| --- | --- | --- | --- |
+| Field12、Field13 | 各约 284 秒 | 连续创建成功；Character、长度 11、标签参数正确 | `out/template_acceptance_results3.json` |
+| 重复 Field13 | 约 115 秒 | `already_exists, workspace_ready:true`，无覆盖 | 同上 |
+| `GM_MCP_REC3` | 996.62 秒 | 新任务前主动断线，MCP 自动恢复后首次完整创建及 Build；五字段及属性正确，HRAPP 表、三个 VALID 索引、行数 0 | `out/objects/20261104_164647_935317/` |
+| `GM_MCP_AE3` | 515.99 秒 | 同一会话随后完整创建；SQL 指向 REC3，PeopleCode 源码正确、编译长度 566 | `out/objects/20261104_170324_644760/` |
+| `GM_MCP_AE4` | 816.42 秒 | MAIN/Step01–04，顺序 1–4，动作 S/P/S/P；Step01/03 为 `SELECT COUNT(*) FROM PS_GM_MCP_REC3`，Step02/04 循环读取字段名，源码正确且编译长度均为 566 | `out/objects/20261104_171343_260521/` |
+
+REC3 与 AE3 的完整返回值见 `out/record3_ae3_recovery_results.json`；AE4 见 `out/ae4_four_steps_results.json`。这些成功不替换下方保留的失败与分段校准记录。未增加无关的对象回开核对流程。
+
+最终审查补上了 Record 的点击后状态检查：原先识别未选中后点击会直接进入下一标签，现在必须在本次点击的 13×13 框内看到目标状态，模板覆盖普通/悬停样式，保持 0.97 阈值。12 组 REC3 真实前后帧，以及每组“点击返回成功但画面未变”反例，全部通过原生 Maa 回放；另外 3 条反向分支复用真实取消勾选像素验证，共 30 个任务。没有重复切换，失败不能进入下一属性。这项补强只经过离线回放，未再跑完整建表。
+
+最终相关参数/服务/MCP 回归 12 项、原生图像回归 3 项、此前剪贴板/连接集成 5 项通过；完整本机回归较早为 52 项通过。当前样本不构成长期成功率统计。
+
+## 开发校准与失败记录
+
+以下按开发时的进度保留，涉及“当前”“正在”“尚未”的表述只代表该次记录时的状态；最新结果以上表为准。
+
+目标 Field、Record/Build、AE 均已保存并关闭，分别经 dbx 验收。完成过程包含分段校准，完整调用失败仍保留，不计为成功。AE 最终的 Step01 SQL 是 `SELECT COUNT(*) FROM PS_GM_MCP_REC`；Step02 PeopleCode 源码完整，PSPCMPROG.PROGLEN=564。开发中一次 Step01/Step02 图片误选触发了删除关联 SQL 提示，已取消；之后 dbx 再次确认原 Step01 SQL 保留，Step02 的 PeopleCode 另行保存。
+
+模板迁移后，`GM_MCP_FLD11` 的完整 `create_field` 已返回 `saved_and_closed, workspace_ready:true`，约 286 秒；dbx 确认 FIELDTYPE=0、LENGTH=11。证据为 `out/objects/20261104_145307_807222/`，连续调用结果存于 `out/template_acceptance_results.json`。后续 Field、重复名称、新 AE、新 Record/Build 仍在同一 MCP 会话顺序测试。
+
+连续测试的第二个 Field 暴露了点击边界：Field 的 OCR 框为 `[809,599,26,14]`，第一次点击在 `(815,609)` 正确，第二次在 `(830,600)` 落入相邻 Component Interface 行。该调用在编辑器检查时停止，约 154 秒，未保存。已取消来源选择窗口，确认空白操作台。新建类型选择现使用 Home 后按 F/R 或向下三次，再用选中行图片确认类型，最后回车；不再点击类型文字框。
+
+随后 `template_acceptance_results2.json` 的 Field12 在 Label ID 被 OCR 读成 `Label1D` 时停止，约 211 秒，未保存。已丢弃仅属于本次调用的 Field8 草稿并确认空白操作台。Field 编辑页的类型/长度标签、三个表头和 Save As/OK 已改为 0.85 截图模板；对失败帧的五个编辑标签均命中，Save As/OK 在该非保存页面被拒绝。下一轮结果写入 `out/template_acceptance_results3.json`，包括 Field12、Field13、重复 Field13、AE2、Record3。
+
+该轮 Field12 与 Field13 已连续从头成功，各约 284 秒，返回 `saved_and_closed, workspace_ready:true`。证据分别为 `out/objects/20261104_151556_155315/`、`20261104_152040_039740/`。dbx 对目标 EMPLID 及三个补测 Field 的检查均为 Character、长度 11；PSDBFLDLABL 也确认 Label ID=GMEMPLID、Long Name=`GM MCP Employee ID`、Short Name=`GM Employee`、DEFAULT_LABEL=1，参数没有落到相邻列。Field 流程与参数绑定已作为可信进展提交 `ae7ca57`；MCP 其余流程仍待本轮完整结果。
+
 ## 本次请求
 
 | 对象 | 参数 |

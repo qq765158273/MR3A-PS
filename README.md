@@ -112,23 +112,39 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 `assets/resource/pipeline/PSIDE/create_drafts.json` 中的 `PSIDE_OpenFieldDraft`、`PSIDE_OpenRecordDraft`、`PSIDE_OpenAEDraft` 是实验性的 Maa Pipeline 草稿入口，只负责打开未保存编辑页并识别结果，三个入口曾分别在该会话成功执行一次。运行前需要 PSIDE 处于空白主窗口；它们还没有自动检查所有窗口状态，不能在有人编辑其他对象时运行。PSIDE 会级联移动新建窗口，后续填写需要基于识别结果定位，不能假定编辑器始终处于固定坐标。
 
-这些入口**尚不是完整的新建操作，也不是 MCP 工具**：名称、类型、Record 字段、AE 的多个 Step 与各种 Action 的输入和保存、重名处理、保存后核验，以及 MCP 参数和调用接口均尚待实现与验证。Field 和 AE 对话框识别保护在首次实测后补充并各复测成功一次。不得把草稿打开成功视为对象已创建。
+这些探索入口只打开草稿；正式创建与 MCP 能力见下文。Field 和 AE 对话框识别保护在首次实测后补充并各复测成功一次。不得把草稿打开成功视为对象已创建。
 
 #### MCP 操作完成边界
 
 2026-11-04 按用户要求，`create_field`、`create_record`、`create_ae` 的目标统一为：**执行创建与输入 → 识别保存成功 → 关闭该对象的编辑窗口 → 回到空白操作台**。保存后不重新打开对象，不读取并核对字段、类型、Step 或代码内容；对象是否正确写入由 DB 负责核对。界面定位、重名保护和保存反馈检查仍用于决定操作是否可以继续。
 
-成功返回 `status: saved_and_closed`、`saved: true`、`workspace_ready: true`，表示界面操作已完成，不表示数据库内容校验通过。服务串行处理操作；保存后关闭失败时返回 `partial`，`workspace_ready: false`，并阻止该服务实例继续操作后续对象，直到检查操作台并重启服务。该结束流程已写入 JSON，完整真实创建调用仍待跑通。
+成功返回 `status: saved_and_closed`、`saved: true`、`workspace_ready: true`，表示界面操作已完成，不表示数据库内容校验通过。服务串行处理操作；保存后关闭失败时返回 `partial`，`workspace_ready: false`，并阻止该服务实例继续操作后续对象，直到检查操作台并重启服务。该结束流程已写入 JSON，三个工具均已通过完整真实创建调用。
 
 #### dbx 独立验收进度
 
-2026-11-04 的实测使用 dbx 的 `ps-dev / HRDEV` 连接只读验收；创建和 Build 仍通过 PSIDE 的 Maa Pipeline 执行。`GM_MCP_EMPLID` 已保存并关闭，dbx 确认 `PSDBFIELD.FIELDTYPE = 0`、`LENGTH = 11`。目标 `GM_MCP_REC` 已保存、Build 并关闭；dbx 确认五个字段及顺序正确，前三个 Key/Search Key/Listbox，后两个非 Key 的 Alternate Search Key/Listbox，物理表位于 `HRAPP`、三个索引均有效、当前行数 0。该对象经过分段修正完成；前两次完整 MCP 失败仍保留记录，不能计为成功。补测 `GM_MCP_REC2` 也经过分段修正完成，完整调用仍未通过。`GM_MCP_AE` 最近一次调用已保存 Step01/SQL 的结构，但停在代码编辑器入口；dbx 确认 SQLTEXT 仍为空，Step02 尚未创建，不能计为完成。本地完整回归曾通过 52 项；最近模板迁移后的参数、服务和 MCP 检查 12 项通过，schema 通过。这些结果不等于真实完整调用或长期运行验收。测试参数、属性限制、失败原因和最新验收见 [MCP 与 dbx 实测记录](psauto/docs/acceptance.md)。
+2026-11-04 的实测使用 dbx 的 `ps-dev / HRDEV` 连接只读验收；创建和 Build 仍通过 PSIDE 的 Maa Pipeline 执行。`GM_MCP_EMPLID` 已保存并关闭，dbx 确认 Character、长度 11。`GM_MCP_REC` 已保存、Build 并关闭；五字段顺序正确，前三个 Key/Search Key/Listbox，后两个非 Key 的 Alternate Search Key/Listbox，物理表位于 `HRAPP`、三个索引有效、当前行数 0。`GM_MCP_AE` 也已保存并关闭；dbx 确认 Step01 的 COUNT SQL、Step02 循环读取字段名的 PeopleCode 及编译长度 564。目标对象均经分段校准完成，不能把此前完整 MCP 失败改计成功；补测 REC2 也属分段完成。
+
+模板迁移后已跑通完整 MCP 链路，并由 dbx 只读验收：
+
+| 能力 | 本轮完整调用与结果 |
+| --- | --- |
+| Field | `GM_MCP_FLD12`、`GM_MCP_FLD13` 在同一会话连续从头成功，各约 284 秒；Character、长度 11、标签参数均正确 |
+| 重名保护 | 重复 Field13 返回 `already_exists`，关闭对象并释放操作台，约 115 秒 |
+| Record / Build | 空白操作台主动断开后，MCP 自动重连，再从头创建及 Build `GM_MCP_REC3`，约 997 秒；五字段和属性正确，HRAPP 表、三个有效索引、行数 0 |
+| AE | 同一会话随后从头创建 `GM_MCP_AE3`，约 516 秒；Step01 COUNT SQL 指向 REC3，Step02 PeopleCode 循环字段名，源码及编译长度 566 通过 dbx；已保存并关闭 |
+| 四步 AE | `GM_MCP_AE4` 从头创建约 816 秒，保存关闭并释放操作台；dbx 确认 MAIN 下 Step01–04 顺序及 SQL/PeopleCode/SQL/PeopleCode 类型，两个 COUNT SQL 正确，两段 PeopleCode 源码正确且编译长度均为 566 |
+
+`GM_MCP_FLD11` 较早的一次完整调用也成功；前面的失败和分段校准不会改计成功。AE 仅完成创建和保存，未执行程序。开发机此前完整回归 52 项通过；本轮相关参数/服务/MCP 12 项、原生图像 3 项、剪贴板/连接 5 项及 schema 通过。这些是当前基准上的样本，尚不代表跨 DPI 或长期无人值守验收。参数、失败记录和最新结果见 [MCP 与 dbx 实测记录](psauto/docs/acceptance.md)。
 
 实测确认：隐藏 Chrome 下关闭 JumpServer 剪贴板时，需要完成网页抽屉的离场动画，再恢复远程输入焦点。原始 canvas 截图不能显示网页遮挡，不能绕过点击遮挡检查。查重结果中的零计数曾被整段 OCR 漏掉；随后整段模板也在更强的 10/100 合成反例中暴露子串误判，现改为只匹配计数首位的数字 0。Field 类型下拉框必须明确提交并关闭，再操作长度；长度值不再 OCR 回读，避免光标被读作额外的数字，最终由 dbx 验收。
 
 #### 截图和 OCR 区域基准
 
 2026-11-04 已用现有真实截图对比 Maa 原生 OCR 与模板。按用户偏好，固定控件优先局部模板，普通模板阈值为 **0.85**；动态对象名和字段名保留必要的局部 OCR。零计数现只看 `[696,719,7,11]` 的首位数字，并确认对话框图片；8 张真实帧及 10/100 合成反例中，数字 OCR 和数字模板均符合预期，模板约 18–20ms、OCR 约 37–45ms，因此当前选数字模板。三个创建 JSON 的查重静态控件已迁移，50 项实际 JSON 离线识别检查通过。Key 模板需覆盖普通与悬停样式，模拟放大 125% 后原尺寸模板失效，分辨率和 DPI 仍需固定。样本、计时和局部示意图见 [截图识别方法对比](psauto/docs/recognition_comparison.md)，这些小样本结果不代表整体准确率或长期稳定性。
+
+进一步发现 Step02 整段模板与 Step01 的相似度约 0.891，故不能只用 0.85 判断步骤身份。Step01/02 按分数选择候选，再检查末位编号小图；Step03/04 通过新动作图标定位后，局部 OCR 严格检查 Step 名，四步 AE 已实测。复选框整框对未勾选的分数约 0.852，同样不适合直接降到 0.85；当前保持 0.97。点击后在同一个 13×13 框内确认目标状态，覆盖普通与悬停样式，未生效即停止，不重试切换。12 组真实前后帧回放及未变化反例通过；这是完整 REC3 成功后的离线补强，尚未再跑完整建表。内部 9×9 勾形方案仍保留为未提交试验。
+
+每个卡点的识图/文字 OCR 选择、局部区域、动作延迟、下一步判决和失败处理，统一记入 [卡点与判决表](psauto/docs/recognition_decisions.md)。已确认禁用 SQL 菜单仍能得到约 0.999 的文字图片相似度，因此“出现菜单项”不代表“可以打开”；新增动作行选中背景与菜单启用颜色检查。重试只覆盖粘贴前的幂等选择与菜单操作，最多一次；保存和 Build 不盲目重放。Maa 的 timeout 控制当前节点等待 next，保存/Build 的 30/60 秒等待已放在对应动作后。
 
 业务识别使用原始 `1920×1080` 远程桌面截图；OCR 在 Pipeline JSON 的 `roi` 内执行，完整截图留作证据。浏览器显示缩放不改变这套远程坐标。JumpServer 超时提示属于浏览器页面，使用浏览器截图坐标，不能套用远程桌面坐标；没有 RDP canvas 时仍能用 Playwright 截取浏览器页面。
 

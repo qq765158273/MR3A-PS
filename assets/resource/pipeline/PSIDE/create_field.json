@@ -718,7 +718,7 @@
   "F_Save_ok": {
     "action": "Click",
     "on_error": [],
-    "timeout": 10000,
+    "timeout": 30000,
     "recognition": "TemplateMatch",
     "roi": [
       1000,

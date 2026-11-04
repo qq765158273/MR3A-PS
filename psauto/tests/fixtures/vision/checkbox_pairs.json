@@ -1,0 +1,134 @@
+[
+  {
+    "before": "092_R_AttrKeyCheck.png",
+    "after": "093_R_AttrAlternateLabel.png",
+    "node": "R_AttrKeyCheck",
+    "box": [
+      740,
+      314,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "096_R_AttrListCheck.png",
+    "after": "097_R_AttrSearchLabel.png",
+    "node": "R_AttrListCheck",
+    "box": [
+      740,
+      433,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "098_R_AttrSearchCheck.png",
+    "after": "099_R_AttrOK.png",
+    "node": "R_AttrSearchCheck",
+    "box": [
+      740,
+      392,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "110_R_AttrKeyCheck.png",
+    "after": "111_R_AttrAlternateLabel.png",
+    "node": "R_AttrKeyCheck",
+    "box": [
+      740,
+      314,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "114_R_AttrListCheck.png",
+    "after": "115_R_AttrSearchLabel.png",
+    "node": "R_AttrListCheck",
+    "box": [
+      740,
+      433,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "116_R_AttrSearchCheck.png",
+    "after": "117_R_AttrOK.png",
+    "node": "R_AttrSearchCheck",
+    "box": [
+      740,
+      392,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "128_R_AttrKeyCheck.png",
+    "after": "129_R_AttrAlternateLabel.png",
+    "node": "R_AttrKeyCheck",
+    "box": [
+      737,
+      305,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "132_R_AttrListCheck.png",
+    "after": "133_R_AttrSearchLabel.png",
+    "node": "R_AttrListCheck",
+    "box": [
+      737,
+      430,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "134_R_AttrSearchCheck.png",
+    "after": "135_R_AttrOK.png",
+    "node": "R_AttrSearchCheck",
+    "box": [
+      737,
+      390,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "146_R_AttrKeyUncheck.png",
+    "after": "147_R_AttrAlternateLabel.png",
+    "node": "R_AttrKeyUncheck",
+    "box": [
+      740,
+      314,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "148_R_AttrAlternateCheck.png",
+    "after": "149_R_AttrListLabel.png",
+    "node": "R_AttrAlternateCheck",
+    "box": [
+      740,
+      353,
+      13,
+      13
+    ]
+  },
+  {
+    "before": "166_R_AttrAlternateCheck.png",
+    "after": "167_R_AttrListLabel.png",
+    "node": "R_AttrAlternateCheck",
+    "box": [
+      737,
+      348,
+      13,
+      13
+    ]
+  }
+]

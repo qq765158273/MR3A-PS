@@ -6489,7 +6489,7 @@
       -6
     ],
     "next": [
-      "R_AttrAlternateLabel"
+      "R_AttrKeyCheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6497,7 +6497,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrKeyUnchecked": {
     "action": "DoNothing",
@@ -6533,7 +6534,7 @@
       -6
     ],
     "next": [
-      "R_AttrAlternateLabel"
+      "R_AttrKeyUncheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6541,7 +6542,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrAlternateLabel": {
     "action": "DoNothing",
@@ -6595,7 +6597,7 @@
       -6
     ],
     "next": [
-      "R_AttrListLabel"
+      "R_AttrAlternateCheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6603,7 +6605,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrAlternateUnchecked": {
     "action": "DoNothing",
@@ -6639,7 +6642,7 @@
       -6
     ],
     "next": [
-      "R_AttrListLabel"
+      "R_AttrAlternateUncheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6647,7 +6650,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrListLabel": {
     "action": "DoNothing",
@@ -6701,7 +6705,7 @@
       -6
     ],
     "next": [
-      "R_AttrSearchLabel"
+      "R_AttrListCheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6709,7 +6713,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrListUnchecked": {
     "action": "DoNothing",
@@ -6745,7 +6750,7 @@
       -6
     ],
     "next": [
-      "R_AttrSearchLabel"
+      "R_AttrListUncheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6753,7 +6758,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrSearchLabel": {
     "action": "DoNothing",
@@ -6807,7 +6813,7 @@
       -6
     ],
     "next": [
-      "R_AttrOK"
+      "R_AttrSearchCheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6815,7 +6821,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrSearchUnchecked": {
     "action": "DoNothing",
@@ -6851,7 +6858,7 @@
       -6
     ],
     "next": [
-      "R_AttrOK"
+      "R_AttrSearchUncheckResult"
     ],
     "roi_offset": [
       -20,
@@ -6859,7 +6866,8 @@
       30,
       8
     ],
-    "order_by": "Score"
+    "order_by": "Score",
+    "post_delay": 200
   },
   "R_AttrOK": {
     "action": "Click",
@@ -8082,6 +8090,134 @@
     "next": [
       "R_SelectRecord"
     ],
+    "on_error": []
+  },
+  "R_AttrKeyCheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_selected.png",
+      "PSIDE/checkbox_selected_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrKeyCheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrAlternateLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrKeyUncheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_unchecked.png",
+      "PSIDE/checkbox_unchecked_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrKeyUncheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrAlternateLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrAlternateCheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_selected.png",
+      "PSIDE/checkbox_selected_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrAlternateCheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrListLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrAlternateUncheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_unchecked.png",
+      "PSIDE/checkbox_unchecked_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrAlternateUncheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrListLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrListCheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_selected.png",
+      "PSIDE/checkbox_selected_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrListCheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrSearchLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrListUncheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_unchecked.png",
+      "PSIDE/checkbox_unchecked_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrListUncheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrSearchLabel"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrSearchCheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_selected.png",
+      "PSIDE/checkbox_selected_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrSearchCheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrOK"
+    ],
+    "timeout": 5000,
+    "on_error": []
+  },
+  "R_AttrSearchUncheckResult": {
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/checkbox_unchecked.png",
+      "PSIDE/checkbox_unchecked_hover.png"
+    ],
+    "threshold": 0.97,
+    "roi": "R_AttrSearchUncheck",
+    "order_by": "Score",
+    "action": "DoNothing",
+    "next": [
+      "R_AttrOK"
+    ],
+    "timeout": 5000,
     "on_error": []
   }
 }
