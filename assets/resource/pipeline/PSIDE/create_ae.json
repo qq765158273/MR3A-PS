@@ -274,7 +274,7 @@
     "timeout": 10000,
     "input_text": "__PARAM_name__",
     "next": [
-      "PSIDE_CreateAE_query_name_check"
+      "PSIDE_CreateAE_query_name_blur"
     ],
     "post_delay": 300,
     "pre_delay": 0
@@ -292,7 +292,7 @@
       25
     ],
     "next": [
-      "PSIDE_CreateAE_query_name_blur"
+      "PSIDE_CreateAE_query_open"
     ],
     "pre_delay": 0,
     "post_delay": 0
@@ -677,7 +677,7 @@
     ],
     "input_text": "__PARAM_name__",
     "next": [
-      "A0_StructureSave_name"
+      "A0_StructureSave_name_blur"
     ],
     "post_delay": 300,
     "pre_delay": 0,
@@ -698,7 +698,7 @@
       30
     ],
     "next": [
-      "A0_StructureSave_name_blur"
+      "A0_StructureSave_ok"
     ],
     "pre_delay": 0,
     "post_delay": 0
@@ -4482,7 +4482,7 @@
     "post_delay": 100,
     "pre_delay": 0,
     "next": [
-      "PSIDE_CreateAE_query_open"
+      "PSIDE_CreateAE_query_name_check"
     ]
   },
   "A0_StructureSave_name_blur": {
@@ -4493,7 +4493,7 @@
     "post_delay": 100,
     "pre_delay": 0,
     "next": [
-      "A0_StructureSave_ok"
+      "A0_StructureSave_name"
     ]
   }
 }

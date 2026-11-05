@@ -241,7 +241,7 @@
     "timeout": 10000,
     "input_text": "__PARAM_name__",
     "next": [
-      "PSIDE_CreateField_query_name_check"
+      "PSIDE_CreateField_query_name_blur"
     ],
     "post_delay": 300,
     "pre_delay": 0
@@ -259,7 +259,7 @@
       25
     ],
     "next": [
-      "PSIDE_CreateField_query_name_blur"
+      "PSIDE_CreateField_query_open"
     ],
     "pre_delay": 0,
     "post_delay": 0
@@ -745,7 +745,7 @@
     ],
     "input_text": "__PARAM_name__",
     "next": [
-      "F_Save_name"
+      "F_Save_name_blur"
     ],
     "post_delay": 300,
     "template": "PSIDE/save_as_title.png",
@@ -766,7 +766,7 @@
       30
     ],
     "next": [
-      "F_Save_name_blur"
+      "F_Save_ok"
     ],
     "pre_delay": 0,
     "post_delay": 0
@@ -1067,7 +1067,7 @@
     "post_delay": 100,
     "pre_delay": 0,
     "next": [
-      "PSIDE_CreateField_query_open"
+      "PSIDE_CreateField_query_name_check"
     ]
   },
   "F_Save_name_blur": {
@@ -1078,7 +1078,7 @@
     "post_delay": 100,
     "pre_delay": 0,
     "next": [
-      "F_Save_ok"
+      "F_Save_name"
     ]
   }
 }

@@ -64,79 +64,101 @@ class EvidenceSink(ContextEventSink):
             self.tasker.remove_context_sink(self.sink_id)
 
 
-def _event_group(events, starts, index):
-    end = starts[index + 1] if index + 1 < len(starts) else len(events)
-    return events[starts[index]:end]
+_PHASES = ('scan_prepare_ms', 'recognition_ms', 'before_action_ms', 'action_ms', 'after_action_ms')
 
 
-def _first_event(group, name):
-    return next((event for event in group if event['event'] == name), None)
+def _pipeline_spans(events):
+    """Use native task/node IDs; recognition retries do not create report nodes."""
+    spans, active = {}, {}
+    for event in events:
+        details, kind = event['details'], event['event']
+        task_id = details.get('task_id')
+        key = (task_id, details.get('node_id'))
+        if kind == 'Node.PipelineNode.Starting':
+            span = {'events': [event]}
+            spans[key] = span
+            active.setdefault(task_id, []).append(span)
+        elif kind in ('Node.PipelineNode.Succeeded', 'Node.PipelineNode.Failed'):
+            span = spans.get(key)
+            if span is not None:
+                span['events'].append(event)
+                span['status'] = 'succeeded' if kind.endswith('.Succeeded') else 'failed'
+                stack = active.get(task_id, [])
+                if stack and stack[-1] is span:
+                    stack.pop()
+        elif active.get(task_id):
+            active[task_id][-1]['events'].append(event)
+    return spans
 
 
-def _node_timing(group):
-    scan = _first_event(group, 'Node.NextList.Starting')
-    recognized = _first_event(group, 'Node.NextList.Succeeded')
-    action_start = _first_event(group, 'Node.Action.Starting')
-    action_end = _first_event(group, 'Node.Action.Succeeded')
-    done = _first_event(group, 'Node.PipelineNode.Succeeded')
-    if not scan or not recognized or not action_start or not done:
+def _node_timing(span):
+    group = span['events']
+    if 'status' not in span:
         return None
-    start = scan['elapsed_ms']
-    action_start_ms = action_start['elapsed_ms']
-    action_end_ms = (action_end or action_start)['elapsed_ms']
-    done_ms = done['elapsed_ms']
-    return {
-        'recognition_ms': max(0, recognized['elapsed_ms'] - start),
-        'before_action_ms': max(0, action_start_ms - recognized['elapsed_ms']),
-        'action_ms': max(0, action_end_ms - action_start_ms),
-        'after_action_ms': max(0, done_ms - action_end_ms),
-        'total_ms': max(0, done_ms - start),
+    phases = Counter({key: 0 for key in _PHASES})
+    phase, previous = 'scan_prepare_ms', group[0]['elapsed_ms']
+    transitions = {
+        'Node.NextList.Starting': 'recognition_ms',
+        'Node.NextList.Succeeded': 'before_action_ms',
+        'Node.NextList.Failed': 'scan_prepare_ms',
+        'Node.Action.Starting': 'action_ms',
+        'Node.Action.Succeeded': 'after_action_ms',
+        'Node.Action.Failed': 'after_action_ms',
     }
+    for event in group[1:]:
+        stamp = event['elapsed_ms']
+        phases[phase] += max(0, stamp - previous)
+        previous = stamp
+        phase = transitions.get(event['event'], phase)
+    counts = Counter(event['event'] for event in group)
+    return {**phases, 'total_ms': group[-1]['elapsed_ms'] - group[0]['elapsed_ms'],
+            'scan_attempts': counts['Node.NextList.Starting'],
+            'scan_retries': max(0, counts['Node.NextList.Starting'] - 1),
+            'recognition_attempts': counts['Node.Recognition.Starting'],
+            'candidate_misses': counts['Node.Recognition.Failed'], 'status': span['status']}
 
 
 def _attach_timings(report, events):
-    starts = [index for index, event in enumerate(events)
-              if event['event'] == 'Node.NextList.Starting']
-    for index, node in enumerate(report['nodes']):
-        if index >= len(starts):
-            break
-        timing = _node_timing(_event_group(events, starts, index))
-        if timing:
+    spans = _pipeline_spans(events)
+    for node in report['nodes']:
+        span = spans.get((report.get('task_id'), node.get('node_id')))
+        if span is None:
+            continue
+        timing = _node_timing(span)
+        if timing is not None:
             node['timing'] = timing
-    return starts
+        recognition = node.get('recognition')
+        if recognition is not None:
+            recognition['rule_passed'] = any(
+                event['event'] == 'Node.Recognition.Succeeded'
+                and event['details'].get('reco_id') == recognition.get('reco_id')
+                for event in span['events'])
 
 
-def _write_summary(directory, report, events, starts):
-    recognition_failed = [event for event in events
-                          if event['event'] == 'Node.Recognition.Failed']
-    action_failed = [event for event in events
-                     if event['event'] == 'Node.Action.Failed']
-    phase = Counter()
-    rows = [node.get('timing') for node in report['nodes']]
-    for row in rows:
-        if row:
-            phase['recognition_ms'] += row['recognition_ms']
-            phase['before_action_ms'] += row['before_action_ms']
-            phase['action_ms'] += row['action_ms']
-            phase['after_action_ms'] += row['after_action_ms']
-    for index, start in enumerate(starts[:-1]):
-        group = _event_group(events, starts, index)
-        done = _first_event(group, 'Node.PipelineNode.Succeeded')
-        next_scan = events[starts[index + 1]]
-        if done:
-            phase['next_scan_prepare_ms'] += max(0, next_scan['elapsed_ms'] - done['elapsed_ms'])
-    if starts:
-        first_scan = events[starts[0]]['elapsed_ms']
-        phase['initial_ms'] = first_scan
+def _write_summary(directory, report, events):
+    task_id = report.get('task_id')
+    events = [event for event in events
+              if task_id is None or event['details'].get('task_id') == task_id]
+    counts = Counter(event['event'] for event in events)
+    timings = [node['timing'] for node in report['nodes'] if 'timing' in node]
+    phase = {key: sum(row[key] for row in timings) for key in _PHASES}
+    event_ms = max((event['elapsed_ms'] for event in events), default=0)
+    phase['unattributed_ms'] = event_ms - sum(phase.values())
     summary = {
-        'pipeline_event_ms': max((event['elapsed_ms'] for event in events), default=0),
+        'timing_basis': 'native_node_lifecycle',
+        'succeeded': report['succeeded'],
+        'pipeline_event_ms': event_ms,
         'completed_nodes': sum(1 for node in report['nodes'] if node['completed']),
         'node_count': len(report['nodes']),
-        'recognition_attempts': sum(1 for event in events
-                                   if event['event'] == 'Node.Recognition.Starting'),
-        'recognition_failures': len(recognition_failed),
-        'action_failures': len(action_failed),
-        'event_counts': dict(Counter(event['event'] for event in events)),
+        'timed_nodes': len(timings),
+        'timing_complete': bool(timings) and len(timings) == len(report['nodes']) and phase['unattributed_ms'] >= 0,
+        'recognition_attempts': counts['Node.Recognition.Starting'],
+        'candidate_misses': counts['Node.Recognition.Failed'],
+        'recognition_failures': counts['Node.Recognition.Failed'],  # Compatibility; candidate misses, not task failures.
+        'scan_retries': sum(row['scan_retries'] for row in timings),
+        'pipeline_node_failures': counts['Node.PipelineNode.Failed'],
+        'action_failures': counts['Node.Action.Failed'],
+        'event_counts': dict(counts),
         'action_counts': dict(Counter(node.get('action', {}).get('type')
                                       for node in report['nodes'] if node.get('action'))),
         'recognition_algorithm_counts': dict(Counter(node.get('recognition', {}).get('algorithm')
@@ -154,13 +176,14 @@ def export_task_evidence(job, directory, trace=None):
     directory.mkdir(parents=True, exist_ok=True)
     screenshots = _ScreenshotStore(directory)
     detail = job.get()
-    report = {"entry": detail.entry if detail else None, "succeeded": job.succeeded, "nodes": []}
+    report = {"entry": detail.entry if detail else None, "succeeded": job.succeeded, "nodes": [],
+              "task_id": getattr(detail, 'task_id', None)}
     if detail:
         for index, node in enumerate(detail.nodes):
-            item = {"name": node.name, "completed": node.completed}
+            item = {"name": node.name, "completed": node.completed, 'node_id': getattr(node, 'node_id', None)}
             reco = node.recognition
             if reco:
-                item['recognition'] = {"algorithm": str(reco.algorithm), "hit": reco.hit,
+                item['recognition'] = {"algorithm": str(reco.algorithm), "hit": reco.hit, 'reco_id': reco.reco_id,
                                        "detail": reco.raw_detail}
                 raw = reco.raw_image
                 if raw is not None and raw.size:
@@ -171,11 +194,10 @@ def export_task_evidence(job, directory, trace=None):
                 item['action'] = {"type": str(node.action.action), "success": node.action.success,
                                   "detail": node.action.raw_detail}
             report['nodes'].append(item)
-    (directory / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     events = trace.events if trace is not None else []
-    starts = _attach_timings(report, events)
+    _attach_timings(report, events)
     (directory / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     if trace is not None:
         trace.write(directory, screenshots)
-    _write_summary(directory, report, events, starts)
+    _write_summary(directory, report, events)
     return report

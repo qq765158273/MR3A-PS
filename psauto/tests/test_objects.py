@@ -11,6 +11,19 @@ from psauto.objects.service import BUILDERS
 
 
 class ObjectArgumentsTests(unittest.TestCase):
+    def test_field_and_ae_blur_name_before_exact_recognition(self):
+        project=Path(__file__).resolve().parents[2]
+        for kind,prefix,save in [('field','PSIDE_CreateField','F_Save'),
+                                 ('ae','PSIDE_CreateAE','A0_StructureSave')]:
+            graph=json.loads((project/f'assets/resource/pipeline/PSIDE/create_{kind}.json').read_text(encoding='utf-8'))
+            for source,blur,check in [(prefix+'_query_name_clear_input',prefix+'_query_name_blur',prefix+'_query_name_check'),
+                                      (save+'_as',save+'_name_blur',save+'_name')]:
+                with self.subTest(kind=kind,source=source):
+                    self.assertEqual(graph[source]['next'],[blur])
+                    self.assertEqual(graph[blur]['key'],9)
+                    self.assertEqual(graph[blur]['next'],[check])
+                    self.assertEqual(graph[check]['expected'],'__PARAM_name_regex__')
+
     def test_invalid_arguments_stop_before_browser_access(self):
         for make in [
             lambda: FieldRequest(name='NOT_GM', long_name='x', short_name='x'),
