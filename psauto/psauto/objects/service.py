@@ -130,13 +130,15 @@ class ObjectService:
                     outcome_recorded = True
                     self._workspace_blocked = not result['workspace_ready']
                     started = time.perf_counter()
+                    export_profile = {}
                     try:
-                        export_task_evidence(job, output, trace)
+                        export_task_evidence(job, output, trace, profile=export_profile)
                         evidence_complete = True
                     except Exception as exc:
                         evidence_error('task_evidence', exc)
                     finally:
                         timings['evidence_export_ms'] = round((time.perf_counter() - started) * 1000, 2)
+                        timings['evidence_export'] = export_profile
                     try:
                         shot = controller.post_screencap().wait()
                         if not shot.succeeded:

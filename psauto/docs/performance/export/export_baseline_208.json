@@ -1,0 +1,736 @@
+{
+  "nodes": 208,
+  "captures": 208,
+  "export_ms": 24046.24,
+  "profile": {
+    "node_access": "eager",
+    "total_ms": 24046.17,
+    "phases_ms": {
+      "task_detail_ms": 0.17,
+      "node_detail_ms": 8542.92,
+      "hash_copy_ms": 981.66,
+      "hash_ms": 4617.17,
+      "image_conversion_ms": 2813.9,
+      "png_encode_ms": 6218.04,
+      "png_write_ms": 205.68,
+      "metadata_ms": 104.84
+    },
+    "unattributed_ms": 561.8,
+    "counts": {
+      "frames_hashed": 208,
+      "raw_bytes_hashed": 1293926400,
+      "unique_pngs": 99,
+      "nodes": 208
+    }
+  },
+  "sample_interval_ms": 20,
+  "before_bytes": {
+    "rss": 143130624,
+    "private": 228360192
+  },
+  "peak_bytes": {
+    "rss": 2756333568,
+    "private": 2847158272
+  },
+  "peak_increase_bytes": {
+    "rss": 2613202944,
+    "private": 2618798080
+  },
+  "pixel_manifest": {
+    "000_Bench000.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "8f2fdd0a06f219bb1c6378c9a022b7c278542a86cccbf2812fa4ed77f058bfca"
+    },
+    "002_Bench002.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "d01d8335f65354730e30aee80cd38e7851c0f9322b8ab6f8a9195f7492aea738"
+    },
+    "004_Bench004.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "301b7400aa726721496035307457777c36b7dcb2ba2c29c4e57bf0072ef6cbc0"
+    },
+    "005_Bench005.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "d95c2725d3eb33586364406340325bf442271c715384e9344a76b8b49650e821"
+    },
+    "006_Bench006.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "0f5c2279d881c355f1bd5af8e0871813ace323303a2351c17b41d374a3f2a5d3"
+    },
+    "007_Bench007.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "67f92f1f64d0fdba0b0cffbf2e935139179bb67d4ed66e0112ed78cb2abccca1"
+    },
+    "009_Bench009.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "7232f2d895bd11c935d32105e6b1d898a988fa00054688a4f85d941b7d6f6379"
+    },
+    "012_Bench012.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "fc852f606d2c3c727c1c41eff189697c8037622af1e3041cebd327bbedc32e7a"
+    },
+    "013_Bench013.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "c301edf9a6cd2d87e05d71696b4210a95a2d71c64ecaa261646edba155cd63f6"
+    },
+    "015_Bench015.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "8030ada715ebc096c4504187f93e81e1610d92b8c162011b2668dae0ae522ebe"
+    },
+    "018_Bench018.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a465c91164050f8728f3ae9ef584b34d5100a505f2c5c408bd856c2cd39f9d84"
+    },
+    "020_Bench020.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "ece71e4f76ab4de3f55276b8968f5bbf742b9f797f68433ed3b4e9e8c482a869"
+    },
+    "022_Bench022.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "886f1cd5514399c4a3cdf92b5ffe818b3731f4d4b8fee192af9aa1afc9a722b4"
+    },
+    "025_Bench025.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a02e3c7375632cf8eb2bdbe6d1be947f66f060094739b303e412e53a7816e46e"
+    },
+    "026_Bench026.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "c6192137d1d520ca64d4856ee271efb8222fb23d1f36d19f0e25a49271e58458"
+    },
+    "028_Bench028.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "ac61bc57f9dcae9d4a9df32ff88f4e12a25c247b1a655fdb26f31a24d8a07f52"
+    },
+    "029_Bench029.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "1cf7d88edcf77015982ed5621d8dcc054cc7e0b1ef96704756d3614567c81fb6"
+    },
+    "031_Bench031.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "b526d18f4c5602e5992ff05428bd14e34a217a2f35f852799561bf785dfe07f4"
+    },
+    "033_Bench033.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "6d87e62d5d26dfc21834c69eeb7952172ca71f8af2194373b5840804fc451029"
+    },
+    "035_Bench035.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "e47a7acb2ea72d9724870b0a859684b7e116c0507a51aa3d9e0e08cfa04dd21e"
+    },
+    "036_Bench036.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "8c79b73ac93e017138f61c7f86a346c9b94637325b64afc66561057f7a735fca"
+    },
+    "038_Bench038.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "78778f6266fe252ada5f7e19c99a993267c118f514053a96ce7e8216f15e94a4"
+    },
+    "039_Bench039.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "098754c0ccfed774da28126e6ab1b017a13a1383d9f2397d61e24aedd415d0de"
+    },
+    "041_Bench041.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a0fcc3bb3a4bdb038e5f35aa23fb24fdb778f3d9852bda2f946cdc3e425acff0"
+    },
+    "042_Bench042.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a5062347ab79a431dd8f0c153024dc5d2a70f31a1d7a829b96efa099504409f7"
+    },
+    "043_Bench043.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "f8a7f741126c1f582f2bc37807c3f73fea709c186c9eb09d6632758913ebea2c"
+    },
+    "044_Bench044.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "36812a5db7a02c3cba229e0a5f331484d08dcb6dc534dea62febb6260cd848f1"
+    },
+    "046_Bench046.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "c02ca66626137e7b9146383a99ee1bf4522174da1cf8e285d7fb0b3128b3ccef"
+    },
+    "049_Bench049.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "06b52a6803ebf5e721ca37d60dd84fc942883a98228c9da5e4bf443318f1763c"
+    },
+    "050_Bench050.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "28de55f6e4d5992d30fc96ffaa2fc81b9f05e993bdffb8a363618ce4a442270d"
+    },
+    "052_Bench052.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a145f1f27ade08b34bb031389a922b22daeb63555d66f142dc43b0ac788c7334"
+    },
+    "053_Bench053.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "0e48e41e3f3ebe54064b4b8c0f4b14bccd2d0e8915a9aa3b2f991d075fe577c0"
+    },
+    "054_Bench054.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "adc43c56d229740b31b6860d086946679fdafa11357e1115ce17905f3174b79b"
+    },
+    "055_Bench055.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "80aa61f487a567c7c1474e5719da601bad35348192052c86f6e349a2af9ebfea"
+    },
+    "057_Bench057.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "3b059499d3cd331a7cb692d72422860c87f917e1c66c9cb2707cca7f89cc2cff"
+    },
+    "058_Bench058.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "ea0317992948abf83661b1856581b76743840c5ffa6a8676409cb7dca98dc939"
+    },
+    "060_Bench060.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "cfb670be6ef1994b0c9c0abf7d5b20a80c74550d88dcb8fb2fecfa0e43df59a4"
+    },
+    "061_Bench061.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "2c60f06c8ffa7491d600edb468289247ad42cf6c84f6dde870f85555ebd3a7a7"
+    },
+    "063_Bench063.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "4031da900a4dde84367dbccc01df26a687197be1d00051d1e545994f45dc55e3"
+    },
+    "064_Bench064.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "f54e2655f762df3e6b84ca998f9901e31ed15aca70dfef1b73512462f3c904c3"
+    },
+    "065_Bench065.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "6a19ff87e5a1871d965e99b737dfa952b2bf6399da0178ad874cac774622377d"
+    },
+    "066_Bench066.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "f022168a1f05c59f6b75387b28426eb587825db009698054f65e93c407008890"
+    },
+    "068_Bench068.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "dc5deebece91b5f9538d2796f300d3e199327e67c8a281bae8be6914093c1452"
+    },
+    "071_Bench071.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "2e9b400691f5e18541866b71dd724a58d229fb8f77e4680314252b4248f74bfc"
+    },
+    "072_Bench072.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "b266a2096afc144d082ec8b46bf61c7283ec9b53f8b7a08ce31867e5bf179a25"
+    },
+    "074_Bench074.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "540a3fbc3fb602b2756dc91d6b2810c0022021ce829f7e03b24e8364c9dc6313"
+    },
+    "075_Bench075.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "5b7d6c9ca78c29bcd4733aa1e5a3f0238ad9c83d64413b626430633012070d97"
+    },
+    "076_Bench076.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "4abb020d3f31441004504ac77819ef4a936e0298b69c221b9c8173972ae480b0"
+    },
+    "077_Bench077.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "c197daeaf3d1b5bf4dc3d0c784ca2b2af65d94884240387339eb3d4ed5d13890"
+    },
+    "080_Bench080.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "5765d0863d2188e115a76d82594b091d4767e6f69b326a2b7cf5d4d9fc3b91f7"
+    },
+    "081_Bench081.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "94935e92cd70f21c1261001fb4b5514f9821498da22ca975f4ff430a83c46c59"
+    },
+    "083_Bench083.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "34601836016a04339d38dbc2efe5a187c6e06377d49adbe7ca8e355eb38586a1"
+    },
+    "086_Bench086.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "f3685df80a3cf23aafd964abf60c4c16e819fe9b1d30ceb7e10131e229602634"
+    },
+    "091_Bench091.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "55cf8f04eb6b914f751ade1f69956c67a79d8c4e9b331bae60438b17d0a87cc9"
+    },
+    "094_Bench094.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "773efb9778709c00a01db06ed37b89e21509ff320b9ec4123df915912c6bb653"
+    },
+    "096_Bench096.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "dab987e93cc5f72b33fb96f9a67801be22644da28e3da26e012c1d790a812b12"
+    },
+    "100_Bench100.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "875e91fce7f499cf46292ef6340a792afefae65928197be0a95f17706d6cb3c5"
+    },
+    "102_Bench102.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "74cb3d9b9866bd4fa27c7a4d9073681856115fc50189ed8494dc692872df6002"
+    },
+    "105_Bench105.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "8097e661ca616ca00da1f4689c31e11582e1743bd8af96294c13da46dfabd3e3"
+    },
+    "110_Bench110.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "96b7d1d4bb7fb0d3707da63783a9a4c64f5ba63b488fecd022040fca8e8f85d5"
+    },
+    "113_Bench113.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "bd6f14fbd6e0f4cdffc5aecc1d075587e0a7f1df75eadfea55aab47fd4667bc5"
+    },
+    "115_Bench115.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "5415ffa814c3ed089604c288726069159b11a59ec4b404ed9da245c73015c810"
+    },
+    "119_Bench119.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "1063e091fe5c86a5a5079a293973338a10dc3271a3abf739cf2d07c0e31aba84"
+    },
+    "121_Bench121.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "b0a31178bb9d9eeefd676dfd914eab3d7490d433d55b473d3cb5b521251c6848"
+    },
+    "124_Bench124.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "fe5ef03325a6524ea8cb8c186417b20d32fc2329f9c46ed64481349d53dda4cd"
+    },
+    "129_Bench129.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "e0a358aada4b4638c0e04a3cdb00389a02914d6cf491df8db48726be99c17af9"
+    },
+    "132_Bench132.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a56b3968f372bca1d8f30283d73de933b9fdd801eb729b5447c0220ce75a332b"
+    },
+    "134_Bench134.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "0203086f1ab13655d359bd6d1b05ab5b29ec48192ba985b71606f2ae4d86a91c"
+    },
+    "138_Bench138.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "f12a9bab6ad8dd78bea6bf43ab1edef36aa2de28ee713a8519a959b2d4d602e1"
+    },
+    "140_Bench140.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "3446948645c2c4bc5fde540941f41050ce6e1be82ec330d33123292c7e81aabe"
+    },
+    "143_Bench143.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "fc05468d05d33d3f19dc2f506a9ea3ae7311868aad7eb9b8b949ea39ed416a52"
+    },
+    "146_Bench146.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a1313d376f9b1761bd552d89038eed7f2198ef33e4d185901e4f8e3ee903a60d"
+    },
+    "149_Bench149.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "ee5d7185fdf3293fd640975cacba691df62cfcafc046475f81a43252764fb4cf"
+    },
+    "152_Bench152.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "cf10393198cd6887ef5e28e90bd324c3c56c832f265410c1f75e8a1d1b410829"
+    },
+    "156_Bench156.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "af0e3c7a52bf963cc2ef73dedfa1df8c6f424d89e4907863639f636908cb443a"
+    },
+    "158_Bench158.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "b16df805e5b4adbc0ee9474e8ba6f37e1916862dc19866fc7c661a5381d5cb58"
+    },
+    "163_Bench163.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "94b0a1b836684ff06cbbe0f61ec1be9ebd4cd03158f7456f928dc824f7a24782"
+    },
+    "171_Bench171.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "048166ea866ecff7f415abdf5c7559f7f29101a4b64b6035a10db022c78e5d56"
+    },
+    "173_Bench173.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "26a1e970c9e9fd470c774c6b65a93456a09f09cd50cf0ea0c6f3b3dcc4c89173"
+    },
+    "175_Bench175.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "7e4ea8b9d8470458d32a6b080f94ebac4560e26efa1e4450785894b86ccdc2c3"
+    },
+    "176_Bench176.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "92f387837e838d540b05d552429a277369862458ac06f13f012837b4f37f80f1"
+    },
+    "177_Bench177.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "6428298c075056694e9fc42f21c1a34c0fe60f1e4074930574907af853c34cf6"
+    },
+    "179_Bench179.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "0e193a022e1e88b72498487f0353a8ebdeefca137e943966df663629699d3dba"
+    },
+    "181_Bench181.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "953dd55bf9b19563e3385b9368d74086532a8647fd02e22d7b9a6c96b3f46f05"
+    },
+    "182_Bench182.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "c3ada9e16a471954258718258c030e0a692216796c28d4735b99f86a28e51df4"
+    },
+    "183_Bench183.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "2c473f87cae8619368829f3bc4e5ea19c9b4dfbde4a00cd5594e4dd86ba1ac81"
+    },
+    "184_Bench184.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "766fda23e899755e558f658655ed2b6cba295874f262711f5d38c7405e835440"
+    },
+    "186_Bench186.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "a367bf55e1093646759ff3aab5fd4872acc1cfce3652eedd5b93b528b6b394b3"
+    },
+    "188_Bench188.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "3095bf06369dc5851c7fa42afce381a8211fb1fb275fc42a12d2d50d30439dbd"
+    },
+    "189_Bench189.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "ce96a5cbd7bce10975a1bc37d1f9fb2abb1bf92ecac4530d6c00812a66cb8d9e"
+    },
+    "191_Bench191.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "0826c62c84147542dbf2434deda4c278060c6c70f8d33d0b531d4f9cab675aad"
+    },
+    "193_Bench193.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "19d175f5de696b12eb1f7f27a145106d6b672aace1f8efd91352bcacbd0c1c3f"
+    },
+    "194_Bench194.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "e0ae95c3f595f432ed2038cb43703731ba7fba9569a5cfb932a115c4c3c8c95a"
+    },
+    "197_Bench197.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "77cecd1e2e700c69330c75330516357fc833a7cf26ab8d84644c1a6098b8964a"
+    },
+    "198_Bench198.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "2265ab749cb98222bd2c9903c5e94a500f97521a92048bfa0beb1d886e0cc6d7"
+    },
+    "203_Bench203.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "d589d9b9cec9108ee277c3277393878e56634880206f0252b3af1188e1f914cd"
+    },
+    "204_Bench204.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "4fa879ad1fe25167f743c35931d8a59f7de48a14f8a6121e287f02af73341ce3"
+    },
+    "206_Bench206.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "82166f81cc2009d88090c26e4d3d35735416bb17344f516814fc33b473df5a8f"
+    },
+    "207_Bench207.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "rgb_sha256": "93c224221a4c050793d1a28e0b26534880defc42c57c1ef8bb2040c0bf226450"
+    }
+  },
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "exporter_sha256": "58a2a1ef1b56482ee7e4a66015bc1a7da37fd3221b3251af693e265c9016ee5c"
+}

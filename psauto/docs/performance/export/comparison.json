@@ -1,0 +1,36 @@
+{
+  "basis": "same 208-node native Maa ColorMatch/DoNothing chain; independent Python processes; existing 1920x1080 Record screenshots as controller input",
+  "source_run": "psauto/out/objects/20261105_140117_227126",
+  "normalization_omits": [
+    "timing",
+    "elapsed_ms",
+    "pipeline_event_ms",
+    "phase_ms"
+  ],
+  "results": {
+    "export_original_208": {
+      "node_count": 208,
+      "event_count": 1664,
+      "png_count": 99,
+      "normalized_metadata_equal": true,
+      "pixel_manifest_equal": true,
+      "png_bytes_equal": true
+    },
+    "export_baseline_208": {
+      "node_count": 208,
+      "event_count": 1664,
+      "png_count": 99,
+      "normalized_metadata_equal": true,
+      "pixel_manifest_equal": true,
+      "png_bytes_equal": true
+    },
+    "export_stream_208": {
+      "node_count": 208,
+      "event_count": 1664,
+      "png_count": 99,
+      "normalized_metadata_equal": true,
+      "pixel_manifest_equal": true,
+      "png_bytes_equal": true
+    }
+  }
+}

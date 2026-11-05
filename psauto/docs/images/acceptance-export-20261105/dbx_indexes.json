@@ -1,0 +1,95 @@
+{
+  "results": [
+    {
+      "columns": [
+        "INDEX_NAME",
+        "STATUS",
+        "UNIQUENESS"
+      ],
+      "column_types": [
+        "NCHAR",
+        "NCHAR",
+        "NCHAR"
+      ],
+      "column_sortables": [],
+      "rows": [
+        [
+          "PS0GM_EXP_REC",
+          "VALID",
+          "NONUNIQUE"
+        ],
+        [
+          "PS1GM_EXP_REC",
+          "VALID",
+          "NONUNIQUE"
+        ],
+        [
+          "PS_GM_EXP_REC",
+          "VALID",
+          "UNIQUE"
+        ]
+      ],
+      "affected_rows": 0,
+      "execution_time_ms": 69,
+      "truncated": false,
+      "session_id": null,
+      "has_more": false,
+      "statement_index": 0,
+      "error_message": "PS0GM_EXP_REC"
+    },
+    {
+      "columns": [
+        "COLUMN_NAME",
+        "DATA_TYPE",
+        "DATA_LENGTH",
+        "DATA_PRECISION"
+      ],
+      "column_types": [
+        "NCHAR",
+        "NCHAR",
+        "NUMBER",
+        "NUMBER"
+      ],
+      "column_sortables": [],
+      "rows": [
+        [
+          "GM_OPT_EMPLID",
+          "VARCHAR2",
+          "44",
+          null
+        ],
+        [
+          "EMPLID",
+          "VARCHAR2",
+          "44",
+          null
+        ],
+        [
+          "EMPL_RCD",
+          "NUMBER",
+          "22",
+          null
+        ],
+        [
+          "EFFDT",
+          "DATE",
+          "7",
+          null
+        ],
+        [
+          "EFFSEQ",
+          "NUMBER",
+          "22",
+          null
+        ]
+      ],
+      "affected_rows": 0,
+      "execution_time_ms": 414,
+      "truncated": false,
+      "session_id": null,
+      "has_more": false,
+      "statement_index": 1,
+      "error_message": "GM_OPT_EMPLID"
+    }
+  ]
+}

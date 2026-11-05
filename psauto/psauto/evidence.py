@@ -2,28 +2,73 @@
 
 import json
 import hashlib
+import io
 import re
 import time
 from collections import Counter
+from contextlib import contextmanager
 from pathlib import Path
 
 from PIL import Image
 from maa.context import ContextEventSink
 
 
+class _ExportProfile:
+    """Post-task export costs; the pipeline's native event timing is unchanged."""
+    def __init__(self, target=None):
+        self.target = target if target is not None else {}
+        self.started = time.perf_counter()
+        self.phases = Counter()
+        self.counts = Counter()
+        self.node_access = 'eager'
+
+    @contextmanager
+    def measure(self, phase):
+        started = time.perf_counter()
+        try:
+            yield
+        finally:
+            self.phases[phase] += (time.perf_counter() - started) * 1000
+
+    def finish(self):
+        elapsed = (time.perf_counter() - self.started) * 1000
+        self.target.update({'node_access': self.node_access,
+                            'total_ms': round(elapsed, 2),
+                            'phases_ms': {key: round(value, 2) for key, value in self.phases.items()},
+                            'unattributed_ms': round(elapsed - sum(self.phases.values()), 2),
+                            'counts': dict(self.counts)})
+
+
 class _ScreenshotStore:
     """Share identical raw frames across node and recognition evidence."""
-    def __init__(self, directory):
+    def __init__(self, directory, profile=None):
         self.directory = Path(directory)
         self.frames = {}
         self.recognitions = {}
+        self.profile = profile if profile is not None else _ExportProfile()
 
     def save(self, raw, filename, reco_id=None):
         if reco_id in self.recognitions:
+            self.profile.counts['recognition_reuses'] += 1
             return self.recognitions[reco_id]
-        digest = (raw.shape, hashlib.sha256(raw.tobytes()).digest())
+        with self.profile.measure('hash_copy_ms'):
+            # Maa returns contiguous BGR; preserve C-order for strided callers too.
+            pixels = raw if raw.flags.c_contiguous else raw.copy(order='C')
+        with self.profile.measure('hash_ms'):
+            digest = (pixels.shape, hashlib.sha256(memoryview(pixels)).digest())
+        self.profile.counts['frames_hashed'] += 1
+        self.profile.counts['raw_bytes_hashed'] += raw.nbytes
         if digest not in self.frames:
-            Image.fromarray(raw[:, :, ::-1]).save(self.directory / filename, compress_level=1)
+            with self.profile.measure('image_conversion_ms'):
+                image = Image.frombuffer('RGB', (pixels.shape[1], pixels.shape[0]),
+                                         pixels, 'raw', 'BGR', 0, 1)
+            with image, io.BytesIO() as encoded:
+                with self.profile.measure('png_encode_ms'):
+                    image.save(encoded, format='PNG', compress_level=1)
+                with self.profile.measure('png_write_ms'):
+                    with encoded.getbuffer() as payload:
+                        (self.directory / filename).write_bytes(payload)
+            self.profile.counts['unique_pngs'] += 1
             self.frames[digest] = filename
         filename = self.frames[digest]
         if reco_id is not None:
@@ -55,11 +100,16 @@ class EvidenceSink(ContextEventSink):
             if reco_id in screenshots.recognitions:
                 event['screenshot'] = screenshots.recognitions[reco_id]
                 continue
-            reco = self.tasker.get_recognition_detail(reco_id)
-            if reco and reco.raw_image is not None and reco.raw_image.size:
+            with screenshots.profile.measure('candidate_detail_ms'):
+                reco = self.tasker.get_recognition_detail(reco_id)
+            screenshots.profile.counts['candidate_detail_reads'] += 1
+            raw = reco.raw_image if reco is not None else None
+            if raw is not None and raw.size:
                 filename = f'recognition_{reco_id}.png'
-                event['screenshot'] = screenshots.save(reco.raw_image, filename, reco_id)
-        (directory / 'events.json').write_text(json.dumps(self.events, ensure_ascii=False, indent=2), encoding='utf-8')
+                event['screenshot'] = screenshots.save(raw, filename, reco_id)
+            del raw, reco  # Do not retain the preceding candidate's debug images.
+        with screenshots.profile.measure('metadata_ms'):
+            (directory / 'events.json').write_text(json.dumps(self.events, ensure_ascii=False, indent=2), encoding='utf-8')
         self.close()
 
     def close(self):
@@ -175,33 +225,66 @@ def _write_summary(directory, report, events):
     return summary
 
 
-def export_task_evidence(job, directory, trace=None):
+def _node_record(node, index, screenshots):
+    item = {"name": node.name, "completed": node.completed, 'node_id': getattr(node, 'node_id', None)}
+    reco = node.recognition
+    if reco:
+        item['recognition'] = {"algorithm": str(reco.algorithm), "hit": reco.hit, 'reco_id': reco.reco_id,
+                               "detail": reco.raw_detail}
+        raw = reco.raw_image
+        if raw is not None and raw.size:
+            name = re.sub(r'[^A-Za-z0-9_-]', '_', node.name)
+            filename = f'{index:03d}_{name}.png'
+            item['screenshot'] = screenshots.save(raw, filename, reco.reco_id)
+    if node.action:
+        item['action'] = {"type": str(node.action.action), "success": node.action.success,
+                          "detail": node.action.raw_detail}
+    return item
+
+
+def export_task_evidence(job, directory, trace=None, *, tasker=None, profile=None):
+    measured = _ExportProfile(profile)
+    try:
+        return _export_task_evidence(job, directory, trace, tasker, measured)
+    finally:
+        measured.finish()
+
+
+def _export_task_evidence(job, directory, trace, tasker, measured):
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
-    screenshots = _ScreenshotStore(directory)
-    detail = job.get()
+    screenshots = _ScreenshotStore(directory, measured)
+    with measured.measure('task_detail_ms'):
+        detail = job.get()
     report = {"entry": detail.entry if detail else None, "succeeded": job.succeeded, "nodes": [],
               "task_id": getattr(detail, 'task_id', None)}
     if detail:
-        for index, node in enumerate(detail.nodes):
-            item = {"name": node.name, "completed": node.completed, 'node_id': getattr(node, 'node_id', None)}
-            reco = node.recognition
-            if reco:
-                item['recognition'] = {"algorithm": str(reco.algorithm), "hit": reco.hit, 'reco_id': reco.reco_id,
-                                       "detail": reco.raw_detail}
-                raw = reco.raw_image
-                if raw is not None and raw.size:
-                    name = re.sub(r'[^A-Za-z0-9_-]', '_', node.name)
-                    filename = f'{index:03d}_{name}.png'
-                    item['screenshot'] = screenshots.save(raw, filename, reco.reco_id)
-            if node.action:
-                item['action'] = {"type": str(node.action.action), "success": node.action.success,
-                                  "detail": node.action.raw_detail}
-            report['nodes'].append(item)
+        owner = tasker if tasker is not None else getattr(trace, 'tasker', None)
+        if owner is not None and hasattr(detail, 'node_id_list'):
+            # TaskDetail.nodes caches every raw/draw image. Use only public SDK
+            # APIs, and release each detail before asking for the next one.
+            measured.node_access = 'streaming'
+            for index, node_id in enumerate(detail.node_id_list):
+                with measured.measure('node_detail_ms'):
+                    node = owner.get_node_detail(node_id)
+                if node is None:
+                    raise RuntimeError(f'Failed to get node detail: {node_id}')
+                report['nodes'].append(_node_record(node, index, screenshots))
+                measured.counts['nodes'] += 1
+                del node
+        else:
+            measured.node_access = 'eager_compatibility'
+            with measured.measure('node_detail_ms'):
+                nodes = detail.nodes
+            for index, node in enumerate(nodes):
+                report['nodes'].append(_node_record(node, index, screenshots))
+                measured.counts['nodes'] += 1
     events = trace.events if trace is not None else []
-    _attach_timings(report, events)
-    (directory / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+    with measured.measure('metadata_ms'):
+        _attach_timings(report, events)
+        (directory / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     if trace is not None:
         trace.write(directory, screenshots)
-    _write_summary(directory, report, events)
+    with measured.measure('metadata_ms'):
+        _write_summary(directory, report, events)
     return report

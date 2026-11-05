@@ -195,6 +195,24 @@ class ObjectServiceTests(unittest.TestCase):
         self.assertFalse(result['next_operation_allowed'])
         self.session.stop.assert_called_once()
 
+    def test_partial_export_profile_is_written_without_changing_business_facts(self):
+        self.completed('_Saved','_SavedAndClosed')
+        def export(job, output, trace, *, profile):
+            profile.update({'node_access':'streaming','total_ms':12.5,
+                            'phases_ms':{'node_detail_ms':10},'counts':{'nodes':1}})
+            raise OSError('disk full after first node')
+        self.export.side_effect=export
+        result=self.service.execute(self.request)
+        timings=json.loads((Path(result['evidence_dir'])/'timings.json').read_text(encoding='utf-8'))
+        self.assertEqual(timings['evidence_export']['counts']['nodes'],1)
+        self.assertEqual(timings['evidence_export']['node_access'],'streaming')
+        self.assertIn('evidence_export_ms',timings)
+        self.assertTrue(result['saved'])
+        self.assertTrue(result['workspace_ready'])
+        self.assertEqual(result['evidence_status'],'failed')
+        self.assertFalse(result['next_operation_allowed'])
+        self.tasker.post_task.assert_called_once()
+
     def test_timings_and_error_report_failures_cannot_override_the_return(self):
         self.completed('_Saved','_SavedAndClosed')
         original=Path.write_text

@@ -1,0 +1,43 @@
+{
+  "name": "GM_EXP_REC",
+  "type": "SQL Table",
+  "fields": [
+    {
+      "name": "GM_OPT_EMPLID",
+      "key": true,
+      "alternate_search_key": false,
+      "listbox": true,
+      "search_key": true
+    },
+    {
+      "name": "EMPLID",
+      "key": true,
+      "alternate_search_key": false,
+      "listbox": true,
+      "search_key": true
+    },
+    {
+      "name": "EMPL_RCD",
+      "key": true,
+      "alternate_search_key": false,
+      "listbox": true,
+      "search_key": true
+    },
+    {
+      "name": "EFFDT",
+      "key": false,
+      "alternate_search_key": true,
+      "listbox": true,
+      "search_key": false
+    },
+    {
+      "name": "EFFSEQ",
+      "key": false,
+      "alternate_search_key": true,
+      "listbox": true,
+      "search_key": false
+    }
+  ],
+  "build": true,
+  "tablespace": "HRAPP"
+}

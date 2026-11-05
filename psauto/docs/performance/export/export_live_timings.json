@@ -1,0 +1,1337 @@
+{
+  "pipeline_ms": 200724.78,
+  "evidence_export_ms": 27565.08,
+  "evidence_export": {
+    "node_access": "streaming",
+    "total_ms": 27564.3,
+    "phases_ms": {
+      "task_detail_ms": 0.19,
+      "node_detail_ms": 12121.62,
+      "hash_copy_ms": 1.04,
+      "hash_ms": 5276.39,
+      "image_conversion_ms": 832.12,
+      "png_encode_ms": 6901.89,
+      "png_write_ms": 157.75,
+      "metadata_ms": 225.19,
+      "candidate_detail_ms": 1452.69
+    },
+    "unattributed_ms": 595.41,
+    "counts": {
+      "frames_hashed": 228,
+      "raw_bytes_hashed": 1418342400,
+      "unique_pngs": 100,
+      "nodes": 208,
+      "candidate_detail_reads": 20
+    }
+  },
+  "cli_settings": {
+    "expected_settle_ms": 0,
+    "effective_settle_ms": 0
+  },
+  "transport": [
+    {
+      "operation": "inspect",
+      "elapsed_ms": 333.65
+    },
+    {
+      "operation": "inspect",
+      "elapsed_ms": 122.58
+    },
+    {
+      "operation": "inspect",
+      "elapsed_ms": 181.79
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 220.78
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 176.45
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 212.64
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 288.2
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 213.88
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 272.98
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 214.69
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 315.72
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 255.19
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 218.04
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 279.66
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 163.52
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 223.69
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 167.04
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 330.53
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 165.75
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 161.02
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 186.6
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 218.74
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 189.28
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2142.67
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 228.78
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 176.88
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 193.18
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 201.55
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 366.94
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 187.31
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 204.91
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 347.44
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 144.9
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 176.57
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 461.91
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 1006.9
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 684.88
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 590.29
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 160.8
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 175.82
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 237.89
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 202.01
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 176.56
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 184.4
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 341.99
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 166.69
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 600.04
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 213.47
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 280.95
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 282.73
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2185.64
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 193.98
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 167.29
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 184.55
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 168.49
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 289.68
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 194.52
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 189.07
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 263.84
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 191.58
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 165.88
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 896.16
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 557.51
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 1572.96
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 660.99
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 594.16
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 1155.86
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 4159.2
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 375.1
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 362.98
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 230.33
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 186.74
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 251.13
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 302.3
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 270.73
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 174.56
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 264.41
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 190.26
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 275.23
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 189.53
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 177.26
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 286.43
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 213.22
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 224.94
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 605.96
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 304.53
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 179.29
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2524.75
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 561.82
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 612.44
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 1949.19
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 283.46
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 263.25
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 195.32
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 240.34
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 193.82
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 271.01
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 183.19
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 313.39
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 193.56
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 153.76
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 195.91
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 174.79
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 527.7
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 225.56
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 255.72
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 178.82
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2092.34
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 155.99
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 141.36
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 167.57
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 176.3
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 256.03
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 186.01
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 239.33
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 237.69
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 220.91
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 148.74
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 252.8
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 147.57
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 258.82
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 1951.49
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 243.0
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 230.01
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 388.37
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 242.17
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 187.79
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2015.86
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 159.47
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 157.54
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 188.33
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 220.56
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 307.45
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 190.81
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 270.1
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 184.23
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 371.01
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 201.47
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 265.18
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 275.72
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 195.01
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 187.07
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 273.81
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 233.59
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 285.18
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 229.89
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 778.71
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 2189.4
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 266.93
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 318.28
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 330.37
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 526.44
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 276.1
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 271.83
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 286.42
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 417.76
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 288.3
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 516.88
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 431.85
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 485.07
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 376.11
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 575.86
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 254.53
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 340.28
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 710.92
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 284.06
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 352.5
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 407.99
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 535.25
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 368.69
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 701.35
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 263.21
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 362.16
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 516.86
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 381.92
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 343.04
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 352.13
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 504.33
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 341.86
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 348.5
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 233.0
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 271.81
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 351.34
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 505.49
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 366.04
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 297.47
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 1566.4
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 278.81
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 170.07
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 209.37
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 312.17
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 170.94
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 157.21
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 163.28
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 268.42
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 245.31
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 191.18
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 190.23
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 202.19
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 253.6
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 221.11
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 182.24
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 217.3
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 263.05
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 660.28
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 364.07
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 291.93
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 191.48
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 200.03
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 345.21
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 164.75
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 158.79
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 173.14
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 284.85
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 197.6
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 167.52
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 344.86
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 192.92
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 206.56
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 185.53
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 278.31
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 191.07
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 208.06
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 220.1
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 243.05
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 319.35
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 167.47
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 185.93
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 190.39
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 239.28
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 488.47
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 343.91
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 1497.52
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 372.11
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 219.94
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 283.65
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 461.45
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 428.63
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 217.11
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 198.34
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 314.64
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 185.76
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 187.83
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 182.38
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 234.94
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 153.58
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 292.19
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 219.9
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 178.53
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 247.66
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 200.89
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 171.61
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 193.36
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 182.02
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 188.6
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 284.24
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 166.34
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 183.9
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 186.04
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 178.96
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 218.93
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 202.33
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 329.52
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 151.1
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 146.92
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 292.6
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 272.19
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 400.73
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 2103.08
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 172.83
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 204.12
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 199.62
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 193.37
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2199.11
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 161.75
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 173.31
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 189.17
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 287.22
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 538.56
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 224.58
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 196.53
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 344.29
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 189.41
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 178.64
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 225.29
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 191.04
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 181.18
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 396.92
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 186.71
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 194.17
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 423.88
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 196.75
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 224.49
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 325.58
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 180.77
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 274.38
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 177.29
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 215.38
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 359.48
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 215.11
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 312.1
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 227.77
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 379.9
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 210.46
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 271.52
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 217.12
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 191.71
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 192.56
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 310.11
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 225.7
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 270.8
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 828.19
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 1308.02
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 835.39
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 362.62
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 263.36
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 246.73
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 228.67
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 241.73
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 209.58
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 189.56
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 305.08
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 185.98
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 178.9
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 233.54
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 207.87
+    }
+  ]
+}
