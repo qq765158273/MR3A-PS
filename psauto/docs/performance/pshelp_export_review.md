@@ -85,3 +85,12 @@ ac8ccb8a192108b8c0e6e592b7bcf5b8398cab11f8547895ae4fdd31ff38985b  psauto/docs/im
 ```
 
 正式回复目标 `ps:0.0`；报告先保存，再发 tmux 通知，主控按约定主动读取。
+
+**冻结后附记（2026-11-05 09:29:07 UTC / 17:29:07 +08:00）：** 按主控要求，仅补核 P3 修复和服务 profile 测试，没有重做完整审核、运行真实业务或修改冻结代码。
+
+- **P3 已关闭。** benchmark 最终 SHA 为 `22d42e72ae1b752b9ab7bb120c49e892fa7fba01f9bff62224b01c0c7d286ebd`，与前述独立内存故障复验版本一致。采样异常进入 sample_errors，join 后主线程抛 RuntimeError，不发布 benchmark.json。
+- **新增服务测试已纳入。** `test_partial_export_profile_is_written_without_changing_business_facts` 检查导出抛错后，部分 profile 仍写入 timings、saved/closed 事实保持、后续操作阻塞且任务仅提交一次。该测试文件 SHA 为 `c0ab74ce97c7d558155f558a1bf5d699fcfd4d775fc2ff999ad6717fb89cecc2`。主控套件日志为 109 项：52 通过、57 显式跳过；未在本附记重复执行。
+- **真实结果按主控证据记录。** GM_EXP_REC 为 230.34 秒、208 节点，保存关闭、Build 与 DBX 通过；streaming 导出 27.565 秒，含 20 个正常失败候选详情。该现场调用较历史更慢，不能当作真实业务提速证明。前文已核对其本机证据，附记不追加浏览器或数据库操作。
+- **最终代码/测试 SHA 再核对一致：** evidence.py 为 `120232856f741983aa3a6fdaf61ad34be9ca1783a76d9fa121ed60a87e6dc1a7`；service.py 为 `c063323f1bed804753769c007abde0d1723eadc398675ed1a776fc987fe9baba`；test_evidence.py 为 `012b78bd2e488234a2042ca0b719847e6f9d26e271b4bf17ba390f0e7c9fc353`。完整路径及其余文档 SHA 见上表。
+
+最终结论不变：本轮限定范围内通过，P3 关闭；现场平均收益、长期运行和跨环境表现仍未验证。该附记为本轮最后一次汇总通知的依据。
