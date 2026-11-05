@@ -33,7 +33,10 @@ class EvidenceTests(unittest.TestCase):
             directory=Path(tmp)
             report=export_task_evidence(job,directory,trace)
             events=json.loads((directory/'events.json').read_text(encoding='utf-8'))
+            summary=json.loads((directory/'summary.json').read_text(encoding='utf-8'))
             self.assertEqual(len(events),3)
+            self.assertEqual(summary['recognition_failures'],1)
+            self.assertEqual(summary['node_count'],2)
             self.assertEqual(len(list(directory.glob('*.png'))),2)
             shared=report['nodes'][0]['screenshot']
             self.assertEqual(report['nodes'][1]['screenshot'],shared)

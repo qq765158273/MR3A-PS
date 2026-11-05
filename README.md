@@ -149,6 +149,8 @@ GM_MCP_REC4 实际完成 226 个节点，Pipeline 约 906 秒：截图及下一�
 
 名称检查补齐了输入后移开光标，降低光标对末位数字的干扰；保存标题/OK 复用固定图片，Build 名称检查缩到单行。这些校准失败与分段结果仍单列，不计完整成功。优化实现、前后对比、208 行耗时 CSV 和截图见 [执行链路优化](psauto/docs/performance/optimization.md)；原始诊断口径及 [226 行基准耗时](psauto/docs/performance/record4_nodes.csv) 见 [性能分析](psauto/docs/performance/README.md)。
 
+每次运行的 `events.json`、`report.json`、`summary.json` 和 `timings.json` 都由同一条 Maa/MR3A Pipeline 事件链生成；其中 `summary.json` 自动记录节点成败和阶段耗时，CSV 只是跨运行对照材料。
+
 #### 截图和 OCR 区域基准
 
 2026-11-04 已用现有真实截图对比 Maa 原生 OCR 与模板。按用户偏好，固定控件优先局部模板，普通模板阈值为 **0.85**；动态对象名和字段名保留必要的局部 OCR。零计数现只看 `[696,719,7,11]` 的首位数字，并确认对话框图片；8 张真实帧及 10/100 合成反例中，数字 OCR 和数字模板均符合预期，模板约 18–20ms、OCR 约 37–45ms，因此当前选数字模板。三个创建 JSON 的查重静态控件已迁移，50 项实际 JSON 离线识别检查通过。Key 模板需覆盖普通与悬停样式，模拟放大 125% 后原尺寸模板失效，分辨率和 DPI 仍需固定。样本、计时和局部示意图见 [截图识别方法对比](psauto/docs/recognition_comparison.md)，这些小样本结果不代表整体准确率或长期稳定性。

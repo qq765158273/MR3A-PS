@@ -94,6 +94,8 @@ PSIDE 节点位于原 MR3A 资源目录 `assets/resource/pipeline/PSIDE/`。运�
 
 CLI 输入适配器默认保持一个客户端进程，调用配置指定安装中的官方 Playwright CLI `Session.run`；`cli_persistent_client:false` 可用于原单次启动方式的诊断对照。每个 MCP 运行目录新增 `timings.json`，记录 Pipeline、证据导出和无入参内容的控制器请求耗时。重复截图共用文件路径，每个节点和识别事件仍保留自己的判决与截图引用。组合键编码和性能验证见 [执行链路优化](docs/performance/optimization.md)。
 
+每次运行还会自动生成 `summary.json`，由 Maa 原生 `ContextEventSink` 的 `Node.*` 事件汇总节点数、识别/动作失败、阶段耗时、动作类型和识别算法；`report.json` 的每个节点包含识别、动作和总耗时。性能分析使用这些运行证据，不依赖人工估算。
+
 `create_ae` 接收 1–4 个 `steps`，各项为 `{type: "SQL" | "PeopleCode", code: "..."}`，在 MAIN 下依次生成 Step01–Step04。代码通过 JumpServer 剪贴板输入，再识别保存反馈，最后关闭所有本次编辑窗口；不执行 AE。两步和四步已完整实测并通过 DBX 内容验收。各卡点的 ROI、图片/OCR 选择、延迟、有限重试与下一步条件见 [判决表](docs/recognition_decisions.md)。
 
 空闲超时恢复、真实退出再进入命令、每个节点的 OCR/延迟/点击/失败检查，以及 GM 测试对象的截图见 [开发记录](docs/recovery.md)。`run_pipeline.py` 现在在业务任务开始前连接失败时尝试已识别的恢复路径，可用 `--no-recovery` 关闭；不会自动重放失败的业务任务。每次任务的 Maa 原生截图、识别和动作事件保存到本机 `out/runs/`，恢复证据位于 `out/recovery/`。
