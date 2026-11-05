@@ -121,14 +121,9 @@ class ObjectArgumentsTests(unittest.TestCase):
                     self.assertNotIn(name, tail, 'Save/close must not loop')
                     tail.append(name)
                     pending.extend(graph[name].get('next', []))
-                if isinstance(request, RecordRequest):
-                    self.assertEqual([graph[name]['action'] for name in tail],
-                                     ['DoNothing', 'ClickKey', 'DoNothing'])
-                    self.assertEqual(graph[tail[1]]['key'], 0x20073)
-                else:
-                    self.assertEqual([graph[name]['action'] for name in tail],
-                                     ['DoNothing', 'KeyDown', 'ClickKey', 'KeyUp', 'DoNothing'])
-                    self.assertEqual([graph[name].get('key') for name in tail[1:4]], [17, 115, 17])
+                self.assertEqual([graph[name]['action'] for name in tail],
+                                 ['DoNothing', 'ClickKey', 'DoNothing'])
+                self.assertEqual(graph[tail[1]]['key'], 0x20073)
                 self.assertEqual(tail[-1], entry + '_SavedAndClosed')
                 self.assertEqual(graph[tail[-1]].get('next', []), [])
                 checks = graph[entry + '_Saved']['all_of']

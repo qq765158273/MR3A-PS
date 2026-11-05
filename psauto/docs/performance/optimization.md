@@ -27,6 +27,10 @@
 
 本轮原始数据见 [208 行逐节点 CSV](record7_nodes.csv) 与 [汇总 JSON](record7_summary.json)。所有行加引擎起始时间与 493.375 秒严格相符，每项动作均成功；5 个反向识别检查的原始 hit 为 false，规则仍通过。仍有约 61% 的 Pipeline 时间在截图准备；本轮尚未消除官方 CLI 的后台 settle 等待，单次截图传输中位数约 1.656 秒，普通点击约 0.862 秒。这是同环境一次完整对照，不是长期成功率或跨 DPI 结果。Field/AE 共享客户端和证据优化，组合键及延迟修改本轮只应用于 Record JSON。
 
+Field/AE 迁移后，四步 AE `GM_MCP_AE5` 从启动到结果落盘约 **352.608 秒**，Pipeline **327.379 秒**；129 个节点、4 个编辑器保存反馈均通过。此前四步 AE4 约 816 秒，本次约减少 **56.8%**。DBX 内容验收和原始截图见 [AE5 验收证据](../images/acceptance-ae5-20261105/README.md)。AE5 一次恢复中断未计成功，最终调用是在确认空白操作台后重新完成。
+
+Field `GM_MCP_FLD14` 随后完整通过：从启动到结果约 **141.840 秒**，Pipeline **128.375 秒**，45 个节点完成；DBX 确认 Character、长度 11 及标签参数。此前同类 Field 约 284 秒，本次约减少 **50.1%**。证据见 [Field14 验收](../images/acceptance-field14-20261105/README.md)。
+
 ## 实现
 
 - 常驻一个 Node 客户端，加载**配置指定的实际 CLI 安装**中的官方 Registry、Session 和参数解析模块。每条命令继续调用官方 `Session.run`，保留版本检查、命令处理和浏览器 daemon。停止时只结束本项目客户端，不退出浏览器。`cli_persistent_client:false` 可选择原单次启动模式作诊断对照。

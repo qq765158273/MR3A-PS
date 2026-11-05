@@ -145,7 +145,7 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 GM_MCP_REC4 实际完成 226 个节点，Pipeline 约 906 秒：截图及下一轮准备约 532 秒、控制器输入约 238 秒、动作前后延迟约 102 秒、全部识别约 29 秒、引擎起始约 4 秒。20 次候选识别未命中均为正常分支，无动作失败或重试循环。另有约 66 秒用于启动、证据导出和最终返回。当前瓶颈是 CLI 调用及节点粒度；Ctrl+Enter 拆分三步就分配约 14 秒，不能用“每步延迟 1 秒”估算整条流程。
 
-优化前隐藏浏览器的只读补测中，CLI 空命令约 2 秒；473 张导出 PNG 只有 107 种不同内容。随后实现官方 CLI 客户端常驻、Record 组合键、延迟调整与证据去重，并完整创建、Build、关闭 GM_MCP_REC7，DBX 六项验收通过。总耗时从 **16 分 12 秒降至 8 分 44 秒，减少约 46%**；Pipeline 从 906 秒降至 493 秒，12 次复选框点击后确认全部通过，89 个 DoNothing 检查保留。节点数 226→208，PNG 文件 473→110，判决仍使用实时原始截图。当前最大开销仍在后台截图，单次传输中位数约 1.656 秒。
+优化前隐藏浏览器的只读补测中，CLI 空命令约 2 秒；473 张导出 PNG 只有 107 种不同内容。随后实现官方 CLI 客户端常驻、Record 组合键、延迟调整与证据去重，并完整创建、Build、关闭 GM_MCP_REC7，DBX 六项验收通过。总耗时从 **16 分 12 秒降至 8 分 44 秒，减少约 46%**；Pipeline 从 906 秒降至 493 秒，12 次复选框点击后确认全部通过，89 个 DoNothing 检查保留。节点数 226→208，PNG 文件 473→110，判决仍使用实时原始截图。当前最大开销仍在后台截图，单次传输中位数约 1.656 秒。Field/AE 也已迁移相同策略；四步 AE5 从约 816 秒降至约 353 秒，Field14 从约 284 秒降至约 142 秒，均经 DBX 内容验收。见 [AE5 验收](psauto/docs/images/acceptance-ae5-20261105/README.md) 和 [Field14 验收](psauto/docs/images/acceptance-field14-20261105/README.md)。
 
 名称检查补齐了输入后移开光标，降低光标对末位数字的干扰；保存标题/OK 复用固定图片，Build 名称检查缩到单行。这些校准失败与分段结果仍单列，不计完整成功。优化实现、前后对比、208 行耗时 CSV 和截图见 [执行链路优化](psauto/docs/performance/optimization.md)；原始诊断口径及 [226 行基准耗时](psauto/docs/performance/record4_nodes.csv) 见 [性能分析](psauto/docs/performance/README.md)。
 

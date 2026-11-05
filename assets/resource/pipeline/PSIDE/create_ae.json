@@ -31,17 +31,20 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_query": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131151,
     "next": [
-      "PSIDE_CreateAE_query_1"
+      "PSIDE_CreateAE_query_dialog"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_1": {
     "action": "ClickKey",
@@ -51,7 +54,8 @@
     "next": [
       "PSIDE_CreateAE_query_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_2": {
     "action": "KeyUp",
@@ -61,7 +65,8 @@
     "next": [
       "PSIDE_CreateAE_query_dialog"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_dialog": {
     "action": "DoNothing",
@@ -79,7 +84,9 @@
     ],
     "template": "PSIDE/lookup_title.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_query_type_focus": {
     "action": "Click",
@@ -104,7 +111,8 @@
     "post_delay": 300,
     "template": "PSIDE/lookup_type_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type": {
     "action": "ClickKey",
@@ -114,7 +122,8 @@
     "next": [
       "PSIDE_CreateAE_query_type_home"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type_home": {
     "action": "ClickKey",
@@ -124,7 +133,8 @@
     "next": [
       "PSIDE_CreateAE_query_type_down1"
     ],
-    "post_delay": 50
+    "post_delay": 50,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type_down1": {
     "action": "ClickKey",
@@ -134,7 +144,8 @@
     "next": [
       "PSIDE_CreateAE_query_type_down2"
     ],
-    "post_delay": 50
+    "post_delay": 50,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type_down2": {
     "action": "ClickKey",
@@ -144,7 +155,8 @@
     "next": [
       "PSIDE_CreateAE_query_type_down3"
     ],
-    "post_delay": 50
+    "post_delay": 50,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type_down3": {
     "action": "ClickKey",
@@ -154,7 +166,8 @@
     "next": [
       "PSIDE_CreateAE_query_type_enter"
     ],
-    "post_delay": 50
+    "post_delay": 50,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type_enter": {
     "action": "ClickKey",
@@ -164,7 +177,8 @@
     "next": [
       "PSIDE_CreateAE_query_type_check"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_type_check": {
     "action": "DoNothing",
@@ -182,7 +196,9 @@
     ],
     "template": "PSIDE/lookup_type_ae.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_query_name_focus": {
     "action": "Click",
@@ -206,7 +222,8 @@
     ],
     "template": "PSIDE/lookup_name_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_name_clear": {
     "action": "ClickKey",
@@ -215,17 +232,19 @@
     "key": 36,
     "next": [
       "PSIDE_CreateAE_query_name_clear_select"
-    ]
+    ],
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_name_clear_select": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 16,
+    "key": 65571,
     "next": [
-      "PSIDE_CreateAE_query_name_clear_select_1"
+      "PSIDE_CreateAE_query_name_clear_input"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_name_clear_select_1": {
     "action": "ClickKey",
@@ -235,7 +254,8 @@
     "next": [
       "PSIDE_CreateAE_query_name_clear_select_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_name_clear_select_2": {
     "action": "KeyUp",
@@ -245,7 +265,8 @@
     "next": [
       "PSIDE_CreateAE_query_name_clear_input"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_name_clear_input": {
     "action": "InputText",
@@ -255,7 +276,8 @@
     "next": [
       "PSIDE_CreateAE_query_name_check"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_name_check": {
     "action": "DoNothing",
@@ -270,8 +292,10 @@
       25
     ],
     "next": [
-      "PSIDE_CreateAE_query_open"
-    ]
+      "PSIDE_CreateAE_query_name_blur"
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_query_open": {
     "action": "Click",
@@ -297,7 +321,8 @@
     ],
     "template": "PSIDE/lookup_open_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_query_found": {
     "action": "DoNothing",
@@ -313,7 +338,9 @@
     ],
     "next": [
       "PSIDE_CreateAE_already_exists"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_query_missing": {
     "action": "DoNothing",
@@ -348,7 +375,9 @@
         "threshold": 0.85,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_cancel_query": {
     "action": "Click",
@@ -373,17 +402,19 @@
     "post_delay": 300,
     "template": "PSIDE/lookup_cancel_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_already_exists": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "PSIDE_CreateAE_already_exists_1"
+      "PSIDE_CreateAE_conflict_closed"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_already_exists_1": {
     "action": "ClickKey",
@@ -393,7 +424,8 @@
     "next": [
       "PSIDE_CreateAE_already_exists_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_already_exists_2": {
     "action": "KeyUp",
@@ -403,7 +435,8 @@
     "next": [
       "PSIDE_CreateAE_conflict_closed"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_conflict_closed": {
     "action": "DoNothing",
@@ -433,7 +466,9 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_SelectStep": {
     "action": "DoNothing",
@@ -451,17 +486,20 @@
     ],
     "template": "PSIDE/step01_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_AddAction": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131123,
     "next": [
-      "A0_AddAction_1"
+      "A0_TypeFocus"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_AddAction_1": {
     "action": "ClickKey",
@@ -471,7 +509,8 @@
     "next": [
       "A0_AddAction_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A0_AddAction_2": {
     "action": "KeyUp",
@@ -481,7 +520,8 @@
     "next": [
       "A0_TypeFocus"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_TypeFocus": {
     "action": "Click",
@@ -509,17 +549,19 @@
       "PSIDE/action_sql_label_focused.png"
     ],
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A0_Arrow": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 18,
+    "key": 262184,
     "next": [
-      "A0_Arrow_1"
+      "A0_ChoosePeopleCode"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_Arrow_1": {
     "action": "ClickKey",
@@ -529,7 +571,8 @@
     "next": [
       "A0_Arrow_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A0_Arrow_2": {
     "action": "KeyUp",
@@ -539,7 +582,8 @@
     "next": [
       "A0_ChoosePeopleCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_ChoosePeopleCode": {
     "action": "Click",
@@ -563,7 +607,8 @@
     "next": [
       "A0_CommitType"
     ],
-    "post_delay": 400
+    "post_delay": 400,
+    "pre_delay": 0
   },
   "A0_CommitType": {
     "action": "DoNothing",
@@ -582,17 +627,20 @@
     ],
     "template": "PSIDE/step01_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_StructureSave": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131155,
     "next": [
-      "A0_StructureSave_1"
+      "A0_StructureSave_as"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_StructureSave_1": {
     "action": "ClickKey",
@@ -602,7 +650,8 @@
     "next": [
       "A0_StructureSave_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A0_StructureSave_2": {
     "action": "KeyUp",
@@ -612,14 +661,14 @@
     "next": [
       "A0_StructureSave_as"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_StructureSave_as": {
     "action": "InputText",
     "on_error": [],
     "timeout": 10000,
-    "recognition": "OCR",
-    "expected": "Save As",
+    "recognition": "TemplateMatch",
     "roi": [
       800,
       440,
@@ -630,7 +679,11 @@
     "next": [
       "A0_StructureSave_name"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0,
+    "template": "PSIDE/save_as_title.png",
+    "threshold": 0.85,
+    "order_by": "Score"
   },
   "A0_StructureSave_name": {
     "action": "DoNothing",
@@ -645,15 +698,16 @@
       30
     ],
     "next": [
-      "A0_StructureSave_ok"
-    ]
+      "A0_StructureSave_name_blur"
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_StructureSave_ok": {
     "action": "Click",
     "on_error": [],
     "timeout": 10000,
-    "recognition": "OCR",
-    "expected": "^OK$",
+    "recognition": "TemplateMatch",
     "roi": [
       1000,
       500,
@@ -669,7 +723,11 @@
     "next": [
       "A0_StructureSave_named"
     ],
-    "post_delay": 700
+    "post_delay": 700,
+    "pre_delay": 0,
+    "template": "PSIDE/save_as_ok.png",
+    "threshold": 0.85,
+    "order_by": "Score"
   },
   "A0_StructureSave_named": {
     "action": "DoNothing",
@@ -685,7 +743,9 @@
     ],
     "next": [
       "A0_TypeSaved"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_TypeSaved": {
     "action": "DoNothing",
@@ -732,7 +792,9 @@
     ],
     "next": [
       "A0_ActionIcon"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_ActionIcon": {
     "action": "Click",
@@ -763,7 +825,8 @@
       -10
     ],
     "post_delay": 300,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A0_ViewMenu": {
     "action": "Click",
@@ -780,7 +843,8 @@
     "next": [
       "A0_ViewCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_ViewCode": {
     "action": "DoNothing",
@@ -798,10 +862,11 @@
     "next": [
       "A0_ViewCodeEnabled"
     ],
-    "post_delay": 200,
+    "post_delay": 0,
     "template": "__PARAM_step_0_view_template__",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A0_EditorReady": {
     "action": "DoNothing",
@@ -868,7 +933,9 @@
     ],
     "next": [
       "A0_FocusSQLCode"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_Paste": {
     "action": "InputText",
@@ -878,7 +945,8 @@
     "next": [
       "A0_Dirty"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "A0_PSIDE_SaveCodeEditor": {
     "recognition": "And",
@@ -908,13 +976,15 @@
         "order_by": "Score"
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131155,
     "next": [
-      "A0_PSIDE_SaveCodeEditorS"
+      "A0_PSIDE_CodeEditorSaved"
     ],
-    "timeout": 5000,
-    "on_error": []
+    "timeout": 30000,
+    "on_error": [],
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A0_PSIDE_SaveCodeEditorS": {
     "action": "ClickKey",
@@ -922,7 +992,8 @@
     "next": [
       "A0_PSIDE_SaveCodeEditorRelease"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A0_PSIDE_SaveCodeEditorRelease": {
     "action": "KeyUp",
@@ -932,7 +1003,8 @@
       "A0_PSIDE_CodeEditorSaved"
     ],
     "on_error": [],
-    "timeout": 30000
+    "timeout": 30000,
+    "pre_delay": 0
   },
   "A0_PSIDE_CodeEditorSaved": {
     "recognition": "And",
@@ -967,7 +1039,9 @@
     "on_error": [],
     "next": [
       "A0_PSIDE_PeopleCodeSaveFeedback"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_PSIDE_PeopleCodeSaveFeedback": {
     "recognition": "TemplateMatch",
@@ -985,7 +1059,9 @@
     ],
     "template": "PSIDE/peoplecode_updated_marker.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_Dirty": {
     "action": "DoNothing",
@@ -1040,17 +1116,20 @@
     ],
     "next": [
       "A0_PSIDE_SaveCodeEditor"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_CloseEditor": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "A0_CloseEditor_1"
+      "A0_ParentReady"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_CloseEditor_1": {
     "action": "ClickKey",
@@ -1060,7 +1139,8 @@
     "next": [
       "A0_CloseEditor_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A0_CloseEditor_2": {
     "action": "KeyUp",
@@ -1070,7 +1150,8 @@
     "next": [
       "A0_ParentReady"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A0_ParentReady": {
     "action": "DoNothing",
@@ -1127,7 +1208,9 @@
     ],
     "next": [
       "A1_SelectPrevious"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_SelectPrevious": {
     "action": "DoNothing",
@@ -1145,17 +1228,20 @@
     ],
     "template": "PSIDE/step01_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_NewStep": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131122,
     "next": [
-      "A1_NewStep_1"
+      "A1_SelectStep"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_NewStep_1": {
     "action": "ClickKey",
@@ -1165,7 +1251,8 @@
     "next": [
       "A1_NewStep_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A1_NewStep_2": {
     "action": "KeyUp",
@@ -1175,7 +1262,8 @@
     "next": [
       "A1_SelectStep"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_SelectStep": {
     "action": "DoNothing",
@@ -1193,7 +1281,9 @@
     ],
     "template": "PSIDE/step02_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_TypeFocus": {
     "action": "Click",
@@ -1221,17 +1311,19 @@
       "PSIDE/action_sql_label_focused.png"
     ],
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A1_Arrow": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 18,
+    "key": 262184,
     "next": [
-      "A1_Arrow_1"
+      "A1_ChoosePeopleCode"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_Arrow_1": {
     "action": "ClickKey",
@@ -1241,7 +1333,8 @@
     "next": [
       "A1_Arrow_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A1_Arrow_2": {
     "action": "KeyUp",
@@ -1251,7 +1344,8 @@
     "next": [
       "A1_ChoosePeopleCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_ChoosePeopleCode": {
     "action": "Click",
@@ -1275,7 +1369,8 @@
     "next": [
       "A1_CommitType"
     ],
-    "post_delay": 400
+    "post_delay": 400,
+    "pre_delay": 0
   },
   "A1_CommitType": {
     "action": "DoNothing",
@@ -1294,17 +1389,20 @@
     ],
     "template": "PSIDE/step02_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_StructureSave": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131155,
     "next": [
-      "A1_StructureSave_1"
+      "A1_TypeSaved"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_StructureSave_1": {
     "action": "ClickKey",
@@ -1314,7 +1412,8 @@
     "next": [
       "A1_StructureSave_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A1_StructureSave_2": {
     "action": "KeyUp",
@@ -1324,7 +1423,8 @@
     "next": [
       "A1_TypeSaved"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_TypeSaved": {
     "action": "DoNothing",
@@ -1371,7 +1471,9 @@
     ],
     "next": [
       "A1_ActionIcon"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_ActionIcon": {
     "action": "Click",
@@ -1402,7 +1504,8 @@
       -10
     ],
     "post_delay": 300,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A1_ViewMenu": {
     "action": "Click",
@@ -1419,7 +1522,8 @@
     "next": [
       "A1_ViewCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_ViewCode": {
     "action": "DoNothing",
@@ -1437,10 +1541,11 @@
     "next": [
       "A1_ViewCodeEnabled"
     ],
-    "post_delay": 200,
+    "post_delay": 0,
     "template": "__PARAM_step_1_view_template__",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A1_EditorReady": {
     "action": "DoNothing",
@@ -1507,7 +1612,9 @@
     ],
     "next": [
       "A1_FocusSQLCode"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_Paste": {
     "action": "InputText",
@@ -1517,7 +1624,8 @@
     "next": [
       "A1_Dirty"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "A1_PSIDE_SaveCodeEditor": {
     "recognition": "And",
@@ -1547,13 +1655,15 @@
         "order_by": "Score"
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131155,
     "next": [
-      "A1_PSIDE_SaveCodeEditorS"
+      "A1_PSIDE_CodeEditorSaved"
     ],
-    "timeout": 5000,
-    "on_error": []
+    "timeout": 30000,
+    "on_error": [],
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A1_PSIDE_SaveCodeEditorS": {
     "action": "ClickKey",
@@ -1561,7 +1671,8 @@
     "next": [
       "A1_PSIDE_SaveCodeEditorRelease"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A1_PSIDE_SaveCodeEditorRelease": {
     "action": "KeyUp",
@@ -1571,7 +1682,8 @@
       "A1_PSIDE_CodeEditorSaved"
     ],
     "on_error": [],
-    "timeout": 30000
+    "timeout": 30000,
+    "pre_delay": 0
   },
   "A1_PSIDE_CodeEditorSaved": {
     "recognition": "And",
@@ -1606,7 +1718,9 @@
     "on_error": [],
     "next": [
       "A1_PSIDE_PeopleCodeSaveFeedback"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_PSIDE_PeopleCodeSaveFeedback": {
     "recognition": "TemplateMatch",
@@ -1624,7 +1738,9 @@
     ],
     "template": "PSIDE/peoplecode_updated_marker.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_Dirty": {
     "action": "DoNothing",
@@ -1679,17 +1795,20 @@
     ],
     "next": [
       "A1_PSIDE_SaveCodeEditor"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_CloseEditor": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "A1_CloseEditor_1"
+      "A1_ParentReady"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_CloseEditor_1": {
     "action": "ClickKey",
@@ -1699,7 +1818,8 @@
     "next": [
       "A1_CloseEditor_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A1_CloseEditor_2": {
     "action": "KeyUp",
@@ -1709,7 +1829,8 @@
     "next": [
       "A1_ParentReady"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A1_ParentReady": {
     "action": "DoNothing",
@@ -1766,7 +1887,9 @@
     ],
     "next": [
       "A2_SelectPrevious"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_SelectPrevious": {
     "action": "DoNothing",
@@ -1784,17 +1907,20 @@
     ],
     "template": "PSIDE/step02_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_NewStep": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131122,
     "next": [
-      "A2_NewStep_1"
+      "A2_NewActionAnchor"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_NewStep_1": {
     "action": "ClickKey",
@@ -1804,7 +1930,8 @@
     "next": [
       "A2_NewStep_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A2_NewStep_2": {
     "action": "KeyUp",
@@ -1814,7 +1941,8 @@
     "next": [
       "A2_NewActionAnchor"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_SelectStep": {
     "action": "DoNothing",
@@ -1832,7 +1960,9 @@
       31,
       0
     ],
-    "only_rec": true
+    "only_rec": true,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_TypeFocus": {
     "action": "Click",
@@ -1860,17 +1990,19 @@
       "PSIDE/action_sql_label_focused.png"
     ],
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A2_Arrow": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 18,
+    "key": 262184,
     "next": [
-      "A2_Arrow_1"
+      "A2_ChoosePeopleCode"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_Arrow_1": {
     "action": "ClickKey",
@@ -1880,7 +2012,8 @@
     "next": [
       "A2_Arrow_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A2_Arrow_2": {
     "action": "KeyUp",
@@ -1890,7 +2023,8 @@
     "next": [
       "A2_ChoosePeopleCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_ChoosePeopleCode": {
     "action": "Click",
@@ -1914,7 +2048,8 @@
     "next": [
       "A2_CommitType"
     ],
-    "post_delay": 400
+    "post_delay": 400,
+    "pre_delay": 0
   },
   "A2_CommitType": {
     "action": "Click",
@@ -1938,17 +2073,19 @@
       31,
       0
     ],
-    "only_rec": true
+    "only_rec": true,
+    "pre_delay": 0
   },
   "A2_StructureSave": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131155,
     "next": [
-      "A2_StructureSave_1"
+      "A2_TypeSaved"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_StructureSave_1": {
     "action": "ClickKey",
@@ -1958,7 +2095,8 @@
     "next": [
       "A2_StructureSave_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A2_StructureSave_2": {
     "action": "KeyUp",
@@ -1968,7 +2106,8 @@
     "next": [
       "A2_TypeSaved"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_TypeSaved": {
     "action": "DoNothing",
@@ -2015,7 +2154,9 @@
     ],
     "next": [
       "A2_ActionIcon"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_ActionIcon": {
     "action": "Click",
@@ -2046,7 +2187,8 @@
       -10
     ],
     "post_delay": 300,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A2_ViewMenu": {
     "action": "Click",
@@ -2063,7 +2205,8 @@
     "next": [
       "A2_ViewCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_ViewCode": {
     "action": "DoNothing",
@@ -2081,10 +2224,11 @@
     "next": [
       "A2_ViewCodeEnabled"
     ],
-    "post_delay": 200,
+    "post_delay": 0,
     "template": "__PARAM_step_2_view_template__",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A2_EditorReady": {
     "action": "DoNothing",
@@ -2151,7 +2295,9 @@
     ],
     "next": [
       "A2_FocusSQLCode"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_Paste": {
     "action": "InputText",
@@ -2161,7 +2307,8 @@
     "next": [
       "A2_Dirty"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "A2_PSIDE_SaveCodeEditor": {
     "recognition": "And",
@@ -2191,13 +2338,15 @@
         "order_by": "Score"
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131155,
     "next": [
-      "A2_PSIDE_SaveCodeEditorS"
+      "A2_PSIDE_CodeEditorSaved"
     ],
-    "timeout": 5000,
-    "on_error": []
+    "timeout": 30000,
+    "on_error": [],
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A2_PSIDE_SaveCodeEditorS": {
     "action": "ClickKey",
@@ -2205,7 +2354,8 @@
     "next": [
       "A2_PSIDE_SaveCodeEditorRelease"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A2_PSIDE_SaveCodeEditorRelease": {
     "action": "KeyUp",
@@ -2215,7 +2365,8 @@
       "A2_PSIDE_CodeEditorSaved"
     ],
     "on_error": [],
-    "timeout": 30000
+    "timeout": 30000,
+    "pre_delay": 0
   },
   "A2_PSIDE_CodeEditorSaved": {
     "recognition": "And",
@@ -2250,7 +2401,9 @@
     "on_error": [],
     "next": [
       "A2_PSIDE_PeopleCodeSaveFeedback"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_PSIDE_PeopleCodeSaveFeedback": {
     "recognition": "TemplateMatch",
@@ -2268,7 +2421,9 @@
     ],
     "template": "PSIDE/peoplecode_updated_marker.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_Dirty": {
     "action": "DoNothing",
@@ -2323,17 +2478,20 @@
     ],
     "next": [
       "A2_PSIDE_SaveCodeEditor"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_CloseEditor": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "A2_CloseEditor_1"
+      "A2_ParentReady"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_CloseEditor_1": {
     "action": "ClickKey",
@@ -2343,7 +2501,8 @@
     "next": [
       "A2_CloseEditor_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A2_CloseEditor_2": {
     "action": "KeyUp",
@@ -2353,7 +2512,8 @@
     "next": [
       "A2_ParentReady"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A2_ParentReady": {
     "action": "DoNothing",
@@ -2410,7 +2570,9 @@
     ],
     "next": [
       "A3_SelectPrevious"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_SelectPrevious": {
     "action": "Click",
@@ -2434,17 +2596,19 @@
       31,
       0
     ],
-    "only_rec": true
+    "only_rec": true,
+    "pre_delay": 0
   },
   "A3_NewStep": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131122,
     "next": [
-      "A3_NewStep_1"
+      "A3_NewActionAnchor"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_NewStep_1": {
     "action": "ClickKey",
@@ -2454,7 +2618,8 @@
     "next": [
       "A3_NewStep_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A3_NewStep_2": {
     "action": "KeyUp",
@@ -2464,7 +2629,8 @@
     "next": [
       "A3_NewActionAnchor"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_SelectStep": {
     "action": "DoNothing",
@@ -2482,7 +2648,9 @@
       31,
       0
     ],
-    "only_rec": true
+    "only_rec": true,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_TypeFocus": {
     "action": "Click",
@@ -2510,17 +2678,19 @@
       "PSIDE/action_sql_label_focused.png"
     ],
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A3_Arrow": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 18,
+    "key": 262184,
     "next": [
-      "A3_Arrow_1"
+      "A3_ChoosePeopleCode"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_Arrow_1": {
     "action": "ClickKey",
@@ -2530,7 +2700,8 @@
     "next": [
       "A3_Arrow_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A3_Arrow_2": {
     "action": "KeyUp",
@@ -2540,7 +2711,8 @@
     "next": [
       "A3_ChoosePeopleCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_ChoosePeopleCode": {
     "action": "Click",
@@ -2564,7 +2736,8 @@
     "next": [
       "A3_CommitType"
     ],
-    "post_delay": 400
+    "post_delay": 400,
+    "pre_delay": 0
   },
   "A3_CommitType": {
     "action": "Click",
@@ -2588,17 +2761,19 @@
       31,
       0
     ],
-    "only_rec": true
+    "only_rec": true,
+    "pre_delay": 0
   },
   "A3_StructureSave": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131155,
     "next": [
-      "A3_StructureSave_1"
+      "A3_TypeSaved"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_StructureSave_1": {
     "action": "ClickKey",
@@ -2608,7 +2783,8 @@
     "next": [
       "A3_StructureSave_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A3_StructureSave_2": {
     "action": "KeyUp",
@@ -2618,7 +2794,8 @@
     "next": [
       "A3_TypeSaved"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_TypeSaved": {
     "action": "DoNothing",
@@ -2665,7 +2842,9 @@
     ],
     "next": [
       "A3_ActionIcon"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_ActionIcon": {
     "action": "Click",
@@ -2696,7 +2875,8 @@
       -10
     ],
     "post_delay": 300,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A3_ViewMenu": {
     "action": "Click",
@@ -2713,7 +2893,8 @@
     "next": [
       "A3_ViewCode"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_ViewCode": {
     "action": "DoNothing",
@@ -2731,10 +2912,11 @@
     "next": [
       "A3_ViewCodeEnabled"
     ],
-    "post_delay": 200,
+    "post_delay": 0,
     "template": "__PARAM_step_3_view_template__",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "A3_EditorReady": {
     "action": "DoNothing",
@@ -2801,7 +2983,9 @@
     ],
     "next": [
       "A3_FocusSQLCode"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_Paste": {
     "action": "InputText",
@@ -2811,7 +2995,8 @@
     "next": [
       "A3_Dirty"
     ],
-    "post_delay": 500
+    "post_delay": 500,
+    "pre_delay": 0
   },
   "A3_PSIDE_SaveCodeEditor": {
     "recognition": "And",
@@ -2841,13 +3026,15 @@
         "order_by": "Score"
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131155,
     "next": [
-      "A3_PSIDE_SaveCodeEditorS"
+      "A3_PSIDE_CodeEditorSaved"
     ],
-    "timeout": 5000,
-    "on_error": []
+    "timeout": 30000,
+    "on_error": [],
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A3_PSIDE_SaveCodeEditorS": {
     "action": "ClickKey",
@@ -2855,7 +3042,8 @@
     "next": [
       "A3_PSIDE_SaveCodeEditorRelease"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A3_PSIDE_SaveCodeEditorRelease": {
     "action": "KeyUp",
@@ -2865,7 +3053,8 @@
       "A3_PSIDE_CodeEditorSaved"
     ],
     "on_error": [],
-    "timeout": 30000
+    "timeout": 30000,
+    "pre_delay": 0
   },
   "A3_PSIDE_CodeEditorSaved": {
     "recognition": "And",
@@ -2900,7 +3089,9 @@
     "on_error": [],
     "next": [
       "A3_PSIDE_PeopleCodeSaveFeedback"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_PSIDE_PeopleCodeSaveFeedback": {
     "recognition": "TemplateMatch",
@@ -2918,7 +3109,9 @@
     ],
     "template": "PSIDE/peoplecode_updated_marker.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_Dirty": {
     "action": "DoNothing",
@@ -2973,17 +3166,20 @@
     ],
     "next": [
       "A3_PSIDE_SaveCodeEditor"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_CloseEditor": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "A3_CloseEditor_1"
+      "A3_ParentReady"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_CloseEditor_1": {
     "action": "ClickKey",
@@ -2993,7 +3189,8 @@
     "next": [
       "A3_CloseEditor_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A3_CloseEditor_2": {
     "action": "KeyUp",
@@ -3003,7 +3200,8 @@
     "next": [
       "A3_ParentReady"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A3_ParentReady": {
     "action": "DoNothing",
@@ -3060,7 +3258,9 @@
     ],
     "next": [
       "PSIDE_CreateAE_Saved"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A_OpenNewDefinition": {
     "recognition": "And",
@@ -3086,13 +3286,15 @@
         ]
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131150,
     "next": [
-      "A_PressN"
+      "A_NewDefinitionDialog"
     ],
     "on_error": [],
-    "timeout": 5000
+    "timeout": 5000,
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A_PressN": {
     "action": "ClickKey",
@@ -3100,7 +3302,8 @@
     "next": [
       "A_ReleaseCtrl"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A_ReleaseCtrl": {
     "action": "KeyUp",
@@ -3109,7 +3312,8 @@
       "A_NewDefinitionDialog"
     ],
     "post_delay": 1000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A_NewDefinitionDialog": {
     "recognition": "TemplateMatch",
@@ -3128,7 +3332,8 @@
     "template": "PSIDE/new_definition_title.png",
     "threshold": 0.85,
     "order_by": "Score",
-    "key": 36
+    "key": 36,
+    "pre_delay": 0
   },
   "A_SelectAE": {
     "recognition": "TemplateMatch",
@@ -3146,7 +3351,9 @@
     "timeout": 5000,
     "template": "PSIDE/new_definition_ae_selected.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A_ConfirmNewAE": {
     "action": "ClickKey",
@@ -3155,7 +3362,8 @@
       "A_AEEditorReady"
     ],
     "post_delay": 1000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A_AEEditorReady": {
     "recognition": "And",
@@ -3188,7 +3396,9 @@
     "timeout": 5000,
     "next": [
       "A0_SelectStep"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateAE_Saved": {
     "recognition": "And",
@@ -3233,17 +3443,20 @@
     "on_error": [],
     "next": [
       "A_CloseSaved"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A_CloseSaved": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "A_CloseSaved_1"
+      "PSIDE_CreateAE_SavedAndClosed"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "A_CloseSaved_1": {
     "action": "ClickKey",
@@ -3253,7 +3466,8 @@
     "next": [
       "A_CloseSaved_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "A_CloseSaved_2": {
     "action": "KeyUp",
@@ -3263,7 +3477,8 @@
     "next": [
       "PSIDE_CreateAE_SavedAndClosed"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateAE_SavedAndClosed": {
     "action": "DoNothing",
@@ -3293,7 +3508,9 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_CheckStepNumber": {
     "recognition": "TemplateMatch",
@@ -3319,7 +3536,8 @@
       3,
       -12,
       -4
-    ]
+    ],
+    "pre_delay": 0
   },
   "A0_CheckCommitNumber": {
     "recognition": "TemplateMatch",
@@ -3345,7 +3563,8 @@
       2,
       -6,
       -4
-    ]
+    ],
+    "pre_delay": 0
   },
   "A1_CheckStepNumber": {
     "recognition": "TemplateMatch",
@@ -3364,7 +3583,9 @@
       "A1_TypeFocus"
     ],
     "on_error": [],
-    "timeout": 5000
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_CheckCommitNumber": {
     "recognition": "TemplateMatch",
@@ -3390,7 +3611,8 @@
       3,
       -12,
       -4
-    ]
+    ],
+    "pre_delay": 0
   },
   "A1_CheckPreviousNumber": {
     "recognition": "TemplateMatch",
@@ -3416,7 +3638,8 @@
       "A1_NewStep"
     ],
     "on_error": [],
-    "timeout": 5000
+    "timeout": 5000,
+    "pre_delay": 0
   },
   "A2_CheckPreviousNumber": {
     "recognition": "TemplateMatch",
@@ -3442,7 +3665,8 @@
       "A2_NewStep"
     ],
     "on_error": [],
-    "timeout": 5000
+    "timeout": 5000,
+    "pre_delay": 0
   },
   "A_ChooseTypeDown1": {
     "action": "ClickKey",
@@ -3451,7 +3675,8 @@
     "next": [
       "A_ChooseTypeDown2"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A_ChooseTypeDown2": {
     "action": "ClickKey",
@@ -3460,7 +3685,8 @@
     "next": [
       "A_ChooseTypeDown3"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A_ChooseTypeDown3": {
     "action": "ClickKey",
@@ -3469,7 +3695,8 @@
     "next": [
       "A_SelectAE"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "A0_ActionSelected": {
     "recognition": "ColorMatch",
@@ -3502,7 +3729,9 @@
       "A0_ViewMenu"
     ],
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A0_ViewCodeEnabled": {
     "recognition": "ColorMatch",
@@ -3537,7 +3766,8 @@
     ],
     "on_error": [],
     "timeout": 30000,
-    "post_delay": 1000
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A0_CodeEntryRetryEscape": {
     "recognition": "And",
@@ -3597,7 +3827,8 @@
     ],
     "on_error": [],
     "timeout": 5000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A1_ActionSelected": {
     "recognition": "ColorMatch",
@@ -3630,7 +3861,9 @@
       "A1_ViewMenu"
     ],
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A1_ViewCodeEnabled": {
     "recognition": "ColorMatch",
@@ -3665,7 +3898,8 @@
     ],
     "on_error": [],
     "timeout": 30000,
-    "post_delay": 1000
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A1_CodeEntryRetryEscape": {
     "recognition": "And",
@@ -3725,7 +3959,8 @@
     ],
     "on_error": [],
     "timeout": 5000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A2_ActionSelected": {
     "recognition": "ColorMatch",
@@ -3758,7 +3993,9 @@
       "A2_ViewMenu"
     ],
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A2_ViewCodeEnabled": {
     "recognition": "ColorMatch",
@@ -3793,7 +4030,8 @@
     ],
     "on_error": [],
     "timeout": 30000,
-    "post_delay": 1000
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A2_CodeEntryRetryEscape": {
     "recognition": "And",
@@ -3853,7 +4091,8 @@
     ],
     "on_error": [],
     "timeout": 5000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A3_ActionSelected": {
     "recognition": "ColorMatch",
@@ -3886,7 +4125,9 @@
       "A3_ViewMenu"
     ],
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_ViewCodeEnabled": {
     "recognition": "ColorMatch",
@@ -3921,7 +4162,8 @@
     ],
     "on_error": [],
     "timeout": 30000,
-    "post_delay": 1000
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "A3_CodeEntryRetryEscape": {
     "recognition": "And",
@@ -3981,7 +4223,8 @@
     ],
     "on_error": [],
     "timeout": 5000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A0_FocusSQLCode": {
     "recognition": "TemplateMatch",
@@ -4006,7 +4249,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A0_FocusPeopleCodeCode": {
     "recognition": "TemplateMatch",
@@ -4031,7 +4275,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A1_FocusSQLCode": {
     "recognition": "TemplateMatch",
@@ -4056,7 +4301,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A1_FocusPeopleCodeCode": {
     "recognition": "TemplateMatch",
@@ -4081,7 +4327,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A2_FocusSQLCode": {
     "recognition": "TemplateMatch",
@@ -4106,7 +4353,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A2_FocusPeopleCodeCode": {
     "recognition": "TemplateMatch",
@@ -4131,7 +4379,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A3_FocusSQLCode": {
     "recognition": "TemplateMatch",
@@ -4156,7 +4405,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A3_FocusPeopleCodeCode": {
     "recognition": "TemplateMatch",
@@ -4181,7 +4431,8 @@
     ],
     "on_error": [],
     "timeout": 10000,
-    "post_delay": 200
+    "post_delay": 200,
+    "pre_delay": 0
   },
   "A2_NewActionAnchor": {
     "recognition": "TemplateMatch",
@@ -4199,7 +4450,9 @@
       "A2_SelectStep"
     ],
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "A3_NewActionAnchor": {
     "recognition": "TemplateMatch",
@@ -4217,6 +4470,30 @@
       "A3_SelectStep"
     ],
     "on_error": [],
-    "timeout": 10000
+    "timeout": 10000,
+    "pre_delay": 0,
+    "post_delay": 0
+  },
+  "PSIDE_CreateAE_query_name_blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 100,
+    "pre_delay": 0,
+    "next": [
+      "PSIDE_CreateAE_query_open"
+    ]
+  },
+  "A0_StructureSave_name_blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 100,
+    "pre_delay": 0,
+    "next": [
+      "A0_StructureSave_ok"
+    ]
   }
 }

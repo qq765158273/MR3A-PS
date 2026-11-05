@@ -31,17 +31,20 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_query": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131151,
     "next": [
-      "PSIDE_CreateField_query_1"
+      "PSIDE_CreateField_query_dialog"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_1": {
     "action": "ClickKey",
@@ -51,7 +54,8 @@
     "next": [
       "PSIDE_CreateField_query_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_2": {
     "action": "KeyUp",
@@ -61,7 +65,8 @@
     "next": [
       "PSIDE_CreateField_query_dialog"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_dialog": {
     "action": "DoNothing",
@@ -79,7 +84,9 @@
     ],
     "template": "PSIDE/lookup_title.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_query_type_focus": {
     "action": "Click",
@@ -104,7 +111,8 @@
     "post_delay": 300,
     "template": "PSIDE/lookup_type_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_type": {
     "action": "ClickKey",
@@ -114,7 +122,8 @@
     "next": [
       "PSIDE_CreateField_query_type_select"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_type_select": {
     "action": "ClickKey",
@@ -124,7 +133,8 @@
     "next": [
       "PSIDE_CreateField_query_type_enter"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_type_enter": {
     "action": "ClickKey",
@@ -134,7 +144,8 @@
     "next": [
       "PSIDE_CreateField_query_type_check"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_type_check": {
     "action": "DoNothing",
@@ -152,7 +163,9 @@
     ],
     "template": "PSIDE/lookup_type_field.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_query_name_focus": {
     "action": "Click",
@@ -176,7 +189,8 @@
     ],
     "template": "PSIDE/lookup_name_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_name_clear": {
     "action": "ClickKey",
@@ -185,17 +199,19 @@
     "key": 36,
     "next": [
       "PSIDE_CreateField_query_name_clear_select"
-    ]
+    ],
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_name_clear_select": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 16,
+    "key": 65571,
     "next": [
-      "PSIDE_CreateField_query_name_clear_select_1"
+      "PSIDE_CreateField_query_name_clear_input"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_name_clear_select_1": {
     "action": "ClickKey",
@@ -205,7 +221,8 @@
     "next": [
       "PSIDE_CreateField_query_name_clear_select_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_name_clear_select_2": {
     "action": "KeyUp",
@@ -215,7 +232,8 @@
     "next": [
       "PSIDE_CreateField_query_name_clear_input"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_name_clear_input": {
     "action": "InputText",
@@ -225,7 +243,8 @@
     "next": [
       "PSIDE_CreateField_query_name_check"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_name_check": {
     "action": "DoNothing",
@@ -240,8 +259,10 @@
       25
     ],
     "next": [
-      "PSIDE_CreateField_query_open"
-    ]
+      "PSIDE_CreateField_query_name_blur"
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_query_open": {
     "action": "Click",
@@ -267,7 +288,8 @@
     ],
     "template": "PSIDE/lookup_open_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateField_query_found": {
     "action": "DoNothing",
@@ -283,7 +305,9 @@
     ],
     "next": [
       "PSIDE_CreateField_already_exists"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_query_missing": {
     "action": "DoNothing",
@@ -318,7 +342,9 @@
         "threshold": 0.85,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_cancel_query": {
     "action": "Click",
@@ -343,17 +369,19 @@
     "post_delay": 300,
     "template": "PSIDE/lookup_cancel_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "PSIDE_CreateField_already_exists": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "PSIDE_CreateField_already_exists_1"
+      "PSIDE_CreateField_conflict_closed"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_already_exists_1": {
     "action": "ClickKey",
@@ -363,7 +391,8 @@
     "next": [
       "PSIDE_CreateField_already_exists_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_already_exists_2": {
     "action": "KeyUp",
@@ -373,7 +402,8 @@
     "next": [
       "PSIDE_CreateField_conflict_closed"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_conflict_closed": {
     "action": "DoNothing",
@@ -403,7 +433,9 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "F_TypeFocus": {
     "action": "Click",
@@ -427,7 +459,8 @@
     ],
     "template": "PSIDE/field_type_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_TypeSelect": {
     "action": "ClickKey",
@@ -436,7 +469,8 @@
     "key": 36,
     "next": [
       "F_TypeCommit"
-    ]
+    ],
+    "pre_delay": 0
   },
   "F_DateSelect": {
     "action": "ClickKey",
@@ -445,7 +479,8 @@
     "timeout": 10000,
     "next": [
       "F_TypeCommit"
-    ]
+    ],
+    "pre_delay": 0
   },
   "F_TypeCommit": {
     "action": "ClickKey",
@@ -455,7 +490,8 @@
     "post_delay": 300,
     "next": [
       "F_TypeCheck"
-    ]
+    ],
+    "pre_delay": 0
   },
   "F_TypeCheck": {
     "action": "DoNothing",
@@ -472,7 +508,9 @@
     ],
     "next": [
       "F_LengthFocus"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "F_LengthFocus": {
     "action": "Click",
@@ -496,7 +534,8 @@
     ],
     "template": "PSIDE/field_length_label.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_LengthReplace": {
     "action": "ClickKey",
@@ -505,17 +544,19 @@
     "key": 36,
     "next": [
       "F_LengthReplace_select"
-    ]
+    ],
+    "pre_delay": 0
   },
   "F_LengthReplace_select": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 16,
+    "key": 65571,
     "next": [
-      "F_LengthReplace_select_1"
+      "F_LengthReplace_input"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_LengthReplace_select_1": {
     "action": "ClickKey",
@@ -525,7 +566,8 @@
     "next": [
       "F_LengthReplace_select_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "F_LengthReplace_select_2": {
     "action": "KeyUp",
@@ -535,7 +577,8 @@
     "next": [
       "F_LengthReplace_input"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_LengthReplace_input": {
     "action": "InputText",
@@ -545,7 +588,8 @@
     "next": [
       "F_LabelIDFocus"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_LabelIDFocus": {
     "action": "Click",
@@ -569,7 +613,8 @@
     ],
     "template": "PSIDE/field_label_id_header.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_LabelIDInput": {
     "action": "InputText",
@@ -579,7 +624,8 @@
     "next": [
       "F_LongNameFocus"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_LongNameFocus": {
     "action": "Click",
@@ -603,7 +649,8 @@
     ],
     "template": "PSIDE/field_long_name_header.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_LongNameInput": {
     "action": "InputText",
@@ -613,7 +660,8 @@
     "next": [
       "F_ShortNameFocus"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_ShortNameFocus": {
     "action": "Click",
@@ -637,7 +685,8 @@
     ],
     "template": "PSIDE/field_short_name_header.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_ShortNameInput": {
     "action": "InputText",
@@ -647,17 +696,19 @@
     "next": [
       "F_Save"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_Save": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131155,
     "next": [
-      "F_Save_1"
+      "F_Save_as"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_Save_1": {
     "action": "ClickKey",
@@ -667,7 +718,8 @@
     "next": [
       "F_Save_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "F_Save_2": {
     "action": "KeyUp",
@@ -677,7 +729,8 @@
     "next": [
       "F_Save_as"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_Save_as": {
     "action": "InputText",
@@ -697,7 +750,8 @@
     "post_delay": 300,
     "template": "PSIDE/save_as_title.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_Save_name": {
     "action": "DoNothing",
@@ -712,8 +766,10 @@
       30
     ],
     "next": [
-      "F_Save_ok"
-    ]
+      "F_Save_name_blur"
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "F_Save_ok": {
     "action": "Click",
@@ -738,7 +794,8 @@
     "post_delay": 700,
     "template": "PSIDE/save_as_ok.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0
   },
   "F_OpenNewDefinition": {
     "recognition": "And",
@@ -764,13 +821,15 @@
         ]
       }
     ],
-    "action": "KeyDown",
-    "key": 17,
+    "action": "ClickKey",
+    "key": 131150,
     "next": [
-      "F_PressN"
+      "F_NewDefinitionDialog"
     ],
     "on_error": [],
-    "timeout": 5000
+    "timeout": 5000,
+    "post_delay": 1000,
+    "pre_delay": 0
   },
   "F_PressN": {
     "action": "ClickKey",
@@ -778,7 +837,8 @@
     "next": [
       "F_ReleaseCtrl"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "F_ReleaseCtrl": {
     "action": "KeyUp",
@@ -787,7 +847,8 @@
       "F_NewDefinitionDialog"
     ],
     "post_delay": 1000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "F_NewDefinitionDialog": {
     "recognition": "TemplateMatch",
@@ -806,7 +867,8 @@
     "template": "PSIDE/new_definition_title.png",
     "threshold": 0.85,
     "order_by": "Score",
-    "key": 36
+    "key": 36,
+    "pre_delay": 0
   },
   "F_SelectField": {
     "recognition": "TemplateMatch",
@@ -824,7 +886,9 @@
     "timeout": 5000,
     "template": "PSIDE/new_definition_field_selected.png",
     "threshold": 0.85,
-    "order_by": "Score"
+    "order_by": "Score",
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "F_ConfirmNewField": {
     "action": "ClickKey",
@@ -833,7 +897,8 @@
       "F_FieldEditorReady"
     ],
     "post_delay": 1000,
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
   },
   "F_FieldEditorReady": {
     "recognition": "And",
@@ -868,7 +933,9 @@
     "timeout": 5000,
     "next": [
       "F_TypeFocus"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "PSIDE_CreateField_Saved": {
     "recognition": "And",
@@ -913,17 +980,20 @@
     "on_error": [],
     "next": [
       "F_CloseSaved"
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "F_CloseSaved": {
-    "action": "KeyDown",
+    "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 17,
+    "key": 131187,
     "next": [
-      "F_CloseSaved_1"
+      "PSIDE_CreateField_SavedAndClosed"
     ],
-    "post_delay": 100
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "F_CloseSaved_1": {
     "action": "ClickKey",
@@ -933,7 +1003,8 @@
     "next": [
       "F_CloseSaved_2"
     ],
-    "post_delay": 100
+    "post_delay": 100,
+    "pre_delay": 0
   },
   "F_CloseSaved_2": {
     "action": "KeyUp",
@@ -943,7 +1014,8 @@
     "next": [
       "PSIDE_CreateField_SavedAndClosed"
     ],
-    "post_delay": 300
+    "post_delay": 300,
+    "pre_delay": 0
   },
   "PSIDE_CreateField_SavedAndClosed": {
     "action": "DoNothing",
@@ -973,7 +1045,9 @@
         "threshold": 0.97,
         "order_by": "Score"
       }
-    ]
+    ],
+    "pre_delay": 0,
+    "post_delay": 0
   },
   "F_ChooseTypeInitial": {
     "action": "ClickKey",
@@ -982,6 +1056,29 @@
     "next": [
       "F_SelectField"
     ],
-    "on_error": []
+    "on_error": [],
+    "pre_delay": 0
+  },
+  "PSIDE_CreateField_query_name_blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 100,
+    "pre_delay": 0,
+    "next": [
+      "PSIDE_CreateField_query_open"
+    ]
+  },
+  "F_Save_name_blur": {
+    "action": "ClickKey",
+    "key": 9,
+    "on_error": [],
+    "timeout": 10000,
+    "post_delay": 100,
+    "pre_delay": 0,
+    "next": [
+      "F_Save_ok"
+    ]
   }
 }

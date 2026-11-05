@@ -11,12 +11,14 @@
 | 完整调用 | 用时 | MCP 与 DBX 结果 | 本机证据 |
 | --- | --- | --- | --- |
 | Field12、Field13 | 各约 284 秒 | 连续创建成功；Character、长度 11、标签参数正确 | `out/template_acceptance_results3.json` |
+| `GM_MCP_FLD14` | 141.840 秒（含启动、导出、返回） | 优化后的 Field 完整创建、保存、关闭；DBX 确认 Character、长度 11、GMEMPLID 标签参数 | `out/objects/20261105_080156_334657/` |
 | 重复 Field13 | 约 115 秒 | `already_exists, workspace_ready:true`，无覆盖 | 同上 |
 | `GM_MCP_REC3` | 996.62 秒 | 新任务前主动断线，MCP 自动恢复后首次完整创建及 Build；五字段及属性正确，HRAPP 表、三个 VALID 索引、行数 0 | `out/objects/20261104_164647_935317/` |
 | `GM_MCP_AE3` | 515.99 秒 | 同一会话随后完整创建；SQL 指向 REC3，PeopleCode 源码正确、编译长度 566 | `out/objects/20261104_170324_644760/` |
 | `GM_MCP_REC4` | 约 972 秒（含证据导出） | 复选框补强后完整创建、Build、关闭；226 个节点，12 次点击后确认全部通过；DBX 确认五字段及属性、HRAPP、三个 VALID 索引、0 行 | `out/objects/20261104_183010_506938/` |
 | `GM_MCP_REC7` | 524.384 秒（含启动、导出、返回） | 性能优化后完整创建、Build、关闭；208 个节点，12 次点击后确认通过；DBX 确认五字段属性、HRAPP、三个 VALID 索引、0 行 | `out/objects/20261104_205229_380875/` |
 | `GM_MCP_AE4` | 816.42 秒 | MAIN/Step01–04，顺序 1–4，动作 S/P/S/P；Step01/03 为 `SELECT COUNT(*) FROM PS_GM_MCP_REC3`，Step02/04 循环读取字段名，源码正确且编译长度均为 566 | `out/objects/20261104_171343_260521/` |
+| `GM_MCP_AE5` | 352.608 秒（含启动、导出、返回） | 优化后的四步 SQL/PeopleCode/SQL/PeopleCode 完整创建、保存、关闭；DBX 确认两条 COUNT SQL 指向 REC7、两段 PeopleCode 及编译长度 566 | `out/objects/20261105_075306_570062/` |
 
 REC3 与 AE3 的完整返回值见 `out/record3_ae3_recovery_results.json`；AE4 见 `out/ae4_four_steps_results.json`。这些成功不替换下方保留的失败与分段校准记录。未增加无关的对象回开核对流程。
 
