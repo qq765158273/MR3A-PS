@@ -147,6 +147,29 @@ class JumpClipboardTests(unittest.TestCase):
         finally:
             self.session.run_code('async page=>{page.screenshot=page.__realScreenshot;delete page.__realScreenshot;return true;}')
 
+    def test_snapshot_revalidates_dimensions_and_focus_before_input(self):
+        self.session.cfg.canvas_refresh_mode='guacamole'
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            window.inputCount=0;
+            document.querySelector('#sink').addEventListener('keydown',()=>inputCount++);
+            el.__vue__={$options:{name:'GuacamoleConnect'},tunnel:{state:1},clientState:'Connected'};
+          });return true;
+        }''')
+        self.assertTrue(self.session.request('inspect'))
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('#sink').evaluate(el=>el.blur());return true;
+        }''')
+        with self.assertRaisesRegex(RuntimeError,'does not have keyboard focus'):
+            self.session.request('key',key='Enter')
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('#remote > div').evaluate(el=>el.style.width='1600px');
+          await page.frameLocator('#frame').locator('#sink').focus();return true;
+        }''')
+        with self.assertRaisesRegex(RuntimeError,'Remote desktop is 1600x1080'):
+            self.session.request('key',key='Enter')
+        self.assertEqual(self.call('async page=>page.frameLocator("#frame").locator("body").evaluate(()=>inputCount)'),0)
+
     def test_guacamole_flush_failure_never_returns_cached_pixels_or_sends_input(self):
         self.session.cfg.canvas_refresh_mode='guacamole'
         with self.assertRaisesRegex(RuntimeError,'transport component is unavailable'):

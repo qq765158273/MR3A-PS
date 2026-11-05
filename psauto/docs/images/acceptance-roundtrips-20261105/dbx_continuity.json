@@ -1,0 +1,199 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "### Statement 1\n| FIELDNAME | FIELDTYPE | LENGTH |\n|---|---|---|\n| GM_RPC_F1 | 0 | 11 |\n(1 rows, 23ms)\n### Statement 2\n| FIELDNAME | LABEL_ID | LONGNAME | SHORTNAME |\n|---|---|---|---|\n| GM_RPC_F1 | GMRPC | GM RPC Field | GM RPC |\n(1 rows, 16ms)\n### Statement 3\n| FIELDNAME | FIELDNUM | USEEDIT |\n|---|---|---|\n| GM_RPC_F1 | 1 | 8390689 |\n| EMPLID | 2 | 8390689 |\n| EMPL_RCD | 3 | 8390689 |\n| EFFDT | 4 | 8388656 |\n| EFFSEQ | 5 | 8388656 |\n(5 rows, 18ms)\n### Statement 4\n| TABLE_NAME | TABLESPACE_NAME |\n|---|---|\n| PS_GM_RPC_REC4 | HRAPP |\n(1 rows, 72ms)\n### Statement 5\n| INDEX_NAME | STATUS | UNIQUENESS |\n|---|---|---|\n| PS0GM_RPC_REC4 | VALID | NONUNIQUE |\n| PS1GM_RPC_REC4 | VALID | NONUNIQUE |\n| PS_GM_RPC_REC4 | VALID | UNIQUE |\n(3 rows, 57ms)\n### Statement 6\n| ROW_COUNT |\n|---|\n| 0 |\n(1 rows, 12ms)"
+    }
+  ],
+  "structuredContent": {
+    "results": [
+      {
+        "columns": [
+          "FIELDNAME",
+          "FIELDTYPE",
+          "LENGTH"
+        ],
+        "column_types": [
+          "NCHAR",
+          "NUMBER",
+          "NUMBER"
+        ],
+        "column_sortables": [],
+        "rows": [
+          [
+            "GM_RPC_F1",
+            "0",
+            "11"
+          ]
+        ],
+        "affected_rows": 0,
+        "execution_time_ms": 23,
+        "truncated": false,
+        "session_id": null,
+        "has_more": false,
+        "statement_index": 0,
+        "error_message": "GM_RPC_F1"
+      },
+      {
+        "columns": [
+          "FIELDNAME",
+          "LABEL_ID",
+          "LONGNAME",
+          "SHORTNAME"
+        ],
+        "column_types": [
+          "NCHAR",
+          "NCHAR",
+          "NCHAR",
+          "NCHAR"
+        ],
+        "column_sortables": [],
+        "rows": [
+          [
+            "GM_RPC_F1",
+            "GMRPC",
+            "GM RPC Field",
+            "GM RPC"
+          ]
+        ],
+        "affected_rows": 0,
+        "execution_time_ms": 16,
+        "truncated": false,
+        "session_id": null,
+        "has_more": false,
+        "statement_index": 1,
+        "error_message": "GM_RPC_F1"
+      },
+      {
+        "columns": [
+          "FIELDNAME",
+          "FIELDNUM",
+          "USEEDIT"
+        ],
+        "column_types": [
+          "NCHAR",
+          "NUMBER",
+          "NUMBER"
+        ],
+        "column_sortables": [],
+        "rows": [
+          [
+            "GM_RPC_F1",
+            "1",
+            "8390689"
+          ],
+          [
+            "EMPLID",
+            "2",
+            "8390689"
+          ],
+          [
+            "EMPL_RCD",
+            "3",
+            "8390689"
+          ],
+          [
+            "EFFDT",
+            "4",
+            "8388656"
+          ],
+          [
+            "EFFSEQ",
+            "5",
+            "8388656"
+          ]
+        ],
+        "affected_rows": 0,
+        "execution_time_ms": 18,
+        "truncated": false,
+        "session_id": null,
+        "has_more": false,
+        "statement_index": 2,
+        "error_message": "GM_RPC_F1"
+      },
+      {
+        "columns": [
+          "TABLE_NAME",
+          "TABLESPACE_NAME"
+        ],
+        "column_types": [
+          "NCHAR",
+          "NCHAR"
+        ],
+        "column_sortables": [],
+        "rows": [
+          [
+            "PS_GM_RPC_REC4",
+            "HRAPP"
+          ]
+        ],
+        "affected_rows": 0,
+        "execution_time_ms": 72,
+        "truncated": false,
+        "session_id": null,
+        "has_more": false,
+        "statement_index": 3,
+        "error_message": "PS_GM_RPC_REC4"
+      },
+      {
+        "columns": [
+          "INDEX_NAME",
+          "STATUS",
+          "UNIQUENESS"
+        ],
+        "column_types": [
+          "NCHAR",
+          "NCHAR",
+          "NCHAR"
+        ],
+        "column_sortables": [],
+        "rows": [
+          [
+            "PS0GM_RPC_REC4",
+            "VALID",
+            "NONUNIQUE"
+          ],
+          [
+            "PS1GM_RPC_REC4",
+            "VALID",
+            "NONUNIQUE"
+          ],
+          [
+            "PS_GM_RPC_REC4",
+            "VALID",
+            "UNIQUE"
+          ]
+        ],
+        "affected_rows": 0,
+        "execution_time_ms": 57,
+        "truncated": false,
+        "session_id": null,
+        "has_more": false,
+        "statement_index": 4,
+        "error_message": "PS0GM_RPC_REC4"
+      },
+      {
+        "columns": [
+          "ROW_COUNT"
+        ],
+        "column_types": [
+          "NUMBER"
+        ],
+        "column_sortables": [],
+        "rows": [
+          [
+            "0"
+          ]
+        ],
+        "affected_rows": 0,
+        "execution_time_ms": 12,
+        "truncated": false,
+        "session_id": null,
+        "has_more": false,
+        "statement_index": 5,
+        "error_message": "0"
+      }
+    ]
+  },
+  "isError": false
+}

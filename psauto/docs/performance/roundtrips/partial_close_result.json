@@ -1,0 +1,18 @@
+[
+  {
+    "tool": "create_record",
+    "elapsed_seconds": 180.22,
+    "isError": false,
+    "success": false,
+    "status": "partial",
+    "name": "GM_RPC_REC2",
+    "saved": true,
+    "workspace_ready": false,
+    "may_exist": true,
+    "failed_node": "R_CloseSaved",
+    "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261105_180031_075459",
+    "built": true,
+    "evidence_status": "complete",
+    "next_operation_allowed": false
+  }
+]

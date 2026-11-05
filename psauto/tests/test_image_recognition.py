@@ -1,5 +1,6 @@
 """Native Maa regression checks for similar counters and Step numbers; no browser."""
 import json
+import copy
 import os
 from pathlib import Path
 import unittest
@@ -49,6 +50,59 @@ class ImageRecognitionTests(unittest.TestCase):
     def image(self,name):
         return Image.open(self.fixtures/name).convert('RGB')
 
+    def test_record_field_roi_excludes_selected_cell_border_without_loosening_name(self):
+        # Header box is the actual anchor recorded BEFORE inserting the rows.
+        # Re-OCR of the populated grid gives a different box and hides this bug.
+        anchor=[659,290,65,24]
+        data=json.loads((self.resource/'pipeline/PSIDE/create_record.json').read_text(encoding='utf-8'))
+        offset=data['R_AttrFocus']['roi_offset']
+        current=[a+b for a,b in zip(anchor,offset)]
+        with self.image('record_selected_effdt_prefix.png') as image:
+            self.controller.frame=np.asarray(image)[:,:,::-1].copy()
+        cases=[('old crop',[654,310,165,424],r'^\s*EFFDT\s*$',False)]
+        for name in ['GM_OPT_EMPLID','EMPLID','EMPL_RCD','EFFDT','EFFSEQ']:
+            cases.append((name,current,r'^\s*'+name+r'\s*$',True))
+        cases.extend((name,current,r'^\s*'+name+r'\s*$',False) for name in ['EFFDT_X','EFFD','X_EFFDT'])
+        for label,roi,expected,passed in cases:
+            with self.subTest(label=label):
+                job=self.tasker.post_task('R_Attr3_Bind',{
+                    'R_Attr3_Bind':{'action':'DoNothing','next':['R_AttrFocus'],'pre_delay':0,
+                                   'post_delay':0,'rate_limit':0,'timeout':100},
+                    'R_AttrFocus':{'recognition':'OCR','roi':roi,'roi_offset':[0,0,0,0],
+                                   'expected':expected,'action':'DoNothing','next':[],
+                                   'pre_delay':0,'post_delay':0,'rate_limit':0,'timeout':100}
+                }).wait()
+                self.assertEqual(job.succeeded,passed)
+
+    def test_record_build_close_targets_button_and_rejects_wrong_name_or_missing_icon(self):
+        from psauto.objects.common import identifier
+        node=json.loads((self.resource/'pipeline/PSIDE/create_record.json').read_text(encoding='utf-8'))['R_BuildCloseSaved']
+        with self.image('record_build_before_close.png') as image:
+            original=np.asarray(image)[:,:,::-1].copy()
+        try:
+            for name,remove_icon,passed in [('GM_RPC_REC2',False,True),('GM_RPC_REC2X',False,False),
+                                            ('XGM_RPC_REC2',False,False),('GM_RPC_REC2',True,False)]:
+                self.controller.frame=original.copy()
+                # Captured MDI close glyph; do not disturb the title or Build text.
+                if remove_icon:self.controller.frame[261:286,1390:1430]=255
+                close=copy.deepcopy(node)
+                close['all_of'][0]['expected']=identifier(name)
+                close.update({'next':[],'pre_delay':0,'post_delay':0,'timeout':100,'rate_limit':0})
+                clicks=[];self.controller.click_hook=lambda x,y: clicks.append((x,y)) or True
+                job=self.tasker.post_task('R_BuildFinished',{
+                    'R_BuildFinished':{'recognition':'DirectHit','action':'DoNothing','next':['R_BuildCloseSaved'],
+                                      'pre_delay':0,'post_delay':0,'timeout':100,'rate_limit':0},
+                    'R_BuildCloseSaved':close}).wait()
+                with self.subTest(name=name,missing_close_icon=remove_icon):
+                    self.assertEqual(job.succeeded,passed)
+                    self.assertEqual(len(clicks),int(passed))
+                    if passed:
+                        box=job.get().nodes[-1].recognition.raw_detail[1]['box']
+                        x,y=clicks[0]
+                        self.assertTrue(box[0]<=x<box[0]+box[2] and box[1]<=y<box[1]+box[3],clicks)
+                        self.assertGreater(x,1300,'Must not click the title icon near x=630')
+        finally:self.controller.click_hook=None
+
     def test_build_requires_exact_record_error_and_warning_counts_before_closing(self):
         crop=self.image('build_success_feedback.png')
         font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',14)
@@ -71,7 +125,7 @@ class ImageRecognitionTests(unittest.TestCase):
                 job=self.tasker.post_task('R_BuildExecute',{
                     'R_BuildExecute':{'recognition':'DirectHit','action':'DoNothing','next':['R_BuildFinished'],
                                       'timeout':50,'rate_limit':0,'pre_delay':0,'post_delay':0},
-                    'R_BuildFocusEditor':{'recognition':'DirectHit','action':'ClickKey','key':0x20073,
+                    'R_BuildCloseSaved':{'recognition':'DirectHit','action':'ClickKey','key':0x20073,
                                          'next':[],'pre_delay':0,'post_delay':0},
                 }).wait()
                 with self.subTest(case=label):

@@ -47,7 +47,7 @@ class PlaywrightCliSession:
         if not self.cwd.is_dir():
             raise RuntimeError("The configured CLI working directory does not exist")
 
-    def request(self, operation, **params):
+    def request(self, operation, *, decoder=None, **params):
         if self.poisoned:
             raise RuntimeError("CLI session is disabled after a timeout; inspect the remote screen before restarting")
         request = {"operation": operation, "frame": self.cfg.display_frame,
@@ -57,11 +57,21 @@ class PlaywrightCliSession:
         request['canvas_refresh_mode'] = self.cfg.canvas_refresh_mode
         code = _CLI_BODY.replace("__INSPECT__", _INSPECT).replace("__REQUEST__", json.dumps(request))
         started = time.perf_counter()
+        timing = {'operation': operation}
         try:
-            return self.run_code(code)
+            response = self.run_code(code)
+            timing['elapsed_ms'] = round((time.perf_counter() - started) * 1000, 2)
+            timing.update(response['timing'])
+            if decoder is None:
+                return response['value']
+            decoded_at = time.perf_counter()
+            try:
+                return decoder(response['value'])
+            finally:
+                timing['decode_ms'] = round((time.perf_counter() - decoded_at) * 1000, 2)
         finally:
-            self.timings.append({'operation': operation,
-                                 'elapsed_ms': round((time.perf_counter() - started) * 1000, 2)})
+            timing.setdefault('elapsed_ms', round((time.perf_counter() - started) * 1000, 2))
+            self.timings.append(timing)
 
     def run_code(self, code):
         """Execute transport code in the existing CLI session without opening a browser."""
@@ -182,11 +192,35 @@ class PlaywrightCliSession:
             worker.stdout.close()
 
 
+_READ_TRANSPORT = """el => {
+    const buttons = [...el.ownerDocument.querySelectorAll('button')]
+      .filter(button => button.textContent.trim() === '\\u526a\\u8d34\\u677f');
+    let component = buttons[0]?.__vue__;
+    while (component && component.$options?.name !== 'GuacamoleConnect') component = component.$parent;
+    return {has_display: true, known: !!component,
+      tunnel_state: component?.tunnel?.state ?? null,
+      client_state: component?.clientState ?? null,
+      clipboard_ready: buttons.length === 1 && !buttons[0].disabled};
+  }"""
+
+_ASSERT_CONNECTED = """(current, request) => {
+    if (!current.has_display) throw new Error('Remote display is unavailable');
+    if (request.canvas_refresh_mode === 'guacamole' && !current.known)
+      throw new Error('Guacamole transport component is unavailable');
+    // A closed tunnel can leave a recognizable canvas and a stale Connected label.
+    if (current.known && (current.tunnel_state !== 1 || current.client_state !== 'Connected'))
+      throw new Error('RDP transport is not connected; cached canvas is not a live screenshot');
+    if (request.clipboard_required && !current.clipboard_ready)
+      throw new Error('JumpServer clipboard channel is unavailable');
+  }"""
+
 _CLI_BODY = """async (page) => {
   const request = __REQUEST__;
+  const started = Date.now(), timing = {};
+  const done = value => ({value, timing: {...timing, body_ms: Date.now()-started}});
   if (request.operation === 'key_up') {
     await page.keyboard.up(request.key);
-    return true;
+    return done(true);
   }
   const flushBrowserFrame = async () => {
     for (let attempt = 0; attempt < 2; attempt++) {
@@ -200,38 +234,26 @@ _CLI_BODY = """async (page) => {
     }
   };
   const inspect = __INSPECT__;
+  const readTransport = __READ_TRANSPORT__;
+  const assertConnected = current => (__ASSERT_CONNECTED__)(current, request);
   const root = request.frame ? page.frameLocator(request.frame).locator(request.selector).first()
                              : page.locator(request.selector).first();
-  const readTransport = el => {
-    const buttons = [...el.ownerDocument.querySelectorAll('button')]
-      .filter(button => button.textContent.trim() === '\\u526a\\u8d34\\u677f');
-    let component = buttons[0]?.__vue__;
-    while (component && component.$options?.name !== 'GuacamoleConnect') component = component.$parent;
-    return {has_display: true, known: !!component,
-      tunnel_state: component?.tunnel?.state ?? null,
-      client_state: component?.clientState ?? null,
-      clipboard_ready: buttons.length === 1 && !buttons[0].disabled};
-  };
-  const transport = await root.count() ? await root.evaluate(readTransport)
-                                     : {has_display: false, known: false, clipboard_ready: false};
-  if (request.operation === 'transport_state') return transport;
-  const assertConnected = current => {
-    if (!current.has_display) throw new Error('Remote display is unavailable');
-    if (request.canvas_refresh_mode === 'guacamole' && !current.known)
-      throw new Error('Guacamole transport component is unavailable');
-    // A closed tunnel can leave a recognizable canvas and a stale Connected label.
-    if (current.known && (current.tunnel_state !== 1 || current.client_state !== 'Connected'))
-      throw new Error('RDP transport is not connected; cached canvas is not a live screenshot');
-    if (request.clipboard_required && !current.clipboard_ready)
-      throw new Error('JumpServer clipboard channel is unavailable');
-  };
-  assertConnected(transport);
-  const refreshRemoteFrame = async () => {
-    if (request.canvas_refresh_mode === 'guacamole' && transport.known) {
-      let timer;
-      try {
-        await Promise.race([
-          root.evaluate(async (el, expected) => {
+  const needsFrame = request.operation === 'screencap' || (request.operation === 'inspect' && request.prepare);
+  const readState = async capture => {
+    let timer;
+    const probeStarted = Date.now();
+    try {
+      const state = await Promise.race([
+        // One browser round trip; checks run again for EVERY request, without caching.
+        root.evaluateAll(async (elements, request) => {
+          const started = performance.now();
+          const el = elements[0], readTransport = __READ_TRANSPORT__;
+          const assertConnected = __ASSERT_CONNECTED__, inspect = __INSPECT__;
+          const transport = el ? readTransport(el) : {has_display:false,known:false,clipboard_ready:false};
+          if (request.operation === 'transport_state') return {transport};
+          assertConnected(transport, request);
+          const checked = performance.now();
+          if (request.flush) {
             const button = [...el.ownerDocument.querySelectorAll('button')]
               .find(b => b.textContent.trim() === '\\u526a\\u8d34\\u677f');
             let component = button?.__vue__;
@@ -239,41 +261,53 @@ _CLI_BODY = """async (page) => {
             const display = component?.client?.getDisplay?.();
             if (!display || typeof display.flush !== 'function')
               throw new Error('Guacamole display flush API is unavailable');
-            if (display.getWidth() !== expected.width || display.getHeight() !== expected.height)
+            if (display.getWidth() !== request.width || display.getHeight() !== request.height)
               throw new Error('Guacamole display dimensions differ from the screenshot baseline');
             await new Promise(resolve => display.flush(resolve));
             if (component.tunnel?.state !== 1 || component.clientState !== 'Connected')
               throw new Error('RDP transport closed while flushing the display');
-          }, {width: request.width, height: request.height}),
-          new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('Guacamole display flush timed out')), 5000); })
-        ]);
-      } finally { clearTimeout(timer); }
-    } else if (request.prepare || await page.evaluate(() => document.visibilityState === 'hidden')) {
-      await flushBrowserFrame();
+          }
+          const flushed = performance.now();
+          const info = inspect(el, request.capture);
+          if (info.width !== request.width || info.height !== request.height)
+            throw new Error(`Remote desktop is ${info.width}x${info.height}, expected ${request.width}x${request.height}`);
+          if (info.bitmapWidth < info.width || info.bitmapHeight < info.height || info.cssWidth <= 0 || info.cssHeight <= 0)
+            throw new Error('Invalid canvas dimensions');
+          const active = el.ownerDocument.activeElement;
+          return {info, keyboardReady: !!active && el.contains(active),
+            timing: {browser_validation_ms: checked-started, browser_flush_ms: flushed-checked,
+                     browser_inspect_ms: performance.now()-flushed}};
+        }, {...request, capture, flush: needsFrame && request.canvas_refresh_mode === 'guacamole'}),
+        // Keep the timeout outside the hidden page's throttled timer queue. This
+        // callback and any late browser completion can only read state, never input.
+        new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('Guacamole display flush timed out')), 5000); })
+      ]);
+      Object.assign(timing, state.timing);
+      return state;
+    } finally {
+      clearTimeout(timer);
+      timing.browser_roundtrip_ms = (timing.browser_roundtrip_ms || 0) + Date.now()-probeStarted;
     }
   };
-  if (request.operation === 'screencap' || (request.operation === 'inspect' && request.prepare))
-    await refreshRemoteFrame();
-  const info = await root.evaluate(inspect, request.operation === 'screencap');
-  if (info.width !== request.width || info.height !== request.height)
-    throw new Error(`Remote desktop is ${info.width}x${info.height}, expected ${request.width}x${request.height}`);
-  if (info.bitmapWidth < info.width || info.bitmapHeight < info.height || info.cssWidth <= 0 || info.cssHeight <= 0)
-    throw new Error('Invalid canvas dimensions');
-  if (request.operation === 'screencap') return info;
+  if (needsFrame && request.canvas_refresh_mode === 'browser') {
+    await readState(false);
+    if (request.prepare || await page.evaluate(() => document.visibilityState === 'hidden'))
+      await flushBrowserFrame();
+  }
+  const state = await readState(request.operation === 'screencap');
+  if (request.operation === 'transport_state') return done(state.transport);
+  const info = state.info;
+  if (request.operation === 'screencap') return done(info);
   if (request.operation === 'inspect') {
     if (request.prepare) {
       const sink = root.locator('textarea');
       if (await sink.count() !== 1) throw new Error('Expected one remote keyboard input sink');
       await sink.focus();
     }
-    return true;
+    return done(true);
   }
   if (['key', 'key_down', 'input_text'].includes(request.operation)) {
-    const keyboardReady = await root.evaluate(el => {
-      const active = el.ownerDocument.activeElement;
-      return !!active && el.contains(active);
-    });
-    if (!keyboardReady) throw new Error('Remote display does not have keyboard focus');
+    if (!state.keyboardReady) throw new Error('Remote display does not have keyboard focus');
   }
   const point = async (x, y) => {
     if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || y < 0 || x >= request.width || y >= request.height)
@@ -384,8 +418,8 @@ _CLI_BODY = """async (page) => {
   } else {
     throw new Error('Unsupported operation');
   }
-  return true;
-}"""
+  return done(true);
+}""".replace('__READ_TRANSPORT__', _READ_TRANSPORT).replace('__ASSERT_CONNECTED__', _ASSERT_CONNECTED)
 
 
 class CliController(JumpServerController):
@@ -412,7 +446,7 @@ class CliController(JumpServerController):
 
     def screencap(self):
         try:
-            return decode_canvas(self.session.request("screencap"), self.cfg)
+            return self.session.request("screencap", decoder=lambda info: decode_canvas(info, self.cfg))
         except Exception:
             self._release_held_keys()
             raise

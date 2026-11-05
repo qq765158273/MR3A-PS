@@ -143,6 +143,12 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 #### 当前完整配置与性能（2026-11-05）
 
+最新一轮将每请求的连接、尺寸、Guacamole flush、图层和焦点检查合并为一次浏览器查询，状态仍逐次重读。现场同页 12 对只读截图逐像素一致：截图 CLI 中位数 180.5→76.7ms，含解码 227.4→123.7ms；原生日志继续保留，既有 timings.json 增加浏览器往返/内部阶段和解码分项，嵌套时间不能相加。详见 [查询往返优化](psauto/docs/performance/transport_roundtrips.md)。
+
+真实回归先后暴露两处 Record 卡点：选中字段边框被 OCR 识别成引号，现将字段 ROI 左界右移 10px、保留严格名称；Build 后标题随机点击可能击中系统图标，现同时识别完整对象名和关闭按钮图片，直接点按钮后确认空白台。最终 Build 路径为 207 节点。GM_RPC_REC3 完整 173.22 秒、保存/Build/关闭及 DBX 通过；另在同一新 MCP 实例连续创建 GM_RPC_F1 和引用它的 GM_RPC_REC4，48.89 / 175.53 秒，均保存关闭、证据 complete、允许下一操作，Record4 零扫描重试或节点/动作失败。前两次 failed / partial 样本单独保留，不计完整成功。记录和截图见 [本轮真实验收](psauto/docs/images/acceptance-roundtrips-20261105/README.md)。
+
+本轮普通套件 113 项中 53 通过、60 集成项跳过；另外启用的 CLI 8 通过/1 可选项跳过、剪贴板/Guacamole 10 通过、原生识图 14 通过，分别统计。pshelp 已独立复验合并查询的保护，并另在仓库外用 native Maa 跑过 ROI/关闭两个新增用例，见[正式复核与收尾附记](psauto/docs/performance/pshelp_roundtrips_review.md)。完整业务约 3 分钟与之前较快样本接近，不能宣称稳定的整体同比提速；仍捕获到查询往返长尾及约 2 秒剪贴板输入，后续按分项继续处理，不能归咎于画布编码。
+
 证据导出已改为通过 Maa 公开接口逐节点读取、写图后释放，减少像素复制；原生日志、失败候选及无损截图全部保留。208 节点离线原生对照中，Python 导出进程的新增 private 峰值从 2.43 GiB 降至 24.85 MiB，导出从 24.889 秒降至 22.380 秒；208 节点、1664 事件及 99 张 PNG 的非计时内容和像素一致。主要收益是内存，单次约 10% 的导出耗时改善不代表整体业务提速。既有 `timings.json` 新增取详情、哈希、转换、PNG 编码/写盘分项，保留业务事实与证据故障隔离。方法、原始测量及验证边界见 [证据导出优化](psauto/docs/performance/evidence_export.md)。
 
 本轮新 MCP 实例完整创建 GM_EXP_REC、Build、保存关闭及 DBX 验收通过，208 节点无重试或动作失败，全部证据保留。现场总耗时 230.34 秒、导出 27.565 秒，高于此前样本；执行阶段截图和输入调用已明显变慢，不将此次作为业务提速证据。截图、原生分项及差异见 [真实接入验收](psauto/docs/images/acceptance-export-20261105/README.md)。

@@ -1,0 +1,8 @@
+{
+  "name": "GM_RPC_F1",
+  "type": "Character",
+  "length": 11,
+  "label_id": "GMRPC",
+  "long_name": "GM RPC Field",
+  "short_name": "GM RPC"
+}

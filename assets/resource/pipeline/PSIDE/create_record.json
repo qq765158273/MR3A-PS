@@ -6752,9 +6752,9 @@
     "expected": "(?!)",
     "roi": "R_FieldNameHeader",
     "roi_offset": [
-      -5,
+      5,
       20,
-      100,
+      90,
       400
     ],
     "target_offset": [
@@ -8195,20 +8195,28 @@
     "timeout": 60000,
     "on_error": [],
     "next": [
-      "R_BuildFocusEditor"
+      "R_BuildCloseSaved"
     ],
     "pre_delay": 0,
     "post_delay": 0
   },
-  "R_BuildFocusEditor": {
-    "recognition": "OCR",
-    "expected": "__PARAM_name_regex__",
-    "roi": [
-      430,
-      75,
-      1100,
-      300
+  "R_BuildCloseSaved": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_name_regex__",
+        "roi": [430, 75, 1100, 300]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [430, 75, 1100, 300],
+        "threshold": 0.95,
+        "order_by": "Score"
+      }
     ],
+    "box_index": 1,
     "action": "Click",
     "target_offset": [
       4,
@@ -8219,7 +8227,7 @@
     "timeout": 5000,
     "on_error": [],
     "next": [
-      "R_CloseSaved"
+      "PSIDE_CreateRecord_SavedAndClosed"
     ],
     "pre_delay": 0
   },

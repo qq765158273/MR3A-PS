@@ -1,0 +1,268 @@
+{
+  "state": {
+    "visibility": "visible",
+    "width": 1920,
+    "height": 897,
+    "dpr": 1
+  },
+  "cli_settings": {
+    "expected_settle_ms": 0,
+    "effective_settle_ms": 0
+  },
+  "rows": [
+    {
+      "index": 0,
+      "empty_ms": 13.659899937920272,
+      "inspect_check_ms": 83.9951999951154,
+      "screenshot_cli_ms": 139.18149995151907,
+      "decode_ms": 65.29860000591725,
+      "validate_ms": 41,
+      "flush_ms": 23,
+      "inspect_ms": 56,
+      "body_ms": 120,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 1,
+      "empty_ms": 32.7761999797076,
+      "inspect_check_ms": 91.17169992532581,
+      "screenshot_cli_ms": 122.52079998143017,
+      "decode_ms": 43.39380003511906,
+      "validate_ms": 33,
+      "flush_ms": 23,
+      "inspect_ms": 50,
+      "body_ms": 106,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 2,
+      "empty_ms": 14.263599994592369,
+      "inspect_check_ms": 71.3876000372693,
+      "screenshot_cli_ms": 127.5143000530079,
+      "decode_ms": 45.12820008676499,
+      "validate_ms": 40,
+      "flush_ms": 21,
+      "inspect_ms": 50,
+      "body_ms": 111,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 3,
+      "empty_ms": 14.513300033286214,
+      "inspect_check_ms": 69.51419997494668,
+      "screenshot_cli_ms": 125.01439999323338,
+      "decode_ms": 43.74899994581938,
+      "validate_ms": 34,
+      "flush_ms": 26,
+      "inspect_ms": 51,
+      "body_ms": 111,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 4,
+      "empty_ms": 17.02939998358488,
+      "inspect_check_ms": 75.64670010469854,
+      "screenshot_cli_ms": 125.31620007939637,
+      "decode_ms": 43.62519993446767,
+      "validate_ms": 36,
+      "flush_ms": 22,
+      "inspect_ms": 51,
+      "body_ms": 109,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "empty_ms": 13.73139990027994,
+      "inspect_check_ms": 74.29220003541559,
+      "screenshot_cli_ms": 123.36979992687702,
+      "decode_ms": 44.09510002005845,
+      "validate_ms": 33,
+      "flush_ms": 22,
+      "inspect_ms": 52,
+      "body_ms": 107,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 6,
+      "empty_ms": 13.741299975663424,
+      "inspect_check_ms": 68.40679992455989,
+      "screenshot_cli_ms": 150.3503000130877,
+      "decode_ms": 43.353699962608516,
+      "validate_ms": 33,
+      "flush_ms": 21,
+      "inspect_ms": 51,
+      "body_ms": 105,
+      "browser_pixels_ms": 18,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 7,
+      "empty_ms": 14.387000002898276,
+      "inspect_check_ms": 75.20730001851916,
+      "screenshot_cli_ms": 121.15220003761351,
+      "decode_ms": 43.43889991287142,
+      "validate_ms": 33,
+      "flush_ms": 22,
+      "inspect_ms": 51,
+      "body_ms": 106,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 8,
+      "empty_ms": 13.437899993732572,
+      "inspect_check_ms": 73.28140002209693,
+      "screenshot_cli_ms": 123.71710001025349,
+      "decode_ms": 45.834300108253956,
+      "validate_ms": 34,
+      "flush_ms": 22,
+      "inspect_ms": 52,
+      "body_ms": 108,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 9,
+      "empty_ms": 13.46040004864335,
+      "inspect_check_ms": 68.15840001218021,
+      "screenshot_cli_ms": 120.04000006709248,
+      "decode_ms": 43.0879999184981,
+      "validate_ms": 32,
+      "flush_ms": 21,
+      "inspect_ms": 51,
+      "body_ms": 104,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 10,
+      "empty_ms": 14.43229999858886,
+      "inspect_check_ms": 67.8300999570638,
+      "screenshot_cli_ms": 120.88719999883324,
+      "decode_ms": 43.53729996364564,
+      "validate_ms": 33,
+      "flush_ms": 22,
+      "inspect_ms": 51,
+      "body_ms": 106,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    {
+      "index": 11,
+      "empty_ms": 23.261600057594478,
+      "inspect_check_ms": 77.07929995376617,
+      "screenshot_cli_ms": 136.56100002117455,
+      "decode_ms": 44.54679996706545,
+      "validate_ms": 36,
+      "flush_ms": 26,
+      "inspect_ms": 53,
+      "body_ms": 115,
+      "browser_pixels_ms": 17,
+      "png_bytes_base64": 97450,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    }
+  ],
+  "summary": {
+    "empty_ms": {
+      "median_ms": 14.325299998745322,
+      "max_ms": 32.7761999797076
+    },
+    "inspect_check_ms": {
+      "median_ms": 73.78680002875626,
+      "max_ms": 91.17169992532581
+    },
+    "screenshot_cli_ms": {
+      "median_ms": 124.36575000174344,
+      "max_ms": 150.3503000130877
+    },
+    "decode_ms": {
+      "median_ms": 43.687099940143526,
+      "max_ms": 65.29860000591725
+    },
+    "validate_ms": {
+      "median_ms": 33.5,
+      "max_ms": 41
+    },
+    "flush_ms": {
+      "median_ms": 22.0,
+      "max_ms": 26
+    },
+    "inspect_ms": {
+      "median_ms": 51.0,
+      "max_ms": 56
+    },
+    "body_ms": {
+      "median_ms": 107.5,
+      "max_ms": 120
+    },
+    "browser_pixels_ms": {
+      "median_ms": 17.0,
+      "max_ms": 18
+    }
+  }
+}

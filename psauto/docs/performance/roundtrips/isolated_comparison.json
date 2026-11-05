@@ -1,0 +1,506 @@
+{
+  "mode": "isolated",
+  "browser": {
+    "visibility": "visible",
+    "width": 1280,
+    "height": 720,
+    "dpr": 1
+  },
+  "baseline_ref": "66196b3",
+  "baseline_source_sha256": {
+    "cli_controller.py": "5a9738dc963489f0dced9eb49448c326db4a24eada91af607ec2e3f96459847f",
+    "cli_worker.cjs": "4d5662de76fe443a9d86c797902db44c90b3f0e7159b663955ee5a15b9e0073b"
+  },
+  "current_source_sha256": "da06412fa23f3482cb334b9ab08bba1bd327d912a4466b71e8f1a513e7aef775",
+  "cli_settings": {
+    "baseline": {
+      "expected_settle_ms": 0,
+      "effective_settle_ms": 0
+    },
+    "current": {
+      "expected_settle_ms": 0,
+      "effective_settle_ms": 0
+    }
+  },
+  "summary": {
+    "baseline": {
+      "capture_cli_ms": {
+        "count": 12,
+        "median_ms": 64.32980002136901,
+        "p95_ms": 80.39060002192855,
+        "max_ms": 80.39060002192855
+      },
+      "capture_total_ms": {
+        "count": 12,
+        "median_ms": 107.010799983982,
+        "p95_ms": 144.19580006506294,
+        "max_ms": 144.19580006506294
+      },
+      "click_ms": {
+        "count": 12,
+        "median_ms": 70.64215000718832,
+        "p95_ms": 87.94130000751466,
+        "max_ms": 87.94130000751466
+      },
+      "decode_ms": {
+        "count": 12,
+        "median_ms": 42.91224997723475,
+        "p95_ms": 63.80520004313439,
+        "max_ms": 63.80520004313439
+      },
+      "inspect_ms": {
+        "count": 12,
+        "median_ms": 32.16659999452531,
+        "p95_ms": 51.55830003786832,
+        "max_ms": 51.55830003786832
+      },
+      "key_ms": {
+        "count": 12,
+        "median_ms": 43.074750050436705,
+        "p95_ms": 56.18820001836866,
+        "max_ms": 56.18820001836866
+      }
+    },
+    "current": {
+      "capture_cli_ms": {
+        "count": 12,
+        "median_ms": 44.90174999227747,
+        "p95_ms": 55.3957000374794,
+        "max_ms": 55.3957000374794
+      },
+      "capture_total_ms": {
+        "count": 12,
+        "median_ms": 88.0691499914974,
+        "p95_ms": 98.8186999456957,
+        "max_ms": 98.8186999456957
+      },
+      "click_ms": {
+        "count": 12,
+        "median_ms": 54.26619999343529,
+        "p95_ms": 60.99869997706264,
+        "max_ms": 60.99869997706264
+      },
+      "decode_ms": {
+        "count": 12,
+        "median_ms": 42.97779995249584,
+        "p95_ms": 45.29979999642819,
+        "max_ms": 45.29979999642819
+      },
+      "inspect_ms": {
+        "count": 12,
+        "median_ms": 14.792100002523512,
+        "p95_ms": 21.624299930408597,
+        "max_ms": 21.624299930408597
+      },
+      "key_ms": {
+        "count": 12,
+        "median_ms": 27.089950046502054,
+        "p95_ms": 30.373999965377152,
+        "max_ms": 30.373999965377152
+      }
+    }
+  },
+  "state": {
+    "revision": 24,
+    "clicks": 24,
+    "pastes": 2
+  },
+  "measurements": [
+    {
+      "implementation": "baseline",
+      "round": 0,
+      "inspect_ms": 40.76460003852844,
+      "key_ms": 56.18820001836866,
+      "capture_cli_ms": 80.39060002192855,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 80.31
+      },
+      "decode_ms": 63.80520004313439,
+      "capture_total_ms": 144.19580006506294,
+      "click_ms": 81.43130003008991
+    },
+    {
+      "implementation": "current",
+      "round": 0,
+      "inspect_ms": 21.624299930408597,
+      "key_ms": 25.834299973212183,
+      "capture_cli_ms": 55.3957000374794,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 55.27,
+        "browser_validation_ms": 0.10000002384185791,
+        "browser_flush_ms": 14.700000047683716,
+        "browser_inspect_ms": 16.5,
+        "browser_roundtrip_ms": 40,
+        "body_ms": 40
+      },
+      "decode_ms": 43.4229999082163,
+      "capture_total_ms": 98.8186999456957,
+      "click_ms": 57.86719999741763
+    },
+    {
+      "implementation": "current",
+      "round": 1,
+      "inspect_ms": 16.44020003732294,
+      "key_ms": 27.12540002539754,
+      "capture_cli_ms": 45.61090003699064,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 45.47,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 11.800000071525574,
+        "browser_inspect_ms": 16,
+        "browser_roundtrip_ms": 36,
+        "body_ms": 36
+      },
+      "decode_ms": 43.64319995511323,
+      "capture_total_ms": 89.25409999210387,
+      "click_ms": 54.348999983631074
+    },
+    {
+      "implementation": "baseline",
+      "round": 1,
+      "inspect_ms": 33.16420002374798,
+      "key_ms": 43.481400003656745,
+      "capture_cli_ms": 65.41209993883967,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 65.33
+      },
+      "decode_ms": 41.448600008152425,
+      "capture_total_ms": 106.8606999469921,
+      "click_ms": 87.94130000751466
+    },
+    {
+      "implementation": "baseline",
+      "round": 2,
+      "inspect_ms": 32.592899980954826,
+      "key_ms": 42.5501000136137,
+      "capture_cli_ms": 68.31870006863028,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 68.23
+      },
+      "decode_ms": 43.007400003261864,
+      "capture_total_ms": 111.32610007189214,
+      "click_ms": 73.21890001185238
+    },
+    {
+      "implementation": "current",
+      "round": 2,
+      "inspect_ms": 15.010699979029596,
+      "key_ms": 25.345099973492324,
+      "capture_cli_ms": 46.01110005751252,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 45.92,
+        "browser_validation_ms": 0.10000002384185791,
+        "browser_flush_ms": 12,
+        "browser_inspect_ms": 15.799999952316284,
+        "browser_roundtrip_ms": 37,
+        "body_ms": 37
+      },
+      "decode_ms": 42.331599979661405,
+      "capture_total_ms": 88.34270003717393,
+      "click_ms": 53.27189993113279
+    },
+    {
+      "implementation": "current",
+      "round": 3,
+      "inspect_ms": 14.33149992953986,
+      "key_ms": 27.05450006760657,
+      "capture_cli_ms": 44.91830000188202,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 44.82,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 10.399999976158142,
+        "browser_inspect_ms": 16.199999928474426,
+        "browser_roundtrip_ms": 35,
+        "body_ms": 35
+      },
+      "decode_ms": 42.35060000792146,
+      "capture_total_ms": 87.26890000980347,
+      "click_ms": 60.99869997706264
+    },
+    {
+      "implementation": "baseline",
+      "round": 3,
+      "inspect_ms": 51.55830003786832,
+      "key_ms": 53.05949994362891,
+      "capture_cli_ms": 70.70919999387115,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 70.63
+      },
+      "decode_ms": 47.64829995110631,
+      "capture_total_ms": 118.35749994497746,
+      "click_ms": 87.44709996972233
+    },
+    {
+      "implementation": "baseline",
+      "round": 4,
+      "inspect_ms": 41.36210004799068,
+      "key_ms": 47.17579996213317,
+      "capture_cli_ms": 65.9802999580279,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 65.88
+      },
+      "decode_ms": 43.383800075389445,
+      "capture_total_ms": 109.36410003341734,
+      "click_ms": 68.02830006927252
+    },
+    {
+      "implementation": "current",
+      "round": 4,
+      "inspect_ms": 13.85600003413856,
+      "key_ms": 28.50480005145073,
+      "capture_cli_ms": 43.8469999935478,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 43.75,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 8.300000071525574,
+        "browser_inspect_ms": 17.299999952316284,
+        "browser_roundtrip_ms": 34,
+        "body_ms": 34
+      },
+      "decode_ms": 42.918199906125665,
+      "capture_total_ms": 86.76519989967346,
+      "click_ms": 52.68570000771433
+    },
+    {
+      "implementation": "current",
+      "round": 5,
+      "inspect_ms": 14.82220005709678,
+      "key_ms": 27.899399981833994,
+      "capture_cli_ms": 44.758199946954846,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 44.67,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 11,
+        "browser_inspect_ms": 16.199999928474426,
+        "browser_roundtrip_ms": 35,
+        "body_ms": 35
+      },
+      "decode_ms": 43.03739999886602,
+      "capture_total_ms": 87.79559994582087,
+      "click_ms": 52.239199983887374
+    },
+    {
+      "implementation": "baseline",
+      "round": 5,
+      "inspect_ms": 31.237100018188357,
+      "key_ms": 42.94480010867119,
+      "capture_cli_ms": 63.060699962079525,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 62.98
+      },
+      "decode_ms": 41.787599911913276,
+      "capture_total_ms": 104.8482998739928,
+      "click_ms": 72.75559997651726
+    },
+    {
+      "implementation": "baseline",
+      "round": 6,
+      "inspect_ms": 30.946000013500452,
+      "key_ms": 43.26860001310706,
+      "capture_cli_ms": 63.39899997692555,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 63.27
+      },
+      "decode_ms": 43.76190004404634,
+      "capture_total_ms": 107.1609000209719,
+      "click_ms": 64.42439998500049
+    },
+    {
+      "implementation": "current",
+      "round": 6,
+      "inspect_ms": 14.356500003486872,
+      "key_ms": 30.21300002001226,
+      "capture_cli_ms": 40.140099939890206,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 40.04,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 6.600000023841858,
+        "browser_inspect_ms": 15.699999928474426,
+        "browser_roundtrip_ms": 31,
+        "body_ms": 31
+      },
+      "decode_ms": 42.91279998142272,
+      "capture_total_ms": 83.05289992131293,
+      "click_ms": 54.54629997257143
+    },
+    {
+      "implementation": "current",
+      "round": 7,
+      "inspect_ms": 14.761999947950244,
+      "key_ms": 30.373999965377152,
+      "capture_cli_ms": 40.9118999959901,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 40.82,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 7.399999976158142,
+        "browser_inspect_ms": 16.299999952316284,
+        "browser_roundtrip_ms": 31,
+        "body_ms": 31
+      },
+      "decode_ms": 43.84840000420809,
+      "capture_total_ms": 84.76030000019819,
+      "click_ms": 52.155000041238964
+    },
+    {
+      "implementation": "baseline",
+      "round": 7,
+      "inspect_ms": 31.908500008285046,
+      "key_ms": 41.43710003700107,
+      "capture_cli_ms": 64.34399995487183,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 64.26
+      },
+      "decode_ms": 41.11650004051626,
+      "capture_total_ms": 105.46049999538809,
+      "click_ms": 70.80779992975295
+    },
+    {
+      "implementation": "baseline",
+      "round": 8,
+      "inspect_ms": 32.42469998076558,
+      "key_ms": 41.72629991080612,
+      "capture_cli_ms": 64.31560008786619,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 64.23
+      },
+      "decode_ms": 43.108300073072314,
+      "capture_total_ms": 107.4239001609385,
+      "click_ms": 70.38120005745441
+    },
+    {
+      "implementation": "current",
+      "round": 8,
+      "inspect_ms": 15.213900012895465,
+      "key_ms": 27.52809994854033,
+      "capture_cli_ms": 44.88519998267293,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 44.78,
+        "browser_validation_ms": 0.10000002384185791,
+        "browser_flush_ms": 11,
+        "browser_inspect_ms": 15.899999976158142,
+        "browser_roundtrip_ms": 35,
+        "body_ms": 35
+      },
+      "decode_ms": 43.57430001255125,
+      "capture_total_ms": 88.45949999522418,
+      "click_ms": 55.831999983638525
+    },
+    {
+      "implementation": "current",
+      "round": 9,
+      "inspect_ms": 14.23380000051111,
+      "key_ms": 25.00060002785176,
+      "capture_cli_ms": 46.77430004812777,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 46.68,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 12.700000047683716,
+        "browser_inspect_ms": 16.100000023841858,
+        "browser_roundtrip_ms": 37,
+        "body_ms": 37
+      },
+      "decode_ms": 42.65419999137521,
+      "capture_total_ms": 89.42850003950298,
+      "click_ms": 55.307599948719144
+    },
+    {
+      "implementation": "baseline",
+      "round": 9,
+      "inspect_ms": 29.367699986323714,
+      "key_ms": 43.20469999220222,
+      "capture_cli_ms": 64.09859994892031,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 64.02
+      },
+      "decode_ms": 42.66580007970333,
+      "capture_total_ms": 106.76440002862364,
+      "click_ms": 70.31420001294464
+    },
+    {
+      "implementation": "baseline",
+      "round": 10,
+      "inspect_ms": 31.1062999535352,
+      "key_ms": 40.3669000370428,
+      "capture_cli_ms": 63.207299914211035,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 63.12
+      },
+      "decode_ms": 42.81709995120764,
+      "capture_total_ms": 106.02439986541867,
+      "click_ms": 70.4765000846237
+    },
+    {
+      "implementation": "current",
+      "round": 10,
+      "inspect_ms": 13.707400066778064,
+      "key_ms": 25.76639992184937,
+      "capture_cli_ms": 44.3686000071466,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 44.27,
+        "browser_validation_ms": 0,
+        "browser_flush_ms": 12.200000047683716,
+        "browser_inspect_ms": 15.600000023841858,
+        "browser_roundtrip_ms": 35,
+        "body_ms": 35
+      },
+      "decode_ms": 42.85490000620484,
+      "capture_total_ms": 87.22350001335144,
+      "click_ms": 54.11270004697144
+    },
+    {
+      "implementation": "current",
+      "round": 11,
+      "inspect_ms": 18.648399971425533,
+      "key_ms": 22.414400009438396,
+      "capture_cli_ms": 49.348399974405766,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 49.24,
+        "browser_validation_ms": 0.09999990463256836,
+        "browser_flush_ms": 15.400000095367432,
+        "browser_inspect_ms": 16.199999928474426,
+        "browser_roundtrip_ms": 40,
+        "body_ms": 40
+      },
+      "decode_ms": 45.29979999642819,
+      "capture_total_ms": 94.64819997083396,
+      "click_ms": 54.18340000323951
+    },
+    {
+      "implementation": "baseline",
+      "round": 11,
+      "inspect_ms": 31.600200105458498,
+      "key_ms": 42.43030003271997,
+      "capture_cli_ms": 63.503599958494306,
+      "profile": {
+        "operation": "screencap",
+        "elapsed_ms": 63.42
+      },
+      "decode_ms": 41.76599998027086,
+      "capture_total_ms": 105.26959993876517,
+      "click_ms": 66.26450002659112
+    }
+  ]
+}
