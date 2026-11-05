@@ -15,7 +15,8 @@ def build(request):
         values[f'step_{index}_type_regex'] = r'^\s*' + re.escape(step.type) + r'\s*$'
         values[f'editor_identity_{index}_regex'] = (
             r'^(?=.*(?:^|[^A-Z0-9_])' + identifier(request.name) + r'(?=[^A-Z0-9_]|$))'
-            + r'(?=.*Step' + f'{index + 1:02d}' + r'(?![0-9])).*$')
+            + r'(?=.*(?:^|[^A-Za-z0-9_])Step' + f'{index + 1:02d}'
+            + r'(?=[^A-Za-z0-9_]|$)).*$')
         values[f'step_{index}_view_template'] = 'PSIDE/view_' + ('sql' if step.type == 'SQL' else 'peoplecode') + '_menu.png'
         values[f'step_{index}_editor_template'] = 'PSIDE/' + ('sql' if step.type == 'SQL' else 'peoplecode') + '_editor_icon.png'
         patches[f'A{index}_EditorReady'] = {'next': [f'A{index}_Focus' + ('SQL' if step.type == 'SQL' else 'PeopleCode') + 'Code']}

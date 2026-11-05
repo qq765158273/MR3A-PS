@@ -159,7 +159,9 @@ GM_MCP_REC4 实际完成 226 个节点，Pipeline 约 906 秒：截图及下一�
 
 截图分项实测：Guacamole 本地绘图队列刷新约 18–21ms，原画布读取和编码约 47–50ms，完整 CLI 请求却约 932–1001ms；Python 解码另约 44–70ms。原画布不是主要瓶颈，官方 CLI `run-code` 包含默认 500ms 的 settle 等待，剩余成本还在执行链路及返回。默认 `canvas_refresh_mode:guacamole` 在截图前排空已接收绘图队列，缺组件/API、超时、尺寸变化或断线即停止；这不保证网络端新帧，下一步仍由 Pipeline 状态识别判断。剪贴板抽屉继续使用浏览器动画刷新及遮挡检查，最终 Ctrl+V 前重查连接。
 
-部分对象 `GM_AE_BASE` 的后台浏览器截图超时仍保留为失败样本，不重放、不计完整成功。只读复核发现的对象名左边界及缺组件回退问题已补强，原生正反例通过。tmux pshelp 的独立 Codex 进程遭 API 401，改由当前会话内只读复核并处理意见，未称独立进程已成功。逐项取舍、截图分解、原生逐节点日志和下一步安排见 [Pipeline 复核](psauto/docs/performance/pipeline_audit.md) 及 [本轮截图和 DBX](psauto/docs/images/acceptance-pipeline-audit-20261105/README.md)。
+部分对象 `GM_AE_BASE` 的后台浏览器截图超时仍保留为失败样本，不重放、不计完整成功。只读复核发现的对象名左边界及缺组件回退问题已补强。随后通过 tmux pshelp 内的 `seedx codex` 完成独立复核并回复 ps：原始证据和性能数字一致，未发现高风险问题，另发现 Step 标识符边界缺口。该问题已修复，新增错误 Step 下不发送 Ctrl+S 的原生 Pipeline 反例，识图 10 项和参数/schema 6 项通过。最终版本完整调用及长期稳定性仍待补测。正式反馈及处理见 [pshelp 独立复核](psauto/docs/performance/pshelp_review.md)；逐项取舍、截图分解和原生逐节点日志见 [Pipeline 复核](psauto/docs/performance/pipeline_audit.md) 及 [本轮截图和 DBX](psauto/docs/images/acceptance-pipeline-audit-20261105/README.md)。
+
+本机启动复核 agent 应使用 `seedx codex`，其提供正确的模型与网关授权；全部 `-c` 配置覆盖放在 `exec` 之前，保留 seedx 的网关注入，避免子命令配置覆盖后退回本机旧 provider。此前直接启动全局 Codex 的 401 不代表 seedx agent 不可用。
 
 #### 截图和 OCR 区域基准
 

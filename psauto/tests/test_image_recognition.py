@@ -82,6 +82,40 @@ class ImageRecognitionTests(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertEqual(result.hit,name=='GMGM_MCP_AE5')
 
+    def test_editor_step_guard_rejects_extra_identifier_characters(self):
+        from maa.pipeline import JOCR
+        from psauto.objects.ae import build
+        from psauto.objects.models import AERequest
+        _,override=build(AERequest(name='GM_AE_FAST',steps=[{'type':'SQL','code':'SELECT 1'}]))
+        rule=override['A0_EditorReady']['all_of'][0]
+        font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',14)
+        for token in ['Step01','Step02','Step010','Step01A','XStep01','Step01_','Step01a','xStep01']:
+            frame=Image.new('RGB',(1920,1080),'white')
+            ImageDraw.Draw(frame).text((2,2),
+                'Application Designer - HRDEV - GM_AE_FAST - MAIN.GBL.default.1900-01-01.'+token+'.SQL',
+                font=font,fill='black')
+            for filename,point in [('sql_editor_icon.png',(600,150)),
+                                   ('save_enabled.png',(55,45)),
+                                   ('active_editor_close.png',(1000,200))]:
+                with Image.open(self.resource/'image/PSIDE'/filename) as icon:
+                    frame.paste(icon.convert('RGB'),point)
+            pixels=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+            result=self.tasker.post_recognition('OCR',JOCR(roi=rule['roi'],expected=[rule['expected']]),pixels).wait().get().nodes[0].recognition
+            with self.subTest(token=token):
+                self.assertEqual(result.hit,token=='Step01')
+                seen=[]
+                self.controller.frame=pixels
+                self.controller.key_hook=lambda key: seen.append(key) or True
+                try:
+                    job=self.tasker.post_task('A0_Paste',{
+                        'A0_Paste':{'recognition':'DirectHit','action':'DoNothing','next':['A0_Dirty'],
+                                    'timeout':50,'rate_limit':0,'pre_delay':0,'post_delay':0},
+                        'A0_Dirty':{**override['A0_Dirty'],'next':[],'post_delay':0},
+                    }).wait()
+                    self.assertEqual(job.succeeded,token=='Step01')
+                    self.assertEqual(seen,[0x20053] if token=='Step01' else [])
+                finally:self.controller.key_hook=None
+
     def test_merged_field_editor_guard_clicks_only_when_both_labels_are_present(self):
         type_label=Image.open(self.resource/'image/PSIDE/field_type_label.png').convert('RGB')
         length_label=Image.open(self.resource/'image/PSIDE/field_length_label.png').convert('RGB')
