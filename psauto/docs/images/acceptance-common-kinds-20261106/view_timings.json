@@ -1,0 +1,1462 @@
+{
+  "pipeline_ms": 64258.8,
+  "evidence_export_ms": 10972.85,
+  "evidence_export": {
+    "node_access": "streaming",
+    "total_ms": 10972.63,
+    "phases_ms": {
+      "task_detail_ms": 0.16,
+      "node_detail_ms": 5446.37,
+      "hash_copy_ms": 0.3,
+      "hash_ms": 1675.75,
+      "image_conversion_ms": 325.48,
+      "png_encode_ms": 2799.29,
+      "png_write_ms": 56.33,
+      "metadata_ms": 72.01,
+      "candidate_detail_ms": 322.35
+    },
+    "unattributed_ms": 274.56,
+    "counts": {
+      "frames_hashed": 91,
+      "raw_bytes_hashed": 566092800,
+      "unique_pngs": 53,
+      "nodes": 85,
+      "candidate_detail_reads": 6
+    }
+  },
+  "cli_settings": {
+    "expected_settle_ms": 0,
+    "effective_settle_ms": 0
+  },
+  "transport": [
+    {
+      "operation": "inspect",
+      "elapsed_ms": 194.24,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 2,
+      "browser_roundtrip_ms": 20,
+      "body_ms": 50
+    },
+    {
+      "operation": "inspect",
+      "elapsed_ms": 33.25,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 19,
+      "body_ms": 19
+    },
+    {
+      "operation": "inspect",
+      "elapsed_ms": 47.54,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 23,
+      "body_ms": 23
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.19,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.699999928474426,
+      "browser_roundtrip_ms": 48,
+      "body_ms": 48,
+      "decode_ms": 67.84
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.46,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.90000009536743,
+      "browser_roundtrip_ms": 48,
+      "body_ms": 48,
+      "decode_ms": 48.06
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 98.42,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 28
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 96.8,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 22.600000023841858,
+      "browser_roundtrip_ms": 59,
+      "body_ms": 59,
+      "decode_ms": 42.38
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.74,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.399999976158142,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 41.87
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 192.05,
+      "browser_validation_ms": 0.19999992847442627,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 125
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.5,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.5,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.36
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 111.01,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.30000007152557373,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 23
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 73.28,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.899999976158142,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 54,
+      "decode_ms": 42.87
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 124.92,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 21
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 76.81,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.5,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 42.34
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 106.14,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 22
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.45,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.700000047683716,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 41.42
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 65.53,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.700000047683716,
+      "browser_roundtrip_ms": 48,
+      "body_ms": 48,
+      "decode_ms": 42.18
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 187.21,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 109
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 93.51,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.600000023841858,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 50,
+      "decode_ms": 42.29
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 87.63,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 22
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 63.61,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.299999952316284,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 41.5
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 97.35,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 29
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 63.89,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 42.22
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 1849.89,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 20,
+      "body_ms": 1805
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.05,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.799999952316284,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.4
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 91.43,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 22
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.1,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 43.22
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 78.82,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.5,
+      "browser_roundtrip_ms": 63,
+      "body_ms": 63,
+      "decode_ms": 42.6
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 316.12,
+      "browser_validation_ms": 0.6000000238418579,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 129,
+      "body_ms": 242
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.48,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.899999976158142,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 50,
+      "decode_ms": 42.42
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 70.29,
+      "browser_validation_ms": 0.20000004768371582,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 54,
+      "decode_ms": 43.04
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 197.9,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 111
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.09,
+      "browser_validation_ms": 0.19999992847442627,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.800000071525574,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 42.05
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 126.49,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 45,
+      "body_ms": 56
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 65.34,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.199999928474426,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 50,
+      "decode_ms": 41.98
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 87.02,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 21
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.18,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.799999952316284,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 41.43
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 92.3,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 24
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.53,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.699999928474426,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 43.18
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.08,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20,
+      "browser_roundtrip_ms": 47,
+      "body_ms": 47,
+      "decode_ms": 42.95
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 118.76,
+      "browser_validation_ms": 0.20000004768371582,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 22
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 73.59,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 27,
+      "browser_roundtrip_ms": 57,
+      "body_ms": 57,
+      "decode_ms": 44.41
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.82,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.699999928474426,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 43.11
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.61,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 44.72
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 192.49,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 24,
+      "body_ms": 118
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.39,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.100000023841858,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 42.04
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 205.32,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 111
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 98.05,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.899999976158142,
+      "browser_roundtrip_ms": 69,
+      "body_ms": 69,
+      "decode_ms": 42.17
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 77.07,
+      "browser_validation_ms": 0.5999999046325684,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 26.100000023841858,
+      "browser_roundtrip_ms": 61,
+      "body_ms": 61,
+      "decode_ms": 42.79
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 178.94,
+      "browser_validation_ms": 0.20000004768371582,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 112
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.43,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.899999976158142,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 43.07
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 2854.0,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 2814
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 80.98,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 23.300000071525574,
+      "browser_roundtrip_ms": 64,
+      "body_ms": 64,
+      "decode_ms": 48.87
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 95.22,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 23
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.27,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.20000004768371582,
+      "browser_inspect_ms": 19.799999952316284,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 50,
+      "decode_ms": 43.13
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.01,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 42.11
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 213.26,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 112
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 73.87,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.5,
+      "browser_roundtrip_ms": 57,
+      "body_ms": 57,
+      "decode_ms": 44.62
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 183.39,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 116
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 73.28,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.5,
+      "browser_roundtrip_ms": 56,
+      "body_ms": 56,
+      "decode_ms": 42.59
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 234.55,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 161
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 70.42,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.199999928474426,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 54,
+      "decode_ms": 42.04
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 253.83,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 44,
+      "body_ms": 142
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 74.24,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.700000047683716,
+      "browser_roundtrip_ms": 57,
+      "body_ms": 57,
+      "decode_ms": 44.31
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.67,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 22.5,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 45.06
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 190.94,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 114
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.37,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 43.02
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 223.14,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.30000007152557373,
+      "browser_roundtrip_ms": 19,
+      "body_ms": 117
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 88.4,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.5,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 54,
+      "decode_ms": 42.58
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 70.57,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.899999976158142,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 45.4
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 179.05,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 110
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.22,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.299999952316284,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 43.67
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 1855.96,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.7000000476837158,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 1813
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.44,
+      "browser_validation_ms": 0.2999999523162842,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.100000023841858,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.81
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 88.69,
+      "browser_validation_ms": 0.3999999761581421,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.30000007152557373,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 22
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.44,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.09999990463256836,
+      "browser_inspect_ms": 20.40000009536743,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.87
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 73.38,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.09999990463256836,
+      "browser_inspect_ms": 19.800000071525574,
+      "browser_roundtrip_ms": 57,
+      "body_ms": 57,
+      "decode_ms": 45.01
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 232.42,
+      "browser_validation_ms": 0.19999992847442627,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.30000007152557373,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 113
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 73.48,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.09999990463256836,
+      "browser_inspect_ms": 21.600000023841858,
+      "browser_roundtrip_ms": 57,
+      "body_ms": 57,
+      "decode_ms": 42.54
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 197.68,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 115
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 71.44,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.40000009536743,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 42.54
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 191.97,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 117
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 70.98,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.2999999523162842,
+      "browser_inspect_ms": 20.299999952316284,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 55,
+      "decode_ms": 42.84
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 208.2,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 114
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 64.56,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.800000071525574,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 42.82
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.01,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.699999928474426,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 50,
+      "decode_ms": 42.4
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 193.02,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 127
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.47,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.100000023841858,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 41.47
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.89,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.5,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.21
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 179.93,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 109
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.84,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.5,
+      "browser_inspect_ms": 20.5,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.12
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 70.93,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 22.5,
+      "browser_roundtrip_ms": 56,
+      "body_ms": 56,
+      "decode_ms": 42.7
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 98.66,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 30
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.46,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.73
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 1877.95,
+      "browser_validation_ms": 0.30000007152557373,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 25,
+      "body_ms": 1836
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 65.88,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.399999976158142,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 50,
+      "decode_ms": 42.64
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 91.73,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 21
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.31,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.600000023841858,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 43.72
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.46,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 52,
+      "decode_ms": 43.38
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 206.52,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 133
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 71.42,
+      "browser_validation_ms": 0.20000004768371582,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.100000023841858,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 54,
+      "decode_ms": 42.11
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 182.93,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 110
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 149.7,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 22.700000047683716,
+      "browser_roundtrip_ms": 89,
+      "body_ms": 89,
+      "decode_ms": 42.77
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 70.77,
+      "browser_validation_ms": 0.19999992847442627,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 21.200000047683716,
+      "browser_roundtrip_ms": 54,
+      "body_ms": 54,
+      "decode_ms": 48.06
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 176.77,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 108
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.18,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 41.9
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 97.15,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 28
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.88,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.90000009536743,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 41.78
+    },
+    {
+      "operation": "input_text",
+      "elapsed_ms": 1861.86,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.30000007152557373,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 1824
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 66.76,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.59999990463257,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.94
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 92.94,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.3999999761581421,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 26
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 74.07,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.700000047683716,
+      "browser_roundtrip_ms": 55,
+      "body_ms": 55,
+      "decode_ms": 42.1
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.86,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.600000023841858,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 42.54
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 229.55,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 114,
+      "body_ms": 129
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 71.55,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 22.199999928474426,
+      "browser_roundtrip_ms": 56,
+      "body_ms": 56,
+      "decode_ms": 42.65
+    },
+    {
+      "operation": "key",
+      "elapsed_ms": 94.17,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 28
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.81,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.33
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.51,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.5,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 42.76
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 192.97,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 117
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.38,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 21.299999952316284,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 41.88
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 181.91,
+      "browser_validation_ms": 0.40000009536743164,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 106
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 72.44,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 23,
+      "browser_roundtrip_ms": 56,
+      "body_ms": 56,
+      "decode_ms": 42.85
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 78.9,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.09999990463256836,
+      "browser_inspect_ms": 28.40000009536743,
+      "browser_roundtrip_ms": 62,
+      "body_ms": 62,
+      "decode_ms": 44.19
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 180.81,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.20000004768371582,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 111
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 75.2,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 21.59999990463257,
+      "browser_roundtrip_ms": 57,
+      "body_ms": 57,
+      "decode_ms": 43.48
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 230.01,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 18,
+      "body_ms": 161
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 71.94,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 21.100000023841858,
+      "browser_roundtrip_ms": 55,
+      "body_ms": 55,
+      "decode_ms": 43.53
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 180.46,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.2999999523162842,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 109
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.78,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.199999928474426,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 42.59
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 193.46,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 19,
+      "body_ms": 108
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 72.14,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.09999990463256836,
+      "browser_inspect_ms": 19.90000009536743,
+      "browser_roundtrip_ms": 55,
+      "body_ms": 55,
+      "decode_ms": 41.63
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.5,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.19999992847442627,
+      "browser_inspect_ms": 19.899999976158142,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 42.67
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 71.78,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20,
+      "browser_roundtrip_ms": 55,
+      "body_ms": 55,
+      "decode_ms": 40.2
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 220.87,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 19,
+      "body_ms": 109
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.99,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.700000047683716,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 53,
+      "decode_ms": 41.17
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.58,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 40.48
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.45,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.699999928474426,
+      "browser_roundtrip_ms": 52,
+      "body_ms": 52,
+      "decode_ms": 40.72
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 203.38,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.10000002384185791,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 135
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.66,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 20.399999976158142,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 41.84
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.75,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 22.399999976158142,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 40.83
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 69.76,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.799999952316284,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 54,
+      "decode_ms": 40.92
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 178.44,
+      "browser_validation_ms": 0.20000004768371582,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0,
+      "browser_roundtrip_ms": 17,
+      "body_ms": 110
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.24,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 19.699999928474426,
+      "browser_roundtrip_ms": 51,
+      "body_ms": 51,
+      "decode_ms": 41.17
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 193.65,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 16,
+      "body_ms": 106
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 68.54,
+      "browser_validation_ms": 0.10000002384185791,
+      "browser_flush_ms": 0.10000002384185791,
+      "browser_inspect_ms": 20.199999928474426,
+      "browser_roundtrip_ms": 53,
+      "body_ms": 53,
+      "decode_ms": 41.29
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 67.84,
+      "browser_validation_ms": 0.3999999761581421,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.90000009536743,
+      "browser_roundtrip_ms": 50,
+      "body_ms": 51,
+      "decode_ms": 43.05
+    },
+    {
+      "operation": "click",
+      "elapsed_ms": 211.03,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 0.19999992847442627,
+      "browser_roundtrip_ms": 19,
+      "body_ms": 124
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 63.97,
+      "browser_validation_ms": 0.09999990463256836,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.200000047683716,
+      "browser_roundtrip_ms": 49,
+      "body_ms": 49,
+      "decode_ms": 41.71
+    },
+    {
+      "operation": "screencap",
+      "elapsed_ms": 62.24,
+      "browser_validation_ms": 0,
+      "browser_flush_ms": 0,
+      "browser_inspect_ms": 19.100000023841858,
+      "browser_roundtrip_ms": 48,
+      "body_ms": 48,
+      "decode_ms": 40.58
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+test_state_temp_restart_combinations_bind_only_requested_paths (test_ae_temporaries.AETemporaryArgumentsTests.test_state_temp_restart_combinations_bind_only_requested_paths) ... ok
+test_temp_names_count_and_uniqueness_are_validated (test_ae_temporaries.AETemporaryArgumentsTests.test_temp_names_count_and_uniqueness_are_validated) ... ok
+test_selected_temp_must_be_the_requested_first_row (test_ae_temporaries.AETemporaryRecognitionTests.test_selected_temp_must_be_the_requested_first_row) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.892s
+
+OK

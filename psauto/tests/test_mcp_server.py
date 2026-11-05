@@ -34,6 +34,13 @@ class MCPProtocolTests(unittest.IsolatedAsyncioTestCase):
                     ae_args=tools['create_ae'].inputSchema['properties']
                     self.assertIn('state_record',ae_args)
                     self.assertIn('disable_restart',ae_args)
+                    self.assertIn('temporary_records', ae_args)
+                    self.assertEqual(set(tools['create_record'].inputSchema['properties']['type']['enum']),
+                                     {'SQL Table', 'SQL View', 'Dynamic View', 'Derived/Work', 'Temporary Table'})
+                    bad_temps = await client.call_tool('create_ae', {
+                        'name': 'GM_TEST', 'steps': [{'type': 'SQL', 'code': 'SELECT 1 FROM DUAL'}],
+                        'temporary_records': ['GM_A', 'GM_A']})
+                    self.assertTrue(bad_temps.isError)
                     invalid_name = await client.call_tool('create_field', {'name': 'BAD', 'long_name': 'x', 'short_name': 'x'})
                     self.assertTrue(invalid_name.isError)
                     invalid_type = await client.call_tool('create_ae', {'name': 'GM_TEST', 'steps': [{'type': 'Do Select', 'code': 'x'}]})

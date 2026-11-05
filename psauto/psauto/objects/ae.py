@@ -10,13 +10,23 @@ def build(request):
     values = {'name': request.name, 'name_regex': identifier(request.name),
               'property_identity_regex': r'(?:^|-\s*)' + identifier(request.name) + r'(?=\s*(?:\(|（))'}
     patches = {f'A{count - 1}_ParentReady': {'next': ['PSIDE_CreateAE_Saved']}}
-    if request.state_record is not None or request.disable_restart is not None:
+    temp_records = sorted(request.temporary_records or [])
+    after_state = ('AEProp_TempTab' if temp_records else
+                   'AEProp_AdvancedTab' if request.disable_restart is not None else 'AEProp_OK')
+    if request.state_record is not None or request.disable_restart is not None or temp_records:
         patches['A0_StructureSave_named'] = {'next': ['AEProp_OpenFileMenu']}
-        patches['AEProp_Ready'] = {'next': ['AEProp_StateTab' if request.state_record else 'AEProp_AdvancedTab']}
+        patches['AEProp_Ready'] = {'next': ['AEProp_StateTab' if request.state_record else after_state]}
         if request.state_record:
             values['state_record'] = request.state_record
             values['state_record_regex'] = r'^\s*' + identifier(request.state_record) + r'\s*$'
-            patches['AEProp_StateBound'] = {'next': ['AEProp_AdvancedTab' if request.disable_restart is not None else 'AEProp_OK']}
+            patches['AEProp_StateBound'] = {'next': [after_state]}
+        if temp_records:
+            patches['AEProp_OK'] = {'next': ['AEProp_TempProjectPrompt', 'AEProp_Saved', 'AEProp_Save']}
+            for index, name in enumerate(temp_records):
+                values[f'temp_{index}'] = name
+                values[f'temp_{index}_regex'] = r'^\s*' + identifier(name) + r'\s*$'
+            patches[f'AEProp_Temp{len(temp_records) - 1}_Bound'] = {'next': ['AEProp_TempsBound']}
+            patches['AEProp_TempsBound'] = {'next': ['AEProp_AdvancedTab' if request.disable_restart is not None else 'AEProp_OK']}
         if request.disable_restart is not None:
             selected = ['PSIDE/checkbox_selected.png', 'PSIDE/checkbox_selected_hover.png']
             unselected = ['PSIDE/checkbox_unchecked.png', 'PSIDE/checkbox_unchecked_hover.png']

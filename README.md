@@ -143,6 +143,10 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 #### 当前完整配置与性能（2026-11-05）
 
+2026-11-06 补齐常用类型：`create_record` 支持 SQL Table、SQL View、Dynamic View、Derived/Work、Temporary Table；视图传 `view_sql`，SQL View/临时表已分别实测 Build。`create_ae` 增加 `temporary_records`，与默认 AET、`disable_restart` 分别配置；一表和两表完整MCP及DBX已通过。实例数/分配选项保持默认。普通140项64通过/76跳过，新增视觉、AE属性及原视觉回归通过。参数、截图和日志见 [常用类型](psauto/docs/common_types.md)。
+
+pshelp 已独立只读审核实际部门工程：[业务代码/对象报告](psauto/docs/pshelp_department_code_objects_review.md)。60列及AE/AET/Project核对正确；文件完成/异常收尾P2、旧日志标签P3待处理，实际Excel仍未验收。本轮只增加通用MCP能力，原部门业务代码保持审核快照。
+
 新增独立 `save_project(name, definitions)` MCP：把已保存 AE、Record、Field 及原生关联定义归集到新 Project，工程保存后释放空白工作台。正式 `GM_DEPT_EXPORT` 已完整创建，DBX 确认 AE/Section/PeopleCode/AET/字段共 10 个成员；首次创建 55 节点、37.250 秒；补齐 Record 首尾选中保护后，回归工程 GMPRJFIX01 以 57 节点、44.969 秒完成，0 节点/动作失败。重名请求安全返回后，同一 MCP 还成功创建三类型测试工程。设计与日志见 [Project 保存能力](psauto/docs/projects.md)。
 
 PSIDE 可直接通过 Edit/Run Program 在远程 Windows 执行 AE 并生成文件，调度器为可选路径。本地导出当前缺匹配 PeopleTools 的 Java/报表依赖：已确认 PSIDE 为64位；仅找到旧 Oracle JVM，未加载或替换。补齐依赖后继续验收 Excel。

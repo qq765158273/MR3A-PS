@@ -10,7 +10,7 @@ from pydantic import StrictBool
 from mcp.server.fastmcp import FastMCP
 
 from psauto.config import load_config
-from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, ProjectDefinition, ProjectName, ProjectRequest, RecordField, RecordName, RecordRequest
+from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, ProjectDefinition, ProjectName, ProjectRequest, RecordField, RecordKind, RecordName, RecordRequest
 from psauto.objects.service import ObjectService
 
 
@@ -28,17 +28,19 @@ def create_server(cfg):
 
     @server.tool()
     def create_record(name: RecordName, fields: list[ExistingFieldName | RecordField],
-                      type: Literal['Derived/Work', 'SQL Table'] = 'Derived/Work', build: bool = False,
-                      tablespace: str = 'HRAPP') -> dict:
-        """Create a GM Record with field key/alternate_search_key/listbox/search_key options; optionally Build a new SQL Table. Save and close; DB verifies content."""
-        return service.execute(RecordRequest(name=name, fields=fields, type=type, build=build, tablespace=tablespace))
+                      type: RecordKind = 'Derived/Work', build: bool = False,
+                      tablespace: str = 'HRAPP', view_sql: str | None = None) -> dict:
+        """Create a GM SQL Table/View, Dynamic View, Derived/Work or Temporary Table. Views require view_sql, pasted through the clipboard and saved without OCR readback. Build applies to SQL Table/View or Temporary Table. Save and close; DB verifies content."""
+        return service.execute(RecordRequest(name=name, fields=fields, type=type, build=build,
+                                            tablespace=tablespace, view_sql=view_sql))
 
     @server.tool()
     def create_ae(name: AEName, steps: list[AEStep], state_record: ExistingRecordName | None = None,
-                  disable_restart: StrictBool | None = None) -> dict:
-        """Create a GM AE with 1–4 SQL/PeopleCode steps; optionally add one existing default AET and set Disable Restart before code compilation. Save and close; DB verifies content. This tool does not execute the AE."""
+                  disable_restart: StrictBool | None = None,
+                  temporary_records: list[ExistingRecordName] | None = None) -> dict:
+        """Create a GM AE with 1–4 SQL/PeopleCode steps; optionally bind one default AET, 1–10 existing Temporary Table records and Disable Restart before code compilation. Temp instance/allocation settings keep their defaults. Save and close; DB verifies content. This tool does not execute the AE."""
         return service.execute(AERequest(name=name, steps=steps,state_record=state_record,
-                                         disable_restart=disable_restart))
+                                         disable_restart=disable_restart, temporary_records=temporary_records))
 
     @server.tool()
     def save_project(name: ProjectName, definitions: list[ProjectDefinition]) -> dict:

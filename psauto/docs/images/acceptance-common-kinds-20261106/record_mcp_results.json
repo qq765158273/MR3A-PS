@@ -1,0 +1,80 @@
+{
+  "started": "2026-11-06T00:34:34.166028",
+  "configuration": {
+    "cli_session": "psauto-fast",
+    "expected_settle_ms": 0,
+    "canvas_refresh_mode": "guacamole",
+    "remote_resolution": [
+      1920,
+      1080
+    ]
+  },
+  "operations": [
+    {
+      "label": "view",
+      "tool": "create_record",
+      "name": "GM_KIND_VW",
+      "status": "succeeded",
+      "started": "2026-11-06T00:34:35.773242",
+      "elapsed_ms": 76679.07,
+      "result": {
+        "success": true,
+        "status": "saved_and_closed",
+        "name": "GM_KIND_VW",
+        "saved": true,
+        "workspace_ready": true,
+        "may_exist": true,
+        "failed_node": null,
+        "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261106_003435_791245",
+        "built": true,
+        "view_sql_saved": true,
+        "evidence_status": "complete",
+        "next_operation_allowed": true
+      }
+    },
+    {
+      "label": "dynamic",
+      "tool": "create_record",
+      "name": "GM_KIND_DV",
+      "status": "succeeded",
+      "started": "2026-11-06T00:35:52.469398",
+      "elapsed_ms": 62026.17,
+      "result": {
+        "success": true,
+        "status": "saved_and_closed",
+        "name": "GM_KIND_DV",
+        "saved": true,
+        "workspace_ready": true,
+        "may_exist": true,
+        "failed_node": null,
+        "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261106_003552_487400",
+        "view_sql_saved": true,
+        "evidence_status": "complete",
+        "next_operation_allowed": true
+      }
+    },
+    {
+      "label": "temporary",
+      "tool": "create_record",
+      "name": "GM_KIND_TMP",
+      "status": "succeeded",
+      "started": "2026-11-06T00:36:54.510279",
+      "elapsed_ms": 82456.77,
+      "result": {
+        "success": true,
+        "status": "saved_and_closed",
+        "name": "GM_KIND_TMP",
+        "saved": true,
+        "workspace_ready": true,
+        "may_exist": true,
+        "failed_node": null,
+        "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261106_003654_527282",
+        "built": true,
+        "evidence_status": "complete",
+        "next_operation_allowed": true
+      }
+    }
+  ],
+  "status": "succeeded",
+  "elapsed_ms": 222959.82
+}

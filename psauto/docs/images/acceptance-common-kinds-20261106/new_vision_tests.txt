@@ -1,0 +1,10 @@
+test_ae_close_clicks_only_the_saved_exact_parent_close_button (test_common_kinds_vision.CommonKindsVisionTests.test_ae_close_clicks_only_the_saved_exact_parent_close_button) ... ok
+test_each_new_record_kind_rejects_a_different_selected_radio (test_common_kinds_vision.CommonKindsVisionTests.test_each_new_record_kind_rejects_a_different_selected_radio) ... ok
+test_legacy_work_record_still_passes_the_saved_identity_guard (test_common_kinds_vision.CommonKindsVisionTests.test_legacy_work_record_still_passes_the_saved_identity_guard) ... ok
+test_temp_list_must_be_completely_empty_before_adding (test_common_kinds_vision.CommonKindsVisionTests.test_temp_list_must_be_completely_empty_before_adding) ... ok
+test_tight_sql_title_distinguishes_zero_from_letter_o_and_prefix (test_common_kinds_vision.CommonKindsVisionTests.test_tight_sql_title_distinguishes_zero_from_letter_o_and_prefix) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 9.571s
+
+OK

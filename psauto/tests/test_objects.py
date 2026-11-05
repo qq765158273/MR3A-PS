@@ -175,8 +175,13 @@ class ObjectArgumentsTests(unittest.TestCase):
                     tail.append(name)
                     pending.extend(graph[name].get('next', []))
                 self.assertEqual([graph[name]['action'] for name in tail],
-                                 ['DoNothing', 'ClickKey', 'DoNothing'])
-                self.assertEqual(graph[tail[1]]['key'], 0x20073)
+                                 ['DoNothing', 'Click' if isinstance(request, AERequest) else 'ClickKey', 'DoNothing'])
+                if isinstance(request, AERequest):
+                    close_checks = graph[tail[1]]['all_of']
+                    self.assertTrue(any(c.get('template') == 'PSIDE/save_disabled.png' for c in close_checks))
+                    self.assertTrue(any(c.get('template') == 'PSIDE/active_editor_close.png' for c in close_checks))
+                else:
+                    self.assertEqual(graph[tail[1]]['key'], 0x20073)
                 self.assertEqual(tail[-1], entry + '_SavedAndClosed')
                 self.assertEqual(graph[tail[-1]].get('next', []), [])
                 checks = graph[entry + '_Saved']['all_of']

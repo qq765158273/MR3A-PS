@@ -1,0 +1,17 @@
+{
+  "name": "GM_KIND_TMP",
+  "type": "Temporary Table",
+  "fields": [
+    {
+      "name": "PROCESS_INSTANCE",
+      "key": true,
+      "alternate_search_key": false,
+      "listbox": false,
+      "search_key": false
+    },
+    "EMPLID"
+  ],
+  "build": true,
+  "tablespace": "HRAPP",
+  "view_sql": null
+}

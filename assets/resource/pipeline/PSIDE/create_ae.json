@@ -3424,15 +3424,56 @@
     "post_delay": 0
   },
   "A_CloseSaved": {
-    "action": "ClickKey",
-    "on_error": [],
-    "timeout": 10000,
-    "key": 131187,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_property_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          24
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      }
+    ],
+    "box_index": 2,
+    "action": "Click",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
     "next": [
       "PSIDE_CreateAE_SavedAndClosed"
     ],
-    "post_delay": 300,
-    "pre_delay": 0
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 150
   },
   "A_CloseSaved_1": {
     "action": "ClickKey",
@@ -5014,5 +5055,1951 @@
     "next": [
       "A0_TypeSaved"
     ]
+  },
+  "AEProp_TempTab": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_temp_tab.png",
+        "roi": [
+          897,
+          308,
+          85,
+          30
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "box_index": 1,
+    "action": "Click",
+    "next": [
+      "AEProp_TempsEmpty"
+    ]
+  },
+  "AEProp_TempsEmpty": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          255,
+          255,
+          255
+        ],
+        "upper": [
+          255,
+          255,
+          255
+        ],
+        "roi": [
+          966,
+          414,
+          159,
+          154
+        ],
+        "count": 24486
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp0_Qualify"
+    ]
+  },
+  "AEProp_Temp0_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp0_Clear"
+    ]
+  },
+  "AEProp_Temp0_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp0_Paste"
+    ]
+  },
+  "AEProp_Temp0_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_0__",
+    "next": [
+      "AEProp_Temp0_GetList"
+    ]
+  },
+  "AEProp_Temp0_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp0_Select"
+    ]
+  },
+  "AEProp_Temp0_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_0_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp0_Add"
+    ]
+  },
+  "AEProp_Temp0_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp0_Bound"
+    ]
+  },
+  "AEProp_Temp0_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_0_regex__",
+    "roi": [
+      968,
+      412,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp1_Qualify"
+    ]
+  },
+  "AEProp_Temp1_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp1_Clear"
+    ]
+  },
+  "AEProp_Temp1_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp1_Paste"
+    ]
+  },
+  "AEProp_Temp1_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_1__",
+    "next": [
+      "AEProp_Temp1_GetList"
+    ]
+  },
+  "AEProp_Temp1_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp1_Select"
+    ]
+  },
+  "AEProp_Temp1_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_1_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp1_Add"
+    ]
+  },
+  "AEProp_Temp1_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp1_Bound"
+    ]
+  },
+  "AEProp_Temp1_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_1_regex__",
+    "roi": [
+      968,
+      425,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp2_Qualify"
+    ]
+  },
+  "AEProp_Temp2_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp2_Clear"
+    ]
+  },
+  "AEProp_Temp2_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp2_Paste"
+    ]
+  },
+  "AEProp_Temp2_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_2__",
+    "next": [
+      "AEProp_Temp2_GetList"
+    ]
+  },
+  "AEProp_Temp2_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp2_Select"
+    ]
+  },
+  "AEProp_Temp2_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_2_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp2_Add"
+    ]
+  },
+  "AEProp_Temp2_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp2_Bound"
+    ]
+  },
+  "AEProp_Temp2_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_2_regex__",
+    "roi": [
+      968,
+      438,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp3_Qualify"
+    ]
+  },
+  "AEProp_Temp3_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp3_Clear"
+    ]
+  },
+  "AEProp_Temp3_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp3_Paste"
+    ]
+  },
+  "AEProp_Temp3_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_3__",
+    "next": [
+      "AEProp_Temp3_GetList"
+    ]
+  },
+  "AEProp_Temp3_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp3_Select"
+    ]
+  },
+  "AEProp_Temp3_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_3_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp3_Add"
+    ]
+  },
+  "AEProp_Temp3_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp3_Bound"
+    ]
+  },
+  "AEProp_Temp3_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_3_regex__",
+    "roi": [
+      968,
+      451,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp4_Qualify"
+    ]
+  },
+  "AEProp_Temp4_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp4_Clear"
+    ]
+  },
+  "AEProp_Temp4_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp4_Paste"
+    ]
+  },
+  "AEProp_Temp4_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_4__",
+    "next": [
+      "AEProp_Temp4_GetList"
+    ]
+  },
+  "AEProp_Temp4_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp4_Select"
+    ]
+  },
+  "AEProp_Temp4_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_4_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp4_Add"
+    ]
+  },
+  "AEProp_Temp4_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp4_Bound"
+    ]
+  },
+  "AEProp_Temp4_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_4_regex__",
+    "roi": [
+      968,
+      464,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp5_Qualify"
+    ]
+  },
+  "AEProp_Temp5_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp5_Clear"
+    ]
+  },
+  "AEProp_Temp5_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp5_Paste"
+    ]
+  },
+  "AEProp_Temp5_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_5__",
+    "next": [
+      "AEProp_Temp5_GetList"
+    ]
+  },
+  "AEProp_Temp5_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp5_Select"
+    ]
+  },
+  "AEProp_Temp5_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_5_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp5_Add"
+    ]
+  },
+  "AEProp_Temp5_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp5_Bound"
+    ]
+  },
+  "AEProp_Temp5_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_5_regex__",
+    "roi": [
+      968,
+      477,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp6_Qualify"
+    ]
+  },
+  "AEProp_Temp6_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp6_Clear"
+    ]
+  },
+  "AEProp_Temp6_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp6_Paste"
+    ]
+  },
+  "AEProp_Temp6_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_6__",
+    "next": [
+      "AEProp_Temp6_GetList"
+    ]
+  },
+  "AEProp_Temp6_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp6_Select"
+    ]
+  },
+  "AEProp_Temp6_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_6_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp6_Add"
+    ]
+  },
+  "AEProp_Temp6_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp6_Bound"
+    ]
+  },
+  "AEProp_Temp6_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_6_regex__",
+    "roi": [
+      968,
+      490,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp7_Qualify"
+    ]
+  },
+  "AEProp_Temp7_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp7_Clear"
+    ]
+  },
+  "AEProp_Temp7_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp7_Paste"
+    ]
+  },
+  "AEProp_Temp7_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_7__",
+    "next": [
+      "AEProp_Temp7_GetList"
+    ]
+  },
+  "AEProp_Temp7_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp7_Select"
+    ]
+  },
+  "AEProp_Temp7_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_7_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp7_Add"
+    ]
+  },
+  "AEProp_Temp7_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp7_Bound"
+    ]
+  },
+  "AEProp_Temp7_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_7_regex__",
+    "roi": [
+      968,
+      503,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp8_Qualify"
+    ]
+  },
+  "AEProp_Temp8_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp8_Clear"
+    ]
+  },
+  "AEProp_Temp8_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp8_Paste"
+    ]
+  },
+  "AEProp_Temp8_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_8__",
+    "next": [
+      "AEProp_Temp8_GetList"
+    ]
+  },
+  "AEProp_Temp8_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp8_Select"
+    ]
+  },
+  "AEProp_Temp8_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_8_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp8_Add"
+    ]
+  },
+  "AEProp_Temp8_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp8_Bound"
+    ]
+  },
+  "AEProp_Temp8_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_8_regex__",
+    "roi": [
+      968,
+      516,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_Temp9_Qualify"
+    ]
+  },
+  "AEProp_Temp9_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_Temp9_Clear"
+    ]
+  },
+  "AEProp_Temp9_Clear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_Temp9_Paste"
+    ]
+  },
+  "AEProp_Temp9_Paste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_9__",
+    "next": [
+      "AEProp_Temp9_GetList"
+    ]
+  },
+  "AEProp_Temp9_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp9_Select"
+    ]
+  },
+  "AEProp_Temp9_Select": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_9_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      194
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Temp9_Add"
+    ]
+  },
+  "AEProp_Temp9_Add": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Temp9_Bound"
+    ]
+  },
+  "AEProp_Temp9_Bound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_9_regex__",
+    "roi": [
+      968,
+      529,
+      155,
+      20
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_TempsBound"
+    ]
+  },
+  "AEProp_TempsBound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_properties_title.png",
+    "roi": [
+      760,
+      275,
+      230,
+      40
+    ],
+    "threshold": 0.85,
+    "action": "DoNothing",
+    "next": [
+      "AEProp_OK"
+    ]
+  },
+  "AEProp_TempProjectPrompt": {
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_temp_project_question.png",
+        "roi": [
+          830,
+          503,
+          290,
+          46
+        ],
+        "threshold": 0.9
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_temp_project_no.png",
+        "roi": [
+          975,
+          575,
+          48,
+          27
+        ],
+        "threshold": 0.9
+      }
+    ],
+    "box_index": 1,
+    "action": "Click",
+    "next": [
+      "AEProp_Saved",
+      "AEProp_Save"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 150
   }
 }

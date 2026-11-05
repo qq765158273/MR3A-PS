@@ -1,0 +1,16 @@
+{
+  "name": "GM_MORE_AE",
+  "steps": [
+    {
+      "name": "Step01",
+      "type": "SQL",
+      "code": "SELECT COUNT(*) FROM %Table(GM_KIND_TMP)"
+    }
+  ],
+  "state_record": "GM_DEPT_AET",
+  "disable_restart": true,
+  "temporary_records": [
+    "GM_KIND_TMP",
+    "ACA_CVIND_TMP"
+  ]
+}

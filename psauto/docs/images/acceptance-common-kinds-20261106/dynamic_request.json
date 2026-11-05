@@ -1,0 +1,11 @@
+{
+  "name": "GM_KIND_DV",
+  "type": "Dynamic View",
+  "fields": [
+    "SETID",
+    "DEPTID"
+  ],
+  "build": false,
+  "tablespace": "HRAPP",
+  "view_sql": "SELECT SETID, DEPTID FROM PS_DEPT_TBL WHERE 1 = 0"
+}

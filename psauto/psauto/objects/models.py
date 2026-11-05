@@ -10,6 +10,7 @@ RecordName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_l
 AEName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=12)]
 ExistingFieldName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=18)]
 ExistingRecordName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=15)]
+RecordKind = Literal['Derived/Work', 'SQL Table', 'SQL View', 'Dynamic View', 'Temporary Table']
 ProjectName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=15)]
 
 
@@ -47,18 +48,28 @@ class RecordField(BaseModel):
 class RecordRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
     name: RecordName
-    type: Literal['Derived/Work', 'SQL Table'] = 'Derived/Work'
+    type: RecordKind = 'Derived/Work'
     fields: list[ExistingFieldName | RecordField] = Field(min_length=1, max_length=20)
     build: StrictBool = False
     tablespace: str = Field(default='HRAPP', min_length=1, max_length=30, pattern=r'^[A-Z][A-Z0-9_]*$')
+    view_sql: str | None = Field(default=None, max_length=65536,
+                                 description='SQL text for SQL View or Dynamic View; plain SELECT or a caller-supplied dynamic SQL placeholder')
 
     @model_validator(mode='after')
     def unique_fields(self):
         names = [item if isinstance(item, str) else item.name for item in self.fields]
         if len(set(names)) != len(names):
             raise ValueError('Record fields must be unique')
-        if self.build and self.type != 'SQL Table':
-            raise ValueError('Build requires a SQL Table record')
+        if self.build and self.type not in {'SQL Table', 'SQL View', 'Temporary Table'}:
+            raise ValueError('Build requires SQL Table, SQL View or Temporary Table')
+        is_view = self.type in {'SQL View', 'Dynamic View'}
+        if is_view and self.view_sql is None:
+            raise ValueError('SQL View and Dynamic View require explicit view_sql')
+        if not is_view and self.view_sql is not None:
+            raise ValueError('view_sql is only valid for SQL View and Dynamic View')
+        if self.view_sql is not None and (not self.view_sql.strip() or '\x00' in self.view_sql
+                                         or len(self.view_sql.encode('utf-8')) > 65536):
+            raise ValueError('view_sql must be nonblank, contain no NUL and fit in 64 KiB of UTF-8')
         return self
 
 
@@ -81,9 +92,14 @@ class AERequest(BaseModel):
     steps: list[AEStep] = Field(min_length=1, max_length=4)
     state_record: ExistingRecordName | None = Field(default=None, description='Existing AET to add as the single default state record before compiling code')
     disable_restart: StrictBool | None = Field(default=None, description='Set the Disable Restart property; omit to keep its default')
+    temporary_records: list[ExistingRecordName] | None = Field(
+        default=None, min_length=1, max_length=10,
+        description='Existing Temporary Table records to bind; omit to preserve the default empty list')
 
     @model_validator(mode='after')
     def sequential_steps(self):
+        if self.temporary_records is not None and len(set(self.temporary_records)) != len(self.temporary_records):
+            raise ValueError('temporary_records must not contain duplicate names')
         for index, step in enumerate(self.steps, 1):
             expected = f'Step{index:02d}'
             if step.name is not None and step.name != expected:

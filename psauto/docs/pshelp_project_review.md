@@ -135,3 +135,36 @@ ebaf5560ea63e843e18220b2434118a931945c703ebd3b13cf31005d56e8439d  psauto/tests/f
 - 已确认的事实是：旧 Record 末端模板观察不到隐藏首部，不能单靠这张图证明首部也已选中；Home→Shift+End 的正常列表语义是全选。先前 P2 标签指完整性验证风险，不是已经独立复现了业务 UI 中的错误选择、Home 丢失或实际工程漏成员。输入失效模型只说明原 guard 的辨别能力，不冒充实际 RDP 故障。
 - 用户要求的“受控操作＋DB 成员验收”应分别记录过程保护和最终结果。本 agent 对已有 DBX 文件重新作只读内容比较：原工程时间戳及 10 条成员未变，新工程为 12 条；与主控报告的预期字段/标签相符，因此没有依据把这些实际项目判为不完整。该判断是核对主控归档结果，不是独立执行 DB 验收。
 - 初次 30 文件快照、补核的可见性限制及后续 32 文件保护修复各保留原 SHA/时间范围。当前报告未发现已确认的实际成员错误；隐藏首部这一证明缺口已在附记所述固定布局和定向模型范围内补强。后续用明确预期成员集合验收实际 Project，不能将单张末端图片的局限扩大成实际数据损坏结论，也不将现有样本推广到任意 Record/界面版本。
+
+**按主控最终修复请求的定向收尾附记：2026-11-05 22:57:11 +08:00。** 本段覆盖先前排队的“源码未变”说明，只核对 Record 隐藏首部 P2 修复；初审、22:44 原 P2、22:50 独立复验和 22:53 口径澄清均保留，不重写成基线原本已通过。
+
+本次重新按工作区原始字节计算五个修复文件 SHA-256，均与主控本次清单及本 agent 22:50 已独立测试的版本完全一致；最终 SHA 以紧前的五行修复表覆盖初始表的对应路径。其余 27 个原目标未变，最终目标仍为 32 个。准确定位为 `project.py:29` 的 Record 专用路由、`create_project.json:11188` / `11281` 起的两次原生箭头 Click，以及 `test_projects.py:112` 起的反例。AE/Field 不走新增滚动链。
+
+独立验证口径：直接复用已执行、相同 SHA 的新增 native 定向测试（1 项通过，3.948 秒）与原 Home 失效模型的正反两种结果，没有为收尾重复跑全套。上述模型确认新保护能区分“末端全选但首部两类未选”：两次滚动后没有 Insert；正确首部才允许一次 Insert。将旧末端 fixture 与新增顶部合成 fixture 逐像素比较，声明区域 `[974,412,158,92]` 外变化像素为 **0**，区域内变化像素为 **3159**，未借合成替换正确名称、计数或结果行选中区域。这里证明的是当前图像/固定布局与输入失效模型的 guard 行为，不是独立真机滚动验证，也不证明未来增加类别后仍覆盖全部列表。
+
+补齐主控日志版本：`out/project_native_tests_fix.log` 明确为 **6 项通过、10.724 秒**（2 参数 + 4 native）；`out/project_unit_tests_fix.log` 为 **128 项、58 通过/70 显式跳过、6.345 秒**。它们取代旧文件的 5 项/127 项记录描述，前文旧日志只代表当时历史；两批和本 agent 定向用例均有重叠，不能相加。以上两份最终全模块/普通套件日志由主控执行，本 agent 只读取，并未冒充自己的重跑。
+
+最新真实调用结果也已读取：`out/project_fix_result.json` 的 **GM_DEPT_EXP_R 并未成功**，其 `success:false/status:failed`、`failed_node:PSIDE_CreateProject_query_open`、`definitions_added:0`、`saved:false/workspace_ready:false`、`evidence_status:complete/next_operation_allowed:false`，证据目录为 `out/objects/20261105_224636_356605`。这份主控结果停在查重打开入口，尚未到新增 Record 滚动/Insert 节点；因此不能用来判定本 P2 修复的真机成败，也不能写成修复后新工程已保存关闭。本 agent 没有追查或操作业务 UI/DB，没有自动重放、创建对象或等待业务环境。该次失败原样保留，不与此前实际成功的工程混为一谈。
+
+**本次结论：该 P2 在上述最终 SHA、当前固定列表布局与独立 native/输入失效模型范围内关闭，未发现此次修复遗留的确定问题；修复后的完整真机 Project/成员集合验收仍未由本次结果文件支持。** 原先“末端截图不能观察首部”的事实依然成立，生产路径现以末端校验、两次保持选择的滚动和首部校验补足。本轮未增加业务操作授权，也未重新审核其他 Project 能力或任何旧模块。
+
+**修复后真实验收证据收尾：2026-11-05 22:58:18 +08:00。** 仅补读主控新归档，未重跑任何测试、未操作业务浏览器/DB；五个修复文件原始 SHA 再核对仍与前述最终表完全一致。以下更新上段“修复后完整真机验收尚无成功文件”的当时状态，保留 GM_DEPT_EXP_R 的失败历史。
+
+- `out/project_fix_result_final.json` 与归档 `docs/images/acceptance-project-20261105/fixed_mcp_result.json` 逐字节相同，记录 **GMPRJFIX01 / success:true / saved_and_closed / saved:true / workspace_ready:true / definitions_added:2 / evidence_status:complete / next_operation_allowed:true**；证据目录为 `out/objects/20261105_224848_499285`。这是主控执行的真实 MCP 结果，不是本 agent 重新调用。
+- 独立读取归档 `fixed_nodes.csv`：57 行均 completed=True/status=succeeded，Record 实际顺序含 `P1_Select → P1_RelatedScrollTop → P1_RelatedScrollAgain → P1_Insert → P1_Inserted`，其后 Saved、关闭释放和 SavedAndClosed 均出现。`fixed_summary.json` 的原生节点生命周期跨度 **44.969 秒**，57/57 完成、0 节点失败、0 动作失败；同时保留 **2 次额外扫描、3 次候选未命中**，不把“0节点/动作失败”扩大为“零扫描重试”。这不是从摘要数字直接宣称所有环境已通过。
+- 已查看主控归档的 `fixed_record_end.png` 和 `fixed_record_top.png`：同为 Record GM_DEPT_AET、唯一结果1、结果行蓝色；末端 Fields 至 Translate Values 已选，顶部 Field Formats、Field Labels 及与末端重叠的类别也为蓝色选中。它们支持本版本两视口覆盖及滚动后保持选择的现场样本；不把静态截图等同于任意版本、输入故障或动态增减类别的保证。
+- 直接比较 `fixed_dbx.json` 与初始 `dbx.json` 的结构化 rows，而非只采用外层布尔结论：新工程 **10 条成员与原工程归档的10条逐项相同**，包含 Field 标签；原 GM_DEPT_EXPORT 时间戳仍为 `2026-11-05T22:23:16.17893`。这是本 agent 对主控保存的 DBX 结果做的文件比较，不是独立数据库查询。它为这次实际工程的预期成员集合提供验收证据。
+- 原 GM_DEPT_EXP_R 停在查重入口、0插入、未保存/未释放的结果仍为失败；另见 `guarded_lookup_mcp_result.json`、`guarded_lookup_request.json`、`guarded_lookup_summary.json` 和 `guarded_lookup_after.png` 的独立归档，不纳入成功次数，不追改成成功或本 P2 的 Insert 失败。
+
+本轮最终状态：**Record 隐藏首部 P2 的独立 native/输入故障模型定向复验已通过；现又有同 SHA 的主控真机完整保存关闭、两视口截图及10条成员验收证据，支持此固定 UI 版本内关闭该项。** 未增加独立 UI/DB 验收、长期运行、其他布局或20项端到端覆盖；Excel 运行仍不属于 Project 保存验收。原初审/P2历史、失败调用、修复范围与证据来源继续保留。
+
+新归档原始字节 SHA-256（目录 `psauto/docs/images/acceptance-project-20261105/`）：
+
+```text
+95bdb654ddfc2427a9ca514bc311dfe82025f5490846d0c528be309555fb75e5  fixed_mcp_result.json
+bf1d47ad9622bba383a38c4d359a716e1b0df2dd92c04d925911cc29971b84b9  fixed_summary.json
+ce503ec39e7d0a2695d18140b38c4b16696416f9f7b69e7fee7b8496ffa95fa8  fixed_nodes.csv
+1fa090ead87a79a16202162952ef81843c59d14dda661982353dd35ae8fa0baf  fixed_record_end.png
+33ace484638761f9b8412505587acaa7cd2ed5ef5e409a0afb878451aa568940  fixed_record_top.png
+bf169bac3df5e19269776d2e3dca8aa09db14e441dfaca4516a7f26a9c1b5361  fixed_dbx.json
+```

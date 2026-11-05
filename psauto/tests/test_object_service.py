@@ -17,6 +17,30 @@ from psauto.objects.service import ObjectService
 
 
 class ObjectServiceTests(unittest.TestCase):
+    def test_ae_temp_binding_requires_each_row_and_the_final_native_marker(self):
+        request = AERequest(name='GM_TEMP_TEST', steps=[{'type': 'SQL', 'code': 'SELECT 1 FROM DUAL'}],
+                            temporary_records=['GM_A', 'GM_B'])
+        base = ['PSIDE_CreateAE_Saved', 'PSIDE_CreateAE_SavedAndClosed', 'AEProp_Saved']
+        for extra, passed in [(['AEProp_TempsBound', 'AEProp_Temp0_Bound'], False),
+                              (['AEProp_Temp0_Bound', 'AEProp_Temp1_Bound'], False),
+                              (['AEProp_TempsBound', 'AEProp_Temp0_Bound', 'AEProp_Temp1_Bound'], True)]:
+            self.completed_names(*base, *extra)
+            result = self.service.execute(request)
+            self.assertEqual(result['success'], passed)
+            self.assertEqual(result['temporary_records_bound'], passed)
+
+    def test_view_sql_save_marker_is_required_in_addition_to_record_save_and_close(self):
+        request = RecordRequest(name='GM_VIEW_TEST', fields=['SETID'], type='SQL View',
+                                view_sql='SELECT SETID FROM PS_DEPT_TBL')
+        self.completed_names('PSIDE_CreateRecord_Saved', 'PSIDE_CreateRecord_SavedAndClosed')
+        incomplete = self.service.execute(request)
+        self.assertFalse(incomplete['success'])
+        self.assertFalse(incomplete['view_sql_saved'])
+        self.completed_names('PSIDE_CreateRecord_Saved', 'PSIDE_CreateRecord_SavedAndClosed', 'R_ViewSQLSaved')
+        complete = self.service.execute(request)
+        self.assertTrue(complete['success'])
+        self.assertTrue(complete['view_sql_saved'])
+
     def test_project_success_requires_every_requested_insert_and_saved_closed(self):
         request = ProjectRequest(name='GM_PROJECT', definitions=[
             {'type': 'AE', 'name': 'GM_DEPT_XL4'}, {'type': 'Record', 'name': 'GM_DEPT_AET'}])

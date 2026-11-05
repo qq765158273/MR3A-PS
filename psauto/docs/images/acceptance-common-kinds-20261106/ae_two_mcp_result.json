@@ -1,0 +1,17 @@
+{
+  "isError": false,
+  "success": true,
+  "status": "saved_and_closed",
+  "name": "GM_MORE_AE",
+  "saved": true,
+  "workspace_ready": true,
+  "may_exist": true,
+  "failed_node": null,
+  "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261106_010816_372323",
+  "state_record_bound": true,
+  "restart_verified": true,
+  "temporary_records_bound": true,
+  "properties_saved": true,
+  "evidence_status": "complete",
+  "next_operation_allowed": true
+}

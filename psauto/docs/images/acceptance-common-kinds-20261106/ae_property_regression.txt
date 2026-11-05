@@ -1,0 +1,11 @@
+test_full_state_candidates_reject_nonempty_lower_rows_without_any_input (test_ae_properties_recognition.AEPropertyRecognitionTests.test_full_state_candidates_reject_nonempty_lower_rows_without_any_input) ... ok
+test_property_identity_rejects_prefix_on_real_active_title_before_click_or_save (test_ae_properties_recognition.AEPropertyRecognitionTests.test_property_identity_rejects_prefix_on_real_active_title_before_click_or_save) ... ok
+test_qualify_cannot_modify_an_occupied_state_list (test_ae_properties_recognition.AEPropertyRecognitionTests.test_qualify_cannot_modify_an_occupied_state_list) ... ok
+test_restart_toggles_only_once_then_verifies_requested_state (test_ae_properties_recognition.AEPropertyRecognitionTests.test_restart_toggles_only_once_then_verifies_requested_state) ... ok
+test_state_binding_requires_exact_default_record (test_ae_properties_recognition.AEPropertyRecognitionTests.test_state_binding_requires_exact_default_record) ... ok
+test_state_name_must_share_the_first_default_rows_checkbox (test_ae_properties_recognition.AEPropertyRecognitionTests.test_state_name_must_share_the_first_default_rows_checkbox) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 7.304s
+
+OK

@@ -1,0 +1,244 @@
+{
+  "scope": "Read-only record kinds, view SQL, built objects, AE state/temp/restart definitions. AE execution is outside this verification.",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "### Statement 1\n| RECNAME | RECTYPE |\n|---|---|\n| GM_MCP_REC | 0 |\n| GM_KIND_VW | 1 |\n| GM_DEPT_AET | 2 |\n| GM_KIND_DV | 5 |\n| GM_KIND_TMP | 7 |\n(5 rows, 25ms)\n### Statement 2\n| SQLID | SQLTYPE | SQLTEXT |\n|---|---|---|\n| GM_KIND_DV | 2 | SELECT SETID , DEPTID FROM PS_DEPT_TBL WHERE 1 = 0 |\n| GM_KIND_VW | 2 | SELECT SETID , DEPTID FROM PS_DEPT_TBL WHERE 1 = 0 |\n(2 rows, 10ms)\n### Statement 3\n| OBJECT_NAME | OBJECT_TYPE | STATUS |\n|---|---|---|\n| PS_GM_KIND_TMP | INDEX | VALID |\n| PS_GM_KIND_TMP | TABLE | VALID |\n| PS_GM_KIND_VW | VIEW | VALID |\n(3 rows, 439ms)\n### Statement 4\n| AE_APPLID | AE_DISABLE_RESTART | TEMPTBLINSTANCES | AE_STATE_RECNAME | AE_DEFAULT_STATE |\n|---|---|---|---|---|\n| GM_DEPT_XL4 | Y | 0 | GM_DEPT_AET | Y |\n| GM_KIND_AE | Y | 0 | GM_DEPT_AET | Y |\n| GM_MORE_AE | Y | 0 | GM_DEPT_AET | Y |\n(3 rows, 13ms)\n### Statement 5\n| AE_APPLID | RECNAME |\n|---|---|\n| GM_KIND_AE | GM_KIND_TMP |\n| GM_MORE_AE | ACA_CVIND_TMP |\n| GM_MORE_AE | GM_KIND_TMP |\n(3 rows, 11ms)\n### Statement 6\n| AE_APPLID | AE_SECTION | AE_STEP | AE_STMT_TYPE | SQLTEXT |\n|---|---|---|---|---|\n| GM_KIND_AE | MAIN | Step01 | S | SELECT COUNT(*) FROM %Table(GM_KIND_TMP) |\n| GM_MORE_AE | MAIN | Step01 | S | SELECT COUNT(*) FROM %Table(GM_KIND_TMP) |\n(2 rows, 15ms)"
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "columns": [
+            "RECNAME",
+            "RECTYPE"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NUMBER"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_MCP_REC",
+              "0"
+            ],
+            [
+              "GM_KIND_VW",
+              "1"
+            ],
+            [
+              "GM_DEPT_AET",
+              "2"
+            ],
+            [
+              "GM_KIND_DV",
+              "5"
+            ],
+            [
+              "GM_KIND_TMP",
+              "7"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 25,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 0,
+          "error_message": "GM_MCP_REC"
+        },
+        {
+          "columns": [
+            "SQLID",
+            "SQLTYPE",
+            "SQLTEXT"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_KIND_DV",
+              "2",
+              "SELECT SETID , DEPTID FROM PS_DEPT_TBL WHERE 1 = 0"
+            ],
+            [
+              "GM_KIND_VW",
+              "2",
+              "SELECT SETID , DEPTID FROM PS_DEPT_TBL WHERE 1 = 0"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 10,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 1,
+          "error_message": "GM_KIND_DV"
+        },
+        {
+          "columns": [
+            "OBJECT_NAME",
+            "OBJECT_TYPE",
+            "STATUS"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "PS_GM_KIND_TMP",
+              "INDEX",
+              "VALID"
+            ],
+            [
+              "PS_GM_KIND_TMP",
+              "TABLE",
+              "VALID"
+            ],
+            [
+              "PS_GM_KIND_VW",
+              "VIEW",
+              "VALID"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 439,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 2,
+          "error_message": "PS_GM_KIND_TMP"
+        },
+        {
+          "columns": [
+            "AE_APPLID",
+            "AE_DISABLE_RESTART",
+            "TEMPTBLINSTANCES",
+            "AE_STATE_RECNAME",
+            "AE_DEFAULT_STATE"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL4",
+              "Y",
+              "0",
+              "GM_DEPT_AET",
+              "Y"
+            ],
+            [
+              "GM_KIND_AE",
+              "Y",
+              "0",
+              "GM_DEPT_AET",
+              "Y"
+            ],
+            [
+              "GM_MORE_AE",
+              "Y",
+              "0",
+              "GM_DEPT_AET",
+              "Y"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 13,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 3,
+          "error_message": "GM_DEPT_XL4"
+        },
+        {
+          "columns": [
+            "AE_APPLID",
+            "RECNAME"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_KIND_AE",
+              "GM_KIND_TMP"
+            ],
+            [
+              "GM_MORE_AE",
+              "ACA_CVIND_TMP"
+            ],
+            [
+              "GM_MORE_AE",
+              "GM_KIND_TMP"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 11,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 4,
+          "error_message": "GM_KIND_AE"
+        },
+        {
+          "columns": [
+            "AE_APPLID",
+            "AE_SECTION",
+            "AE_STEP",
+            "AE_STMT_TYPE",
+            "SQLTEXT"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "LongVarChar"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_KIND_AE",
+              "MAIN",
+              "Step01",
+              "S",
+              "SELECT COUNT(*) FROM %Table(GM_KIND_TMP)"
+            ],
+            [
+              "GM_MORE_AE",
+              "MAIN",
+              "Step01",
+              "S",
+              "SELECT COUNT(*) FROM %Table(GM_KIND_TMP)"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 15,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 5,
+          "error_message": "GM_KIND_AE"
+        }
+      ]
+    },
+    "isError": false
+  }
+}

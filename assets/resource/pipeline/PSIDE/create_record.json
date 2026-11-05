@@ -3701,12 +3701,12 @@
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_record_identity_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
+          26
         ]
       },
       {
@@ -7475,12 +7475,12 @@
     "timeout": 5000,
     "on_error": [],
     "recognition": "OCR",
-    "expected": "__PARAM_name_regex__",
+    "expected": "__PARAM_record_identity_regex__",
     "roi": [
       0,
       0,
       1100,
-      70
+      26
     ],
     "target": [
       178,
@@ -8064,7 +8064,7 @@
       },
       {
         "recognition": "TemplateMatch",
-        "template": "PSIDE/checkbox_selected.png",
+        "template": "__PARAM_build_tables_template__",
         "roi": [
           972,
           513,
@@ -8076,11 +8076,7 @@
       },
       {
         "recognition": "TemplateMatch",
-        "template": [
-          "PSIDE/checkbox_selected.png",
-          "PSIDE/checkbox_disabled_selected.png",
-          "PSIDE/checkbox_disabled_selected_idle.png"
-        ],
+        "template": "__PARAM_build_indexes_template__",
         "roi": [
           972,
           533,
@@ -8092,7 +8088,7 @@
       },
       {
         "recognition": "TemplateMatch",
-        "template": "PSIDE/checkbox_unchecked.png",
+        "template": "__PARAM_build_views_template__",
         "roi": [
           972,
           553,
@@ -8205,13 +8201,23 @@
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
-        "roi": [430, 75, 1100, 300]
+        "expected": "__PARAM_record_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          26
+        ]
       },
       {
         "recognition": "TemplateMatch",
         "template": "PSIDE/active_editor_close.png",
-        "roi": [430, 75, 1100, 300],
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
         "threshold": 0.95,
         "order_by": "Score"
       }
@@ -8766,6 +8772,487 @@
     "on_error": [],
     "next": [
       "R_Save_name"
+    ]
+  },
+  "R_ViewTypeChoice": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/record_type_sql_view.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "next": [
+      "R_ViewTypeSelected"
+    ]
+  },
+  "R_ViewTypeSelected": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/radio_selected.png",
+      "PSIDE/radio_selected_focus.png"
+    ],
+    "roi": "R_RecordTypeGroup",
+    "roi_offset": [
+      -2,
+      39,
+      -36,
+      14
+    ],
+    "threshold": 0.95,
+    "action": "DoNothing",
+    "next": [
+      "R_Save"
+    ]
+  },
+  "R_DynamicTypeChoice": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/record_type_dynamic_view.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "next": [
+      "R_DynamicTypeSelected"
+    ]
+  },
+  "R_DynamicTypeSelected": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/radio_selected.png",
+      "PSIDE/radio_selected_focus.png"
+    ],
+    "roi": "R_RecordTypeGroup",
+    "roi_offset": [
+      -2,
+      61,
+      -36,
+      14
+    ],
+    "threshold": 0.95,
+    "action": "DoNothing",
+    "next": [
+      "R_Save"
+    ]
+  },
+  "R_TemporaryTypeChoice": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/record_type_temporary.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      730
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "next": [
+      "R_TemporaryTypeSelected"
+    ]
+  },
+  "R_TemporaryTypeSelected": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": [
+      "PSIDE/radio_selected.png",
+      "PSIDE/radio_selected_focus.png"
+    ],
+    "roi": "R_RecordTypeGroup",
+    "roi_offset": [
+      -2,
+      146,
+      -36,
+      14
+    ],
+    "threshold": 0.95,
+    "action": "DoNothing",
+    "next": [
+      "R_Save"
+    ]
+  },
+  "R_ViewIcon": {
+    "action": "DoNothing",
+    "next": [
+      "R_ViewEditorReady"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/sql_editor_icon.png",
+    "roi": [
+      430,
+      75,
+      1100,
+      300
+    ],
+    "threshold": 0.85
+  },
+  "R_ViewEditorReady": {
+    "action": "Click",
+    "next": [
+      "R_ViewClear"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 80,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_view_editor_identity_regex__",
+        "roi": [
+          245,
+          0,
+          650,
+          26
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/sql_editor_icon.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      }
+    ],
+    "target": "R_ViewIcon",
+    "target_offset": [
+      30,
+      45,
+      100,
+      30
+    ]
+  },
+  "R_ViewClear": {
+    "action": "ClickKey",
+    "next": [
+      "R_ViewPaste"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "key": 131137
+  },
+  "R_ViewPaste": {
+    "action": "InputText",
+    "next": [
+      "R_ViewSave"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 150,
+    "input_text": "__PARAM_view_sql__"
+  },
+  "R_ViewSave": {
+    "action": "ClickKey",
+    "next": [
+      "R_ViewSQLSaved"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 500,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_view_editor_identity_regex__",
+        "roi": [
+          245,
+          0,
+          650,
+          26
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/sql_editor_icon.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      }
+    ],
+    "key": 131155
+  },
+  "R_ViewSQLSaved": {
+    "action": "DoNothing",
+    "next": [
+      "R_ViewCloseEditor"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_view_editor_identity_regex__",
+        "roi": [
+          245,
+          0,
+          650,
+          26
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/sql_editor_icon.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      }
+    ]
+  },
+  "R_ViewCloseEditor": {
+    "action": "ClickKey",
+    "next": [
+      "R_ViewParentReady"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_view_editor_identity_regex__",
+        "roi": [
+          245,
+          0,
+          650,
+          26
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/sql_editor_icon.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      }
+    ],
+    "key": 131187
+  },
+  "R_ViewParentReady": {
+    "action": "ClickKey",
+    "next": [
+      "PSIDE_CreateRecord_Saved"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 150,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_record_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          26
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      }
+    ],
+    "key": 131155
+  },
+  "R_ViewNamed": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 150,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_record_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          26
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/record_open_sql_editor.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          730
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      }
+    ],
+    "action": "Click",
+    "box_index": 1,
+    "next": [
+      "R_ViewIcon"
     ]
   }
 }

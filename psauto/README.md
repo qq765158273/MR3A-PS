@@ -120,6 +120,8 @@ CLI 输入适配器默认保持一个客户端进程，调用配置指定安装�
 
 还可传 `state_record: "GM_DEPT_AET"` 绑定已存在的唯一默认状态记录，以及严格布尔 `disable_restart: true/false` 设置 Disable Restart；省略参数保持默认行为。属性在代码粘贴前配置，成功返回还要求 `state_record_bound`、`restart_verified`、`properties_saved` 对应原生终态；工作台存在其他状态记录时停止，不覆盖。最终完整创建及 DBX 已验收，实际 Excel 导出尚受 JVM 运行环境阻塞，详见 [部门导出 demo](docs/department_export_demo.md)。
 
+`create_record` 还支持 SQL View、Dynamic View、Temporary Table；前两者要求 `view_sql`，Build仅用于SQL Table/SQL View/Temporary Table。`create_ae` 可传 `temporary_records` 绑定1–10张已有临时表，实例/分配策略保持默认；现有默认AET与Disable Restart独立。完整调用、类型编码、SQL与对象验收见 [常用类型](docs/common_types.md)。
+
 `save_project(name, definitions)` 将已保存的 AE/Record/Field 及全部原生 Related Definitions 归集到新数据库 Project，保存后返回空白工作台。正式 `GM_DEPT_EXPORT` 已通过完整 MCP 和 DBX 验收，包含 AE/Section/PeopleCode/AET/字段共 10 个成员；首次 Pipeline 55 节点、37.250 秒；补强 Record 关联类别检查后，GMPRJFIX01 回归 57 节点、44.969 秒，0 节点/动作失败。参数、重名保护和证据见 [Project 保存能力](docs/projects.md)。
 
 空闲超时恢复、真实退出再进入命令、每个节点的 OCR/延迟/点击/失败检查，以及 GM 测试对象的截图见 [开发记录](docs/recovery.md)。`run_pipeline.py` 现在在业务任务开始前连接失败时尝试已识别的恢复路径，可用 `--no-recovery` 关闭；不会自动重放失败的业务任务。每次任务的 Maa 原生截图、识别和动作事件保存到本机 `out/runs/`，恢复证据位于 `out/recovery/`。

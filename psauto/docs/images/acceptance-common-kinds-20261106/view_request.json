@@ -1,0 +1,11 @@
+{
+  "name": "GM_KIND_VW",
+  "type": "SQL View",
+  "fields": [
+    "SETID",
+    "DEPTID"
+  ],
+  "build": true,
+  "tablespace": "HRAPP",
+  "view_sql": "SELECT SETID, DEPTID FROM PS_DEPT_TBL WHERE 1 = 0"
+}
