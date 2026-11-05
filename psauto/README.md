@@ -96,6 +96,10 @@ CLI 输入适配器默认保持一个客户端进程，调用配置指定安装�
 
 每次运行还会自动生成 `summary.json`，由 Maa 原生 `ContextEventSink` 的 `Node.*` 事件汇总节点数、识别/动作失败、阶段耗时、动作类型和识别算法；`report.json` 的每个节点包含识别、动作和总耗时。性能分析使用这些运行证据，不依赖人工估算。
 
+汇总用原生 `task_id/node_id/reco_id` 对应节点，识别重试、同名节点重复执行和嵌套任务分别统计。`candidate_misses` 是候选未命中，`scan_retries` 是额外识别轮次，实际任务/节点/动作失败分别看 `succeeded`、`pipeline_node_failures`、`action_failures`；旧字段 `recognition_failures` 仅保留为候选未命中的兼容别名。原始 `hit:false` 也可能是正确的反向识别，节点的 `recognition.rule_passed` 表示 Maa 是否判定规则通过。
+
+`report.json` 的 `timing.total_ms` 是原生节点从开始到完成/失败的时间，包含该节点取图准备及全部识别重试；`phase_ms.scan_prepare_ms` 包含截图、扫描间隔及其他扫描准备，不能等同于单独的截图回调时间。`timing_complete` 说明所有报告节点是否都取得了完整计时，`unattributed_ms` 明示事件跨度内尚未分配给节点的时间；各阶段与未分配时间之和等于 `pipeline_event_ms`。截图文件数在导出时统计，不含之后保存的最终 `after.png`。
+
 `create_ae` 接收 1–4 个 `steps`，各项为 `{type: "SQL" | "PeopleCode", code: "..."}`，在 MAIN 下依次生成 Step01–Step04。代码通过 JumpServer 剪贴板输入，再识别保存反馈，最后关闭所有本次编辑窗口；不执行 AE。两步和四步已完整实测并通过 DBX 内容验收。各卡点的 ROI、图片/OCR 选择、延迟、有限重试与下一步条件见 [判决表](docs/recognition_decisions.md)。
 
 空闲超时恢复、真实退出再进入命令、每个节点的 OCR/延迟/点击/失败检查，以及 GM 测试对象的截图见 [开发记录](docs/recovery.md)。`run_pipeline.py` 现在在业务任务开始前连接失败时尝试已识别的恢复路径，可用 `--no-recovery` 关闭；不会自动重放失败的业务任务。每次任务的 Maa 原生截图、识别和动作事件保存到本机 `out/runs/`，恢复证据位于 `out/recovery/`。

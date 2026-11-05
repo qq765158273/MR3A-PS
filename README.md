@@ -151,6 +151,10 @@ GM_MCP_REC4 实际完成 226 个节点，Pipeline 约 906 秒：截图及下一�
 
 每次运行的 `events.json`、`report.json`、`summary.json` 和 `timings.json` 都由同一条 Maa/MR3A Pipeline 事件链生成；其中 `summary.json` 自动记录节点成败和阶段耗时，CSV 只是跨运行对照材料。
 
+2026-11-05 补强：汇总按原生 task/node ID 对应节点，包含失败节点和识别重试；同名节点及嵌套任务不会按列表位置错配或重复统计。`candidate_misses`、`scan_retries`、`pipeline_node_failures` 和 `action_failures` 分开报告，反向识别的原始 hit=false 由 `rule_passed` 表达真实规则判决。4 份真实日志回放和原生 Maa 重试/失败测试通过。Field/AE 的查重及保存顺序修正为输入后先 Tab 移开光标，再识别名称。
+
+用户切到浏览器全屏后，远程原图仍为 1920×1080，浏览器视口变为 1920×1024，页面可见。Field15 完整调用约 92 秒、45 个节点计时齐全且 DBX 通过；此时原始截图实测约 594–600ms。该结果包含浏览器可见性变化，不能全算作代码提速。截图、自动 summary 和 DBX 返回值见 [Field15 验收](psauto/docs/images/acceptance-field15-20261105/README.md)。
+
 #### 截图和 OCR 区域基准
 
 2026-11-04 已用现有真实截图对比 Maa 原生 OCR 与模板。按用户偏好，固定控件优先局部模板，普通模板阈值为 **0.85**；动态对象名和字段名保留必要的局部 OCR。零计数现只看 `[696,719,7,11]` 的首位数字，并确认对话框图片；8 张真实帧及 10/100 合成反例中，数字 OCR 和数字模板均符合预期，模板约 18–20ms、OCR 约 37–45ms，因此当前选数字模板。三个创建 JSON 的查重静态控件已迁移，50 项实际 JSON 离线识别检查通过。Key 模板需覆盖普通与悬停样式，模拟放大 125% 后原尺寸模板失效，分辨率和 DPI 仍需固定。样本、计时和局部示意图见 [截图识别方法对比](psauto/docs/recognition_comparison.md)，这些小样本结果不代表整体准确率或长期稳定性。

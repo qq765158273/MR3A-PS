@@ -12,6 +12,7 @@
 | --- | --- | --- | --- |
 | Field12、Field13 | 各约 284 秒 | 连续创建成功；Character、长度 11、标签参数正确 | `out/template_acceptance_results3.json` |
 | `GM_MCP_FLD14` | 141.840 秒（含启动、导出、返回） | 优化后的 Field 完整创建、保存、关闭；DBX 确认 Character、长度 11、GMEMPLID 标签参数 | `out/objects/20261105_080156_334657/` |
+| `GM_MCP_FLD15` | 92.435 秒（含启动、导出、返回） | 全屏且页面可见，名称先移焦点再识别；45 个节点的原生 ID 计时齐全，0 次重试/动作失败，DBX 确认 Character、长度 11 及标签 | `out/objects/20261105_100510_036644/` |
 | 重复 Field13 | 约 115 秒 | `already_exists, workspace_ready:true`，无覆盖 | 同上 |
 | `GM_MCP_REC3` | 996.62 秒 | 新任务前主动断线，MCP 自动恢复后首次完整创建及 Build；五字段及属性正确，HRAPP 表、三个 VALID 索引、行数 0 | `out/objects/20261104_164647_935317/` |
 | `GM_MCP_AE3` | 515.99 秒 | 同一会话随后完整创建；SQL 指向 REC3，PeopleCode 源码正确、编译长度 566 | `out/objects/20261104_170324_644760/` |
