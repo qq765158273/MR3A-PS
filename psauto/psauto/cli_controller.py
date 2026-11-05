@@ -28,6 +28,7 @@ class PlaywrightCliSession:
         self._request_lock = threading.Lock()
         self._request_id = 0
         self.timings = []
+        self.cli_settings = {}
         self.node = shutil.which("node")
         self.script = cfg.resolve_path(cfg.cli_script)
         if not self.node or not self.script.is_file():
@@ -36,6 +37,10 @@ class PlaywrightCliSession:
             raise ValueError("CLI connection requires native_canvas capture mode")
         if cfg.canvas_refresh_mode not in ('guacamole', 'browser'):
             raise ValueError('Unsupported canvas refresh mode')
+        if cfg.cli_settle_ms is not None and (type(cfg.cli_settle_ms) is not int or not 0 <= cfg.cli_settle_ms <= 10000):
+            raise ValueError('cli_settle_ms must be an integer between 0 and 10000, or null')
+        if cfg.cli_settle_ms is not None and not cfg.cli_persistent_client:
+            raise ValueError('Checking cli_settle_ms requires the persistent CLI client')
         if not cfg.display_selector:
             raise ValueError("display_selector is required")
         self.cwd = cfg.resolve_path(cfg.cli_workdir)
@@ -127,7 +132,8 @@ class PlaywrightCliSession:
     def _start_worker(self):
         helper = Path(__file__).with_name('cli_worker.cjs')
         self._responses = queue.Queue()
-        self._worker = subprocess.Popen([self.node, str(helper), str(self.script.resolve()), self.cfg.cli_session],
+        self._worker = subprocess.Popen([self.node, str(helper), str(self.script.resolve()), self.cfg.cli_session,
+                                         json.dumps(self.cfg.cli_settle_ms)],
                                         cwd=self.cwd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                         stderr=subprocess.DEVNULL, text=True, encoding='utf-8',
                                         creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
@@ -149,6 +155,7 @@ class PlaywrightCliSession:
         if response.get('ready') is not True:
             self._stop_worker()
             raise RuntimeError(response.get('fatal', 'CLI client could not start'))
+        self.cli_settings = response.get('cli_settings', {})
 
     def _read_response(self):
         try:

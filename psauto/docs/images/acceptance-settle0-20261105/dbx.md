@@ -1,0 +1,169 @@
+# 0ms CLI 配置的 DBX 验收
+
+2026-11-05，在同一个 MCP 服务实例连续完成四次完整调用，均 saved_and_closed、workspace_ready:true；Record 另 built:true。所有写入和 Build 通过 PSIDE Pipeline 完成。以下只读查询来自 ps-dev / HRDEV；AE 仅创建保存，未执行。
+
+## field
+
+```sql
+SELECT F.FIELDNAME,F.FIELDTYPE,F.LENGTH,L.LABEL_ID,L.LONGNAME,L.SHORTNAME FROM PSDBFIELD F JOIN PSDBFLDLABL L ON L.FIELDNAME=F.FIELDNAME WHERE F.FIELDNAME='GM_OPT_EMPLID'
+```
+
+| FIELDNAME | FIELDTYPE | LENGTH | LABEL_ID | LONGNAME | SHORTNAME |
+|---|---|---|---|---|---|
+| GM_OPT_EMPLID | 0 | 11 | GMOEMPLID | GM Optimized Employee ID | GM Employee |
+(1 rows, 17ms)
+
+## date
+
+```sql
+SELECT F.FIELDNAME,F.FIELDTYPE,F.LENGTH,L.LABEL_ID,L.LONGNAME,L.SHORTNAME FROM PSDBFIELD F JOIN PSDBFLDLABL L ON L.FIELDNAME=F.FIELDNAME WHERE F.FIELDNAME='GM_OPT_DATE'
+```
+
+| FIELDNAME | FIELDTYPE | LENGTH | LABEL_ID | LONGNAME | SHORTNAME |
+|---|---|---|---|---|---|
+| GM_OPT_DATE | 4 | 10 | GMODATE | GM Optimized Date | GM Date |
+(1 rows, 16ms)
+
+## record_definition
+
+```sql
+SELECT RECNAME, RECTYPE, FIELDCOUNT, INDEXCOUNT FROM PSRECDEFN WHERE RECNAME='GM_OPT_REC'
+```
+
+| RECNAME | RECTYPE | FIELDCOUNT | INDEXCOUNT |
+|---|---|---|---|
+| GM_OPT_REC | 0 | 5 | 3 |
+(1 rows, 11ms)
+
+## record_fields
+
+```sql
+SELECT FIELDNUM, FIELDNAME, CASE WHEN BITAND(USEEDIT,1)=1 THEN 'Y' ELSE 'N' END AS KEY_FLAG, CASE WHEN BITAND(USEEDIT,2048)=2048 THEN 'Y' ELSE 'N' END AS SEARCH_KEY, CASE WHEN BITAND(USEEDIT,16)=16 THEN 'Y' ELSE 'N' END AS ALT_SEARCH_KEY, CASE WHEN BITAND(USEEDIT,32)=32 THEN 'Y' ELSE 'N' END AS LISTBOX FROM PSRECFIELD WHERE RECNAME='GM_OPT_REC' ORDER BY FIELDNUM
+```
+
+| FIELDNUM | FIELDNAME | KEY_FLAG | SEARCH_KEY | ALT_SEARCH_KEY | LISTBOX |
+|---|---|---|---|---|---|
+| 1 | GM_OPT_EMPLID | Y | Y | N | Y |
+| 2 | EMPLID | Y | Y | N | Y |
+| 3 | EMPL_RCD | Y | Y | N | Y |
+| 4 | EFFDT | N | N | Y | Y |
+| 5 | EFFSEQ | N | N | Y | Y |
+(5 rows, 23ms)
+
+## table
+
+```sql
+SELECT TABLE_NAME, TABLESPACE_NAME FROM USER_TABLES WHERE TABLE_NAME='PS_GM_OPT_REC'
+```
+
+| TABLE_NAME | TABLESPACE_NAME |
+|---|---|
+| PS_GM_OPT_REC | HRAPP |
+(1 rows, 83ms)
+
+## columns
+
+```sql
+SELECT COLUMN_ID,COLUMN_NAME,DATA_TYPE,CHAR_LENGTH,DATA_SCALE FROM USER_TAB_COLUMNS WHERE TABLE_NAME='PS_GM_OPT_REC' ORDER BY COLUMN_ID
+```
+
+| COLUMN_ID | COLUMN_NAME | DATA_TYPE | CHAR_LENGTH | DATA_SCALE |
+|---|---|---|---|---|
+| 1 | GM_OPT_EMPLID | VARCHAR2 | 11 | NULL |
+| 2 | EMPLID | VARCHAR2 | 11 | NULL |
+| 3 | EMPL_RCD | NUMBER | 0 | 0 |
+| 4 | EFFDT | DATE | 0 | NULL |
+| 5 | EFFSEQ | NUMBER | 0 | 0 |
+(5 rows, 556ms)
+
+## indexes
+
+```sql
+SELECT INDEX_NAME, UNIQUENESS, STATUS FROM USER_INDEXES WHERE TABLE_NAME='PS_GM_OPT_REC' ORDER BY INDEX_NAME
+```
+
+| INDEX_NAME | UNIQUENESS | STATUS |
+|---|---|---|
+| PS0GM_OPT_REC | NONUNIQUE | VALID |
+| PS1GM_OPT_REC | NONUNIQUE | VALID |
+| PS_GM_OPT_REC | UNIQUE | VALID |
+(3 rows, 58ms)
+
+## row_count
+
+```sql
+SELECT COUNT(*) AS ROW_COUNT FROM PS_GM_OPT_REC
+```
+
+| ROW_COUNT |
+|---|
+| 0 |
+(1 rows, 12ms)
+
+## ae_steps
+
+```sql
+SELECT AE_APPLID,AE_SECTION,AE_STEP,AE_SEQ_NUM FROM PSAESTEPDEFN WHERE AE_APPLID='GM_OPT_AE' ORDER BY AE_SEQ_NUM
+```
+
+| AE_APPLID | AE_SECTION | AE_STEP | AE_SEQ_NUM |
+|---|---|---|---|
+| GM_OPT_AE | MAIN | Step01 | 1 |
+| GM_OPT_AE | MAIN | Step02 | 2 |
+| GM_OPT_AE | MAIN | Step03 | 3 |
+| GM_OPT_AE | MAIN | Step04 | 4 |
+(4 rows, 12ms)
+
+## ae_actions
+
+```sql
+SELECT S.AE_STEP,S.AE_STMT_TYPE,T.SQLTEXT FROM PSAESTMTDEFN S LEFT JOIN PSSQLTEXTDEFN T ON T.SQLID=S.SQLID WHERE S.AE_APPLID='GM_OPT_AE' ORDER BY S.AE_STEP,S.AE_STMT_TYPE
+```
+
+| AE_STEP | AE_STMT_TYPE | SQLTEXT |
+|---|---|---|
+| Step01 | S | SELECT COUNT(*) FROM PS_GM_OPT_REC |
+| Step02 | P | NULL |
+| Step03 | S | SELECT COUNT(*) FROM PS_GM_OPT_REC |
+| Step04 | P | NULL |
+(4 rows, 14ms)
+
+## ae_peoplecode
+
+```sql
+SELECT OBJECTVALUE6 AS STEP_NAME,PCTEXT FROM PSPCMTXT WHERE OBJECTID1=66 AND OBJECTVALUE1='GM_OPT_AE'
+```
+
+| STEP_NAME | PCTEXT |
+|---|---|
+| Step02 | Local SQL &fieldSQL;
+Local string &fieldName;
+
+&fieldSQL = CreateSQL("SELECT FIELDNAME FROM PSRECFIELD WHERE RECNAME = :1 ORDER BY FIELDNUM", "GM_OPT_REC");
+While &fieldSQL.Fetch(&fieldName)
+   MessageBox(0, "", 0, 0, "FIELDNAME: " | &fieldName);
+End-While;
+&fieldSQL.Close();
+ |
+| Step04 | Local SQL &fieldSQL;
+Local string &fieldName;
+
+&fieldSQL = CreateSQL("SELECT FIELDNAME FROM PSRECFIELD WHERE RECNAME = :1 ORDER BY FIELDNUM", "GM_OPT_REC");
+While &fieldSQL.Fetch(&fieldName)
+   MessageBox(0, "", 0, 0, "FIELDNAME: " | &fieldName);
+End-While;
+&fieldSQL.Close();
+ |
+(2 rows, 14ms)
+
+## ae_compiled
+
+```sql
+SELECT OBJECTVALUE6 AS STEP_NAME,PROGLEN FROM PSPCMPROG WHERE OBJECTID1=66 AND OBJECTVALUE1='GM_OPT_AE'
+```
+
+| STEP_NAME | PROGLEN |
+|---|---|
+| Step02 | 564 |
+| Step04 | 564 |
+(2 rows, 12ms)

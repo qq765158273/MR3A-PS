@@ -141,7 +141,22 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 实测确认：隐藏 Chrome 下关闭 JumpServer 剪贴板时，需要完成网页抽屉的离场动画，再恢复远程输入焦点。原始 canvas 截图不能显示网页遮挡，不能绕过点击遮挡检查。查重结果中的零计数曾被整段 OCR 漏掉；随后整段模板也在更强的 10/100 合成反例中暴露子串误判，现改为只匹配计数首位的数字 0。Field 类型下拉框必须明确提交并关闭，再操作长度；长度值不再 OCR 回读，避免光标被读作额外的数字，最终由 dbx 验收。
 
-#### Record 流程性能分析
+#### 当前完整配置与性能（2026-11-05）
+
+官方 CLI 配置 `timeouts.settle=0` 已完成隔离对照及真实浏览器验证，并在同一 MCP 服务实例连续完成四次完整调用，共约 **6 分 21 秒、409 个节点**，全部保存关闭、释放空白操作台，0 识别轮次重试、0 节点失败、0 动作失败；DBX 全部通过。Pipeline 的节点和业务缓冲保持，最终 Step 身份边界补丁也已完成本轮四步 AE 回归。
+
+| 操作 | 历史完整调用 | 本轮工具调用含导出 |
+| --- | ---: | ---: |
+| Character 长度 11 | 133 秒 | **47 秒** |
+| Date | 120 秒 | **43 秒** |
+| 五字段 Record＋Build | 524 秒 | **170 秒** |
+| 四步 AE | 353 秒 | **120 秒** |
+
+历史值包含各自进程启动，本轮为同一 MCP 实例的连续工具调用；原生 Maa 事件跨度也分别从 120/108/493/326 秒降至 40/37/145/101 秒。同一后台 Chrome、同一原图的只读对照中，截图含解码中位数从 1046ms 降至 180ms。官方 CLI 的通用等待在页面内使用 setTimeout，默认 500ms 还会受到后台调度影响；本轮通过官方配置减少这层等待，没有修改安装中的 CLI 源码。
+
+本机直接附加到已绑定浏览器 `psauto-discovery`，创建 `psauto-fast` 调用会话，复用现有 Chrome 授权；底层浏览器会话保持运行。项目连接配置指定 `cli_settle_ms:0`，客户端启动时读取官方实际配置，不匹配就拒绝提交输入；四个任务均记录了预期和实际 0ms。配置只在 CLI daemon 启动时加载，不能给单条命令加参数后假定生效。配置、完整数字和限制见 [本轮配置与性能](psauto/docs/performance/settle_optimization.md)，原始截图、DBX 及逐节点日志见 [完整验收](psauto/docs/images/acceptance-settle0-20261105/README.md)。长期稳定性仍需积累运行样本。
+
+#### Record 历史性能分析与后续优化
 
 GM_MCP_REC4 实际完成 226 个节点，Pipeline 约 906 秒：截图及下一轮准备约 532 秒、控制器输入约 238 秒、动作前后延迟约 102 秒、全部识别约 29 秒、引擎起始约 4 秒。20 次候选识别未命中均为正常分支，无动作失败或重试循环。另有约 66 秒用于启动、证据导出和最终返回。当前瓶颈是 CLI 调用及节点粒度；Ctrl+Enter 拆分三步就分配约 14 秒，不能用“每步延迟 1 秒”估算整条流程。
 
@@ -159,7 +174,7 @@ GM_MCP_REC4 实际完成 226 个节点，Pipeline 约 906 秒：截图及下一�
 
 截图分项实测：Guacamole 本地绘图队列刷新约 18–21ms，原画布读取和编码约 47–50ms，完整 CLI 请求却约 932–1001ms；Python 解码另约 44–70ms。原画布不是主要瓶颈，官方 CLI `run-code` 包含默认 500ms 的 settle 等待，剩余成本还在执行链路及返回。默认 `canvas_refresh_mode:guacamole` 在截图前排空已接收绘图队列，缺组件/API、超时、尺寸变化或断线即停止；这不保证网络端新帧，下一步仍由 Pipeline 状态识别判断。剪贴板抽屉继续使用浏览器动画刷新及遮挡检查，最终 Ctrl+V 前重查连接。
 
-部分对象 `GM_AE_BASE` 的后台浏览器截图超时仍保留为失败样本，不重放、不计完整成功。只读复核发现的对象名左边界及缺组件回退问题已补强。随后通过 tmux pshelp 内的 `seedx codex` 完成独立复核并回复 ps：原始证据和性能数字一致，未发现高风险问题，另发现 Step 标识符边界缺口。该问题已修复，新增错误 Step 下不发送 Ctrl+S 的原生 Pipeline 反例，识图 10 项和参数/schema 6 项通过。最终版本完整调用及长期稳定性仍待补测。正式反馈及处理见 [pshelp 独立复核](psauto/docs/performance/pshelp_review.md)；逐项取舍、截图分解和原生逐节点日志见 [Pipeline 复核](psauto/docs/performance/pipeline_audit.md) 及 [本轮截图和 DBX](psauto/docs/images/acceptance-pipeline-audit-20261105/README.md)。
+部分对象 `GM_AE_BASE` 的后台浏览器截图超时仍保留为失败样本，不重放、不计完整成功。只读复核发现的对象名左边界及缺组件回退问题已补强。随后通过 tmux pshelp 内的 `seedx codex` 完成独立复核并回复 ps：原始证据和性能数字一致，未发现高风险问题，另发现 Step 标识符边界缺口。该问题已修复，新增错误 Step 下不发送 Ctrl+S 的原生 Pipeline 反例，识图 10 项和参数/schema 6 项通过；随后的 0ms 配置完整回归已补齐最终版本四步 AE 验证，长期稳定性仍待积累。正式反馈及处理见 [pshelp 独立复核](psauto/docs/performance/pshelp_review.md)；此前逐项取舍、截图分解和原生逐节点日志见 [Pipeline 复核](psauto/docs/performance/pipeline_audit.md) 及 [本轮截图和 DBX](psauto/docs/images/acceptance-pipeline-audit-20261105/README.md)。
 
 本机启动复核 agent 应使用 `seedx codex`，其提供正确的模型与网关授权；全部 `-c` 配置覆盖放在 `exec` 之前，保留 seedx 的网关注入，避免子命令配置覆盖后退回本机旧 provider。此前直接启动全局 Codex 的 401 不代表 seedx agent 不可用。
 

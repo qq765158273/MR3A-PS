@@ -177,6 +177,35 @@ class JumpClipboardTests(unittest.TestCase):
                 self.assertEqual(self.call('async page=>await page.frameLocator("#frame").locator("body")'
                                           '.evaluate(()=>pasteCount)'),0)
 
+    def test_late_flush_callback_after_timeout_does_not_send_input(self):
+        from psauto.native_canvas import decode_canvas
+        self.session.cfg.canvas_refresh_mode='guacamole'
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            window.inputCount=0;window.canvasClicks=0;
+            document.querySelector('#sink').addEventListener('keydown',()=>inputCount++);
+            document.querySelector('canvas').onclick=()=>canvasClicks++;
+            window.testDisplay={getWidth:()=>1920,getHeight:()=>1080,
+                flush:done=>{window.delayedFlush=done;}};
+            el.__vue__={$options:{name:'GuacamoleConnect'},tunnel:{state:1},clientState:'Connected',
+                client:{getDisplay:()=>window.testDisplay}};
+          });return true;
+        }''')
+        with self.assertRaisesRegex(RuntimeError,'flush timed out'):
+            self.session.request('screencap')
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('body').evaluate(()=>{
+            const ctx=document.querySelector('canvas').getContext('2d');
+            ctx.fillStyle='rgb(12,34,56)';ctx.fillRect(100,100,20,20);
+            window.delayedFlush();testDisplay.flush=done=>done();
+          });return true;
+        }''')
+        pixels=decode_canvas(self.session.request('screencap'),self.session.cfg)
+        self.assertEqual(pixels[110,110].tolist(),[56,34,12])
+        counts=self.call('async page=>await page.frameLocator("#frame").locator("body")'
+                         '.evaluate(()=>({keys:inputCount,clicks:canvasClicks,pastes:pasteCount}))')
+        self.assertEqual(counts,{'keys':0,'clicks':0,'pastes':0})
+
     def test_tunnel_closing_during_clipboard_preparation_prevents_paste(self):
         self.session.run_code('''async page=>{
           await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{

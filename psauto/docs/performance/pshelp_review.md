@@ -1,5 +1,7 @@
 # tmux pshelp 独立复核
 
+后续状态：本报告指出的 Step 身份问题已修复，并在官方 settle=0 配置下补齐最终版本四步 AE 及 Field/Date/Record 的完整连续调用，DBX 全通过，见 [完整回归](settle_optimization.md)。以下保留目标提交的原始复核意见及当时的处理记录。
+
 2026-11-05，通过 tmux pshelp 内的 `seedx codex` 独立进程完成，目标提交 `bfcbaed`，进程退出码 0，并通知 tmux ps。以下保留其正式反馈；它审查的是该提交，不代表已经复核之后的修复。文中的 out 路径为本机忽略证据。
 
 高风险未发现。发现 **1 项中风险确定问题**：

@@ -1,0 +1,186 @@
+[
+  {
+    "session": "psauto-discovery",
+    "settle_ms": 500,
+    "effective_settle_ms": 500,
+    "cli_settings": {
+      "expected_settle_ms": 500,
+      "effective_settle_ms": 500
+    },
+    "browser": {
+      "visibility": "hidden",
+      "width": 1920,
+      "height": 897
+    },
+    "summary": {
+      "empty": {
+        "count": 8,
+        "median_ms": 954.115,
+        "max_ms": 1000.02
+      },
+      "screencap": {
+        "count": 8,
+        "median_ms": 1046.395,
+        "max_ms": 1070.49
+      }
+    },
+    "measurements": [
+      {
+        "operation": "empty",
+        "elapsed_ms": 1000.02
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1070.49
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 929.59
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1045.92
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 955.15
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1047.78
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 951.14
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1044.95
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 954.11
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1047.5
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 954.9
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1043.8
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 953.89
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1046.76
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 954.12
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 1046.03
+      }
+    ]
+  },
+  {
+    "session": "psauto-fast",
+    "settle_ms": 0,
+    "effective_settle_ms": 0,
+    "cli_settings": {
+      "expected_settle_ms": 0,
+      "effective_settle_ms": 0
+    },
+    "browser": {
+      "visibility": "hidden",
+      "width": 1920,
+      "height": 897
+    },
+    "summary": {
+      "empty": {
+        "count": 8,
+        "median_ms": 15.61,
+        "max_ms": 16.68
+      },
+      "screencap": {
+        "count": 8,
+        "median_ms": 179.5,
+        "max_ms": 203.42
+      }
+    },
+    "measurements": [
+      {
+        "operation": "empty",
+        "elapsed_ms": 15.2
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 177.37
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 16.68
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 177.16
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 16.56
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 181.63
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 16.22
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 184.87
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 16.02
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 201.8
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 14.12
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 169.19
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 14.71
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 171.16
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 14.86
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 203.42
+      }
+    ]
+  }
+]

@@ -116,6 +116,9 @@ class ObjectService:
                         transport = getattr(session, 'timings', [])
                         if not isinstance(transport, list):
                             transport = []
+                        cli_settings = getattr(session, 'cli_settings', {})
+                        if isinstance(cli_settings, dict) and cli_settings:
+                            timings['cli_settings'] = cli_settings
                         (output / 'timings.json').write_text(json.dumps({**timings, 'transport': transport},
                                                                         indent=2), encoding='utf-8')
                     finally:

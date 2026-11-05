@@ -1,0 +1,734 @@
+[
+  {
+    "settle_ms": 500,
+    "effective_settle_ms": 500,
+    "success": true,
+    "state": {
+      "revision": 12,
+      "clicks": 12,
+      "pastes": 2
+    },
+    "summary": {
+      "click": {
+        "count": 12,
+        "median_ms": 577.985,
+        "p95_ms": 588.5,
+        "max_ms": 588.5
+      },
+      "clipboard": {
+        "count": 2,
+        "median_ms": 1760.92,
+        "p95_ms": 1778.87,
+        "max_ms": 1778.87
+      },
+      "empty": {
+        "count": 12,
+        "median_ms": 509.995,
+        "p95_ms": 517.36,
+        "max_ms": 517.36
+      },
+      "key": {
+        "count": 12,
+        "median_ms": 559.595,
+        "p95_ms": 575.88,
+        "max_ms": 575.88
+      },
+      "screencap": {
+        "count": 12,
+        "median_ms": 617.425,
+        "p95_ms": 643.62,
+        "max_ms": 643.62
+      }
+    },
+    "measurements": [
+      {
+        "operation": "empty",
+        "elapsed_ms": 510.87
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 561.31
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 643.62
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 588.5
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 512.0
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 555.7
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 614.73
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 576.36
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 508.79
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 552.12
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 615.07
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 578.22
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 509.59
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 564.89
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 614.07
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 577.75
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 509.54
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 550.23
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 612.47
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 582.31
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 509.85
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 561.48
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 620.81
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 577.03
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 510.32
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 551.37
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 614.99
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 580.49
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 509.1
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 557.88
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 614.07
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 580.91
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 510.14
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 552.81
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 620.06
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 577.48
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 510.33
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 573.86
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 619.78
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 577.71
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 509.61
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 562.16
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 632.49
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 583.99
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 517.36
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 575.88
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 620.58
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 569.83
+      },
+      {
+        "operation": "clipboard",
+        "elapsed_ms": 1778.87
+      },
+      {
+        "operation": "clipboard",
+        "elapsed_ms": 1742.97
+      }
+    ]
+  },
+  {
+    "settle_ms": 100,
+    "effective_settle_ms": 100,
+    "success": true,
+    "state": {
+      "revision": 12,
+      "clicks": 12,
+      "pastes": 2
+    },
+    "summary": {
+      "click": {
+        "count": 12,
+        "median_ms": 176.76999999999998,
+        "p95_ms": 211.22,
+        "max_ms": 211.22
+      },
+      "clipboard": {
+        "count": 2,
+        "median_ms": 1335.37,
+        "p95_ms": 1342.65,
+        "max_ms": 1342.65
+      },
+      "empty": {
+        "count": 12,
+        "median_ms": 109.835,
+        "p95_ms": 111.7,
+        "max_ms": 111.7
+      },
+      "key": {
+        "count": 12,
+        "median_ms": 152.305,
+        "p95_ms": 182.45,
+        "max_ms": 182.45
+      },
+      "screencap": {
+        "count": 12,
+        "median_ms": 221.54,
+        "p95_ms": 316.2,
+        "max_ms": 316.2
+      }
+    },
+    "measurements": [
+      {
+        "operation": "empty",
+        "elapsed_ms": 111.7
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 160.51
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 227.87
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 190.97
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 111.51
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 149.86
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 256.22
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 202.51
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 109.5
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 150.56
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 223.73
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 181.06
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 109.96
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 148.2
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 218.46
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 183.4
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 110.2
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 155.39
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 225.29
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 176.37
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 109.33
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 148.01
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 218.49
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 174.52
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 108.98
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 148.35
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 219.35
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 177.17
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 109.71
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 182.45
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 316.2
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 211.22
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 110.13
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 182.24
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 235.2
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 173.56
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 109.62
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 162.51
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 211.11
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 176.27
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 108.35
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 147.89
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 214.52
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 171.38
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 111.0
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 154.05
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 211.15
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 173.9
+      },
+      {
+        "operation": "clipboard",
+        "elapsed_ms": 1342.65
+      },
+      {
+        "operation": "clipboard",
+        "elapsed_ms": 1328.09
+      }
+    ]
+  },
+  {
+    "settle_ms": 0,
+    "effective_settle_ms": 0,
+    "success": true,
+    "state": {
+      "revision": 12,
+      "clicks": 12,
+      "pastes": 2
+    },
+    "summary": {
+      "click": {
+        "count": 12,
+        "median_ms": 75.63,
+        "p95_ms": 125.53,
+        "max_ms": 125.53
+      },
+      "clipboard": {
+        "count": 2,
+        "median_ms": 1245.77,
+        "p95_ms": 1254.58,
+        "max_ms": 1254.58
+      },
+      "empty": {
+        "count": 12,
+        "median_ms": 7.5649999999999995,
+        "p95_ms": 11.08,
+        "max_ms": 11.08
+      },
+      "key": {
+        "count": 12,
+        "median_ms": 47.805,
+        "p95_ms": 58.08,
+        "max_ms": 58.08
+      },
+      "screencap": {
+        "count": 12,
+        "median_ms": 113.59,
+        "p95_ms": 160.43,
+        "max_ms": 160.43
+      }
+    },
+    "measurements": [
+      {
+        "operation": "empty",
+        "elapsed_ms": 8.52
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 58.08
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 127.86
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 83.49
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 8.47
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 50.77
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 113.3
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 75.51
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.41
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 46.81
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 118.55
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 125.53
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.33
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 48.08
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 110.64
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 76.18
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.43
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 48.66
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 113.29
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 91.7
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 8.39
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 53.43
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 160.43
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 84.16
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.52
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 53.75
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 131.09
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 71.38
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.54
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 44.03
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 113.08
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 73.88
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.11
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 45.14
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 110.08
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 71.49
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 7.59
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 46.22
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 121.96
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 75.75
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 11.08
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 47.53
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 107.74
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 71.13
+      },
+      {
+        "operation": "empty",
+        "elapsed_ms": 8.67
+      },
+      {
+        "operation": "key",
+        "elapsed_ms": 47.21
+      },
+      {
+        "operation": "screencap",
+        "elapsed_ms": 113.88
+      },
+      {
+        "operation": "click",
+        "elapsed_ms": 71.3
+      },
+      {
+        "operation": "clipboard",
+        "elapsed_ms": 1236.96
+      },
+      {
+        "operation": "clipboard",
+        "elapsed_ms": 1254.58
+      }
+    ]
+  }
+]

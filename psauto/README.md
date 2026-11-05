@@ -48,6 +48,18 @@ Copy-Item config.example.json config.json
 
 CLI 默认 `canvas_refresh_mode:guacamole`：读取原图前调用远程桌面现有 Display.flush 排空浏览器已接收的绘图队列，最多等 5 秒；组件/API 缺失、尺寸不符或断线即停止。它不能请求或保证远端新帧，任务仍等待下一状态的识别。`browser` 模式显式保留原浏览器截图刷新供兼容诊断，不自动回退。剪贴板网页抽屉仍需浏览器动画刷新及隐藏检查，最后粘贴前再确认连接。五次测量中原图读取编码约 47–50ms，完整 CLI 请求约 932–1001ms；分项及完整 Field/AE 验收见 [Pipeline 复核](docs/performance/pipeline_audit.md)。
 
+后续已用项目 [官方 CLI 配置](playwright-cli.config.json) 将 settle 设为 0，截图含解码降至约 180ms，并完成 Field / Date / Record＋Build / 四步 AE 的连续完整 MCP 与 DBX 验收。`config.example.json` 使用 `cli_session:psauto-fast`、`cli_settle_ms:0` 和常驻客户端；每次客户端启动会查询实际 settle，不符就停止，不提交浏览器动作。配置更改只在 CLI daemon 启动时生效。
+
+本机可复用已授权浏览器，在配置的 cli_workdir 中，用与原会话相同的 CLI 安装执行：
+
+```text
+node <cli_script> -s=psauto-fast attach psauto-discovery --config=<绝对路径>/psauto/playwright-cli.config.json
+```
+
+`psauto-discovery` 为本机现有已绑定浏览器；保留其运行，由新的 psauto-fast 会话加载官方配置，避免重新走扩展授权。已配置浏览器处于空白操作台时再调整连接。`cli_settle_ms:null` 兼容旧会话；非 null 的校验需要 `cli_persistent_client:true`。完整数据、证据及边界见 [0ms 配置验收](docs/performance/settle_optimization.md)。
+
+修改代码或 config.json 后，重新启动既有 MCP 连接以加载变更；本轮完整验收使用的是新启动的最终配置服务实例。
+
 画面和安全点击位置确认后，可使用 `capture` 做进一步验证：
 
 ```powershell

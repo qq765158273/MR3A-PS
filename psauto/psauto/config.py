@@ -21,6 +21,7 @@ class Config:
     cli_script: str = "../.psauto-runtime/node_modules/@playwright/cli/playwright-cli.js"
     cli_workdir: str = "../.psauto-runtime"
     cli_persistent_client: bool = True
+    cli_settle_ms: int | None = None
     capture_mode: str = "viewport"
     canvas_refresh_mode: str = "guacamole"
     text_input_mode: str = "keyboard"

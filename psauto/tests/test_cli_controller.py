@@ -19,7 +19,8 @@ from test_browser_session import Handler
 class CliControllerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.cli = Path(__file__).resolve().parents[2] / ".psauto-runtime/node_modules/@playwright/cli/playwright-cli.js"
+        cls.cli = Path(os.environ.get('PSAUTO_TEST_CLI_SCRIPT') or
+                       Path(__file__).resolve().parents[2] / ".psauto-runtime/node_modules/@playwright/cli/playwright-cli.js")
         cls.node = shutil.which("node")
         if not cls.node or not cls.cli.is_file():
             raise RuntimeError("Project-local Playwright CLI is not installed")
@@ -29,8 +30,14 @@ class CliControllerTests(unittest.TestCase):
         cls.server_thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.server_thread.start()
         url = f"http://127.0.0.1:{cls.server.server_port}/native"
+        options = []
+        if os.environ.get('PSAUTO_TEST_CLI_SETTLE_MS') is not None:
+            config_file = Path(cls.temp.name) / 'cli.json'
+            config_file.write_text(json.dumps({'timeouts': {'settle': int(os.environ['PSAUTO_TEST_CLI_SETTLE_MS'])},
+                                              'browser': {'launchOptions': {'headless': True}}}), encoding='utf-8')
+            options.append(f'--config={config_file}')
         result = subprocess.run([cls.node, str(cls.cli), f"-s={cls.session_name}", "open", url,
-                                 "--browser=chrome"], cwd=cls.temp.name, capture_output=True,
+                                 "--browser=chrome", *options], cwd=cls.temp.name, capture_output=True,
                                 encoding="utf-8", timeout=60)
         if result.returncode:
             cls.server.shutdown()
@@ -110,6 +117,41 @@ class CliControllerTests(unittest.TestCase):
                             f'http://127.0.0.1:{self.server.server_port}/native'],
                            cwd=self.temp.name,capture_output=True,timeout=30)
             session.stop()
+
+    def test_effective_settle_is_checked_before_any_browser_action(self):
+        from psauto.config import Config
+        from psauto.cli_controller import PlaywrightCliSession
+        cfg=Config(jumpserver_url='http://127.0.0.1',display_selector='#remote',
+                   connection_mode='cli',cli_session=self.session_name,
+                   cli_script=str(self.cli),cli_workdir='.',capture_mode='native_canvas',
+                   canvas_refresh_mode='browser')
+        cfg.base_dir=Path(self.temp.name)
+        session=PlaywrightCliSession(cfg)
+        try:
+            effective=json.loads(session.invoke_cli(['config-print']).stdout)['timeouts']['settle']
+            session.run_code('''async page=>{
+                await page.goto('''+json.dumps(f'http://127.0.0.1:{self.server.server_port}/native')+''');
+                await page.locator('#remote').evaluate(el=>{
+                    const sink=document.createElement('textarea');el.appendChild(sink);sink.focus();
+                    window.inputCount=0;sink.addEventListener('keydown',()=>inputCount++);
+                });return true;
+            }''')
+            session.stop()
+            cfg.cli_settle_ms=effective+1
+            with self.assertRaisesRegex(RuntimeError,'Playwright CLI settle is'):
+                session.request('key',key='Enter')
+            session.stop()
+            cfg.cli_settle_ms=effective
+            self.assertTrue(session.request('inspect',prepare=True))
+            self.assertEqual(session.cli_settings,{'expected_settle_ms':effective,'effective_settle_ms':effective})
+            self.assertEqual(session.run_code('async page=>page.evaluate(()=>inputCount)'),0)
+            self.assertTrue(session.request('key',key='Enter'))
+            self.assertEqual(session.run_code('async page=>page.evaluate(()=>inputCount)'),1)
+        finally:
+            session.stop()
+            subprocess.run([self.node,str(self.cli),f'-s={self.session_name}','--raw','goto',
+                            f'http://127.0.0.1:{self.server.server_port}/native'],
+                           cwd=self.temp.name,capture_output=True,timeout=30)
 
     def test_original_mr3a_agent_is_available(self):
         from maa.resource import Resource

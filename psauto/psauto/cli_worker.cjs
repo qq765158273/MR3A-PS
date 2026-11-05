@@ -14,9 +14,20 @@ async function main() {
   const entry = registry.entry(info, process.argv[3]);
   if (!entry) throw new Error('Configured Playwright CLI session is not open');
   const session = new Session(entry);
+  const expectedSettle = JSON.parse(process.argv[4] ?? 'null');
+  let cliSettings = {};
+  if (expectedSettle !== null) {
+    const configResult = await session.run(info, minimist(['config-print'], {string: ['_']}), {raw: true});
+    if (configResult.isError) throw new Error('Could not read the effective Playwright CLI configuration');
+    const config = JSON.parse(configResult.text);
+    const effectiveSettle = config.timeouts?.settle;
+    if (effectiveSettle !== expectedSettle)
+      throw new Error(`Playwright CLI settle is ${effectiveSettle}ms, expected ${expectedSettle}ms; attach with the configured CLI config before running`);
+    cliSettings = {expected_settle_ms: expectedSettle, effective_settle_ms: effectiveSettle};
+  }
   // Each request still uses Session.run: official version checks, command parsing,
   // socket transport and daemon serialization. No browser is launched or detached.
-  process.stdout.write(JSON.stringify({ready: true}) + '\n');
+  process.stdout.write(JSON.stringify({ready: true, cli_settings: cliSettings}) + '\n');
   for await (const line of readline.createInterface({input: process.stdin, crlfDelay: Infinity})) {
     const request = JSON.parse(line);
     try {
