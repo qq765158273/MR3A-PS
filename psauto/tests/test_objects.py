@@ -52,6 +52,8 @@ class ObjectArgumentsTests(unittest.TestCase):
             lambda: AERequest(name='GM_TEST', steps=[{'name': 'Step02', 'type': 'SQL', 'code': 'SELECT 1'}]),
             lambda: AEStep(type='SQL', code='\x00'),
             lambda: AEStep(type='SQL', code='中' * 22000),
+            lambda: AERequest(name='GM_TEST',steps=[{'type':'SQL','code':'x'}],state_record='invalid'),
+            lambda: AERequest(name='GM_TEST',steps=[{'type':'SQL','code':'x'}],disable_restart='yes'),
         ]:
             with self.subTest(make=make), self.assertRaises(ValidationError):
                 make()
@@ -94,6 +96,26 @@ class ObjectArgumentsTests(unittest.TestCase):
         self.assertEqual(override['A1_Paste']['input_text'], code)
         for name, value in override.items():
             self.assertNotIn(code, json.dumps(value.get('expected', '')), name)
+
+    def test_optional_ae_properties_run_before_code_and_bind_only_requested_states(self):
+        source=json.loads((Path(__file__).resolve().parents[2]/'assets/resource/pipeline/PSIDE/create_ae.json').read_text(encoding='utf-8'))
+        for state, restart in [(None,None),('GM_DEPT_AET',None),(None,True),(None,False),('GM_DEPT_AET',True)]:
+            with self.subTest(state=state,restart=restart):
+                request=AERequest(name='GM_TEST_A',steps=[{'type':'PeopleCode','code':'payload'}],
+                                  state_record=state,disable_restart=restart)
+                _,override=BUILDERS[AERequest](request)
+                graph={key:{**value,**override.get(key,{})} for key,value in source.items()}
+                if state is None and restart is None:
+                    self.assertEqual(graph['A0_StructureSave_named']['next'],['A0_TypeSaved'])
+                    continue
+                self.assertEqual(graph['A0_StructureSave_named']['next'],['AEProp_OpenFileMenu'])
+                self.assertEqual(graph['AEProp_Ready']['next'],['AEProp_StateTab' if state else 'AEProp_AdvancedTab'])
+                if state:
+                    self.assertEqual(override['AEProp_PasteState']['input_text'],state)
+                    self.assertEqual(graph['AEProp_StateBound']['next'],['AEProp_AdvancedTab' if restart is not None else 'AEProp_OK'])
+                if restart is not None:
+                    wanted=override['AEProp_RestartVerified']['template']
+                    self.assertIn('PSIDE/checkbox_selected.png' if restart else 'PSIDE/checkbox_unchecked.png',wanted)
 
     def test_record_options_bind_the_existing_mr3a_component(self):
         request=RecordRequest(name='GM_TEST_R',type='SQL Table',tablespace='PSDEFAULT',fields=[

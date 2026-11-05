@@ -37,9 +37,19 @@ def _business_result(entry, request, job, trace):
     closed = entry + '_SavedAndClosed' in completed
     built = 'R_BuildFinished' in completed
     build_required = isinstance(request, RecordRequest) and request.build
+    ae_request = isinstance(request, AERequest)
+    state_required = ae_request and request.state_record is not None
+    restart_required = ae_request and request.disable_restart is not None
+    properties_required = state_required or restart_required
+    state_bound = 'AEProp_StateBound' in completed
+    restart_verified = 'AEProp_RestartVerified' in completed
+    properties_saved = 'AEProp_Saved' in completed
     conflict = entry + '_already_exists' in completed
     conflict_closed = entry + '_conflict_closed' in completed
-    success = bool(job.succeeded and saved and closed and (not build_required or built))
+    success = bool(job.succeeded and saved and closed and (not build_required or built)
+                   and (not state_required or state_bound)
+                   and (not restart_required or restart_verified)
+                   and (not properties_required or properties_saved))
     status = ('saved_and_closed' if success else
               'already_exists' if conflict and conflict_closed and job.succeeded else
               'partial' if saved or may_exist else 'failed')
@@ -48,6 +58,9 @@ def _business_result(entry, request, job, trace):
     return {'success': success, 'status': status, 'name': request.name,
             'saved': saved, 'workspace_ready': closed or conflict_closed,
             **({'built': built} if build_required else {}),
+            **({'state_record_bound': state_bound} if state_required else {}),
+            **({'restart_verified': restart_verified} if restart_required else {}),
+            **({'properties_saved': properties_saved} if properties_required else {}),
             'may_exist': may_exist or saved or conflict,
             'failed_node': failures[-1] if failures and not success and not conflict_closed else None}
 

@@ -9,6 +9,7 @@ FieldName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_le
 RecordName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=15)]
 AEName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=12)]
 ExistingFieldName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=18)]
+ExistingRecordName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=15)]
 
 
 class FieldRequest(BaseModel):
@@ -77,6 +78,8 @@ class AERequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
     name: AEName
     steps: list[AEStep] = Field(min_length=1, max_length=4)
+    state_record: ExistingRecordName | None = Field(default=None, description='Existing AET to add as the single default state record before compiling code')
+    disable_restart: StrictBool | None = Field(default=None, description='Set the Disable Restart property; omit to keep its default')
 
     @model_validator(mode='after')
     def sequential_steps(self):

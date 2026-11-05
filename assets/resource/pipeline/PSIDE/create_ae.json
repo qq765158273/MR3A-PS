@@ -4471,5 +4471,548 @@
     "next": [
       "A0_StructureSave_name"
     ]
+  },
+  "AEProp_OpenFileMenu": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_property_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          24
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_file_menu.png",
+        "roi": [
+          0,
+          22,
+          40,
+          25
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "box_index": 2,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_DefinitionProperties"
+    ]
+  },
+  "AEProp_DefinitionProperties": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_definition_properties.png",
+    "roi": [
+      25,
+      302,
+      170,
+      35
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_Ready"
+    ]
+  },
+  "AEProp_Ready": {
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_properties_title.png",
+    "roi": [
+      760,
+      275,
+      230,
+      40
+    ],
+    "threshold": 0.85,
+    "action": "DoNothing",
+    "next": [
+      "AEProp_StateTab"
+    ],
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0
+  },
+  "AEProp_StateTab": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_state_tab.png",
+    "roi": [
+      815,
+      308,
+      100,
+      30
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_StateBound",
+      "AEProp_Qualify"
+    ]
+  },
+  "AEProp_Qualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_qualify_label.png",
+        "roi": [
+          778,
+          340,
+          70,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          255,
+          255,
+          255
+        ],
+        "upper": [
+          255,
+          255,
+          255
+        ],
+        "roi": [
+          966,
+          414,
+          159,
+          184
+        ],
+        "count": 29256
+      }
+    ],
+    "action": "Click",
+    "target": [
+      790,
+      370,
+      75,
+      15
+    ],
+    "next": [
+      "AEProp_ClearQualify"
+    ]
+  },
+  "AEProp_ClearQualify": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_PasteState"
+    ]
+  },
+  "AEProp_PasteState": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "InputText",
+    "input_text": "__PARAM_state_record__",
+    "next": [
+      "AEProp_GetList"
+    ]
+  },
+  "AEProp_GetList": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_get_list.png",
+    "roi": [
+      885,
+      365,
+      65,
+      25
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_SelectState"
+    ]
+  },
+  "AEProp_SelectState": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_state_record_regex__",
+    "roi": [
+      784,
+      412,
+      163,
+      290
+    ],
+    "action": "Click",
+    "target_offset": [
+      3,
+      2,
+      -6,
+      -4
+    ],
+    "next": [
+      "AEProp_AddState"
+    ]
+  },
+  "AEProp_AddState": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_add_state.png",
+        "roi": [
+          975,
+          365,
+          64,
+          25
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "ColorMatch",
+        "lower": [
+          0,
+          0,
+          0
+        ],
+        "upper": [
+          100,
+          100,
+          100
+        ],
+        "roi": [
+          991,
+          371,
+          28,
+          14
+        ],
+        "count": 8
+      }
+    ],
+    "box_index": 0,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_StateBound"
+    ]
+  },
+  "AEProp_StateBound": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_state_record_regex__",
+        "roi": [
+          985,
+          412,
+          140,
+          20
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/checkbox_selected.png",
+        "roi": [
+          965,
+          412,
+          20,
+          20
+        ],
+        "threshold": 0.97
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_OK"
+    ]
+  },
+  "AEProp_AdvancedTab": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "PSIDE/ae_advanced_tab.png",
+    "roi": [
+      976,
+      308,
+      65,
+      30
+    ],
+    "threshold": 0.85,
+    "action": "Click",
+    "target_offset": [
+      2,
+      2,
+      -4,
+      -4
+    ],
+    "next": [
+      "AEProp_RestartVerified",
+      "AEProp_ToggleRestart"
+    ]
+  },
+  "AEProp_ToggleRestart": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 200,
+    "recognition": "TemplateMatch",
+    "template": "__PARAM_restart_opposite__",
+    "roi": [
+      782,
+      360,
+      20,
+      20
+    ],
+    "threshold": 0.97,
+    "action": "Click",
+    "target_offset": [
+      3,
+      3,
+      -6,
+      -6
+    ],
+    "next": [
+      "AEProp_RestartVerified"
+    ]
+  },
+  "AEProp_RestartVerified": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "TemplateMatch",
+    "template": "__PARAM_restart_wanted__",
+    "roi": [
+      782,
+      360,
+      20,
+      20
+    ],
+    "threshold": 0.97,
+    "action": "DoNothing",
+    "next": [
+      "AEProp_OK"
+    ]
+  },
+  "AEProp_OK": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_title.png",
+        "roi": [
+          760,
+          275,
+          230,
+          40
+        ],
+        "threshold": 0.85
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/ae_properties_ok.png",
+        "roi": [
+          998,
+          725,
+          75,
+          28
+        ],
+        "threshold": 0.85
+      }
+    ],
+    "box_index": 1,
+    "action": "Click",
+    "target_offset": [
+      1,
+      1,
+      -2,
+      -2
+    ],
+    "next": [
+      "AEProp_Saved",
+      "AEProp_Save"
+    ]
+  },
+  "AEProp_Save": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 500,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_property_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          24
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_enabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      }
+    ],
+    "action": "ClickKey",
+    "key": 131155,
+    "next": [
+      "AEProp_Saved"
+    ]
+  },
+  "AEProp_Saved": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "And",
+    "all_of": [
+      {
+        "recognition": "OCR",
+        "expected": "__PARAM_property_identity_regex__",
+        "roi": [
+          0,
+          0,
+          1100,
+          24
+        ]
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/save_disabled.png",
+        "roi": [
+          50,
+          40,
+          32,
+          32
+        ],
+        "threshold": 0.97
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95
+      }
+    ],
+    "action": "DoNothing",
+    "next": [
+      "A0_TypeSaved"
+    ]
   }
 }

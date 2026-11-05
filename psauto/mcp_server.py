@@ -5,11 +5,12 @@ import logging
 from pathlib import Path
 import sys
 from typing import Literal
+from pydantic import StrictBool
 
 from mcp.server.fastmcp import FastMCP
 
 from psauto.config import load_config
-from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, FieldName, FieldRequest, RecordField, RecordName, RecordRequest
+from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, RecordField, RecordName, RecordRequest
 from psauto.objects.service import ObjectService
 
 
@@ -33,9 +34,11 @@ def create_server(cfg):
         return service.execute(RecordRequest(name=name, fields=fields, type=type, build=build, tablespace=tablespace))
 
     @server.tool()
-    def create_ae(name: AEName, steps: list[AEStep]) -> dict:
-        """Create a GM AE in MAIN with 1–4 SQL/PeopleCode steps, paste code, save and close all its editors. DB verifies content; the AE is not executed."""
-        return service.execute(AERequest(name=name, steps=steps))
+    def create_ae(name: AEName, steps: list[AEStep], state_record: ExistingRecordName | None = None,
+                  disable_restart: StrictBool | None = None) -> dict:
+        """Create a GM AE with 1–4 SQL/PeopleCode steps; optionally add one existing default AET and set Disable Restart before code compilation. Save and close; DB verifies content. This tool does not execute the AE."""
+        return service.execute(AERequest(name=name, steps=steps,state_record=state_record,
+                                         disable_restart=disable_restart))
 
     return server
 

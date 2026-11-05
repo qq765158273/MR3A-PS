@@ -118,6 +118,8 @@ CLI 输入适配器默认保持一个客户端进程，调用配置指定安装�
 
 `create_ae` 接收 1–4 个 `steps`，各项为 `{type: "SQL" | "PeopleCode", code: "..."}`，在 MAIN 下依次生成 Step01–Step04。代码通过 JumpServer 剪贴板输入，再识别保存反馈，最后关闭所有本次编辑窗口；不执行 AE。两步和四步已完整实测并通过 DBX 内容验收。各卡点的 ROI、图片/OCR 选择、延迟、有限重试与下一步条件见 [判决表](docs/recognition_decisions.md)。
 
+还可传 `state_record: "GM_DEPT_AET"` 绑定已存在的唯一默认状态记录，以及严格布尔 `disable_restart: true/false` 设置 Disable Restart；省略参数保持默认行为。属性在代码粘贴前配置，成功返回还要求 `state_record_bound`、`restart_verified`、`properties_saved` 对应原生终态；工作台存在其他状态记录时停止，不覆盖。最终完整创建及 DBX 已验收，实际 Excel 导出尚受 JVM 运行环境阻塞，详见 [部门导出 demo](docs/department_export_demo.md)。
+
 空闲超时恢复、真实退出再进入命令、每个节点的 OCR/延迟/点击/失败检查，以及 GM 测试对象的截图见 [开发记录](docs/recovery.md)。`run_pipeline.py` 现在在业务任务开始前连接失败时尝试已识别的恢复路径，可用 `--no-recovery` 关闭；不会自动重放失败的业务任务。每次任务的 Maa 原生截图、识别和动作事件保存到本机 `out/runs/`，恢复证据位于 `out/recovery/`。
 
 ```powershell

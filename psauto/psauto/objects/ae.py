@@ -7,8 +7,21 @@ from .common import bind_pipeline, identifier
 
 def build(request):
     count = len(request.steps)
-    values = {'name': request.name, 'name_regex': identifier(request.name)}
+    values = {'name': request.name, 'name_regex': identifier(request.name),
+              'property_identity_regex': r'(?:^|-\s*)' + identifier(request.name) + r'(?=\s*(?:\(|（))'}
     patches = {f'A{count - 1}_ParentReady': {'next': ['PSIDE_CreateAE_Saved']}}
+    if request.state_record is not None or request.disable_restart is not None:
+        patches['A0_StructureSave_named'] = {'next': ['AEProp_OpenFileMenu']}
+        patches['AEProp_Ready'] = {'next': ['AEProp_StateTab' if request.state_record else 'AEProp_AdvancedTab']}
+        if request.state_record:
+            values['state_record'] = request.state_record
+            values['state_record_regex'] = r'^\s*' + identifier(request.state_record) + r'\s*$'
+            patches['AEProp_StateBound'] = {'next': ['AEProp_AdvancedTab' if request.disable_restart is not None else 'AEProp_OK']}
+        if request.disable_restart is not None:
+            selected = ['PSIDE/checkbox_selected.png', 'PSIDE/checkbox_selected_hover.png']
+            unselected = ['PSIDE/checkbox_unchecked.png', 'PSIDE/checkbox_unchecked_hover.png']
+            values['restart_wanted'] = selected if request.disable_restart else unselected
+            values['restart_opposite'] = unselected if request.disable_restart else selected
     for index, step in enumerate(request.steps):
         values[f'code_{index}'] = step.code
         values[f'step_{index}_type'] = step.type

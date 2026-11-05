@@ -1,0 +1,11 @@
+{
+  "tests": 2,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "cases": [
+    "test_property_identity_rejects_prefix_on_real_active_title_before_click_or_save",
+    "test_full_state_candidates_reject_nonempty_lower_rows_without_any_input"
+  ]
+}

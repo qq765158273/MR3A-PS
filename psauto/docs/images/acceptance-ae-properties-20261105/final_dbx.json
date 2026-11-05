@@ -1,0 +1,74 @@
+{
+  "target": "GM_DEPT_XL4",
+  "scope": "Read-only authoring metadata and compiled PeopleCode length; not an AE runtime or workbook validation",
+  "metadata": {
+    "content": [
+      {
+        "type": "text",
+        "text": "### Statement 1\n| AE_APPLID | AE_DISABLE_RESTART | AE_STATE_RECNAME | AE_DEFAULT_STATE |\n|---|---|---|---|\n| GM_DEPT_XL4 | Y | GM_DEPT_AET | Y |\n(1 rows, 23ms)\n### Statement 2\n| OBJECTVALUE1 | OBJECTVALUE6 | PROGLEN |\n|---|---|---|\n| GM_DEPT_XL4 | Step01 | 7264 |\n(1 rows, 14ms)"
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "columns": [
+            "AE_APPLID",
+            "AE_DISABLE_RESTART",
+            "AE_STATE_RECNAME",
+            "AE_DEFAULT_STATE"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL4",
+              "Y",
+              "GM_DEPT_AET",
+              "Y"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 23,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 0,
+          "error_message": "GM_DEPT_XL4"
+        },
+        {
+          "columns": [
+            "OBJECTVALUE1",
+            "OBJECTVALUE6",
+            "PROGLEN"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NUMBER"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL4",
+              "Step01",
+              "7264"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 14,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 1,
+          "error_message": "GM_DEPT_XL4"
+        }
+      ]
+    },
+    "isError": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "GM_DEPT_XL3",
+  "steps": [
+    {
+      "name": "Step01",
+      "type": "PeopleCode",
+      "code_sha256": "0c8ab749ff7708fca00c5905a454533ac40b0b64f73347cc117ef0360529c178",
+      "code_bytes": 3925
+    }
+  ],
+  "state_record": "GM_DEPT_AET",
+  "disable_restart": true
+}

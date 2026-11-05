@@ -12,11 +12,27 @@ from unittest.mock import MagicMock, Mock, patch
 import numpy as np
 
 from psauto.config import Config
-from psauto.objects.models import FieldRequest, RecordRequest
+from psauto.objects.models import AERequest, FieldRequest, RecordRequest
 from psauto.objects.service import ObjectService
 
 
 class ObjectServiceTests(unittest.TestCase):
+    def test_ae_properties_require_native_bound_verified_and_saved_endpoints(self):
+        request=AERequest(name='GM_TEST_A',steps=[{'type':'PeopleCode','code':'x'}],
+                          state_record='GM_DEPT_AET',disable_restart=True)
+        self.completed_names('PSIDE_CreateAE_Saved','PSIDE_CreateAE_SavedAndClosed')
+        incomplete=self.service.execute(request)
+        self.assertFalse(incomplete['success'])
+        self.assertTrue(incomplete['saved'])
+        self.assertFalse(incomplete['properties_saved'])
+        self.completed_names('PSIDE_CreateAE_Saved','PSIDE_CreateAE_SavedAndClosed',
+                             'AEProp_StateBound','AEProp_RestartVerified','AEProp_Saved')
+        complete=self.service.execute(request)
+        self.assertTrue(complete['success'])
+        self.assertTrue(complete['state_record_bound'])
+        self.assertTrue(complete['restart_verified'])
+        self.assertTrue(complete['properties_saved'])
+
     def setUp(self):
         self.stack = ExitStack()
         self.addCleanup(self.stack.close)

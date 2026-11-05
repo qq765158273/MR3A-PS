@@ -1,0 +1,9 @@
+test_qualify_cannot_modify_an_occupied_state_list (test_ae_properties_recognition.AEPropertyRecognitionTests.test_qualify_cannot_modify_an_occupied_state_list) ... ok
+test_restart_toggles_only_once_then_verifies_requested_state (test_ae_properties_recognition.AEPropertyRecognitionTests.test_restart_toggles_only_once_then_verifies_requested_state) ... ok
+test_state_binding_requires_exact_default_record (test_ae_properties_recognition.AEPropertyRecognitionTests.test_state_binding_requires_exact_default_record) ... ok
+test_state_name_must_share_the_first_default_rows_checkbox (test_ae_properties_recognition.AEPropertyRecognitionTests.test_state_name_must_share_the_first_default_rows_checkbox) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.960s
+
+OK

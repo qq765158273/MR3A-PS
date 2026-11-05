@@ -143,6 +143,8 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 #### 当前完整配置与性能（2026-11-05）
 
+部门导出 demo 已补 `create_ae(state_record, disable_restart)`：先配置唯一默认 AET/Restart，再编译代码并保存关闭；业务成功要求对应原生属性终态。`GM_DEPT_AET`（Derived/Work）完整创建通过；最终 `GM_DEPT_XL4` 新 MCP 从头 75 节点、66.50 秒通过，0 节点/动作失败，DBX 确认默认 AET、Disable Restart=Y 和 PeopleCode 编译结果。普通 121 项中 55 通过/66 跳过，新增 6 项原生属性及原有 14 项原生视觉回归通过。pshelp 找出的对象前缀和空列表保护问题已修复，独立定向复测 2/2 通过。**实际 Excel 导出仍未验收**：早先样本本地 Run 已进入 PeopleCode，但 Java 虚拟机无法启动，RC=8；登记的 Web 入口也无法连接，仍需可用调度器或本地运行环境。运行未验证的业务草稿保留工作区，未作为可信代码提交。设计、原生日志、问题和待补执行环境见 [部门导出 demo](psauto/docs/department_export_demo.md)。
+
 最新一轮将每请求的连接、尺寸、Guacamole flush、图层和焦点检查合并为一次浏览器查询，状态仍逐次重读。现场同页 12 对只读截图逐像素一致：截图 CLI 中位数 180.5→76.7ms，含解码 227.4→123.7ms；原生日志继续保留，既有 timings.json 增加浏览器往返/内部阶段和解码分项，嵌套时间不能相加。详见 [查询往返优化](psauto/docs/performance/transport_roundtrips.md)。
 
 真实回归先后暴露两处 Record 卡点：选中字段边框被 OCR 识别成引号，现将字段 ROI 左界右移 10px、保留严格名称；Build 后标题随机点击可能击中系统图标，现同时识别完整对象名和关闭按钮图片，直接点按钮后确认空白台。最终 Build 路径为 207 节点。GM_RPC_REC3 完整 173.22 秒、保存/Build/关闭及 DBX 通过；另在同一新 MCP 实例连续创建 GM_RPC_F1 和引用它的 GM_RPC_REC4，48.89 / 175.53 秒，均保存关闭、证据 complete、允许下一操作，Record4 零扫描重试或节点/动作失败。前两次 failed / partial 样本单独保留，不计完整成功。记录和截图见 [本轮真实验收](psauto/docs/images/acceptance-roundtrips-20261105/README.md)。

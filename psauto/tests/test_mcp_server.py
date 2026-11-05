@@ -25,8 +25,17 @@ class MCPProtocolTests(unittest.IsolatedAsyncioTestCase):
                     step = tools['create_ae'].inputSchema['$defs']['AEStep']['properties']
                     self.assertEqual(set(step['type']['enum']), {'SQL', 'PeopleCode'})
                     self.assertEqual(step['code']['type'], 'string')
+                    ae_args=tools['create_ae'].inputSchema['properties']
+                    self.assertIn('state_record',ae_args)
+                    self.assertIn('disable_restart',ae_args)
                     invalid_name = await client.call_tool('create_field', {'name': 'BAD', 'long_name': 'x', 'short_name': 'x'})
                     self.assertTrue(invalid_name.isError)
                     invalid_type = await client.call_tool('create_ae', {'name': 'GM_TEST', 'steps': [{'type': 'Do Select', 'code': 'x'}]})
                     self.assertTrue(invalid_type.isError)
+                    bad_state=await client.call_tool('create_ae',{'name':'GM_TEST','steps':[{'type':'PeopleCode','code':'x'}],
+                                                                'state_record':'invalid-record'})
+                    self.assertTrue(bad_state.isError)
+                    bad_bool=await client.call_tool('create_ae',{'name':'GM_TEST','steps':[{'type':'PeopleCode','code':'x'}],
+                                                               'disable_restart':'yes'})
+                    self.assertTrue(bad_bool.isError)
             self.assertFalse((Path(directory) / 'out').exists(), 'Invalid MCP parameters must not start automation')
