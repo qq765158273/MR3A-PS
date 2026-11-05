@@ -67,7 +67,7 @@ ca83533ce97c7f343a1b1edca7c2df49faa972eb0d3b1634dd3183c7e5eb9854  psauto/docs/pe
 - `assets/resource/pipeline/PSIDE/create_record.json` 的 `R_AttrFocus.roi_offset` 已从 `[-5,20,100,400]` 改为 `[5,20,90,400]`。使用固定 anchor `[659,290,65,24]`，旧 ROI 为 `[654,310,165,424]`，新 ROI 为 `[664,310,155,424]`。新增 `test_image_recognition.py` 用真实 `record_selected_effdt_prefix.png` 复现旧 crop 失败，并验证五字段正例和 `EFFDT_X/EFFD/X_EFFDT` 反例；不放宽字段名正则。日志 `psauto/out/batch_native_vision_tests.log` 最终为 13 项通过、0 跳过。当前文件 SHA：`a963916f8f9ce23a6a3dd9e079afcb4fce9197f3c70aaf6ea87669677149d090`（JSON）、`8d938c3705a3fa5f76d849035bb0f3e0bb02d216f26db68e394c4f03cfc23a1b`（测试）、`e5ab5857c911c51a8c7d715721916b0e7bf52b6248449423d03f7ec5be6baad2`（fixture）。
 - 主控提供的首个 `GM_RPC_REC` 失败证据目录 `psauto/out/objects/20261105_175023_339465` 已存在完整 report/events/summary/timings 和截图，任务在保存前停止，137 节点；该调用不计成功、不自动重放。主控随后用独立临时 Pipeline 丢弃未保存草稿并确认空白台，再从头启动 `GM_RPC_REC2`；本 agent 不等待、不操作该真实 MCP 运行，也不把其尚未完成状态计入审核。
 - 现场只读 `live_readonly_comparison.json` 已更新，当前 SHA `ca83533ce97c7f343a1b1edca7c2df49faa972eb0d3b1634dd3183c7e5eb9854`。12 对 baseline/current 截图像素相等；页面 visible、1920×897、原图 1920×1080、settle 0。现场只读中位数为截图 CLI `180.5→76.7ms`，含 decode `227.4→123.7ms`，inspect `101.1→37.2ms`；这仍是只读截图对照，不是业务输入或端到端提速证据。此前“现场 A/B 未执行”的表述仅保留历史背景，现已修正为“现场只读截图 A/B 已完成，真实业务 A/B/验收仍未完成”。
-- `transport_roundtrips.md` 当前 SHA 为 `1f2e7e8f76c69a64ddecefc90ca3848a89b27e180bdd98ddb7daf4a6e1b7da2d`；此前报告正文表中的旧文档 SHA 已由本附记更正。上述现有适配器 SHA、isolated 数据 SHA 保持不变。主控补充的真实现场状态不改变本轮适配器保护结论，也不把 `GM_RPC_REC2` 的运行中状态当作审核通过。
+- `transport_roundtrips.md` 当前 SHA 为 `9da23c4d8d38e641e643df6dcead775f6046fbeac3d89ab0e5d7bfcdfcc96da0`；此前报告正文表中的旧文档 SHA 已由本附记更正。上述现有适配器 SHA、isolated 数据 SHA 保持不变。主控补充的真实现场状态不改变本轮适配器保护结论，也不把 `GM_RPC_REC2` 的运行中状态当作审核通过。
 
 **最终必要补核（2026-11-05 10:15:20 UTC / 18:15:20 +08:00）：** 主控补充了 Record Build 后关闭缺口；本 agent 只核对当前 JSON、fixture、测试和已有证据，不操作真实 MCP。
 
@@ -77,12 +77,14 @@ ca83533ce97c7f343a1b1edca7c2df49faa972eb0d3b1634dd3183c7e5eb9854  psauto/docs/pe
 - `psauto/out/objects/20261105_180031_075459` 的原始 report/events 显示该调用仍走旧 `R_CloseSaved`，Build 已完成但 `PSIDE_CreateRecord_SavedAndClosed` 未命中，最后 `R_CloseSaved` pipeline failed；summary 为 207/208 完成、pipeline_node_failures=1、succeeded=false。这是补丁替换前的 `GM_RPC_REC2` 失败证据，不能用来验证新 `R_BuildCloseSaved` 已在真实 MCP 中成功。主控已明确该 partial 不计成功，随后 `GM_RPC_REC3` 从头运行；本 agent 不等待或操作它。
 - 因此本次补核结论是：**当前关闭节点的静态结构和两个新增离线 native 用例通过；主控旧 partial 证据保留为失败样本，尚无本 agent 独立的真实新节点端到端成功证据。** 这不推翻本轮适配器保护结论，也不把保存/Build 完成等同于最终 Record 成功。
 
-**最终主控验收收尾附记（2026-11-05 10:21:21 UTC / 18:21:21 +08:00）：** 主控已完成真实验收；以下全部是主控运行/DBX 证据，本 agent 未操作浏览器、MCP 或数据库，也不将其称为独立验收。
+**最终主控验收收尾附记（2026-11-05 10:24:10 UTC / 18:24:10 +08:00）：** 主控已完成真实验收；以下全部是主控运行/DBX 证据，本 agent 未操作浏览器、MCP 或数据库，也不将其称为独立验收。
 
 - `GM_RPC_REC3` 从头完成，工具返回 `saved_and_closed`、`built:true`、`workspace_ready:true`、`evidence_status:complete`、`next_operation_allowed:true`，耗时 173.22 秒，原生节点 207。文档说明有 24 次候选未命中，其中 4 次额外状态扫描；这些扫描不是重发输入，不能把该调用写成零扫描/零候选未命中。对应归档 [record3_result.json](C:/Users/t-wangsen05/Desktop/MR3A-PS/psauto/docs/performance/roundtrips/record3_result.json)，证据目录为 `out/objects/20261105_180726_715320`。
 - 随后同一新 MCP 实例连续完成 `GM_RPC_F1`（48.89 秒，40 节点）及引用它的 `GM_RPC_REC4`＋Build（175.53 秒，207 节点）。两次都返回 saved_and_closed、workspace_ready、evidence complete、允许下一操作；Record4 为 0 识别轮次重试、0 节点失败、0 动作失败。对应 [continuity_results.json](C:/Users/t-wangsen05/Desktop/MR3A-PS/psauto/docs/performance/roundtrips/continuity_results.json)。
 - 主控归档的 DBX 只读结果确认 REC3 的五字段 USEEDIT、HRAPP、3 个 VALID 索引和 0 行；连续实例确认 F1 类型 0/长度 11/标签和长短名称，以及 REC4 字段顺序/属性、HRAPP、3 个 VALID 索引和 0 行。证据入口为 [acceptance-roundtrips-20261105/README.md](C:/Users/t-wangsen05/Desktop/MR3A-PS/psauto/docs/images/acceptance-roundtrips-20261105/README.md)。这些是主控提供的 DBX 结果，不是本 agent 独立数据库检查。
 - 日志版本已澄清：最终原生识图日志是 `psauto/out/batch_native_vision_tests_final.log`，归档副本为 [verification_native_vision.txt](C:/Users/t-wangsen05/Desktop/MR3A-PS/psauto/docs/performance/roundtrips/verification_native_vision.txt)，末尾为 **14 项通过**；旧 `batch_native_vision_tests.log` 的 13 项是过时文件。最新普通套件归档 [verification_unit.txt](C:/Users/t-wangsen05/Desktop/MR3A-PS/psauto/docs/performance/roundtrips/verification_unit.txt) 为 **113 项、53 通过、60 显式跳过**。本 agent 没有重跑这两份最终日志，仅核对主控归档内容。
 - 报告首页此前自填的 17:34 时间是笔误；首次落盘应记为 **17:54:42 +08:00**。本附记实际修订时间为 18:21:21 +08:00。此前所有独立复验和失败证据的历史时间保留，不改写成主控真实验收由本 agent 完成。
+
+归档文件 SHA：`a2c910e66681672c37ea9a58c0c5669d5041f685b197215d17762ce1634d1268`（record3_result.json）、`60156500600811286bf49368e408d3f99225eadd0230c4c715cd49fd143ea456`（continuity_results.json）、`02d5f211a0d61731525986d43ffd42970d58befb1cfd1c4333477670e9b4586e`（verification_native_vision.txt，14 项）、`e5fcafda5ad4228f749f65ad2cc189c4072789d41f312e4ed4bcca8efe8229c3`（verification_unit.txt，113 项）、`ce1c2e6a08291aa7568e04ec61b205994da55bb28cfbc1a1909d83eb7852a88c`（acceptance-roundtrips README）。本 agent 未重跑或独立执行这些真实/DBX证据。
 
 本轮最终状态：适配器合并检查与离线独立复验仍按原结论通过；Record ROI/Build 关闭修复由主控真实 MCP 进一步验收通过；两次失败样本仍保留并按失败/partial 统计；最终连续调用与 DBX 结果支持主控的业务验收结论，但不扩大为长期无人值守保证。
