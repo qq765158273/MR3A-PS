@@ -94,7 +94,11 @@ class BrowserRecoveryController(CliController):
 
 def connect_recovery_controller(cfg):
     session = BrowserRecoverySession(cfg)
-    controller = BrowserRecoveryController(session, cfg)
-    if not controller.set_screenshot_use_raw_size(True) or not controller.post_connection().wait().succeeded:
-        raise RuntimeError('Unable to initialize the browser recovery controller')
-    return session, controller
+    try:
+        controller = BrowserRecoveryController(session, cfg)
+        if not controller.set_screenshot_use_raw_size(True) or not controller.post_connection().wait().succeeded:
+            raise RuntimeError('Unable to initialize the browser recovery controller')
+        return session, controller
+    except BaseException:
+        session.stop()
+        raise

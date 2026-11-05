@@ -23,39 +23,95 @@ from .models import AERequest, FieldRequest, RecordRequest
 BUILDERS = {FieldRequest: field.build, RecordRequest: record.build, AERequest: ae.build}
 
 
+def _business_result(entry, request, job, trace):
+    """Read terminal facts from the native task's events, without exporting images."""
+    events = [event for event in trace.events if event['details'].get('task_id') == job.job_id]
+    completed = {
+        event['details']['node_details']['name'] for event in events
+        if event['event'] == 'Node.PipelineNode.Succeeded'
+        and event['details'].get('node_details', {}).get('completed') is True
+    }
+    may_exist = any(event['event'] == 'Node.Action.Starting'
+                    and event['details'].get('name', '').endswith('_ok') for event in events)
+    saved = entry + '_Saved' in completed
+    closed = entry + '_SavedAndClosed' in completed
+    built = 'R_BuildFinished' in completed
+    build_required = isinstance(request, RecordRequest) and request.build
+    conflict = entry + '_already_exists' in completed
+    conflict_closed = entry + '_conflict_closed' in completed
+    success = bool(job.succeeded and saved and closed and (not build_required or built))
+    status = ('saved_and_closed' if success else
+              'already_exists' if conflict and conflict_closed and job.succeeded else
+              'partial' if saved or may_exist else 'failed')
+    failures = [event['details'].get('name') for event in events
+                if event['event'] == 'Node.PipelineNode.Failed']
+    return {'success': success, 'status': status, 'name': request.name,
+            'saved': saved, 'workspace_ready': closed or conflict_closed,
+            **({'built': built} if build_required else {}),
+            'may_exist': may_exist or saved or conflict,
+            'failed_node': failures[-1] if failures and not success and not conflict_closed else None}
+
+
 class ObjectService:
     def __init__(self, cfg):
         self.cfg = cfg
         self._lock = threading.Lock()
         self._uncertain_timeout = False
         self._workspace_blocked = False
+        self._evidence_blocked = False
+        self._operation_blocked = False
+        self._last_workspace_ready = False
 
     def execute(self, request):
         entry, override = BUILDERS[type(request)](request)
         with self._lock:
             if self._uncertain_timeout:
                 return {'success': False, 'status': 'session_stopped', 'name': request.name,
-                        'workspace_ready': False,
+                        'workspace_ready': False, 'next_operation_allowed': False,
                         'message': 'A previous CLI timeout has an uncertain outcome; inspect the session before restarting the MCP server'}
             if self._workspace_blocked:
                 return {'success': False, 'status': 'workspace_not_ready', 'name': request.name,
-                        'workspace_ready': False,
+                        'workspace_ready': False, 'next_operation_allowed': False,
                         'message': 'The previous operation did not return to the idle workspace; inspect it before restarting the MCP server'}
+            if self._evidence_blocked:
+                return {'success': False, 'status': 'evidence_unavailable', 'name': request.name,
+                        'workspace_ready': self._last_workspace_ready, 'next_operation_allowed': False,
+                        'message': 'A previous call has incomplete evidence; resolve the evidence failure before restarting the MCP server'}
+            if self._operation_blocked:
+                return {'success': False, 'status': 'operation_stopped', 'name': request.name,
+                        'workspace_ready': self._last_workspace_ready, 'next_operation_allowed': False,
+                        'message': 'A previous operation raised an error; inspect its known outcome before restarting the MCP server'}
             cfg = copy.copy(self.cfg)
             cfg.text_input_mode = 'clipboard'
             output = cfg.resolve_path('out/objects/' + datetime.now().strftime('%Y%m%d_%H%M%S_%f'))
-            output.mkdir(parents=True, exist_ok=True)
-            (output / 'request.json').write_text(request.model_dump_json(indent=2), encoding='utf-8')
-            (output / 'pipeline_override.json').write_text(json.dumps(override, ensure_ascii=False, indent=2), encoding='utf-8')
-            Toolkit.init_option(str(cfg.base_dir))
-            Tasker.set_stdout_level(LoggingLevelEnum.Off)
-            Tasker.set_debug_mode(True)
             session = None
             trace = None
+            job = None
             task_started = False
-            saved = workspace_ready = may_exist = False
+            evidence_complete = False
+            outcome_recorded = False
+            evidence_errors = []
+            operation_error = None
             timings = {}
+            result = {'success': False, 'status': 'failed', 'name': request.name,
+                      'saved': False, 'workspace_ready': False, 'may_exist': False,
+                      'failed_node': None, 'evidence_dir': str(output)}
+
+            def evidence_error(stage, exc):
+                evidence_errors.append({'stage': stage, 'error': f'{type(exc).__name__}: {exc}'[:1000]})
+                self._evidence_blocked = True
+
             try:
+                try:
+                    output.mkdir(parents=True, exist_ok=True)
+                    (output / 'request.json').write_text(request.model_dump_json(indent=2), encoding='utf-8')
+                    (output / 'pipeline_override.json').write_text(json.dumps(override, ensure_ascii=False, indent=2), encoding='utf-8')
+                except Exception as exc:
+                    evidence_error('request_evidence', exc)
+                    raise
+                Toolkit.init_option(str(cfg.base_dir))
+                Tasker.set_stdout_level(LoggingLevelEnum.Off)
+                Tasker.set_debug_mode(True)
                 try:
                     session, controller = connect_controller(cfg)
                 except RuntimeError:
@@ -67,59 +123,80 @@ class ObjectService:
                     trace = EvidenceSink(tasker)
                     task_started = True
                     started = time.perf_counter()
-                    job = tasker.post_task(entry, override).wait()
+                    job = tasker.post_task(entry, override)
+                    job.wait()
                     timings['pipeline_ms'] = round((time.perf_counter() - started) * 1000, 2)
+                    result.update(_business_result(entry, request, job, trace))
+                    outcome_recorded = True
+                    self._workspace_blocked = not result['workspace_ready']
                     started = time.perf_counter()
-                    report = export_task_evidence(job, output, trace)
-                    timings['evidence_export_ms'] = round((time.perf_counter() - started) * 1000, 2)
-                    completed = {n['name'] for n in report['nodes'] if n['completed']}
-                    may_exist = any(e['event'] == 'Node.Action.Starting' and e['details'].get('name', '').endswith('_ok')
-                                    for e in trace.events)
-                    saved = entry + '_Saved' in completed
-                    closed = entry + '_SavedAndClosed' in completed
-                    built = 'R_BuildFinished' in completed
-                    build_required = isinstance(request, RecordRequest) and request.build
-                    conflict = entry + '_already_exists' in completed
-                    conflict_closed = entry + '_conflict_closed' in completed
-                    workspace_ready = closed or conflict_closed
-                    success = job.succeeded and saved and closed and (not build_required or built)
-                    status = ('saved_and_closed' if success else
-                              'already_exists' if conflict and conflict_closed and job.succeeded else
-                              'partial' if saved or may_exist else 'failed')
-                    self._workspace_blocked = not workspace_ready
-                    failures = [e['details'].get('name') for e in trace.events
-                                if e['event'] == 'Node.PipelineNode.Failed']
-                    shot = controller.post_screencap().wait()
-                    if shot.succeeded:
+                    try:
+                        export_task_evidence(job, output, trace)
+                        evidence_complete = True
+                    except Exception as exc:
+                        evidence_error('task_evidence', exc)
+                    finally:
+                        timings['evidence_export_ms'] = round((time.perf_counter() - started) * 1000, 2)
+                    try:
+                        shot = controller.post_screencap().wait()
+                        if not shot.succeeded:
+                            raise RuntimeError('Final evidence screenshot was not captured')
                         Image.fromarray(shot.get()[:, :, ::-1]).save(output / 'after.png')
-                    self._uncertain_timeout = session.poisoned
-                    return {'success': success, 'status': status, 'name': request.name,
-                            'saved': saved, 'workspace_ready': workspace_ready,
-                            **({'built': built} if build_required else {}),
-                            'may_exist': may_exist or saved or conflict,
-                            'failed_node': failures[-1] if failures and not success and not conflict_closed else None,
-                            'evidence_dir': str(output)}
+                    except Exception as exc:
+                        evidence_error('after_screenshot', exc)
             except Exception as exc:
-                if session is not None and session.poisoned:
-                    self._uncertain_timeout = True
-                if task_started and not workspace_ready:
+                operation_error = f'{type(exc).__name__}: {exc}'
+                self._operation_blocked = task_started
+                if job is not None and trace is not None and not outcome_recorded:
+                    try:
+                        result.update(_business_result(entry, request, job, trace))
+                    except Exception as state_exc:
+                        evidence_error('business_state_read', state_exc)
+                if task_started and not result['workspace_ready']:
                     self._workspace_blocked = True
-                (output / 'error.txt').write_text(f'{type(exc).__name__}: {exc}', encoding='utf-8')
-                return {'success': False, 'status': 'failed', 'name': request.name,
-                        'saved': saved, 'workspace_ready': workspace_ready,
-                        'may_exist': saved or may_exist or task_started,
-                        'message': 'Automation stopped; inspect the local evidence. The task was not replayed.',
-                        'evidence_dir': str(output)}
+                result['may_exist'] = result['may_exist'] or task_started
+                result['message'] = 'Automation stopped; inspect the local evidence. The task was not replayed.'
             finally:
+                if trace is not None:
+                    try:
+                        trace.close()
+                    except Exception as exc:
+                        evidence_error('event_sink_cleanup', exc)
                 if session is not None:
                     try:
+                        self._uncertain_timeout = self._uncertain_timeout or bool(session.poisoned)
                         transport = getattr(session, 'timings', [])
                         if not isinstance(transport, list):
                             transport = []
                         cli_settings = getattr(session, 'cli_settings', {})
                         if isinstance(cli_settings, dict) and cli_settings:
                             timings['cli_settings'] = cli_settings
-                        (output / 'timings.json').write_text(json.dumps({**timings, 'transport': transport},
-                                                                        indent=2), encoding='utf-8')
+                        timings['transport'] = transport
+                    except Exception as exc:
+                        evidence_error('timings_read', exc)
                     finally:
-                        session.stop()
+                        try:
+                            session.stop()
+                        except Exception as exc:
+                            self._uncertain_timeout = True
+                            evidence_error('client_cleanup', exc)
+                try:
+                    (output / 'timings.json').write_text(json.dumps(timings, indent=2), encoding='utf-8')
+                except Exception as exc:
+                    evidence_error('timings_write', exc)
+            if operation_error or evidence_errors:
+                try:
+                    lines = ([operation_error] if operation_error else []) + [
+                        f"{error['stage']}: {error['error']}" for error in evidence_errors]
+                    (output / 'error.txt').write_text('\n'.join(lines), encoding='utf-8')
+                except Exception as exc:
+                    evidence_error('error_report', exc)
+            result['evidence_status'] = ('partial' if evidence_errors else 'complete') if evidence_complete else 'failed'
+            if operation_error:
+                result['operation_error'] = operation_error[:1000]
+            if evidence_errors:
+                result['evidence_errors'] = evidence_errors
+            self._last_workspace_ready = result['workspace_ready']
+            result['next_operation_allowed'] = not (self._uncertain_timeout or self._workspace_blocked
+                                                    or self._evidence_blocked or self._operation_blocked)
+            return result

@@ -98,6 +98,8 @@ PSIDE 节点位于原 MR3A 资源目录 `assets/resource/pipeline/PSIDE/`。运�
 
 `mcp_server.py` 对外提供 `create_field`、`create_record`、`create_ae`。三个操作均在保存并关闭、返回空白操作台后结束，不重新打开对象，不核对已保存内容；内容交由 DB 验证。`success: true` 和 `status: saved_and_closed` 仅代表界面操作完成。`workspace_ready: false` 表示操作台尚未释放，该服务实例会阻止下一对象进入；检查操作台后重启服务。固定 UI 步骤位于 `assets/resource/pipeline/PSIDE/create_*.json`，Python 只绑定参数及调用 Maa。Record 字段可传名称字符串，或 `{name, key, alternate_search_key, listbox, search_key}`；普通 Search Key 要求 Key，非 Key 使用 Alternate Search Key。SQL Table 可传 `build: true`，表空间参数 `tablespace` 在当前 HRDEV 默认为 `HRAPP`。Build 只创建当前定义及其索引，使用 Skip existing，成功反馈后关闭。完整调用的实测进度见 [dbx 验收记录](docs/acceptance.md)。
 
+返回结果将业务与证据分开：`evidence_status` 为 complete/partial/failed，异常阶段在 `evidence_errors`；业务执行/退出异常另有 `operation_error`。已经保存关闭时，写盘故障仍保留 `saved:true`、`workspace_ready:true`，同时 `next_operation_allowed:false`，服务阻止后续业务。调用方需要同时读取这个字段，排查故障并重启 MCP 连接后再继续，不重放已完成任务。对应阻塞状态为 evidence_unavailable / operation_stopped；原有工作台和不确定会话保护保留。详见 [审核修复与验证](docs/reliability_fixes.md)。
+
 运行 MCP 服务（从 `psauto/` 目录）：
 
 ```powershell

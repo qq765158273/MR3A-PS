@@ -143,6 +143,8 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 #### 当前完整配置与性能（2026-11-05）
 
+后续独立审核指出的三个既有问题已修复：Build 计数按完整数字判决；业务保存/关闭事实与证据写入状态分离；恢复探针、控制器及事件订阅清理补齐。证据或操作异常保留已知业务结果，同时 next_operation_allowed=false 阻止下一任务，不重放。pshelp 对最终 9 个文件哈希复核通过其离线/故障模拟范围；服务 20 项、恢复 9 项、原生识图 12 项通过，另以最终代码完整创建 GM_FIX_FLD 并经 DBX 验收。接口及边界见 [可靠性修复](psauto/docs/reliability_fixes.md)、[正式复核](psauto/docs/pshelp_reliability_review.md) 和 [真实补测](psauto/docs/images/acceptance-review-fixes-20261105/README.md)。
+
 官方 CLI 配置 `timeouts.settle=0` 已完成隔离对照及真实浏览器验证，并在同一 MCP 服务实例连续完成四次完整调用，共约 **6 分 21 秒、409 个节点**，全部保存关闭、释放空白操作台，0 识别轮次重试、0 节点失败、0 动作失败；DBX 全部通过。Pipeline 的节点和业务缓冲保持，最终 Step 身份边界补丁也已完成本轮四步 AE 回归。
 
 | 操作 | 历史完整调用 | 本轮工具调用含导出 |

@@ -49,6 +49,59 @@ class ImageRecognitionTests(unittest.TestCase):
     def image(self,name):
         return Image.open(self.fixtures/name).convert('RGB')
 
+    def test_build_requires_exact_record_error_and_warning_counts_before_closing(self):
+        crop=self.image('build_success_feedback.png')
+        font=ImageFont.truetype('C:/Windows/Fonts/msyh.ttc',14)
+        cases=[('captured',None,True),("synthetic-success",(1,0,0),True)]
+        cases.extend((str(counts),counts,False) for counts in [
+            (0,0,0),(10,0,0),(11,0,0),(100,0,0),
+            (1,1,0),(1,10,0),(1,20,0),(1,100,0),
+            (1,0,1),(1,0,10),(1,0,20),(1,0,100),(10,20,30)])
+        try:
+            for label,counts,expected in cases:
+                frame=Image.new('RGB',(1920,1080),'white');frame.paste(crop,(10,938))
+                if counts is not None:
+                    draw=ImageDraw.Draw(frame);draw.rectangle((10,938,910,960),fill='white')
+                    records,errors,warnings=counts
+                    draw.text((13,940),f'已经处理了{records}条记录、{errors}条错误和{warnings}条警告。',font=font,fill='black')
+                with Image.open(self.resource/'image/PSIDE/active_editor_close.png') as icon:
+                    frame.paste(icon.convert('RGB'),(1000,200))
+                self.controller.frame=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+                keys=[];self.controller.key_hook=lambda key: keys.append(key) or True
+                job=self.tasker.post_task('R_BuildExecute',{
+                    'R_BuildExecute':{'recognition':'DirectHit','action':'DoNothing','next':['R_BuildFinished'],
+                                      'timeout':50,'rate_limit':0,'pre_delay':0,'post_delay':0},
+                    'R_BuildFocusEditor':{'recognition':'DirectHit','action':'ClickKey','key':0x20073,
+                                         'next':[],'pre_delay':0,'post_delay':0},
+                }).wait()
+                with self.subTest(case=label):
+                    self.assertEqual(job.succeeded,expected)
+                    self.assertEqual(keys,[0x20073] if expected else [])
+        finally:self.controller.key_hook=None
+
+    def test_service_outcome_reads_the_real_native_terminal_events(self):
+        from psauto.evidence import EvidenceSink
+        from psauto.objects.models import FieldRequest
+        from psauto.objects.service import _business_result
+        request=FieldRequest(name='GM_NATIVE',long_name='GM Native',short_name='GM')
+        for close in (False,True):
+            trace=EvidenceSink(self.tasker)
+            try:
+                job=self.tasker.post_task('PSIDE_CreateField',{
+                    'PSIDE_CreateField':{'enabled':True,'recognition':'DirectHit','action':'DoNothing',
+                                         'next':['PSIDE_CreateField_Saved'],'pre_delay':0,'post_delay':0},
+                    'PSIDE_CreateField_Saved':{'recognition':'DirectHit','action':'DoNothing',
+                        'next':['PSIDE_CreateField_SavedAndClosed'] if close else [],'pre_delay':0,'post_delay':0},
+                    'PSIDE_CreateField_SavedAndClosed':{'recognition':'DirectHit','action':'DoNothing',
+                                                      'next':[],'pre_delay':0,'post_delay':0},
+                }).wait()
+                result=_business_result('PSIDE_CreateField',request,job,trace)
+                with self.subTest(closed=close):
+                    self.assertTrue(result['saved'])
+                    self.assertEqual(result['workspace_ready'],close)
+                    self.assertEqual(result['success'],close)
+            finally:trace.close()
+
     def test_one_title_recognition_requires_both_the_exact_object_and_step(self):
         from maa.pipeline import JOCR
         from psauto.objects.models import AERequest

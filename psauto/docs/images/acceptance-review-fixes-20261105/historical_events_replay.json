@@ -1,0 +1,43 @@
+[
+  {
+    "label": "field",
+    "success": true,
+    "status": "saved_and_closed",
+    "name": "GM_OPT_EMPLID",
+    "saved": true,
+    "workspace_ready": true,
+    "may_exist": true,
+    "failed_node": null
+  },
+  {
+    "label": "date",
+    "success": true,
+    "status": "saved_and_closed",
+    "name": "GM_OPT_DATE",
+    "saved": true,
+    "workspace_ready": true,
+    "may_exist": true,
+    "failed_node": null
+  },
+  {
+    "label": "record",
+    "success": true,
+    "status": "saved_and_closed",
+    "name": "GM_OPT_REC",
+    "saved": true,
+    "workspace_ready": true,
+    "built": true,
+    "may_exist": true,
+    "failed_node": null
+  },
+  {
+    "label": "ae",
+    "success": true,
+    "status": "saved_and_closed",
+    "name": "GM_OPT_AE",
+    "saved": true,
+    "workspace_ready": true,
+    "may_exist": true,
+    "failed_node": null
+  }
+]

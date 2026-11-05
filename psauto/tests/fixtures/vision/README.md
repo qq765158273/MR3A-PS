@@ -48,3 +48,8 @@ and a prefix-only object name that must not match the longer name.
 额外对象名前缀反例使用测试内生成的标题，并同时验证完整名称能命中、短名称不能命中；正则判决仍调用 Maa 原生 OCR，不使用 Python 正则替代。
 
 Step 标识符反例同样在测试内生成，覆盖 Step01A、XStep01、Step01_、额外数字和小写字母前后缀。测试拼入原有 SQL 图标、待保存和活动窗口图片，调用真实 Dirty 节点；只有完整 Step01 能发送一次 Ctrl+S，其余不发送保存键。
+
+`build_success_feedback.png` 来自 `docs/images/acceptance-settle0-20261105/record-build.png`
+的 `(10,938,910,983)` 裁剪，大小为 900×45，只含完成计数和 SQL 在线执行反馈。
+原生测试同时使用真实成功行和生成的计数反例，只有 1 条记录、0 错误、0 警告才进入关闭动作；
+10/20/100 等非零计数不得作为零通过。

@@ -1,0 +1,13 @@
+{
+  "isError": false,
+  "success": true,
+  "status": "saved_and_closed",
+  "name": "GM_FIX_FLD",
+  "saved": true,
+  "workspace_ready": true,
+  "may_exist": true,
+  "failed_node": null,
+  "evidence_dir": "out/objects/20261105_154759_444124",
+  "evidence_status": "complete",
+  "next_operation_allowed": true
+}

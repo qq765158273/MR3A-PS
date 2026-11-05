@@ -60,8 +60,12 @@ class EvidenceSink(ContextEventSink):
                 filename = f'recognition_{reco_id}.png'
                 event['screenshot'] = screenshots.save(reco.raw_image, filename, reco_id)
         (directory / 'events.json').write_text(json.dumps(self.events, ensure_ascii=False, indent=2), encoding='utf-8')
+        self.close()
+
+    def close(self):
         if self.sink_id is not None:
             self.tasker.remove_context_sink(self.sink_id)
+            self.sink_id = None
 
 
 _PHASES = ('scan_prepare_ms', 'recognition_ms', 'before_action_ms', 'action_ms', 'after_action_ms')

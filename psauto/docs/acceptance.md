@@ -6,6 +6,8 @@
 
 ## 当前结果
 
+2026-11-05 审核修复补测：最终业务/证据分离及清理代码通过正常 MCP 创建 `GM_FIX_FLD`，约 60 秒、40 节点，保存关闭、evidence_status=complete、next_operation_allowed=true，DBX 类型/长度/标签通过。Build 非零计数与证据 I/O/清理异常在离线原生及故障注入测试中通过，pshelp 按最终文件哈希复核其范围内无未修复阻塞问题。见 [补测证据](images/acceptance-review-fixes-20261105/README.md) 及 [修复记录](reliability_fixes.md)。
+
 2026-11-05 最终版本已用官方 CLI settle=0 完整连续回归：`GM_OPT_EMPLID` 约 47 秒、`GM_OPT_DATE` 约 43 秒、`GM_OPT_REC` 保存 Build 关闭约 170 秒、`GM_OPT_AE` 四步约 120 秒；同一 MCP 实例约 381 秒完成 409 个节点，全部保存关闭、0 重试和 0 动作失败，DBX 字段/属性/物理表/索引/AE 代码及编译均通过。每个任务记录实际及预期 settle=0，包含最终 Step 完整边界。见 [本轮截图与 DBX](images/acceptance-settle0-20261105/README.md) 及 [配置/性能](performance/settle_optimization.md)。
 
 2026-11-05 Pipeline 合并及 Guacamole 刷新完整补测：四步 `GM_AE_FAST` 约 353 秒，Character `GM_AUDIT_F` 长度 11 约 133 秒，Date `GM_AUDIT_DATE` 约 120 秒，均保存关闭并通过 DBX 内容验收；原生日志分别为 124 / 40 / 37 节点、0 轮次重试和 0 动作失败。AE 总耗时与 AE5 接近，不能宣称本次显著提速。截图、原始查询和失败边界见 [本轮证据](images/acceptance-pipeline-audit-20261105/README.md)；逐项判断及官方 CLI 固定等待见 [复核报告](performance/pipeline_audit.md)。
