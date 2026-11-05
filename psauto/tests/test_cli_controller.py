@@ -58,7 +58,7 @@ class CliControllerTests(unittest.TestCase):
         Toolkit.init_option(".")
         cfg = Config(jumpserver_url="http://127.0.0.1", display_selector="#remote",
                      connection_mode="cli", cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas")
+                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas",canvas_refresh_mode="browser")
         cfg.base_dir = Path(self.temp.name)
         session, controller = connect_controller(cfg)
         try:
@@ -83,7 +83,7 @@ class CliControllerTests(unittest.TestCase):
         Toolkit.init_option('.')
         cfg = Config(jumpserver_url='http://127.0.0.1', display_selector='#remote',
                      connection_mode='cli', cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir='.', capture_mode='native_canvas')
+                     cli_script=str(self.cli), cli_workdir='.', capture_mode='native_canvas',canvas_refresh_mode='browser')
         cfg.base_dir = Path(self.temp.name)
         session, controller = connect_controller(cfg)
         try:
@@ -125,6 +125,48 @@ class CliControllerTests(unittest.TestCase):
             self.assertIn("DisableNode", agent.custom_action_list)
             self.assertIn("MultiRecognition", agent.custom_recognition_list)
 
+    def test_prepare_retries_only_a_readonly_screenshot_and_bounds_repeated_timeouts(self):
+        from psauto.config import Config
+        from psauto.cli_controller import PlaywrightCliSession
+        cfg=Config(jumpserver_url='http://127.0.0.1',display_selector='#remote',
+                   connection_mode='cli',cli_session=self.session_name,
+                   cli_script=str(self.cli),cli_workdir='.',capture_mode='native_canvas',canvas_refresh_mode='browser')
+        cfg.base_dir=Path(self.temp.name)
+        session=PlaywrightCliSession(cfg)
+        try:
+            session.run_code('async page=>{await page.goto('+json.dumps(f'http://127.0.0.1:{self.server.server_port}/native')+');return true;}')
+            session.run_code('''async page=>{
+                page.__realScreenshot=page.screenshot.bind(page);
+                page.__captureCalls=0; page.__alwaysFailCapture=false;
+                page.screenshot=async options=>{
+                    page.__captureCalls++;
+                    if(page.__captureCalls===1 || page.__alwaysFailCapture)
+                        throw new Error('page.screenshot: Timeout 5000ms exceeded.');
+                    return page.__realScreenshot(options);
+                };
+                await page.locator('#remote').evaluate(el=>{
+                    const sink=document.createElement('textarea');el.appendChild(sink);
+                    window.inputCount=0;sink.addEventListener('keydown',()=>inputCount++);
+                });
+                return true;
+            }''')
+            self.assertTrue(session.request('inspect',prepare=True))
+            self.assertEqual(session.run_code('async page=>page.__captureCalls'),2)
+            self.assertEqual(session.run_code('async page=>page.evaluate(()=>inputCount)'),0)
+            session.run_code('async page=>{page.__captureCalls=0;page.__alwaysFailCapture=true;return true;}')
+            with self.assertRaisesRegex(RuntimeError,'page.screenshot: Timeout'):
+                session.request('inspect',prepare=True)
+            self.assertEqual(session.run_code('async page=>page.__captureCalls'),2)
+            self.assertEqual(session.run_code('async page=>page.evaluate(()=>inputCount)'),0)
+        finally:
+            session.run_code('''async page=>{
+                page.screenshot=page.__realScreenshot;
+                delete page.__realScreenshot;delete page.__captureCalls;delete page.__alwaysFailCapture;
+                await page.goto('''+json.dumps(f'http://127.0.0.1:{self.server.server_port}/native')+''');
+                return true;
+            }''')
+            session.stop()
+
     def test_maa_swipe_and_unicode_input(self):
         from maa.toolkit import Toolkit
         from psauto.config import Config
@@ -133,7 +175,7 @@ class CliControllerTests(unittest.TestCase):
         Toolkit.init_option(".")
         cfg = Config(jumpserver_url="http://127.0.0.1", display_selector="#remote",
                      connection_mode="cli", cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas")
+                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas",canvas_refresh_mode="browser")
         cfg.base_dir = Path(self.temp.name)
         session, controller = connect_controller(cfg)
         try:
@@ -163,7 +205,7 @@ class CliControllerTests(unittest.TestCase):
         Toolkit.init_option(".")
         cfg = Config(jumpserver_url="http://127.0.0.1", display_selector="#remote",
                      connection_mode="cli", cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas")
+                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas",canvas_refresh_mode="browser")
         cfg.base_dir = Path(self.temp.name)
         bundle = Path(self.temp.name) / "mr3a-test-resource"
         (bundle / "pipeline").mkdir(parents=True, exist_ok=True)
@@ -195,7 +237,7 @@ class CliControllerTests(unittest.TestCase):
         Toolkit.init_option(".")
         cfg = Config(jumpserver_url="http://127.0.0.1", display_selector="#remote",
                      connection_mode="cli", cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas")
+                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas",canvas_refresh_mode="browser")
         cfg.base_dir = Path(self.temp.name)
         bundle = Path(self.temp.name) / "pside-error-test-resource"
         (bundle / "pipeline").mkdir(parents=True, exist_ok=True)
@@ -235,7 +277,7 @@ class CliControllerTests(unittest.TestCase):
         Toolkit.init_option(".")
         cfg = Config(jumpserver_url="http://127.0.0.1", display_selector="#remote",
                      connection_mode="cli", cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas")
+                     cli_script=str(self.cli), cli_workdir=".", capture_mode="native_canvas",canvas_refresh_mode="browser")
         cfg.base_dir = Path(self.temp.name)
         session, controller = connect_controller(cfg)
         command = [self.node, str(self.cli), f"-s={self.session_name}", "--raw", "eval"]

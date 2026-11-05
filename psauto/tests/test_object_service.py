@@ -75,6 +75,23 @@ class ObjectServiceTests(unittest.TestCase):
         self.assertFalse(result['saved'])
         self.assertFalse(result['workspace_ready'])
 
+    def test_failure_reports_the_native_pipeline_location_not_an_earlier_candidate_miss(self):
+        self.completed('')
+        self.job.succeeded=False
+        self.trace.events=[
+            {'event':'Node.Recognition.Failed','details':{'name':'query_found'}},
+            {'event':'Node.PipelineNode.Failed','details':{'name':'F_CloseSaved'}},
+        ]
+        result=self.service.execute(self.request)
+        self.assertFalse(result['success'])
+        self.assertEqual(result['failed_node'],'F_CloseSaved')
+
+    def test_candidate_miss_alone_is_not_reported_as_the_failure_location(self):
+        self.completed('')
+        self.job.succeeded=False
+        self.trace.events=[{'event':'Node.Recognition.Failed','details':{'name':'query_found'}}]
+        self.assertIsNone(self.service.execute(self.request)['failed_node'])
+
     def test_existing_object_must_be_closed_before_workspace_is_released(self):
         self.completed('_already_exists')
         result = self.service.execute(self.request)

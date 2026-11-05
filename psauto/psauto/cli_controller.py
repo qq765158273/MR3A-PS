@@ -34,6 +34,8 @@ class PlaywrightCliSession:
             raise RuntimeError("Node.js or the configured Playwright CLI script is missing")
         if cfg.capture_mode != "native_canvas":
             raise ValueError("CLI connection requires native_canvas capture mode")
+        if cfg.canvas_refresh_mode not in ('guacamole', 'browser'):
+            raise ValueError('Unsupported canvas refresh mode')
         if not cfg.display_selector:
             raise ValueError("display_selector is required")
         self.cwd = cfg.resolve_path(cfg.cli_workdir)
@@ -47,6 +49,7 @@ class PlaywrightCliSession:
                    "selector": self.cfg.display_selector, "width": self.cfg.remote_width,
                    "height": self.cfg.remote_height,
                    "clipboard_required": self.cfg.text_input_mode == 'clipboard', **params}
+        request['canvas_refresh_mode'] = self.cfg.canvas_refresh_mode
         code = _CLI_BODY.replace("__INSPECT__", _INSPECT).replace("__REQUEST__", json.dumps(request))
         started = time.perf_counter()
         try:
@@ -178,10 +181,21 @@ _CLI_BODY = """async (page) => {
     await page.keyboard.up(request.key);
     return true;
   }
+  const flushBrowserFrame = async () => {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        await page.screenshot({animations: 'disabled', timeout: 5000});
+        return;
+      } catch (error) {
+        // Retry only this read-only capture. Never repeat a click, paste or save.
+        if (attempt || !String(error.message).includes('page.screenshot: Timeout')) throw error;
+      }
+    }
+  };
   const inspect = __INSPECT__;
   const root = request.frame ? page.frameLocator(request.frame).locator(request.selector).first()
                              : page.locator(request.selector).first();
-  const transport = await root.count() ? await root.evaluate(el => {
+  const readTransport = el => {
     const buttons = [...el.ownerDocument.querySelectorAll('button')]
       .filter(button => button.textContent.trim() === '\\u526a\\u8d34\\u677f');
     let component = buttons[0]?.__vue__;
@@ -190,20 +204,49 @@ _CLI_BODY = """async (page) => {
       tunnel_state: component?.tunnel?.state ?? null,
       client_state: component?.clientState ?? null,
       clipboard_ready: buttons.length === 1 && !buttons[0].disabled};
-  }) : {has_display: false, known: false, clipboard_ready: false};
+  };
+  const transport = await root.count() ? await root.evaluate(readTransport)
+                                     : {has_display: false, known: false, clipboard_ready: false};
   if (request.operation === 'transport_state') return transport;
-  if (!transport.has_display) throw new Error('Remote display is unavailable');
-  // A closed tunnel can leave a perfectly recognizable last frame on the canvas.
-  // clientState can also remain "Connected" after closure; require the live tunnel.
-  if (transport.known && (transport.tunnel_state !== 1 || transport.client_state !== 'Connected'))
-    throw new Error('RDP transport is not connected; cached canvas is not a live screenshot');
-  if (request.clipboard_required && !transport.clipboard_ready)
-    throw new Error('JumpServer clipboard channel is unavailable');
-  if (request.operation === 'screencap' && await page.evaluate(() => document.visibilityState === 'hidden')) {
-    // Hidden Chrome can defer Guacamole's drawing callbacks. Flush a browser
-    // frame first, then read the native canvas without scaling its pixels.
-    await page.screenshot({animations: 'disabled'});
-  }
+  const assertConnected = current => {
+    if (!current.has_display) throw new Error('Remote display is unavailable');
+    if (request.canvas_refresh_mode === 'guacamole' && !current.known)
+      throw new Error('Guacamole transport component is unavailable');
+    // A closed tunnel can leave a recognizable canvas and a stale Connected label.
+    if (current.known && (current.tunnel_state !== 1 || current.client_state !== 'Connected'))
+      throw new Error('RDP transport is not connected; cached canvas is not a live screenshot');
+    if (request.clipboard_required && !current.clipboard_ready)
+      throw new Error('JumpServer clipboard channel is unavailable');
+  };
+  assertConnected(transport);
+  const refreshRemoteFrame = async () => {
+    if (request.canvas_refresh_mode === 'guacamole' && transport.known) {
+      let timer;
+      try {
+        await Promise.race([
+          root.evaluate(async (el, expected) => {
+            const button = [...el.ownerDocument.querySelectorAll('button')]
+              .find(b => b.textContent.trim() === '\\u526a\\u8d34\\u677f');
+            let component = button?.__vue__;
+            while (component && component.$options?.name !== 'GuacamoleConnect') component = component.$parent;
+            const display = component?.client?.getDisplay?.();
+            if (!display || typeof display.flush !== 'function')
+              throw new Error('Guacamole display flush API is unavailable');
+            if (display.getWidth() !== expected.width || display.getHeight() !== expected.height)
+              throw new Error('Guacamole display dimensions differ from the screenshot baseline');
+            await new Promise(resolve => display.flush(resolve));
+            if (component.tunnel?.state !== 1 || component.clientState !== 'Connected')
+              throw new Error('RDP transport closed while flushing the display');
+          }, {width: request.width, height: request.height}),
+          new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('Guacamole display flush timed out')), 5000); })
+        ]);
+      } finally { clearTimeout(timer); }
+    } else if (request.prepare || await page.evaluate(() => document.visibilityState === 'hidden')) {
+      await flushBrowserFrame();
+    }
+  };
+  if (request.operation === 'screencap' || (request.operation === 'inspect' && request.prepare))
+    await refreshRemoteFrame();
   const info = await root.evaluate(inspect, request.operation === 'screencap');
   if (info.width !== request.width || info.height !== request.height)
     throw new Error(`Remote desktop is ${info.width}x${info.height}, expected ${request.width}x${request.height}`);
@@ -212,7 +255,6 @@ _CLI_BODY = """async (page) => {
   if (request.operation === 'screencap') return info;
   if (request.operation === 'inspect') {
     if (request.prepare) {
-      await page.screenshot({animations: 'disabled'});
       const sink = root.locator('textarea');
       if (await sink.count() !== 1) throw new Error('Expected one remote keyboard input sink');
       await sink.focus();
@@ -312,7 +354,7 @@ _CLI_BODY = """async (page) => {
         await closeSettings();
         // Finish the drawer's leaving transition even when Chrome is hidden.
         // The original canvas alone cannot reveal this browser-side overlay.
-        await page.screenshot({animations: 'disabled'});
+        await flushBrowserFrame();
         await frame.locator('.el-drawer__wrapper.clipboardDrawer').waitFor({state: 'hidden', timeout: 3000});
         const after = await root.evaluate(inspect, false);
         if (after.width !== request.width || after.height !== request.height)
@@ -322,6 +364,7 @@ _CLI_BODY = """async (page) => {
         await sink.focus();
         if (!await root.evaluate(el => el.contains(el.ownerDocument.activeElement)))
           throw new Error('Remote keyboard focus was not restored after clipboard input');
+        assertConnected(await root.evaluate(readTransport));
         await page.keyboard.press('Control+v');
       } finally {
         if (openedClipboard) await activateUtility(closeClipboard).catch(() => {});

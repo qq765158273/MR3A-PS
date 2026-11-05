@@ -13,6 +13,7 @@
   "cli_script": "../.psauto-runtime/node_modules/@playwright/cli/playwright-cli.js",
   "cli_workdir": "../.psauto-runtime",
   "capture_mode": "native_canvas",
+  "canvas_refresh_mode": "guacamole",
   "remote_width": 1920,
   "remote_height": 1080,
   "ignore_https_errors": false,

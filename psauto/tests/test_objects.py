@@ -11,6 +11,21 @@ from psauto.objects.service import BUILDERS
 
 
 class ObjectArgumentsTests(unittest.TestCase):
+    def test_merged_editor_save_keeps_identity_icon_focus_and_save_feedback_guards(self):
+        project=Path(__file__).resolve().parents[2]
+        graph=json.loads((project/'assets/resource/pipeline/PSIDE/create_ae.json').read_text(encoding='utf-8'))
+        for i in range(4):
+            node=graph[f'A{i}_Dirty']
+            self.assertEqual(node['action'],'ClickKey')
+            self.assertEqual(node['key'],0x20053)
+            self.assertEqual(node['next'],[f'A{i}_PSIDE_CodeEditorSaved'])
+            self.assertEqual(node['timeout'],30000)
+            self.assertEqual(sum(c['recognition']=='OCR' for c in node['all_of']),1)
+            templates={c.get('template') for c in node['all_of'] if c['recognition']=='TemplateMatch'}
+            self.assertTrue({'PSIDE/save_enabled.png','PSIDE/active_editor_close.png'}.issubset(templates))
+            self.assertIn(f'__PARAM_step_{i}_editor_template__',templates)
+            self.assertEqual(graph[f'A{i}_PSIDE_CodeEditorSaved']['all_of'][0]['template'],'PSIDE/save_disabled.png')
+
     def test_field_and_ae_blur_name_before_exact_recognition(self):
         project=Path(__file__).resolve().parents[2]
         for kind,prefix,save in [('field','PSIDE_CreateField','F_Save'),

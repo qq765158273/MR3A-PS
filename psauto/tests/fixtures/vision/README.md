@@ -38,3 +38,11 @@ from `out/objects/20261104_203522_630973/after.png` and
 `out/runs/20261104_205014_802033/000_R_BuildDialog.png`.
 The build-scope regression rejects the old tall ROI's E/6 misread and verifies
 that the same real pixels pass the exact name rule in the 165×25 single line.
+
+`ae_editor_title_step01.png` through `ae_editor_title_step04.png` are the first
+`(0,0,1100,24)` pixels from the corresponding `A0_EditorReady` through
+`A3_EditorReady` frames in `out/objects/20261105_075306_570062/`.
+They contain the test AE name and Step, and no code body. Tests check the merged
+identity OCR against the right object and Step, a wrong Step, a wrong object,
+and a prefix-only object name that must not match the longer name.
+额外对象名前缀反例使用测试内生成的标题，并同时验证完整名称能命中、短名称不能命中；正则判决仍调用 Maa 原生 OCR，不使用 Python 正则替代。

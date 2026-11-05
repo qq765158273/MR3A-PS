@@ -1,0 +1,95 @@
+# GM_AE_FAST / GM_AUDIT_F 的 DBX 验收
+
+2026-11-05，完整 MCP 返回 saved_and_closed、workspace_ready:true 后，使用 ps-dev / HRDEV 只读查询。AE 仅创建保存，未运行。
+
+## steps
+
+```sql
+SELECT AE_APPLID,AE_SECTION,AE_STEP,AE_SEQ_NUM FROM PSAESTEPDEFN WHERE AE_APPLID='GM_AE_FAST' ORDER BY AE_SEQ_NUM
+```
+
+| AE_APPLID | AE_SECTION | AE_STEP | AE_SEQ_NUM |
+|---|---|---|---|
+| GM_AE_FAST | MAIN | Step01 | 1 |
+| GM_AE_FAST | MAIN | Step02 | 2 |
+| GM_AE_FAST | MAIN | Step03 | 3 |
+| GM_AE_FAST | MAIN | Step04 | 4 |
+(4 rows, 11ms)
+
+## actions
+
+```sql
+SELECT S.AE_STEP,S.AE_STMT_TYPE,T.SQLTEXT FROM PSAESTMTDEFN S LEFT JOIN PSSQLTEXTDEFN T ON T.SQLID=S.SQLID WHERE S.AE_APPLID='GM_AE_FAST' ORDER BY S.AE_STEP,S.AE_STMT_TYPE
+```
+
+| AE_STEP | AE_STMT_TYPE | SQLTEXT |
+|---|---|---|
+| Step01 | S | SELECT COUNT(*) FROM PS_GM_MCP_REC7 |
+| Step02 | P | NULL |
+| Step03 | S | SELECT COUNT(*) FROM PS_GM_MCP_REC7 |
+| Step04 | P | NULL |
+(4 rows, 15ms)
+
+## peoplecode
+
+```sql
+SELECT OBJECTVALUE6 AS STEP_NAME,PCTEXT FROM PSPCMTXT WHERE OBJECTID1=66 AND OBJECTVALUE1='GM_AE_FAST'
+```
+
+| STEP_NAME | PCTEXT |
+|---|---|
+| Step02 | Local SQL &fieldSQL;
+Local string &fieldName;
+
+&fieldSQL = CreateSQL("SELECT FIELDNAME FROM PSRECFIELD WHERE RECNAME = :1 ORDER BY FIELDNUM", "GM_MCP_REC7");
+While &fieldSQL.Fetch(&fieldName)
+   MessageBox(0, "", 0, 0, "FIELDNAME: " | &fieldName);
+End-While;
+&fieldSQL.Close();
+ |
+| Step04 | Local SQL &fieldSQL;
+Local string &fieldName;
+
+&fieldSQL = CreateSQL("SELECT FIELDNAME FROM PSRECFIELD WHERE RECNAME = :1 ORDER BY FIELDNUM", "GM_MCP_REC7");
+While &fieldSQL.Fetch(&fieldName)
+   MessageBox(0, "", 0, 0, "FIELDNAME: " | &fieldName);
+End-While;
+&fieldSQL.Close();
+ |
+(2 rows, 15ms)
+
+## compiled
+
+```sql
+SELECT OBJECTVALUE6 AS STEP_NAME,PROGLEN FROM PSPCMPROG WHERE OBJECTID1=66 AND OBJECTVALUE1='GM_AE_FAST'
+```
+
+| STEP_NAME | PROGLEN |
+|---|---|
+| Step02 | 566 |
+| Step04 | 566 |
+(2 rows, 12ms)
+
+## Character Field
+
+```sql
+SELECT F.FIELDNAME,F.FIELDTYPE,F.LENGTH,L.LABEL_ID,L.LONGNAME,L.SHORTNAME FROM PSDBFIELD F JOIN PSDBFLDLABL L ON L.FIELDNAME=F.FIELDNAME WHERE F.FIELDNAME='GM_AUDIT_F'
+```
+
+| FIELDNAME | FIELDTYPE | LENGTH | LABEL_ID | LONGNAME | SHORTNAME |
+| --- | --- | --- | --- | --- | --- |
+| GM_AUDIT_F | 0 | 11 | GMAUDIT | GM Audit Field | GM Audit |
+
+(1 row, 16ms)
+
+## Date Field
+
+```sql
+SELECT F.FIELDNAME,F.FIELDTYPE,F.LENGTH,L.LABEL_ID,L.LONGNAME,L.SHORTNAME FROM PSDBFIELD F JOIN PSDBFLDLABL L ON L.FIELDNAME=F.FIELDNAME WHERE F.FIELDNAME='GM_AUDIT_DATE'
+```
+
+| FIELDNAME | FIELDTYPE | LENGTH | LABEL_ID | LONGNAME | SHORTNAME |
+| --- | --- | --- | --- | --- | --- |
+| GM_AUDIT_DATE | 4 | 10 | GMDATE | GM Audit Date | GM Date |
+
+(1 row, 16ms)

@@ -22,6 +22,7 @@ class Config:
     cli_workdir: str = "../.psauto-runtime"
     cli_persistent_client: bool = True
     capture_mode: str = "viewport"
+    canvas_refresh_mode: str = "guacamole"
     text_input_mode: str = "keyboard"
     remote_width: int = 1920
     remote_height: int = 1080

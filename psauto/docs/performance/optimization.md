@@ -1,5 +1,7 @@
 # Record 执行链路优化
 
+2026-11-05 的后续 Field/AE 节点、隐藏页面刷新与截图分项复核见 [Pipeline 复核](pipeline_audit.md)。该轮 AE 总耗时与既有 AE5 接近，未宣称新的显著提速。
+
 这一轮保留 Maa/MR3A 的识别和 Pipeline 引擎，修改输入适配器、Record JSON 与证据导出。SQL/PeopleCode 正文仍只使用剪贴板输入及保存反馈。
 
 ## 完整调用结果

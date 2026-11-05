@@ -196,11 +196,15 @@
     "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 36,
-    "next": [
-      "PSIDE_CreateField_query_name_clear_select"
+    "key": [
+      36,
+      65571
     ],
-    "pre_delay": 0
+    "next": [
+      "PSIDE_CreateField_query_name_clear_input"
+    ],
+    "pre_delay": 0,
+    "post_delay": 300
   },
   "PSIDE_CreateField_query_name_clear_select": {
     "action": "ClickKey",
@@ -441,13 +445,7 @@
     "action": "Click",
     "on_error": [],
     "timeout": 10000,
-    "recognition": "TemplateMatch",
-    "roi": [
-      430,
-      75,
-      1100,
-      730
-    ],
+    "recognition": "And",
     "target_offset": [
       95,
       8,
@@ -457,20 +455,48 @@
     "next": [
       "F_TypeSelect"
     ],
-    "template": "PSIDE/field_type_label.png",
-    "threshold": 0.85,
-    "order_by": "Score",
-    "pre_delay": 0
+    "pre_delay": 0,
+    "all_of": [
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ],
+        "template": "PSIDE/field_type_label.png",
+        "threshold": 0.85,
+        "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "roi": [
+          430,
+          75,
+          1000,
+          650
+        ],
+        "template": "PSIDE/field_length_label.png",
+        "threshold": 0.85,
+        "order_by": "Score"
+      }
+    ],
+    "box_index": 0
   },
   "F_TypeSelect": {
     "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 36,
-    "next": [
-      "F_TypeCommit"
+    "key": [
+      36,
+      13
     ],
-    "pre_delay": 0
+    "next": [
+      "F_TypeCheck"
+    ],
+    "pre_delay": 0,
+    "post_delay": 300
   },
   "F_DateSelect": {
     "action": "ClickKey",
@@ -541,11 +567,15 @@
     "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 36,
-    "next": [
-      "F_LengthReplace_select"
+    "key": [
+      36,
+      65571
     ],
-    "pre_delay": 0
+    "next": [
+      "F_LengthReplace_input"
+    ],
+    "pre_delay": 0,
+    "post_delay": 300
   },
   "F_LengthReplace_select": {
     "action": "ClickKey",
@@ -878,17 +908,18 @@
       210,
       170
     ],
-    "action": "DoNothing",
+    "action": "ClickKey",
     "next": [
-      "F_ConfirmNewField"
+      "F_TypeFocus"
     ],
     "on_error": [],
-    "timeout": 5000,
+    "timeout": 20000,
     "template": "PSIDE/new_definition_field_selected.png",
     "threshold": 0.85,
     "order_by": "Score",
     "pre_delay": 0,
-    "post_delay": 0
+    "post_delay": 1000,
+    "key": 13
   },
   "F_ConfirmNewField": {
     "action": "ClickKey",

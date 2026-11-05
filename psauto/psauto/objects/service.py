@@ -88,7 +88,7 @@ class ObjectService:
                               'partial' if saved or may_exist else 'failed')
                     self._workspace_blocked = not workspace_ready
                     failures = [e['details'].get('name') for e in trace.events
-                                if e['event'] in ('Node.Recognition.Failed', 'Node.Action.Failed')]
+                                if e['event'] == 'Node.PipelineNode.Failed']
                     shot = controller.post_screencap().wait()
                     if shot.succeeded:
                         Image.fromarray(shot.get()[:, :, ::-1]).save(output / 'after.png')

@@ -58,7 +58,7 @@ class JumpClipboardTests(unittest.TestCase):
                   json.dumps(REMOTE) + ');await page.frameLocator("#frame").locator("#sink").focus();return true;}')
         cfg = Config(jumpserver_url=f'http://127.0.0.1:{self.server.server_port}', display_selector='#remote',
                      display_frame='#frame', connection_mode='cli', cli_session=self.session_name,
-                     cli_script=str(self.cli), cli_workdir='.', capture_mode='native_canvas', text_input_mode='clipboard')
+                     cli_script=str(self.cli), cli_workdir='.', capture_mode='native_canvas', text_input_mode='clipboard',canvas_refresh_mode='browser')
         cfg.base_dir = Path(self.temp.name)
         self.session, self.controller = connect_controller(cfg)
 
@@ -119,6 +119,78 @@ class JumpClipboardTests(unittest.TestCase):
         result=self.call('async page=>await page.frameLocator("#frame").locator("body")'
                          '.evaluate(()=>({text:received,count:pasteCount}))')
         self.assertEqual(result, {'text':'live tunnel','count':1})
+
+    def test_guacamole_flush_reads_pending_pixels_without_a_browser_screenshot(self):
+        from psauto.native_canvas import decode_canvas
+        self.session.cfg.canvas_refresh_mode='guacamole'
+        self.session.run_code('''async page=>{
+          page.__realScreenshot=page.screenshot;
+          page.screenshot=async()=>{throw new Error('Unexpected browser screenshot');};
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            window.flushCount=0;
+            el.__vue__={$options:{name:'GuacamoleConnect'},tunnel:{state:1},clientState:'Connected',
+              client:{getDisplay:()=>({getWidth:()=>1920,getHeight:()=>1080,flush:done=>{
+                flushCount++;
+                const ctx=document.querySelector('canvas').getContext('2d');
+                ctx.fillStyle=flushCount===1?'rgb(10,20,30)':'rgb(40,50,60)';
+                ctx.fillRect(100,100,20,20);done();
+              }})}};
+          });return true;
+        }''')
+        try:
+            for expected in ([30,20,10], [60,50,40]):
+                image=decode_canvas(self.session.request('screencap'),self.session.cfg)
+                self.assertEqual(image.shape,(1080,1920,3))
+                self.assertEqual(image[110,110].tolist(),expected)
+            self.assertEqual(self.call('async page=>await page.frameLocator("#frame").locator("body")'
+                                      '.evaluate(()=>pasteCount)'),0)
+        finally:
+            self.session.run_code('async page=>{page.screenshot=page.__realScreenshot;delete page.__realScreenshot;return true;}')
+
+    def test_guacamole_flush_failure_never_returns_cached_pixels_or_sends_input(self):
+        self.session.cfg.canvas_refresh_mode='guacamole'
+        with self.assertRaisesRegex(RuntimeError,'transport component is unavailable'):
+            self.session.request('screencap')
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            window.testComponent=el.__vue__={$options:{name:'GuacamoleConnect'},
+              tunnel:{state:1},clientState:'Connected'};
+          });return true;
+        }''')
+        cases=[
+            ('null','flush API is unavailable'),
+            ('{getDisplay:()=>({getWidth:()=>1600,getHeight:()=>900,flush:done=>done()})}',
+             'dimensions differ'),
+            ('{getDisplay:()=>({getWidth:()=>1920,getHeight:()=>1080,flush:done=>{throw new Error("Flush failed");}})}',
+             'Flush failed'),
+            ('{getDisplay:()=>({getWidth:()=>1920,getHeight:()=>1080,flush:done=>{testComponent.tunnel.state=2;done();}})}',
+             'closed while flushing'),
+            ('{getDisplay:()=>({getWidth:()=>1920,getHeight:()=>1080,flush:done=>{}})}',
+             'flush timed out'),
+        ]
+        for client,message in cases:
+            with self.subTest(message=message):
+                self.session.run_code('async page=>{await page.frameLocator("#frame").locator("body")'
+                    '.evaluate(()=>{testComponent.tunnel.state=1;testComponent.client='+client+';});return true;}')
+                with self.assertRaisesRegex(RuntimeError,message):
+                    self.session.request('screencap')
+                self.assertEqual(self.call('async page=>await page.frameLocator("#frame").locator("body")'
+                                          '.evaluate(()=>pasteCount)'),0)
+
+    def test_tunnel_closing_during_clipboard_preparation_prevents_paste(self):
+        self.session.run_code('''async page=>{
+          await page.frameLocator('#frame').locator('#setting button').evaluate(el=>{
+            const component=el.__vue__={$options:{name:'GuacamoleConnect'},tunnel:{state:1},clientState:'Connected'};
+            document.querySelector('.el-drawer button').onclick=()=>{
+              document.querySelector('.el-drawer').style.display='none';
+              component.tunnel.state=2;
+            };
+          });return true;
+        }''')
+        with self.assertLogs('psauto.cli_controller',level='ERROR'):
+            self.assertFalse(self.controller.post_input_text('must not paste after disconnect').wait().succeeded)
+        self.assertEqual(self.call('async page=>await page.frameLocator("#frame").locator("body")'
+                                  '.evaluate(()=>pasteCount)'),0)
 
     def test_leaving_drawer_finishes_before_the_next_canvas_click(self):
         self.call('''async page=>{

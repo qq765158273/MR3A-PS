@@ -11,5 +11,5 @@ def build(request):
               'long_name': request.long_name, 'short_name': request.short_name}
     patches = {'F_TypeCheck': {'next': ['F_LengthFocus' if request.type == 'Character' else 'F_LabelIDFocus']}}
     if request.type == 'Date':
-        patches['F_TypeSelect'] = {'next': ['F_DateSelect']}
+        patches['F_TypeSelect'] = {'key': [36, 68, 13]}
     return bind_pipeline('field', 'PSIDE_CreateField', values, patches)

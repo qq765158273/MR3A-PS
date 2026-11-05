@@ -6,6 +6,8 @@
 
 ## 当前结果
 
+2026-11-05 Pipeline 合并及 Guacamole 刷新完整补测：四步 `GM_AE_FAST` 约 353 秒，Character `GM_AUDIT_F` 长度 11 约 133 秒，Date `GM_AUDIT_DATE` 约 120 秒，均保存关闭并通过 DBX 内容验收；原生日志分别为 124 / 40 / 37 节点、0 轮次重试和 0 动作失败。AE 总耗时与 AE5 接近，不能宣称本次显著提速。截图、原始查询和失败边界见 [本轮证据](images/acceptance-pipeline-audit-20261105/README.md)；逐项判断及官方 CLI 固定等待见 [复核报告](performance/pipeline_audit.md)。
+
 完整 MCP 验收已完成下列样本；成功均表示保存、关闭并回到空白操作台，DBX 独立核验内容。AE 未执行。
 
 | 完整调用 | 用时 | MCP 与 DBX 结果 | 本机证据 |

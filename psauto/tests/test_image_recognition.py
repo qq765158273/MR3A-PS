@@ -5,7 +5,7 @@ from pathlib import Path
 import unittest
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 
 @unittest.skipUnless(os.environ.get('PSAUTO_TEST_OCR'), 'Native vision integration not enabled')
@@ -22,6 +22,7 @@ class ImageRecognitionTests(unittest.TestCase):
         class ImageController(JumpServerController):
             frame = np.zeros((1080,1920,3), dtype=np.uint8)
             click_hook = None
+            key_hook = None
             def connect(self): return True
             def connected(self): return True
             def request_uuid(self): return 'offline-vision-regression'
@@ -31,7 +32,9 @@ class ImageRecognitionTests(unittest.TestCase):
                 if self.click_hook is None:
                     return self.reject_input(x, y)
                 return self.click_hook(x, y)
-            click_key = key_down = key_up = input_text = reject_input
+            def click_key(self,key):
+                return self.key_hook(key) if self.key_hook else self.reject_input(key)
+            key_down = key_up = input_text = reject_input
 
         cls.base = Path(__file__).resolve().parents[1]
         cls.fixtures = cls.base/'tests/fixtures/vision'
@@ -45,6 +48,78 @@ class ImageRecognitionTests(unittest.TestCase):
 
     def image(self,name):
         return Image.open(self.fixtures/name).convert('RGB')
+
+    def test_one_title_recognition_requires_both_the_exact_object_and_step(self):
+        from maa.pipeline import JOCR
+        from psauto.objects.models import AERequest
+        from psauto.objects.ae import build
+        for request_name in ['GM_MCP_AE5','GM_MCP_AE','GM_MCP_AE6']:
+            _,override=build(AERequest(name=request_name,steps=[{'type':'SQL','code':'SELECT 1'}]*4))
+            for step in range(4):
+                frame=Image.new('RGB',(1920,1080),'white')
+                frame.paste(self.image(f'ae_editor_title_step{step+1:02d}.png'),(0,0))
+                pixels=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+                for target in [step,(step+1)%4]:
+                    rule=override[f'A{target}_EditorReady']['all_of'][0]
+                    result=self.tasker.post_recognition('OCR',JOCR(roi=rule['roi'],expected=[rule['expected']]),pixels).wait().get().nodes[0].recognition
+                    with self.subTest(object=request_name,frame_step=step+1,target_step=target+1):
+                        self.assertEqual(result.hit,request_name=='GM_MCP_AE5' and step==target)
+
+    def test_editor_object_guard_rejects_an_extra_identifier_prefix(self):
+        from maa.pipeline import JOCR
+        from psauto.objects.ae import build
+        from psauto.objects.models import AERequest
+        frame=Image.new('RGB',(1920,1080),'white')
+        font=ImageFont.truetype('C:/Windows/Fonts/arial.ttf',14)
+        ImageDraw.Draw(frame).text((2,2),
+            'Application Designer - HRDEV - GMGM_MCP_AE5 - MAIN.GBL.default.1900-01-01.Step01.SQL',
+            font=font,fill='black')
+        pixels=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+        for name in ['GMGM_MCP_AE5','GM_MCP_AE5']:
+            _,override=build(AERequest(name=name,steps=[{'type':'SQL','code':'SELECT 1'}]))
+            rule=override['A0_EditorReady']['all_of'][0]
+            result=self.tasker.post_recognition('OCR',JOCR(roi=rule['roi'],expected=[rule['expected']]),pixels).wait().get().nodes[0].recognition
+            with self.subTest(name=name):
+                self.assertEqual(result.hit,name=='GMGM_MCP_AE5')
+
+    def test_merged_field_editor_guard_clicks_only_when_both_labels_are_present(self):
+        type_label=Image.open(self.resource/'image/PSIDE/field_type_label.png').convert('RGB')
+        length_label=Image.open(self.resource/'image/PSIDE/field_length_label.png').convert('RGB')
+        try:
+            for include_type,include_length in [(True,True),(True,False),(False,True)]:
+                frame=Image.new('RGB',(1920,1080),'white')
+                if include_type:frame.paste(type_label,(600,250))
+                if include_length:frame.paste(length_label,(600,280))
+                self.controller.frame=np.ascontiguousarray(np.asarray(frame)[:,:,::-1])
+                clicks=[]
+                self.controller.click_hook=lambda x,y: clicks.append((x,y)) or True
+                job=self.tasker.post_task('F_SelectField',{
+                    'F_SelectField':{'recognition':'DirectHit','action':'DoNothing','next':['F_TypeFocus'],
+                                     'timeout':50,'rate_limit':0,'post_delay':0},
+                    'F_TypeFocus':{'post_delay':0},
+                    'F_TypeSelect':{'recognition':'DirectHit','action':'DoNothing','next':[]},
+                }).wait()
+                with self.subTest(type=include_type,length=include_length):
+                    self.assertEqual(job.succeeded,include_type and include_length)
+                    self.assertEqual(len(clicks),int(include_type and include_length))
+                    if clicks:
+                        x,y=clicks[0]
+                        self.assertTrue(695<=x<600+type_label.width+45)
+                        self.assertTrue(258<=y<250+type_label.height-7)
+        finally:self.controller.click_hook=None
+
+    def test_native_maa_key_lists_preserve_the_sequential_selection_keys(self):
+        try:
+            for keys in [[36,13],[36,68,13],[36,0x10023]]:
+                seen=[]
+                self.controller.key_hook=lambda key: seen.append(key) or True
+                job=self.tasker.post_task('F_TypeSelect',{
+                    'F_TypeSelect':{'key':keys,'next':[],'post_delay':0}
+                }).wait()
+                with self.subTest(keys=keys):
+                    self.assertTrue(job.succeeded)
+                    self.assertEqual(seen,keys)
+        finally:self.controller.key_hook=None
 
     def test_lookup_name_is_exact_after_moving_the_insertion_caret(self):
         from maa.pipeline import JOCR

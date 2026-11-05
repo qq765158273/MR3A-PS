@@ -229,11 +229,15 @@
     "action": "ClickKey",
     "on_error": [],
     "timeout": 10000,
-    "key": 36,
-    "next": [
-      "PSIDE_CreateAE_query_name_clear_select"
+    "key": [
+      36,
+      65571
     ],
-    "pre_delay": 0
+    "next": [
+      "PSIDE_CreateAE_query_name_clear_input"
+    ],
+    "pre_delay": 0,
+    "post_delay": 300
   },
   "PSIDE_CreateAE_query_name_clear_select": {
     "action": "ClickKey",
@@ -876,22 +880,12 @@
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_0_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step01",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -1064,29 +1058,19 @@
     "post_delay": 0
   },
   "A0_Dirty": {
-    "action": "DoNothing",
+    "action": "ClickKey",
     "on_error": [],
-    "timeout": 10000,
+    "timeout": 30000,
     "recognition": "And",
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_0_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step01",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -1112,13 +1096,26 @@
         ],
         "threshold": 0.97,
         "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
       }
     ],
     "next": [
-      "A0_PSIDE_SaveCodeEditor"
+      "A0_PSIDE_CodeEditorSaved"
     ],
     "pre_delay": 0,
-    "post_delay": 0
+    "post_delay": 1000,
+    "key": 131155
   },
   "A0_CloseEditor": {
     "action": "ClickKey",
@@ -1555,22 +1552,12 @@
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_1_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step02",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -1743,29 +1730,19 @@
     "post_delay": 0
   },
   "A1_Dirty": {
-    "action": "DoNothing",
+    "action": "ClickKey",
     "on_error": [],
-    "timeout": 10000,
+    "timeout": 30000,
     "recognition": "And",
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_1_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step02",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -1791,13 +1768,26 @@
         ],
         "threshold": 0.97,
         "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
       }
     ],
     "next": [
-      "A1_PSIDE_SaveCodeEditor"
+      "A1_PSIDE_CodeEditorSaved"
     ],
     "pre_delay": 0,
-    "post_delay": 0
+    "post_delay": 1000,
+    "key": 131155
   },
   "A1_CloseEditor": {
     "action": "ClickKey",
@@ -2238,22 +2228,12 @@
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_2_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step03",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -2426,29 +2406,19 @@
     "post_delay": 0
   },
   "A2_Dirty": {
-    "action": "DoNothing",
+    "action": "ClickKey",
     "on_error": [],
-    "timeout": 10000,
+    "timeout": 30000,
     "recognition": "And",
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_2_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step03",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -2474,13 +2444,26 @@
         ],
         "threshold": 0.97,
         "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
       }
     ],
     "next": [
-      "A2_PSIDE_SaveCodeEditor"
+      "A2_PSIDE_CodeEditorSaved"
     ],
     "pre_delay": 0,
-    "post_delay": 0
+    "post_delay": 1000,
+    "key": 131155
   },
   "A2_CloseEditor": {
     "action": "ClickKey",
@@ -2926,22 +2909,12 @@
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_3_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step04",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -3114,29 +3087,19 @@
     "post_delay": 0
   },
   "A3_Dirty": {
-    "action": "DoNothing",
+    "action": "ClickKey",
     "on_error": [],
-    "timeout": 10000,
+    "timeout": 30000,
     "recognition": "And",
     "all_of": [
       {
         "recognition": "OCR",
-        "expected": "__PARAM_name_regex__",
+        "expected": "__PARAM_editor_identity_3_regex__",
         "roi": [
           0,
           0,
           1100,
-          70
-        ]
-      },
-      {
-        "recognition": "OCR",
-        "expected": "Step04",
-        "roi": [
-          0,
-          0,
-          1100,
-          70
+          24
         ]
       },
       {
@@ -3162,13 +3125,26 @@
         ],
         "threshold": 0.97,
         "order_by": "Score"
+      },
+      {
+        "recognition": "TemplateMatch",
+        "template": "PSIDE/active_editor_close.png",
+        "roi": [
+          430,
+          75,
+          1100,
+          300
+        ],
+        "threshold": 0.95,
+        "order_by": "Score"
       }
     ],
     "next": [
-      "A3_PSIDE_SaveCodeEditor"
+      "A3_PSIDE_CodeEditorSaved"
     ],
     "pre_delay": 0,
-    "post_delay": 0
+    "post_delay": 1000,
+    "key": 131155
   },
   "A3_CloseEditor": {
     "action": "ClickKey",

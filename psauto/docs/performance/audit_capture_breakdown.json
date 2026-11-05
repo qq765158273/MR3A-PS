@@ -1,0 +1,62 @@
+[
+  {
+    "cli_ms": 1000.66,
+    "decode_ms": 69.5,
+    "body_ms": 103,
+    "flush_ms": 21,
+    "read_encode_ms": 48,
+    "shape": [
+      1080,
+      1920,
+      3
+    ]
+  },
+  {
+    "cli_ms": 932.06,
+    "decode_ms": 45.45,
+    "body_ms": 99,
+    "flush_ms": 18,
+    "read_encode_ms": 50,
+    "shape": [
+      1080,
+      1920,
+      3
+    ]
+  },
+  {
+    "cli_ms": 953.36,
+    "decode_ms": 44.04,
+    "body_ms": 98,
+    "flush_ms": 19,
+    "read_encode_ms": 47,
+    "shape": [
+      1080,
+      1920,
+      3
+    ]
+  },
+  {
+    "cli_ms": 955.03,
+    "decode_ms": 43.7,
+    "body_ms": 103,
+    "flush_ms": 20,
+    "read_encode_ms": 50,
+    "shape": [
+      1080,
+      1920,
+      3
+    ]
+  },
+  {
+    "cli_ms": 957.04,
+    "decode_ms": 45.99,
+    "body_ms": 100,
+    "flush_ms": 18,
+    "read_encode_ms": 49,
+    "shape": [
+      1080,
+      1920,
+      3
+    ]
+  }
+]
