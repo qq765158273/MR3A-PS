@@ -1,0 +1,17 @@
+{
+  "name": "GM_PS_PROJ_T",
+  "definitions": [
+    {
+      "type": "AE",
+      "name": "GM_DEPT_XL4"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_AET"
+    },
+    {
+      "type": "Field",
+      "name": "GM_MCP_EMPLID"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "started": "2026-11-05T22:26:07.918314",
+  "configuration": {
+    "cli_session": "psauto-fast",
+    "expected_settle_ms": 0,
+    "canvas_refresh_mode": "guacamole",
+    "remote_resolution": [
+      1920,
+      1080
+    ]
+  },
+  "operations": [
+    {
+      "label": "duplicate",
+      "tool": "save_project",
+      "name": "GM_DEPT_EXPORT",
+      "status": "failed",
+      "started": "2026-11-05T22:26:09.647084",
+      "elapsed_ms": 25212.24,
+      "result": {
+        "success": false,
+        "status": "already_exists",
+        "name": "GM_DEPT_EXPORT",
+        "saved": false,
+        "workspace_ready": true,
+        "may_exist": true,
+        "failed_node": null,
+        "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261105_222609_668061",
+        "definitions_added": 0,
+        "evidence_status": "complete",
+        "next_operation_allowed": true
+      },
+      "expected_outcome_passed": true
+    },
+    {
+      "label": "all_types",
+      "tool": "save_project",
+      "name": "GM_PS_PROJ_T",
+      "status": "succeeded",
+      "started": "2026-11-05T22:26:34.874263",
+      "elapsed_ms": 70216.1,
+      "result": {
+        "success": true,
+        "status": "saved_and_closed",
+        "name": "GM_PS_PROJ_T",
+        "saved": true,
+        "workspace_ready": true,
+        "may_exist": true,
+        "failed_node": null,
+        "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261105_222634_893259",
+        "definitions_added": 3,
+        "evidence_status": "complete",
+        "next_operation_allowed": true
+      },
+      "expected_outcome_passed": true
+    }
+  ],
+  "status": "succeeded",
+  "elapsed_ms": 97366.03
+}

@@ -1,0 +1,13 @@
+{
+  "name": "GMPRJFIX01",
+  "definitions": [
+    {
+      "type": "AE",
+      "name": "GM_DEPT_XL4"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_AET"
+    }
+  ]
+}

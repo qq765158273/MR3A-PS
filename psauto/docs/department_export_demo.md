@@ -70,4 +70,4 @@ pshelp 首次独立审核发现 P2：属性入口/保存的名称匹配接受前
 
 原生执行失败发生在 `GM_DEPT_XLSX`（本地过程实例 397097），不是最终克隆 `GM_DEPT_XL4` 的执行通过证据。当前浏览器也没有现成的 HRDEV Web/Process Scheduler 会话。只读环境诊断还确认：远端无法解析数据库登记的 HRDEV Web 主机名，直接访问相应 IP:8000 也无法连接；当前客户端安装根内未找到 jvm.dll，没有改 ACL、安装 Java 或改全局环境。[环境诊断截图](images/acceptance-ae-properties-20261105/runtime_web_probe.png)仅说明该登记入口不可用，不等于所有调度器都不可用。
 
-后续需要提供平时实际运行报表 AE 的 Process Scheduler 登录网址及现有登录态，或明确可用的本地 Java/报表运行环境。具备执行入口后，先确认 HpsReportDefn 的 String[] 方法兼容和输出目录，再实际运行最终 AE，按原生 COMPLETE/RC、实际工作簿格式、运行时数据库行数、60 列、中文、前导零和时间精度验收。74,762 是本次查询时的行数，不能当作未来运行的固定断言。创建/编译验收不替代这些项目。
+后续优先补齐 PSIDE 本地的 Java/报表运行环境：PSIDE 本身可通过 Edit/Run Program 执行 AE 并向它所在的远程 Windows 写文件，调度器是另一条可选路径。进一步只读确认 pside.exe 为64位，Oracle客户端目录找到的旧JVM文件版本为5.0.170.4和5.0.110.3，未拿来替换或加载；需要与PeopleTools8.57.11匹配的64位Java以及HPS/POI依赖。新结论与证据见 [Project文档的执行边界](projects.md)。具备执行依赖后，先确认 HpsReportDefn 的 String[] 方法兼容和输出目录，再实际运行最终 AE，按原生 COMPLETE/RC、实际工作簿格式、运行时数据库行数、60 列、中文、前导零和时间精度验收。74,762 是本次查询时的行数，不能当作未来运行的固定断言。创建/编译验收不替代这些项目。

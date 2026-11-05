@@ -143,6 +143,10 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 #### 当前完整配置与性能（2026-11-05）
 
+新增独立 `save_project(name, definitions)` MCP：把已保存 AE、Record、Field 及原生关联定义归集到新 Project，工程保存后释放空白工作台。正式 `GM_DEPT_EXPORT` 已完整创建，DBX 确认 AE/Section/PeopleCode/AET/字段共 10 个成员；首次创建 55 节点、37.250 秒；补齐 Record 首尾选中保护后，回归工程 GMPRJFIX01 以 57 节点、44.969 秒完成，0 节点/动作失败。重名请求安全返回后，同一 MCP 还成功创建三类型测试工程。设计与日志见 [Project 保存能力](psauto/docs/projects.md)。
+
+PSIDE 可直接通过 Edit/Run Program 在远程 Windows 执行 AE 并生成文件，调度器为可选路径。本地导出当前缺匹配 PeopleTools 的 Java/报表依赖：已确认 PSIDE 为64位；仅找到旧 Oracle JVM，未加载或替换。补齐依赖后继续验收 Excel。
+
 部门导出 demo 已补 `create_ae(state_record, disable_restart)`：先配置唯一默认 AET/Restart，再编译代码并保存关闭；业务成功要求对应原生属性终态。`GM_DEPT_AET`（Derived/Work）完整创建通过；最终 `GM_DEPT_XL4` 新 MCP 从头 75 节点、66.50 秒通过，0 节点/动作失败，DBX 确认默认 AET、Disable Restart=Y 和 PeopleCode 编译结果。普通 121 项中 55 通过/66 跳过，新增 6 项原生属性及原有 14 项原生视觉回归通过。pshelp 找出的对象前缀和空列表保护问题已修复，独立定向复测 2/2 通过。**实际 Excel 导出仍未验收**：早先样本本地 Run 已进入 PeopleCode，但 Java 虚拟机无法启动，RC=8；登记的 Web 入口也无法连接，仍需可用调度器或本地运行环境。运行未验证的业务草稿保留工作区，未作为可信代码提交。设计、原生日志、问题和待补执行环境见 [部门导出 demo](psauto/docs/department_export_demo.md)。
 
 最新一轮将每请求的连接、尺寸、Guacamole flush、图层和焦点检查合并为一次浏览器查询，状态仍逐次重读。现场同页 12 对只读截图逐像素一致：截图 CLI 中位数 180.5→76.7ms，含解码 227.4→123.7ms；原生日志继续保留，既有 timings.json 增加浏览器往返/内部阶段和解码分项，嵌套时间不能相加。详见 [查询往返优化](psauto/docs/performance/transport_roundtrips.md)。

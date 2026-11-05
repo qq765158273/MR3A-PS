@@ -1,0 +1,295 @@
+{
+  "target": "GM_DEPT_EXPORT duplicate then GM_PS_PROJ_T",
+  "duplicate_timestamp_and_members_unchanged": true,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "### Statement 1\n| PROJECTNAME | LASTUPDDTTM |\n|---|---|\n| GM_DEPT_EXPORT | 2026-11-05T22:23:16.17893 |\n(1 rows, 19ms)\n### Statement 2\n| OBJECTTYPE | OBJECTID1 | OBJECTVALUE1 | OBJECTID2 | OBJECTVALUE2 | OBJECTID3 | OBJECTVALUE3 | OBJECTID4 | OBJECTVALUE4 |\n|---|---|---|---|---|---|---|---|---|\n| 0 | 1 | GM_DEPT_AET | 0 |   | 0 |   | 0 |   |\n| 0 | 1 | GM_DEPT_AET | 2 | FILE_NAME | 0 |   | 0 |   |\n| 0 | 1 | GM_DEPT_AET | 2 | PROCESS_INSTANCE | 0 |   | 0 |   |\n| 2 | 6 | FILE_NAME | 0 |   | 0 |   | 0 |   |\n| 2 | 6 | FILE_NAME | 102 | FILE_NAME | 0 |   | 0 |   |\n| 2 | 6 | PROCESS_INSTANCE | 0 |   | 0 |   | 0 |   |\n| 2 | 6 | PROCESS_INSTANCE | 102 | PROCESS_INSTANCE | 0 |   | 0 |   |\n| 33 | 66 | GM_DEPT_XL4 | 0 |   | 0 |   | 0 |   |\n| 34 | 66 | GM_DEPT_XL4 | 77 | MAIN | 0 |   | 0 |   |\n| 43 | 66 | GM_DEPT_XL4 | 77 | MAIN    GBLdefault  1900-01-01 | 78 | Step01 | 12 | OnExecute |\n(10 rows, 10ms)\n### Statement 3\n| OBJECTTYPE | OBJECTVALUE1 | OBJECTVALUE2 | OBJECTVALUE3 | OBJECTVALUE4 |\n|---|---|---|---|---|\n| 0 | GM_DEPT_AET |   |   |   |\n| 0 | GM_DEPT_AET | FILE_NAME |   |   |\n| 0 | GM_DEPT_AET | PROCESS_INSTANCE |   |   |\n| 2 | FILE_NAME |   |   |   |\n| 2 | FILE_NAME | FILE_NAME |   |   |\n| 2 | GM_MCP_EMPLID |   |   |   |\n| 2 | GM_MCP_EMPLID | GMEMPLID |   |   |\n| 2 | PROCESS_INSTANCE |   |   |   |\n| 2 | PROCESS_INSTANCE | PROCESS_INSTANCE |   |   |\n| 33 | GM_DEPT_XL4 |   |   |   |\n| 34 | GM_DEPT_XL4 | MAIN |   |   |\n| 43 | GM_DEPT_XL4 | MAIN    GBLdefault  1900-01-01 | Step01 | OnExecute |\n(12 rows, 17ms)"
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "columns": [
+            "PROJECTNAME",
+            "LASTUPDDTTM"
+          ],
+          "column_types": [
+            "NCHAR",
+            "TimeStampDTY"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_EXPORT",
+              "2026-11-05T22:23:16.17893"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 19,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 0,
+          "error_message": "GM_DEPT_EXPORT"
+        },
+        {
+          "columns": [
+            "OBJECTTYPE",
+            "OBJECTID1",
+            "OBJECTVALUE1",
+            "OBJECTID2",
+            "OBJECTVALUE2",
+            "OBJECTID3",
+            "OBJECTVALUE3",
+            "OBJECTID4",
+            "OBJECTVALUE4"
+          ],
+          "column_types": [
+            "NUMBER",
+            "NUMBER",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "0",
+              "1",
+              "GM_DEPT_AET",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "0",
+              "1",
+              "GM_DEPT_AET",
+              "2",
+              "FILE_NAME",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "0",
+              "1",
+              "GM_DEPT_AET",
+              "2",
+              "PROCESS_INSTANCE",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "FILE_NAME",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "FILE_NAME",
+              "102",
+              "FILE_NAME",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "PROCESS_INSTANCE",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "PROCESS_INSTANCE",
+              "102",
+              "PROCESS_INSTANCE",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "33",
+              "66",
+              "GM_DEPT_XL4",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "34",
+              "66",
+              "GM_DEPT_XL4",
+              "77",
+              "MAIN",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "43",
+              "66",
+              "GM_DEPT_XL4",
+              "77",
+              "MAIN    GBLdefault  1900-01-01",
+              "78",
+              "Step01",
+              "12",
+              "OnExecute"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 10,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 1,
+          "error_message": "0"
+        },
+        {
+          "columns": [
+            "OBJECTTYPE",
+            "OBJECTVALUE1",
+            "OBJECTVALUE2",
+            "OBJECTVALUE3",
+            "OBJECTVALUE4"
+          ],
+          "column_types": [
+            "NUMBER",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "0",
+              "GM_DEPT_AET",
+              " ",
+              " ",
+              " "
+            ],
+            [
+              "0",
+              "GM_DEPT_AET",
+              "FILE_NAME",
+              " ",
+              " "
+            ],
+            [
+              "0",
+              "GM_DEPT_AET",
+              "PROCESS_INSTANCE",
+              " ",
+              " "
+            ],
+            [
+              "2",
+              "FILE_NAME",
+              " ",
+              " ",
+              " "
+            ],
+            [
+              "2",
+              "FILE_NAME",
+              "FILE_NAME",
+              " ",
+              " "
+            ],
+            [
+              "2",
+              "GM_MCP_EMPLID",
+              " ",
+              " ",
+              " "
+            ],
+            [
+              "2",
+              "GM_MCP_EMPLID",
+              "GMEMPLID",
+              " ",
+              " "
+            ],
+            [
+              "2",
+              "PROCESS_INSTANCE",
+              " ",
+              " ",
+              " "
+            ],
+            [
+              "2",
+              "PROCESS_INSTANCE",
+              "PROCESS_INSTANCE",
+              " ",
+              " "
+            ],
+            [
+              "33",
+              "GM_DEPT_XL4",
+              " ",
+              " ",
+              " "
+            ],
+            [
+              "34",
+              "GM_DEPT_XL4",
+              "MAIN",
+              " ",
+              " "
+            ],
+            [
+              "43",
+              "GM_DEPT_XL4",
+              "MAIN    GBLdefault  1900-01-01",
+              "Step01",
+              "OnExecute"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 17,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 2,
+          "error_message": "0"
+        }
+      ]
+    },
+    "isError": false
+  }
+}

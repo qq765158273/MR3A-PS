@@ -12,11 +12,25 @@ from unittest.mock import MagicMock, Mock, patch
 import numpy as np
 
 from psauto.config import Config
-from psauto.objects.models import AERequest, FieldRequest, RecordRequest
+from psauto.objects.models import AERequest, FieldRequest, ProjectRequest, RecordRequest
 from psauto.objects.service import ObjectService
 
 
 class ObjectServiceTests(unittest.TestCase):
+    def test_project_success_requires_every_requested_insert_and_saved_closed(self):
+        request = ProjectRequest(name='GM_PROJECT', definitions=[
+            {'type': 'AE', 'name': 'GM_DEPT_XL4'}, {'type': 'Record', 'name': 'GM_DEPT_AET'}])
+        self.completed_names('PSIDE_CreateProject_Saved', 'PSIDE_CreateProject_SavedAndClosed', 'P0_Inserted')
+        incomplete = self.service.execute(request)
+        self.assertFalse(incomplete['success'])
+        self.assertEqual(incomplete['definitions_added'], 1)
+        self.assertTrue(incomplete['saved'])
+        self.completed_names('PSIDE_CreateProject_Saved', 'PSIDE_CreateProject_SavedAndClosed',
+                             'P0_Inserted', 'P1_Inserted')
+        complete = self.service.execute(request)
+        self.assertTrue(complete['success'])
+        self.assertEqual(complete['definitions_added'], 2)
+
     def test_ae_properties_require_native_bound_verified_and_saved_endpoints(self):
         request=AERequest(name='GM_TEST_A',steps=[{'type':'PeopleCode','code':'x'}],
                           state_record='GM_DEPT_AET',disable_restart=True)

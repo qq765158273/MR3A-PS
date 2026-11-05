@@ -16,11 +16,12 @@ from ..agent_bridge import MR3AAgent
 from ..controller import connect_controller
 from ..evidence import EvidenceSink, export_task_evidence
 from ..pipeline import create_tasker
-from . import ae, field, record
-from .models import AERequest, FieldRequest, RecordRequest
+from . import ae, field, project, record
+from .models import AERequest, FieldRequest, ProjectRequest, RecordRequest
 
 
-BUILDERS = {FieldRequest: field.build, RecordRequest: record.build, AERequest: ae.build}
+BUILDERS = {FieldRequest: field.build, RecordRequest: record.build, AERequest: ae.build,
+            ProjectRequest: project.build}
 
 
 def _business_result(entry, request, job, trace):
@@ -44,12 +45,16 @@ def _business_result(entry, request, job, trace):
     state_bound = 'AEProp_StateBound' in completed
     restart_verified = 'AEProp_RestartVerified' in completed
     properties_saved = 'AEProp_Saved' in completed
+    project_request = isinstance(request, ProjectRequest)
+    definitions_added = (sum(f'P{index}_Inserted' in completed for index in range(len(request.definitions)))
+                         if project_request else 0)
     conflict = entry + '_already_exists' in completed
     conflict_closed = entry + '_conflict_closed' in completed
     success = bool(job.succeeded and saved and closed and (not build_required or built)
                    and (not state_required or state_bound)
                    and (not restart_required or restart_verified)
-                   and (not properties_required or properties_saved))
+                   and (not properties_required or properties_saved)
+                   and (not project_request or definitions_added == len(request.definitions)))
     status = ('saved_and_closed' if success else
               'already_exists' if conflict and conflict_closed and job.succeeded else
               'partial' if saved or may_exist else 'failed')
@@ -61,6 +66,7 @@ def _business_result(entry, request, job, trace):
             **({'state_record_bound': state_bound} if state_required else {}),
             **({'restart_verified': restart_verified} if restart_required else {}),
             **({'properties_saved': properties_saved} if properties_required else {}),
+            **({'definitions_added': definitions_added} if project_request else {}),
             'may_exist': may_exist or saved or conflict,
             'failed_node': failures[-1] if failures and not success and not conflict_closed else None}
 

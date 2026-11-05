@@ -1,0 +1,52 @@
+[
+  {
+    "home_effect_in_model": true,
+    "hidden_first_selected_in_model": true,
+    "same_visible_end_fixture": true,
+    "native_passed": true,
+    "keys": [
+      36,
+      65571
+    ],
+    "clicks": [
+      [
+        861,
+        572
+      ],
+      [
+        1198,
+        375
+      ]
+    ],
+    "nodes": [
+      "P0_RelatedAll",
+      "P0_Select",
+      "P0_Insert"
+    ]
+  },
+  {
+    "home_effect_in_model": false,
+    "hidden_first_selected_in_model": false,
+    "same_visible_end_fixture": true,
+    "native_passed": true,
+    "keys": [
+      36,
+      65571
+    ],
+    "clicks": [
+      [
+        891,
+        574
+      ],
+      [
+        1201,
+        378
+      ]
+    ],
+    "nodes": [
+      "P0_RelatedAll",
+      "P0_Select",
+      "P0_Insert"
+    ]
+  }
+]

@@ -1,0 +1,118 @@
+{
+  "provided": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0
+  },
+  "count_cases": [
+    {
+      "count": 0,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 1,
+      "passed": true,
+      "clicks": [
+        [
+          1175,
+          375
+        ]
+      ]
+    },
+    {
+      "count": 2,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 10,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 11,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 12,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 21,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 100,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 101,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 111,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 1000,
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "count": 1100,
+      "passed": false,
+      "clicks": []
+    }
+  ],
+  "wrong_types": [
+    {
+      "requested_type": "Record",
+      "frame_type": "AE",
+      "passed": false,
+      "clicks": []
+    },
+    {
+      "requested_type": "Field",
+      "frame_type": "AE",
+      "passed": false,
+      "clicks": []
+    }
+  ],
+  "feedback": [
+    {
+      "click_applied": false,
+      "passed": false,
+      "clicks": [
+        [
+          1189,
+          380
+        ]
+      ],
+      "nodes": [
+        "P0_Insert",
+        ""
+      ]
+    },
+    {
+      "click_applied": true,
+      "passed": true,
+      "clicks": [
+        [
+          1187,
+          383
+        ]
+      ],
+      "nodes": [
+        "P0_Insert",
+        "P0_Inserted"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "home_effect_model": true,
+    "passed": true,
+    "keys": [
+      36,
+      65571
+    ],
+    "clicks": [
+      [
+        791,
+        574
+      ],
+      [
+        1121,
+        417
+      ],
+      [
+        1119,
+        421
+      ],
+      [
+        1193,
+        385
+      ]
+    ],
+    "nodes": [
+      "P0_RelatedAll",
+      "P0_Select",
+      "P0_RelatedScrollTop",
+      "P0_RelatedScrollAgain",
+      "P0_Insert"
+    ]
+  },
+  {
+    "home_effect_model": false,
+    "passed": false,
+    "keys": [
+      36,
+      65571
+    ],
+    "clicks": [
+      [
+        811,
+        574
+      ],
+      [
+        1122,
+        421
+      ],
+      [
+        1121,
+        418
+      ]
+    ],
+    "nodes": [
+      "P0_RelatedAll",
+      "P0_Select",
+      "P0_RelatedScrollTop",
+      "P0_RelatedScrollAgain",
+      ""
+    ]
+  }
+]

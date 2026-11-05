@@ -1,0 +1,6 @@
+test_record_scroll_checks_hidden_top_categories_before_insert (test_projects.ProjectRecognitionTests.test_record_scroll_checks_hidden_top_categories_before_insert) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.948s
+
+OK

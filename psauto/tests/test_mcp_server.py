@@ -21,7 +21,13 @@ class MCPProtocolTests(unittest.IsolatedAsyncioTestCase):
                     await client.initialize()
                     listed = await client.list_tools()
                     tools = {tool.name: tool for tool in listed.tools}
-                    self.assertEqual(set(tools), {'create_field', 'create_record', 'create_ae'})
+                    self.assertEqual(set(tools), {'create_field', 'create_record', 'create_ae', 'save_project'})
+                    project = tools['save_project'].inputSchema
+                    self.assertEqual(set(project['$defs']['ProjectDefinition']['properties']['type']['enum']),
+                                     {'AE', 'Record', 'Field'})
+                    invalid_project = await client.call_tool('save_project', {
+                        'name': 'GM_TEST', 'definitions': [{'type': 'Record', 'name': 'GM%'}]})
+                    self.assertTrue(invalid_project.isError)
                     step = tools['create_ae'].inputSchema['$defs']['AEStep']['properties']
                     self.assertEqual(set(step['type']['enum']), {'SQL', 'PeopleCode'})
                     self.assertEqual(step['code']['type'], 'string')

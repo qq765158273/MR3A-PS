@@ -6,7 +6,7 @@ import unittest
 import jsonschema
 from pydantic import ValidationError
 
-from psauto.objects.models import AERequest, AEStep, FieldRequest, RecordRequest
+from psauto.objects.models import AERequest, AEStep, FieldRequest, ProjectRequest, RecordRequest
 from psauto.objects.service import BUILDERS
 
 
@@ -79,6 +79,9 @@ class ObjectArgumentsTests(unittest.TestCase):
                                           {'name':'EFFDT','alternate_search_key':True,'listbox':True}]),
                     AERequest(name='GM_TEST_A', steps=[{'type': 'SQL', 'code': 'SELECT 1'},
                                                        {'type': 'PeopleCode', 'code': code}])]
+        requests.append(ProjectRequest(name='GM_PROJECT', definitions=[
+            {'type': 'AE', 'name': 'GM_DEPT_XL4'}, {'type': 'Record', 'name': 'GM_DEPT_AET'},
+            {'type': 'Field', 'name': 'GM_MCP_EMPLID'}]))
         resource_nodes = {}
         for filename in (project / 'assets/resource/pipeline/PSIDE').glob('*.json'):
             resource_nodes.update(json.loads(filename.read_text(encoding='utf-8')))
@@ -92,7 +95,7 @@ class ObjectArgumentsTests(unittest.TestCase):
                     for target in value.get('next', []):
                         self.assertIn(target, merged, (name, target))
                     self.assertLessEqual(set(value), {'expected', 'input_text', 'all_of', 'next', 'enabled', 'custom_action_param', 'key', 'template'}, name)
-        _, override = BUILDERS[AERequest](requests[-1])
+        _, override = BUILDERS[AERequest](next(request for request in requests if isinstance(request, AERequest)))
         self.assertEqual(override['A1_Paste']['input_text'], code)
         for name, value in override.items():
             self.assertNotIn(code, json.dumps(value.get('expected', '')), name)

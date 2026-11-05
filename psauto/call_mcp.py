@@ -33,7 +33,7 @@ async def call(tool, arguments, config):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('tool', choices=['list', 'create_field', 'create_record', 'create_ae'])
+    parser.add_argument('tool', choices=['list', 'create_field', 'create_record', 'create_ae', 'save_project'])
     parser.add_argument('--arguments', help='UTF-8 JSON file; code is never put in shell command text')
     parser.add_argument('--config', default=str(Path(__file__).with_name('config.json')))
     parser.add_argument('--result', help='Optional JSON result file')

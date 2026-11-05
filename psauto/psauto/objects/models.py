@@ -10,6 +10,7 @@ RecordName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_l
 AEName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=12)]
 ExistingFieldName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=18)]
 ExistingRecordName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=15)]
+ProjectName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=15)]
 
 
 class FieldRequest(BaseModel):
@@ -88,4 +89,30 @@ class AERequest(BaseModel):
             if step.name is not None and step.name != expected:
                 raise ValueError(f'Expected step name {expected}; custom step names are not supported yet')
             step.name = expected
+        return self
+
+
+class ProjectDefinition(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    type: Literal['AE', 'Record', 'Field']
+    name: ExistingFieldName
+
+    @model_validator(mode='after')
+    def definition_name_length(self):
+        limit = {'AE': 12, 'Record': 15, 'Field': 18}[self.type]
+        if len(self.name) > limit:
+            raise ValueError(f'{self.type} names must fit in {limit} characters')
+        return self
+
+
+class ProjectRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    name: ProjectName
+    definitions: list[ProjectDefinition] = Field(min_length=1, max_length=20)
+
+    @model_validator(mode='after')
+    def unique_definitions(self):
+        identities = [(item.type, item.name) for item in self.definitions]
+        if len(set(identities)) != len(identities):
+            raise ValueError('Project definitions must be unique by type and name')
         return self

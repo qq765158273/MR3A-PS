@@ -10,7 +10,7 @@ from pydantic import StrictBool
 from mcp.server.fastmcp import FastMCP
 
 from psauto.config import load_config
-from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, RecordField, RecordName, RecordRequest
+from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, ProjectDefinition, ProjectName, ProjectRequest, RecordField, RecordName, RecordRequest
 from psauto.objects.service import ObjectService
 
 
@@ -39,6 +39,11 @@ def create_server(cfg):
         """Create a GM AE with 1–4 SQL/PeopleCode steps; optionally add one existing default AET and set Disable Restart before code compilation. Save and close; DB verifies content. This tool does not execute the AE."""
         return service.execute(AERequest(name=name, steps=steps,state_record=state_record,
                                          disable_restart=disable_restart))
+
+    @server.tool()
+    def save_project(name: ProjectName, definitions: list[ProjectDefinition]) -> dict:
+        """Save a new GM Project containing 1–20 existing AE/Record/Field definitions and all their native Related Definitions, including code. Names are exact; existing projects are rejected. Project names are limited to 15 characters for full visual confirmation. Return to an empty Untitled workspace. DB verifies members; this does not export a file or execute AE."""
+        return service.execute(ProjectRequest(name=name, definitions=definitions))
 
     return server
 

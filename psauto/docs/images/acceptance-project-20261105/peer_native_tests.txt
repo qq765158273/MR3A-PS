@@ -1,0 +1,10 @@
+test_invalid_manifests_are_rejected_before_automation (test_projects.ProjectArgumentsTests.test_invalid_manifests_are_rejected_before_automation) ... ok
+test_only_requested_slots_are_reachable_and_bound (test_projects.ProjectArgumentsTests.test_only_requested_slots_are_reachable_and_bound) ... ok
+test_empty_workspace_rejects_unsaved_members_or_modal_dialog (test_projects.ProjectRecognitionTests.test_empty_workspace_rejects_unsaved_members_or_modal_dialog) ... ok
+test_insert_requires_exact_selected_object_and_related_categories (test_projects.ProjectRecognitionTests.test_insert_requires_exact_selected_object_and_related_categories) ... ok
+test_saved_project_rejects_prefix_and_wrong_name_before_reset (test_projects.ProjectRecognitionTests.test_saved_project_rejects_prefix_and_wrong_name_before_reset) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 14.093s
+
+OK

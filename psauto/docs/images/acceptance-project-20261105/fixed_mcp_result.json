@@ -1,0 +1,14 @@
+{
+  "isError": false,
+  "success": true,
+  "status": "saved_and_closed",
+  "name": "GMPRJFIX01",
+  "saved": true,
+  "workspace_ready": true,
+  "may_exist": true,
+  "failed_node": null,
+  "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261105_224848_499285",
+  "definitions_added": 2,
+  "evidence_status": "complete",
+  "next_operation_allowed": true
+}

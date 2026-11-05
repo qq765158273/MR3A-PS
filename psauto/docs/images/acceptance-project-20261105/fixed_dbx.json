@@ -1,0 +1,211 @@
+{
+  "target": "GMPRJFIX01 after Record selection guard fix",
+  "members_match_original": true,
+  "original_project_timestamp_unchanged": true,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "### Statement 1\n| PROJECTNAME | LASTUPDDTTM |\n|---|---|\n| GMPRJFIX01 | 2026-11-05T22:49:31.503375 |\n| GM_DEPT_EXPORT | 2026-11-05T22:23:16.17893 |\n(2 rows, 25ms)\n### Statement 2\n| OBJECTTYPE | OBJECTID1 | OBJECTVALUE1 | OBJECTID2 | OBJECTVALUE2 | OBJECTID3 | OBJECTVALUE3 | OBJECTID4 | OBJECTVALUE4 |\n|---|---|---|---|---|---|---|---|---|\n| 0 | 1 | GM_DEPT_AET | 0 |   | 0 |   | 0 |   |\n| 0 | 1 | GM_DEPT_AET | 2 | FILE_NAME | 0 |   | 0 |   |\n| 0 | 1 | GM_DEPT_AET | 2 | PROCESS_INSTANCE | 0 |   | 0 |   |\n| 2 | 6 | FILE_NAME | 0 |   | 0 |   | 0 |   |\n| 2 | 6 | FILE_NAME | 102 | FILE_NAME | 0 |   | 0 |   |\n| 2 | 6 | PROCESS_INSTANCE | 0 |   | 0 |   | 0 |   |\n| 2 | 6 | PROCESS_INSTANCE | 102 | PROCESS_INSTANCE | 0 |   | 0 |   |\n| 33 | 66 | GM_DEPT_XL4 | 0 |   | 0 |   | 0 |   |\n| 34 | 66 | GM_DEPT_XL4 | 77 | MAIN | 0 |   | 0 |   |\n| 43 | 66 | GM_DEPT_XL4 | 77 | MAIN    GBLdefault  1900-01-01 | 78 | Step01 | 12 | OnExecute |\n(10 rows, 14ms)\n### Statement 3\n| ITEMS |\n|---|\n| 10 |\n(1 rows, 12ms)"
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "columns": [
+            "PROJECTNAME",
+            "LASTUPDDTTM"
+          ],
+          "column_types": [
+            "NCHAR",
+            "TimeStampDTY"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GMPRJFIX01",
+              "2026-11-05T22:49:31.503375"
+            ],
+            [
+              "GM_DEPT_EXPORT",
+              "2026-11-05T22:23:16.17893"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 25,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 0,
+          "error_message": "GMPRJFIX01"
+        },
+        {
+          "columns": [
+            "OBJECTTYPE",
+            "OBJECTID1",
+            "OBJECTVALUE1",
+            "OBJECTID2",
+            "OBJECTVALUE2",
+            "OBJECTID3",
+            "OBJECTVALUE3",
+            "OBJECTID4",
+            "OBJECTVALUE4"
+          ],
+          "column_types": [
+            "NUMBER",
+            "NUMBER",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "0",
+              "1",
+              "GM_DEPT_AET",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "0",
+              "1",
+              "GM_DEPT_AET",
+              "2",
+              "FILE_NAME",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "0",
+              "1",
+              "GM_DEPT_AET",
+              "2",
+              "PROCESS_INSTANCE",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "FILE_NAME",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "FILE_NAME",
+              "102",
+              "FILE_NAME",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "PROCESS_INSTANCE",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "2",
+              "6",
+              "PROCESS_INSTANCE",
+              "102",
+              "PROCESS_INSTANCE",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "33",
+              "66",
+              "GM_DEPT_XL4",
+              "0",
+              " ",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "34",
+              "66",
+              "GM_DEPT_XL4",
+              "77",
+              "MAIN",
+              "0",
+              " ",
+              "0",
+              " "
+            ],
+            [
+              "43",
+              "66",
+              "GM_DEPT_XL4",
+              "77",
+              "MAIN    GBLdefault  1900-01-01",
+              "78",
+              "Step01",
+              "12",
+              "OnExecute"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 14,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 1,
+          "error_message": "0"
+        },
+        {
+          "columns": [
+            "ITEMS"
+          ],
+          "column_types": [
+            "NUMBER"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "10"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 12,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 2,
+          "error_message": "10"
+        }
+      ]
+    },
+    "isError": false
+  }
+}
