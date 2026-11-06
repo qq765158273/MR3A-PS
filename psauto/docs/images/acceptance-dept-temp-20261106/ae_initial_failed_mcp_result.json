@@ -1,0 +1,17 @@
+{
+  "isError": false,
+  "success": false,
+  "status": "partial",
+  "name": "GM_DEPT_XL5",
+  "saved": false,
+  "workspace_ready": false,
+  "may_exist": true,
+  "failed_node": "A1_Dirty",
+  "evidence_dir": "C:\\Users\\t-wangsen05\\Desktop\\MR3A-PS\\psauto\\out\\objects\\20261106_111613_013751",
+  "state_record_bound": true,
+  "restart_verified": true,
+  "temporary_records_bound": true,
+  "properties_saved": true,
+  "evidence_status": "complete",
+  "next_operation_allowed": false
+}

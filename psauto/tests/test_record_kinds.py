@@ -7,9 +7,40 @@ from pydantic import ValidationError
 
 from psauto.objects.models import RecordRequest
 from psauto.objects.record import build
+from psauto.objects.common import identifier
 
 
 class RecordKindArgumentsTests(unittest.TestCase):
+    def test_full_physical_record_accepts_sixty_columns_and_reaches_each_field_node(self):
+        fields = [f'FIELD_{index:02d}' for index in range(61)]
+        request = RecordRequest(name='GM_DEPT_TMP', type='Temporary Table', fields=fields, build=True)
+        entry, override = build(request)
+        source = json.loads((Path(__file__).resolve().parents[2] /
+                             'assets/resource/pipeline/PSIDE/create_record.json').read_text(encoding='utf8'))
+        graph = {key: {**value, **override.get(key, {})} for key, value in source.items()}
+        pending, visited = [entry], set()
+        while pending:
+            node = pending.pop()
+            if node in visited:
+                continue
+            visited.add(node)
+            self.assertIn(node, graph)
+            pending.extend(graph[node].get('next', []))
+        self.assertEqual(len(request.fields), 61)
+        for index in range(61):
+            with self.subTest(index=index):
+                self.assertIn(f'R_Field{index}_Inserted', visited)
+                self.assertEqual(graph[f'R_Field{index}_Name']['expected'], rf'^\s*{identifier(fields[index])}\s*$')
+                self.assertEqual(graph[f'R_Field{index}_ConfirmResult']['next'],
+                                 [f'R_Field{index}_DuplicateWarning', f'R_Field{index}_Cancel'])
+                self.assertEqual(graph[f'R_Field{index}_DuplicateWarning']['next'],
+                                 [f'R_Field{index}_DuplicateConfirm'])
+                self.assertEqual(graph[f'R_Field{index}_DuplicateConfirm']['next'],
+                                 [f'R_Field{index}_Cancel'])
+        self.assertIn('R_BuildFinished', visited)
+        with self.assertRaises(ValidationError):
+            RecordRequest(name='GM_TOO_MANY', fields=[f'FIELD_{i:02d}' for i in range(62)])
+
     def test_view_sql_and_build_contracts_reject_invalid_requests(self):
         base = {'name': 'GM_KIND_TEST', 'fields': ['SETID']}
         invalid = [

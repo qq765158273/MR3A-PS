@@ -1,0 +1,12 @@
+node_id,name,completed,total_ms,scan_retries,candidate_misses
+300000001,DebugDismissCodeError,True,1188,0,0
+300000002,DebugReplacePeopleCode,True,1375,0,0
+300000007,A1_Paste,True,2375,0,0
+300000008,A1_Dirty,True,1984,0,0
+300000013,A1_PSIDE_CodeEditorSaved,True,328,0,0
+300000016,A1_PSIDE_PeopleCodeSaveFeedback,True,188,0,0
+300000017,A1_CloseEditor,True,562,0,0
+300000018,A1_ParentReady,True,828,0,0
+300000023,PSIDE_CreateAE_Saved,True,688,0,0
+300000027,A_CloseSaved,True,781,0,0
+300000031,PSIDE_CreateAE_SavedAndClosed,True,547,0,0

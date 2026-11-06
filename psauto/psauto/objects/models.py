@@ -11,6 +11,11 @@ AEName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_lengt
 ExistingFieldName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=18)]
 ExistingRecordName = Annotated[str, Field(pattern=r'^[A-Z][A-Z0-9_]*$', min_length=1, max_length=15)]
 RecordKind = Literal['Derived/Work', 'SQL Table', 'SQL View', 'Dynamic View', 'Temporary Table']
+# PSIDE's Record definition can contain more fields than the small samples used
+# by the first MCP version.  Keep this explicit so the pipeline and API share a
+# single contract for full physical records such as PS_DEPT_TBL (60 columns)
+# plus the PROCESS_INSTANCE key required by PeopleSoft Temporary Tables.
+MAX_RECORD_FIELDS = 61
 ProjectName = Annotated[str, Field(pattern=r'^GM[A-Z0-9_]*$', min_length=3, max_length=15)]
 
 
@@ -45,11 +50,14 @@ class RecordField(BaseModel):
         return self
 
 
+RecordFields = Annotated[list[ExistingFieldName | RecordField], Field(min_length=1, max_length=MAX_RECORD_FIELDS)]
+
+
 class RecordRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
     name: RecordName
     type: RecordKind = 'Derived/Work'
-    fields: list[ExistingFieldName | RecordField] = Field(min_length=1, max_length=20)
+    fields: RecordFields
     build: StrictBool = False
     tablespace: str = Field(default='HRAPP', min_length=1, max_length=30, pattern=r'^[A-Z][A-Z0-9_]*$')
     view_sql: str | None = Field(default=None, max_length=65536,

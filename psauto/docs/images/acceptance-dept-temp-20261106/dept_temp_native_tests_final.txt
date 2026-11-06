@@ -1,0 +1,9 @@
+test_all_visible_counter_cells_in_real_eleven_and_twentyfive_row_frames (test_record_large_vision.LargeRecordVisionTests.test_all_visible_counter_cells_in_real_eleven_and_twentyfive_row_frames) ... ok
+test_auto_insert_state_requires_selected_result_and_dialog (test_record_large_vision.LargeRecordVisionTests.test_auto_insert_state_requires_selected_result_and_dialog) ... ok
+test_eeo4_input_uses_exact_name_and_rejects_wrong_requested_field (test_record_large_vision.LargeRecordVisionTests.test_eeo4_input_uses_exact_name_and_rejects_wrong_requested_field) ... ok
+test_row_count_is_read_from_one_cell_and_clicks_only_that_row (test_record_large_vision.LargeRecordVisionTests.test_row_count_is_read_from_one_cell_and_clicks_only_that_row) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 6.013s
+
+OK

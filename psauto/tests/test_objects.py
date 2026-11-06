@@ -137,7 +137,7 @@ class ObjectArgumentsTests(unittest.TestCase):
         self.assertEqual(override['R_SpaceInitial']['key'],ord('P'))
         for payload in (first,last):
             self.assertNotIn('__PARAM_',json.dumps(payload))
-            self.assertTrue(all(set(value)<={'expected','next'} for value in payload.values()))
+            self.assertTrue(all(set(value)<={'expected','next','key'} for value in payload.values()))
 
     def test_every_creation_finishes_with_save_and_close_without_readback(self):
         project = Path(__file__).resolve().parents[2]

@@ -21,10 +21,11 @@ def build(request):
     for index, item in enumerate(request.fields):
         name = item if isinstance(item, str) else item.name
         values[f'field_{index}'] = name
-        values[f'field_{index}_regex'] = identifier(name)
+        values[f'field_{index}_regex'] = r'^\s*' + identifier(name) + r'\s*$'
         values[f'field_{index}_row_regex'] = r'^\s*' + identifier(name) + r'\s*$'
     options = [(index, item) for index, item in enumerate(request.fields) if isinstance(item, RecordField)]
-    patches = {f'R_Field{count - 1}_Inserted': {'next': [f'R_Attr{options[0][0]}_Bind' if options else 'R_TypeTab']}}
+    patches = {f'R_Field{count - 1}_Inserted': {'next': ['R_RestoreRecord']},
+               'R_PropertiesHeader': {'next': [f'R_Attr{options[0][0]}_Bind' if options else 'R_TypeTab']}}
     patches['R_SpaceInitial'] = {'key': ord(request.tablespace[0])}
     if request.type == 'Derived/Work':
         patches['R_RecordTypeGroup'] = {'next': ['R_WorkTypeChoice']}
@@ -39,6 +40,7 @@ def build(request):
         patches['R_Save_ok'] = {'next': ['R_ViewNamed']}
     for position, (index, item) in enumerate(options):
         values[f'attr_{index}_next'] = f'R_Attr{options[position + 1][0]}_Bind' if position + 1 < len(options) else 'R_TypeTab'
+        values[f'attr_{index}_keys'] = [40] * index if index else [36]
         for attribute, label in [('key', 'Key'), ('alternate_search_key', 'Alternate'),
                                  ('listbox', 'List'), ('search_key', 'Search')]:
             values[f'attr_{index}_{attribute}'] = ([f'R_Attr{label}Checked', f'R_Attr{label}Check'] if getattr(item, attribute)

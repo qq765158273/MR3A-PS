@@ -1,0 +1,177 @@
+{
+  "sql": "SELECT A.AE_APPLID,A.AE_DISABLE_RESTART,A.TEMPTBLINSTANCES,S.AE_STATE_RECNAME,S.AE_DEFAULT_STATE FROM PSAEAPPLDEFN A LEFT JOIN PSAEAPPLSTATE S ON S.AE_APPLID=A.AE_APPLID WHERE A.AE_APPLID='GM_DEPT_XL5'; SELECT AE_APPLID,RECNAME FROM PSAEAPPLTEMPTBL WHERE AE_APPLID='GM_DEPT_XL5'; SELECT S.AE_APPLID,S.AE_SECTION,S.AE_STEP,S.AE_STMT_TYPE,S.SQLID,T.SQLTEXT FROM PSAESTMTDEFN S LEFT JOIN PSSQLTEXTDEFN T ON T.SQLID=S.SQLID WHERE S.AE_APPLID='GM_DEPT_XL5' ORDER BY S.AE_STEP; SELECT OBJECTVALUE1,OBJECTVALUE6,PROGLEN FROM PSPCMPROG WHERE OBJECTVALUE1='GM_DEPT_XL5'; SELECT PROGSEQ,DBMS_LOB.GETLENGTH(PCTEXT) CHARS,DBMS_LOB.SUBSTR(PCTEXT,2000,1) PART1,DBMS_LOB.SUBSTR(PCTEXT,2000,2001) PART2,DBMS_LOB.SUBSTR(PCTEXT,2000,4001) PART3 FROM PSPCMTXT WHERE OBJECTVALUE1='GM_DEPT_XL5' AND OBJECTVALUE6='Step02' ORDER BY PROGSEQ",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "### Statement 1\n| AE_APPLID | AE_DISABLE_RESTART | TEMPTBLINSTANCES | AE_STATE_RECNAME | AE_DEFAULT_STATE |\n|---|---|---|---|---|\n| GM_DEPT_XL5 | Y | 0 | GM_DEPT_AET | Y |\n(1 rows, 33ms)\n### Statement 2\n| AE_APPLID | RECNAME |\n|---|---|\n| GM_DEPT_XL5 | GM_DEPT_TMP |\n(1 rows, 12ms)\n### Statement 3\n| AE_APPLID | AE_SECTION | AE_STEP | AE_STMT_TYPE | SQLID | SQLTEXT |\n|---|---|---|---|---|---|\n| GM_DEPT_XL5 | MAIN | Step01 | S | GM_DEPT_XL5 MAIN    Step01  S | INSERT INTO %Table(GM_DEPT_TMP) (PROCESS_INSTANCE , SETID , DEPTID , EFFDT , EFF_STATUS , DESCR , DESCRSHORT , COMPANY , SETID_LOCATION , LOCATION , TAX_LOCATION_CD , MANAGER_ID , MANAGER_POSN , BUDGET_YR_END_DT , BUDGET_LVL , GL_EXPENSE , EEO4_FUNCTION , CAN_IND_SECTOR , ACCIDENT_INS , SI_ACCIDENT_NUM , HAZARD , ESTABID , RISKCD , GVT_DESCR40 , GVT_SUB_AGENCY , GVT_PAR_LINE2 , GVT_PAR_LINE3 , GVT_PAR_LINE4 , GVT_PAR_LINE5 , GVT_PAR_DESCR2 , GVT_PAR_DESCR3 , GVT_PAR_DESCR4 , GVT_PAR_DESCR5 , FTE_EDIT_INDC , DEPT_TENURE_FLG , TL_DISTRIB_INFO , USE_BUDGETS , USE_ENCUMBRANCES , USE_DISTRIBUTION , BUDGET_DEPTID , HP_STATS_DEPT_CD , HP_STATS_DPCD_NW , HP_STATS_FACULTY , MANAGER_NAME , ACCOUNTING_OWNER , COUNTRY_GRP , HP_RTBC_OPTION , HP_AUTO_RTBC , CLASS_UNIT_NZL , ORG_UNIT_AUS , WORK_SECTOR_AUS , APS_AGENT_CD_AUS , IND_COMMITTEE_BEL , NACE_CD_BEL , LASTUPDDTTM , HPS_ROOT_NODE , HPS_DEPT_LVL , HPS_DEPT_BUD_NUM , HPS_ORG_STRUCTURE , BJ_HRBP_ID , BJ_DEPT_RESP) SELECT %ProcessInstance , SETID , DEPTID , EFFDT , EFF_STATUS , DESCR , DESCRSHORT , COMPANY , SETID_LOCATION , LOCATION , TAX_LOCATION_CD , MANAGER_ID , MANAGER_POSN , BUDGET_YR_END_DT , BUDGET_LVL , GL_EXPENSE , EEO4_FUNCTION , CAN_IND_SECTOR , ACCIDENT_INS , SI_ACCIDENT_NUM , HAZARD , ESTABID , RISKCD , GVT_DESCR40 , GVT_SUB_AGENCY , GVT_PAR_LINE2 , GVT_PAR_LINE3 , GVT_PAR_LINE4 , GVT_PAR_LINE5 , GVT_PAR_DESCR2 , GVT_PAR_DESCR3 , GVT_PAR_DESCR4 , GVT_PAR_DESCR5 , FTE_EDIT_INDC , DEPT_TENURE_FLG , TL_DISTRIB_INFO , USE_BUDGETS , USE_ENCUMBRANCES , USE_DISTRIBUTION , BUDGET_DEPTID , HP_STATS_DEPT_CD , HP_STATS_DPCD_NW , HP_STATS_FACULTY , MANAGER_NAME , ACCOUNTING_OWNER , COUNTRY_GRP , HP_RTBC_OPTION , HP_AUTO_RTBC , CLASS_UNIT_NZL , ORG_UNIT_AUS , WORK_SECTOR_AUS , APS_AGENT_CD_AUS , IND_COMMITTEE_BEL , NACE_CD_BEL , LASTUPDDTTM , HPS_ROOT_NODE , HPS_DEPT_LVL , HPS_DEPT_BUD_NUM , HPS_ORG_STRUCTURE , BJ_HRBP_ID , BJ_DEPT_RESP FROM PS_DEPT_TBL |\n| GM_DEPT_XL5 | MAIN | Step02 | P |   | NULL |\n(2 rows, 20ms)\n### Statement 4\n| OBJECTVALUE1 | OBJECTVALUE6 | PROGLEN |\n|---|---|---|\n| GM_DEPT_XL5 | Step02 | 7369 |\n(1 rows, 14ms)\n### Statement 5\n| PROGSEQ | CHARS | PART1 | PART2 | PART3 |\n|---|---|---|---|---|\n| 0 | 4048 | /* Department export through a PeopleSoft Temporary Table.\n   MAIN.Step02.OnExecute reads only this AE instance's rows. */\nDeclare Function buildJavaArray PeopleCode HPS_RPT_FUNC_WK.FUNCLIB_01 FieldFormula;\n\nLocal JavaObject &report;\nLocal SQL &cursor;\nLocal Record &aet;\nLocal array of any &headers, &row;\nLocal number &rows = 0;\nLocal number &col;\nLocal string &filename, &path, &program, &sqlText;\n\n&program = \"GM_DEPT_XL5\";\n&aet = GetRecord(Record.GM_DEPT_AET);\n&filename = &program | \"_\" | DateTimeToLocalizedString(%Datetime, \"yyyyMMdd_HHmmss\") | \"_\" | String(&aet.PROCESS_INSTANCE.Value) | \".xlsx\";\n&aet.FILE_NAME.Value = &filename;\n&path = %FilePath;\nIf None(&path) Or\n      &path = Char(92) Then\n   &path = GetEnv(\"PUBLIC\") | Char(92) | \"Documents\" | Char(92);\nEnd-If;\nIf Right(&path, 1) <> Char(92) And\n      Right(&path, 1) <> \"/\" Then\n   &path = &path | Char(92);\nEnd-If;\n&path = &path | &filename;\nMessageBox(0, \"\", 0, 0, &program | \" START; source=GM_DEPT_TMP; columns=60; path=\" | &path);\n\n&report = CreateJavaObject(\"hps.excel.poi.HpsReportDefn\", \"Department full export\");\n&headers = CreateArrayAny(\"SETID\", \"DEPTID\", \"EFFDT\", \"EFF_STATUS\", \"DESCR\", \"DESCRSHORT\", \"COMPANY\", \"SETID_LOCATION\", \"LOCATION\", \"TAX_LOCATION_CD\", \"MANAGER_ID\", \"MANAGER_POSN\", \"BUDGET_YR_END_DT\", \"BUDGET_LVL\", \"GL_EXPENSE\", \"EEO4_FUNCTION\", \"CAN_IND_SECTOR\", \"ACCIDENT_INS\", \"SI_ACCIDENT_NUM\", \"HAZARD\", \"ESTABID\", \"RISKCD\", \"GVT_DESCR40\", \"GVT_SUB_AGENCY\", \"GVT_PAR_LINE2\", \"GVT_PAR_LINE3\", \"GVT_PAR_LINE4\", \"GVT_PAR_LINE5\", \"GVT_PAR_DESCR2\", \"GVT_PAR_DESCR3\", \"GVT_PAR_DESCR4\", \"GVT_PAR_DESCR5\", \"FTE_EDIT_INDC\", \"DEPT_TENURE_FLG\", \"TL_DISTRIB_INFO\", \"USE_BUDGETS\", \"USE_ENCUMBRANCES\", \"USE_DISTRIBUTION\", \"BUDGET_DEPTID\", \"HP_STATS_DEPT_CD\", \"HP_STATS_DPCD_NW\", \"HP_STATS_FACULTY\", \"MANAGER_NAME\", \"ACCOUNTING_OWNER\", \"COUNTRY_GRP\", \"HP_RTBC_OPTION\", \"HP_AUTO_RTBC\", \"CLASS_UNIT_NZL\", \"ORG_UNIT_AUS\", \"WORK_SECTOR_AUS\", \"APS_AGENT_CD_AUS\", \"IND_COMMITTEE_BEL\", \"NACE_CD_BEL\", \"LASTUPDDTTM\", \"HPS_ROOT_N | ODE\", \"HPS_DEPT_LVL\", \"HPS_DEPT_BUD_NUM\", \"HPS_ORG_STRUCTURE\", \"BJ_HRBP_ID\", \"BJ_DEPT_RESP\");\n&report.addHeaderRow(buildJavaArray(&headers));\n&sqlText = \"SELECT SETID, DEPTID, TO_CHAR(EFFDT, 'YYYY-MM-DD'), EFF_STATUS, DESCR, DESCRSHORT, COMPANY, SETID_LOCATION, LOCATION, TAX_LOCATION_CD, MANAGER_ID, MANAGER_POSN, BUDGET_YR_END_DT, BUDGET_LVL, GL_EXPENSE, EEO4_FUNCTION, CAN_IND_SECTOR, ACCIDENT_INS, SI_ACCIDENT_NUM, HAZARD, ESTABID, RISKCD, GVT_DESCR40, GVT_SUB_AGENCY, GVT_PAR_LINE2, GVT_PAR_LINE3, GVT_PAR_LINE4, GVT_PAR_LINE5, GVT_PAR_DESCR2, GVT_PAR_DESCR3, GVT_PAR_DESCR4, GVT_PAR_DESCR5, FTE_EDI\" | \"T_INDC, DEPT_TENURE_FLG, TL_DISTRIB_INFO, USE_BUDGETS, USE_ENCUMBRANCES, USE_DISTRIBUTION, BUDGET_DEPTID, HP_STATS_DEPT_CD, HP_STATS_DPCD_NW, HP_STATS_FACULTY, MANAGER_NAME, ACCOUNTING_OWNER, COUNTRY_GRP, HP_RTBC_OPTION, HP_AUTO_RTBC, CLASS_UNIT_NZL, ORG_UNIT_AUS, WORK_SECTOR_AUS, APS_AGENT_CD_AUS, IND_COMMITTEE_BEL, NACE_CD_BEL, TO_CHAR(LASTUPDDTTM, 'YYYY-MM-DD HH24:MI:SS.FF6'), HPS_ROOT_NODE, HPS_DEPT_LVL, HPS_DEPT_BUD_NUM, HPS_ORG_STRUCTURE, B\" | \"J_HRBP_ID, BJ_DEPT_RESP FROM %Table(GM_DEPT_TMP) WHERE PROCESS_INSTANCE = :1 ORDER BY SETID, DEPTID, EFFDT\";\n&cursor = CreateSQL(&sqlText, &aet.PROCESS_INSTANCE.Value);\n&row = CreateArrayAny();\nWhile &cursor.Fetch(&row)\n   If &row.Len <> 60 Then\n      Error &program | \" unexpected column count\";\n   End-If;\n   For &col = 1 To &row.Len\n      /* String[] preserves leading-zero identifiers and nulls as empty cells. */\n      &row [&col] = &row [&col] | \"\";\n   End-For;\n   &report.addContentRowObject(buildJavaArray(&row));\n   &rows = &rows + 1;\n   If Mod(&rows, 10000) = 0 Then\n      MessageBox(0, \"\", 0, 0, &program | \" fetched \" | String(&rows) | \" rows\");\n   End-If;\nEnd-While;\n&cursor.Close();\n&report.generateExcel(&path);\n&report = Null;\nIf Not FileExists(&path, %FilePath_Absolute) Then\n   Error &program | \" workbook was not created: \" | &path;\nEnd-If;\nMessageBox(0, \"\", 0, 0, &program | \" COMPLETE; source=GM_DEPT_TMP; columns=6 | 0; rows=\" | String(&rows) | \"; path=\" | &path);\n |\n(1 rows, 31ms)"
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "columns": [
+            "AE_APPLID",
+            "AE_DISABLE_RESTART",
+            "TEMPTBLINSTANCES",
+            "AE_STATE_RECNAME",
+            "AE_DEFAULT_STATE"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NUMBER",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL5",
+              "Y",
+              "0",
+              "GM_DEPT_AET",
+              "Y"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 33,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 0,
+          "error_message": "GM_DEPT_XL5"
+        },
+        {
+          "columns": [
+            "AE_APPLID",
+            "RECNAME"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL5",
+              "GM_DEPT_TMP"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 12,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 1,
+          "error_message": "GM_DEPT_XL5"
+        },
+        {
+          "columns": [
+            "AE_APPLID",
+            "AE_SECTION",
+            "AE_STEP",
+            "AE_STMT_TYPE",
+            "SQLID",
+            "SQLTEXT"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR",
+            "LongVarChar"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL5",
+              "MAIN",
+              "Step01",
+              "S",
+              "GM_DEPT_XL5 MAIN    Step01  S",
+              "INSERT INTO %Table(GM_DEPT_TMP) (PROCESS_INSTANCE , SETID , DEPTID , EFFDT , EFF_STATUS , DESCR , DESCRSHORT , COMPANY , SETID_LOCATION , LOCATION , TAX_LOCATION_CD , MANAGER_ID , MANAGER_POSN , BUDGET_YR_END_DT , BUDGET_LVL , GL_EXPENSE , EEO4_FUNCTION , CAN_IND_SECTOR , ACCIDENT_INS , SI_ACCIDENT_NUM , HAZARD , ESTABID , RISKCD , GVT_DESCR40 , GVT_SUB_AGENCY , GVT_PAR_LINE2 , GVT_PAR_LINE3 , GVT_PAR_LINE4 , GVT_PAR_LINE5 , GVT_PAR_DESCR2 , GVT_PAR_DESCR3 , GVT_PAR_DESCR4 , GVT_PAR_DESCR5 , FTE_EDIT_INDC , DEPT_TENURE_FLG , TL_DISTRIB_INFO , USE_BUDGETS , USE_ENCUMBRANCES , USE_DISTRIBUTION , BUDGET_DEPTID , HP_STATS_DEPT_CD , HP_STATS_DPCD_NW , HP_STATS_FACULTY , MANAGER_NAME , ACCOUNTING_OWNER , COUNTRY_GRP , HP_RTBC_OPTION , HP_AUTO_RTBC , CLASS_UNIT_NZL , ORG_UNIT_AUS , WORK_SECTOR_AUS , APS_AGENT_CD_AUS , IND_COMMITTEE_BEL , NACE_CD_BEL , LASTUPDDTTM , HPS_ROOT_NODE , HPS_DEPT_LVL , HPS_DEPT_BUD_NUM , HPS_ORG_STRUCTURE , BJ_HRBP_ID , BJ_DEPT_RESP) SELECT %ProcessInstance , SETID , DEPTID , EFFDT , EFF_STATUS , DESCR , DESCRSHORT , COMPANY , SETID_LOCATION , LOCATION , TAX_LOCATION_CD , MANAGER_ID , MANAGER_POSN , BUDGET_YR_END_DT , BUDGET_LVL , GL_EXPENSE , EEO4_FUNCTION , CAN_IND_SECTOR , ACCIDENT_INS , SI_ACCIDENT_NUM , HAZARD , ESTABID , RISKCD , GVT_DESCR40 , GVT_SUB_AGENCY , GVT_PAR_LINE2 , GVT_PAR_LINE3 , GVT_PAR_LINE4 , GVT_PAR_LINE5 , GVT_PAR_DESCR2 , GVT_PAR_DESCR3 , GVT_PAR_DESCR4 , GVT_PAR_DESCR5 , FTE_EDIT_INDC , DEPT_TENURE_FLG , TL_DISTRIB_INFO , USE_BUDGETS , USE_ENCUMBRANCES , USE_DISTRIBUTION , BUDGET_DEPTID , HP_STATS_DEPT_CD , HP_STATS_DPCD_NW , HP_STATS_FACULTY , MANAGER_NAME , ACCOUNTING_OWNER , COUNTRY_GRP , HP_RTBC_OPTION , HP_AUTO_RTBC , CLASS_UNIT_NZL , ORG_UNIT_AUS , WORK_SECTOR_AUS , APS_AGENT_CD_AUS , IND_COMMITTEE_BEL , NACE_CD_BEL , LASTUPDDTTM , HPS_ROOT_NODE , HPS_DEPT_LVL , HPS_DEPT_BUD_NUM , HPS_ORG_STRUCTURE , BJ_HRBP_ID , BJ_DEPT_RESP FROM PS_DEPT_TBL"
+            ],
+            [
+              "GM_DEPT_XL5",
+              "MAIN",
+              "Step02",
+              "P",
+              " ",
+              null
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 20,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 2,
+          "error_message": "GM_DEPT_XL5"
+        },
+        {
+          "columns": [
+            "OBJECTVALUE1",
+            "OBJECTVALUE6",
+            "PROGLEN"
+          ],
+          "column_types": [
+            "NCHAR",
+            "NCHAR",
+            "NUMBER"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "GM_DEPT_XL5",
+              "Step02",
+              "7369"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 14,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 3,
+          "error_message": "GM_DEPT_XL5"
+        },
+        {
+          "columns": [
+            "PROGSEQ",
+            "CHARS",
+            "PART1",
+            "PART2",
+            "PART3"
+          ],
+          "column_types": [
+            "NUMBER",
+            "NUMBER",
+            "NCHAR",
+            "NCHAR",
+            "NCHAR"
+          ],
+          "column_sortables": [],
+          "rows": [
+            [
+              "0",
+              "4048",
+              "/* Department export through a PeopleSoft Temporary Table.\n   MAIN.Step02.OnExecute reads only this AE instance's rows. */\nDeclare Function buildJavaArray PeopleCode HPS_RPT_FUNC_WK.FUNCLIB_01 FieldFormula;\n\nLocal JavaObject &report;\nLocal SQL &cursor;\nLocal Record &aet;\nLocal array of any &headers, &row;\nLocal number &rows = 0;\nLocal number &col;\nLocal string &filename, &path, &program, &sqlText;\n\n&program = \"GM_DEPT_XL5\";\n&aet = GetRecord(Record.GM_DEPT_AET);\n&filename = &program | \"_\" | DateTimeToLocalizedString(%Datetime, \"yyyyMMdd_HHmmss\") | \"_\" | String(&aet.PROCESS_INSTANCE.Value) | \".xlsx\";\n&aet.FILE_NAME.Value = &filename;\n&path = %FilePath;\nIf None(&path) Or\n      &path = Char(92) Then\n   &path = GetEnv(\"PUBLIC\") | Char(92) | \"Documents\" | Char(92);\nEnd-If;\nIf Right(&path, 1) <> Char(92) And\n      Right(&path, 1) <> \"/\" Then\n   &path = &path | Char(92);\nEnd-If;\n&path = &path | &filename;\nMessageBox(0, \"\", 0, 0, &program | \" START; source=GM_DEPT_TMP; columns=60; path=\" | &path);\n\n&report = CreateJavaObject(\"hps.excel.poi.HpsReportDefn\", \"Department full export\");\n&headers = CreateArrayAny(\"SETID\", \"DEPTID\", \"EFFDT\", \"EFF_STATUS\", \"DESCR\", \"DESCRSHORT\", \"COMPANY\", \"SETID_LOCATION\", \"LOCATION\", \"TAX_LOCATION_CD\", \"MANAGER_ID\", \"MANAGER_POSN\", \"BUDGET_YR_END_DT\", \"BUDGET_LVL\", \"GL_EXPENSE\", \"EEO4_FUNCTION\", \"CAN_IND_SECTOR\", \"ACCIDENT_INS\", \"SI_ACCIDENT_NUM\", \"HAZARD\", \"ESTABID\", \"RISKCD\", \"GVT_DESCR40\", \"GVT_SUB_AGENCY\", \"GVT_PAR_LINE2\", \"GVT_PAR_LINE3\", \"GVT_PAR_LINE4\", \"GVT_PAR_LINE5\", \"GVT_PAR_DESCR2\", \"GVT_PAR_DESCR3\", \"GVT_PAR_DESCR4\", \"GVT_PAR_DESCR5\", \"FTE_EDIT_INDC\", \"DEPT_TENURE_FLG\", \"TL_DISTRIB_INFO\", \"USE_BUDGETS\", \"USE_ENCUMBRANCES\", \"USE_DISTRIBUTION\", \"BUDGET_DEPTID\", \"HP_STATS_DEPT_CD\", \"HP_STATS_DPCD_NW\", \"HP_STATS_FACULTY\", \"MANAGER_NAME\", \"ACCOUNTING_OWNER\", \"COUNTRY_GRP\", \"HP_RTBC_OPTION\", \"HP_AUTO_RTBC\", \"CLASS_UNIT_NZL\", \"ORG_UNIT_AUS\", \"WORK_SECTOR_AUS\", \"APS_AGENT_CD_AUS\", \"IND_COMMITTEE_BEL\", \"NACE_CD_BEL\", \"LASTUPDDTTM\", \"HPS_ROOT_N",
+              "ODE\", \"HPS_DEPT_LVL\", \"HPS_DEPT_BUD_NUM\", \"HPS_ORG_STRUCTURE\", \"BJ_HRBP_ID\", \"BJ_DEPT_RESP\");\n&report.addHeaderRow(buildJavaArray(&headers));\n&sqlText = \"SELECT SETID, DEPTID, TO_CHAR(EFFDT, 'YYYY-MM-DD'), EFF_STATUS, DESCR, DESCRSHORT, COMPANY, SETID_LOCATION, LOCATION, TAX_LOCATION_CD, MANAGER_ID, MANAGER_POSN, BUDGET_YR_END_DT, BUDGET_LVL, GL_EXPENSE, EEO4_FUNCTION, CAN_IND_SECTOR, ACCIDENT_INS, SI_ACCIDENT_NUM, HAZARD, ESTABID, RISKCD, GVT_DESCR40, GVT_SUB_AGENCY, GVT_PAR_LINE2, GVT_PAR_LINE3, GVT_PAR_LINE4, GVT_PAR_LINE5, GVT_PAR_DESCR2, GVT_PAR_DESCR3, GVT_PAR_DESCR4, GVT_PAR_DESCR5, FTE_EDI\" | \"T_INDC, DEPT_TENURE_FLG, TL_DISTRIB_INFO, USE_BUDGETS, USE_ENCUMBRANCES, USE_DISTRIBUTION, BUDGET_DEPTID, HP_STATS_DEPT_CD, HP_STATS_DPCD_NW, HP_STATS_FACULTY, MANAGER_NAME, ACCOUNTING_OWNER, COUNTRY_GRP, HP_RTBC_OPTION, HP_AUTO_RTBC, CLASS_UNIT_NZL, ORG_UNIT_AUS, WORK_SECTOR_AUS, APS_AGENT_CD_AUS, IND_COMMITTEE_BEL, NACE_CD_BEL, TO_CHAR(LASTUPDDTTM, 'YYYY-MM-DD HH24:MI:SS.FF6'), HPS_ROOT_NODE, HPS_DEPT_LVL, HPS_DEPT_BUD_NUM, HPS_ORG_STRUCTURE, B\" | \"J_HRBP_ID, BJ_DEPT_RESP FROM %Table(GM_DEPT_TMP) WHERE PROCESS_INSTANCE = :1 ORDER BY SETID, DEPTID, EFFDT\";\n&cursor = CreateSQL(&sqlText, &aet.PROCESS_INSTANCE.Value);\n&row = CreateArrayAny();\nWhile &cursor.Fetch(&row)\n   If &row.Len <> 60 Then\n      Error &program | \" unexpected column count\";\n   End-If;\n   For &col = 1 To &row.Len\n      /* String[] preserves leading-zero identifiers and nulls as empty cells. */\n      &row [&col] = &row [&col] | \"\";\n   End-For;\n   &report.addContentRowObject(buildJavaArray(&row));\n   &rows = &rows + 1;\n   If Mod(&rows, 10000) = 0 Then\n      MessageBox(0, \"\", 0, 0, &program | \" fetched \" | String(&rows) | \" rows\");\n   End-If;\nEnd-While;\n&cursor.Close();\n&report.generateExcel(&path);\n&report = Null;\nIf Not FileExists(&path, %FilePath_Absolute) Then\n   Error &program | \" workbook was not created: \" | &path;\nEnd-If;\nMessageBox(0, \"\", 0, 0, &program | \" COMPLETE; source=GM_DEPT_TMP; columns=6",
+              "0; rows=\" | String(&rows) | \"; path=\" | &path);\n"
+            ]
+          ],
+          "affected_rows": 0,
+          "execution_time_ms": 31,
+          "truncated": false,
+          "session_id": null,
+          "has_more": false,
+          "statement_index": 4,
+          "error_message": "0"
+        }
+      ]
+    },
+    "isError": false
+  }
+}

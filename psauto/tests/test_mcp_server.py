@@ -37,6 +37,10 @@ class MCPProtocolTests(unittest.IsolatedAsyncioTestCase):
                     self.assertIn('temporary_records', ae_args)
                     self.assertEqual(set(tools['create_record'].inputSchema['properties']['type']['enum']),
                                      {'SQL Table', 'SQL View', 'Dynamic View', 'Derived/Work', 'Temporary Table'})
+                    self.assertEqual(tools['create_record'].inputSchema['properties']['fields']['maxItems'], 61)
+                    oversized = await client.call_tool('create_record', {
+                        'name': 'GM_TOO_MANY', 'fields': [f'FIELD_{index}' for index in range(62)]})
+                    self.assertTrue(oversized.isError)
                     bad_temps = await client.call_tool('create_ae', {
                         'name': 'GM_TEST', 'steps': [{'type': 'SQL', 'code': 'SELECT 1 FROM DUAL'}],
                         'temporary_records': ['GM_A', 'GM_A']})

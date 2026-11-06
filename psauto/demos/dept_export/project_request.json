@@ -1,0 +1,17 @@
+{
+  "name": "GM_DEPT_TEXP",
+  "definitions": [
+    {
+      "type": "AE",
+      "name": "GM_DEPT_XL5"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_TMP"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_AET"
+    }
+  ]
+}

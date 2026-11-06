@@ -10,7 +10,7 @@ from pydantic import StrictBool
 from mcp.server.fastmcp import FastMCP
 
 from psauto.config import load_config
-from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, ProjectDefinition, ProjectName, ProjectRequest, RecordField, RecordKind, RecordName, RecordRequest
+from psauto.objects.models import AEName, AERequest, AEStep, ExistingFieldName, ExistingRecordName, FieldName, FieldRequest, ProjectDefinition, ProjectName, ProjectRequest, RecordField, RecordFields, RecordKind, RecordName, RecordRequest
 from psauto.objects.service import ObjectService
 
 
@@ -27,7 +27,7 @@ def create_server(cfg):
                                             long_name=long_name, short_name=short_name))
 
     @server.tool()
-    def create_record(name: RecordName, fields: list[ExistingFieldName | RecordField],
+    def create_record(name: RecordName, fields: RecordFields,
                       type: RecordKind = 'Derived/Work', build: bool = False,
                       tablespace: str = 'HRAPP', view_sql: str | None = None) -> dict:
         """Create a GM SQL Table/View, Dynamic View, Derived/Work or Temporary Table. Views require view_sql, pasted through the clipboard and saved without OCR readback. Build applies to SQL Table/View or Temporary Table. Save and close; DB verifies content."""

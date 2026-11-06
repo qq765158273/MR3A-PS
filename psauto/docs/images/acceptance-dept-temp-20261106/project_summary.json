@@ -1,0 +1,48 @@
+{
+  "timing_basis": "native_node_lifecycle",
+  "succeeded": true,
+  "pipeline_event_ms": 54453,
+  "completed_nodes": 72,
+  "node_count": 72,
+  "timed_nodes": 72,
+  "timing_complete": true,
+  "recognition_attempts": 78,
+  "candidate_misses": 6,
+  "recognition_failures": 6,
+  "scan_retries": 5,
+  "pipeline_node_failures": 0,
+  "action_failures": 0,
+  "event_counts": {
+    "Node.PipelineNode.Starting": 72,
+    "Node.NextList.Starting": 77,
+    "Node.Recognition.Starting": 78,
+    "Node.Recognition.Succeeded": 72,
+    "Node.NextList.Succeeded": 72,
+    "Node.Action.Starting": 72,
+    "Node.Action.Succeeded": 72,
+    "Node.PipelineNode.Succeeded": 72,
+    "Node.Recognition.Failed": 6,
+    "Node.NextList.Failed": 5
+  },
+  "action_counts": {
+    "DoNothing": 10,
+    "ClickKey": 22,
+    "Click": 35,
+    "InputText": 5
+  },
+  "recognition_algorithm_counts": {
+    "And": 34,
+    "DirectHit": 24,
+    "TemplateMatch": 13,
+    "OCR": 1
+  },
+  "screenshot_files": 61,
+  "phase_ms": {
+    "scan_prepare_ms": 15030,
+    "recognition_ms": 11327,
+    "before_action_ms": 16,
+    "action_ms": 20673,
+    "after_action_ms": 7140,
+    "unattributed_ms": 267
+  }
+}
