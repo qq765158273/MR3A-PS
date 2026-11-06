@@ -1,0 +1,21 @@
+{
+  "name": "GM_DEPT_PRT",
+  "definitions": [
+    {
+      "type": "AE",
+      "name": "GM_DEPT_PAE"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_RPT"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_TMP"
+    },
+    {
+      "type": "Record",
+      "name": "GM_DEPT_AET"
+    }
+  ]
+}

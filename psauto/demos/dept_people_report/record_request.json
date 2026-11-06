@@ -1,0 +1,45 @@
+{
+  "name": "GM_DEPT_RPT",
+  "type": "SQL Table",
+  "fields": [
+    {
+      "name": "PROCESS_INSTANCE",
+      "key": true
+    },
+    {
+      "name": "SETID",
+      "key": true
+    },
+    {
+      "name": "DEPTID",
+      "key": true
+    },
+    {
+      "name": "EFFDT",
+      "key": true
+    },
+    "DESCR",
+    {
+      "name": "EMPLID",
+      "key": true
+    },
+    {
+      "name": "EMPL_RCD",
+      "key": true
+    },
+    {
+      "name": "EFFSEQ",
+      "key": true
+    },
+    "NAME",
+    "LAST_NAME",
+    "FIRST_NAME",
+    "COMPANY",
+    "JOBCODE",
+    "POSITION_NBR",
+    "ACTION",
+    "ACTION_REASON"
+  ],
+  "build": true,
+  "tablespace": "HRAPP"
+}
