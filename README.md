@@ -143,7 +143,7 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 #### 当前完整配置与性能（2026-11-05）
 
-2026-11-06 补齐常用类型：`create_record` 支持 SQL Table、SQL View、Dynamic View、Derived/Work、Temporary Table；视图传 `view_sql`，SQL View/临时表已分别实测 Build。`create_ae` 增加 `temporary_records`，与默认 AET、`disable_restart` 分别配置；一表和两表完整MCP及DBX已通过。实例数/分配选项保持默认。普通140项64通过/76跳过，新增视觉、AE属性及原视觉回归通过。参数、截图和日志见 [常用类型](psauto/docs/common_types.md)。
+2026-11-06 补齐常用类型：`create_record` 支持 SQL Table、SQL View、Dynamic View、Derived/Work、Temporary Table；视图传 `view_sql`，SQL View/临时表已分别实测 Build。`create_ae` 增加 `temporary_records` 与默认 `temporary_table_instances=3`，和默认 AET、`disable_restart` 分别配置；一表和两表完整MCP及DBX已通过。普通140项64通过/76跳过，新增视觉、AE属性及原视觉回归通过。参数、截图和日志见 [常用类型](psauto/docs/common_types.md)。
 
 pshelp 已独立只读审核实际部门工程：[业务代码/对象报告](psauto/docs/pshelp_department_code_objects_review.md)。60列及AE/AET/Project核对正确；文件完成/异常收尾P2、旧日志标签P3待处理，实际Excel仍未验收。本轮只增加通用MCP能力，原部门业务代码保持审核快照。
 
@@ -152,6 +152,8 @@ pshelp 已独立只读审核实际部门工程：[业务代码/对象报告](psa
 新增独立 `save_project(name, definitions)` MCP：把已保存 AE、Record、Field 及原生关联定义归集到新 Project，工程保存后释放空白工作台。正式 `GM_DEPT_EXPORT` 已完整创建，DBX 确认 AE/Section/PeopleCode/AET/字段共 10 个成员；首次创建 55 节点、37.250 秒；补齐 Record 首尾选中保护后，回归工程 GMPRJFIX01 以 57 节点、44.969 秒完成，0 节点/动作失败。重名请求安全返回后，同一 MCP 还成功创建三类型测试工程。设计与日志见 [Project 保存能力](psauto/docs/projects.md)。
 
 PSIDE 可直接通过 Edit/Run Program 在远程 Windows 执行 AE 并生成文件，调度器为可选路径。本地导出当前缺匹配 PeopleTools 的 Java/报表依赖：已确认 PSIDE 为64位；仅找到旧 Oracle JVM，未加载或替换。补齐依赖后继续验收 Excel。
+
+PeopleCode 也可通过 `CreateProcessRequest("Application Engine", "GM_DEPT_XL5")`、设置 `RunControlID` 并调用 `Schedule()` 提交后台进程；提交成功后取得 `ProcessInstance`，再查询最终运行状态。它需要PS端PeopleCode入口、已登记的Process Definition、执行账号的进程组/Process Profile权限、可用且支持Application Engine的调度器，以及运行参数和后台输出目录/Java报表依赖。2026-11-06 19:15的DBX只读检查确认：XL5和QA AE尚未登记到PS_PRCSDEFN，参考BJ_CITY_RATE已登记；PSSERVERSTAT中PRCS6140标为运行但状态更新时间为2026-06-14，不能据此认定当前服务存活；PSUNX标为停机。尚未调用Schedule或提交任何后台请求，现有MCP仍只提供对象创建和Project保存。
 
 部门导出 demo 已补 `create_ae(state_record, disable_restart)`：先配置唯一默认 AET/Restart，再编译代码并保存关闭；业务成功要求对应原生属性终态。`GM_DEPT_AET`（Derived/Work）完整创建通过；最终 `GM_DEPT_XL4` 新 MCP 从头 75 节点、66.50 秒通过，0 节点/动作失败，DBX 确认默认 AET、Disable Restart=Y 和 PeopleCode 编译结果。普通 121 项中 55 通过/66 跳过，新增 6 项原生属性及原有 14 项原生视觉回归通过。pshelp 找出的对象前缀和空列表保护问题已修复，独立定向复测 2/2 通过。**实际 Excel 导出仍未验收**：早先样本本地 Run 已进入 PeopleCode，但 Java 虚拟机无法启动，RC=8；登记的 Web 入口也无法连接，仍需可用调度器或本地运行环境。运行未验证的业务草稿保留工作区，未作为可信代码提交。设计、原生日志、问题和待补执行环境见 [部门导出 demo](psauto/docs/department_export_demo.md)。
 

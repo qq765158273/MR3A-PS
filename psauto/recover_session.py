@@ -9,6 +9,7 @@ from contextlib import closing
 import json
 import os
 import time
+import winreg
 from datetime import datetime
 
 from maa.toolkit import Toolkit
@@ -21,6 +22,18 @@ from psauto.recovery import connect_recovery_controller
 from psauto.cli_controller import PlaywrightCliSession
 from psauto.controller import connect_controller
 from psauto.evidence import EvidenceSink, export_task_evidence
+
+
+def _user_secret(name):
+    value = os.environ.get(name)
+    if value:
+        return value
+    try:
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Environment') as key:
+            value, _ = winreg.QueryValueEx(key, name)
+            return str(value) if value else None
+    except (FileNotFoundError, OSError):
+        return None
 
 
 def recover_idle_session(cfg, simulate_disconnect=False, verbose=True):
@@ -127,6 +140,55 @@ def connect_saved_account(cfg, entry='JumpServer_ZhaixiaominLogin'):
         probe.stop()
 
 
+def connect_env_account(cfg):
+    """Fill the connection form from user-scoped secrets, then run the guarded connect node."""
+    username = _user_secret('juser')
+    password = _user_secret('jpswd')
+    if not username or not password:
+        raise RuntimeError('User credentials juser/jpswd are unavailable; password was not read')
+    Tasker.set_debug_mode(True)
+    output = cfg.resolve_path('out/recovery/' + datetime.now().strftime('%Y%m%d_%H%M%S_%f'))
+    session, controller = connect_recovery_controller(cfg)
+    try:
+        filled = session.request('fill_login', username=username, password=password)
+        if not filled.get('username_filled') or not filled.get('password_filled'):
+            raise RuntimeError('JumpServer form did not accept the user credentials')
+        tasker = create_tasker(str(cfg.resolve_path(cfg.resource_dir)), controller)
+        with closing(EvidenceSink(tasker)) as trace:
+            job = tasker.post_task('JumpServer_EnvConnectButton').wait()
+            export_task_evidence(job, output, trace)
+            if not job.succeeded:
+                raise RuntimeError('Credential form was filled but the guarded connect node failed')
+    finally:
+        session.stop()
+
+    probe = PlaywrightCliSession(cfg)
+    try:
+        deadline = time.monotonic() + 45
+        while True:
+            try:
+                probe.request('inspect')
+                break
+            except Exception:
+                if probe.poisoned or time.monotonic() >= deadline:
+                    raise RuntimeError('Credential login did not restore the expected RDP canvas') from None
+                time.sleep(1)
+        native_session, native_controller = connect_controller(cfg)
+        try:
+            native_tasker = create_tasker(str(cfg.resolve_path(cfg.resource_dir)), native_controller)
+            with closing(EvidenceSink(native_tasker)) as native_trace:
+                verified = native_tasker.post_task('PSIDE_WindowReady').wait()
+                export_task_evidence(verified, output / 'remote_check', native_trace)
+                if not verified.succeeded:
+                    raise RuntimeError('Credential login connected but HRDEV was not recognized')
+            print('Environment credential login verified: native RDP canvas and HRDEV title')
+            print(f'Evidence: {output}')
+        finally:
+            native_session.stop()
+    finally:
+        probe.stop()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', default='config.json')
@@ -134,12 +196,16 @@ def main():
     parser.add_argument('--recover', action='store_true', help='Run one recognized reconnect path and verify RDP/HRDEV')
     parser.add_argument('--simulate-reconnect', action='store_true', help='Reload a healthy HRDEV connection and test the reconnect round trip')
     parser.add_argument('--zhaixiaomin', action='store_true', help='Select the saved zhaixiaomin asset account and verify RDP')
+    parser.add_argument('--env-login', action='store_true', help='Fill the connection form from user-scoped juser/jpswd and verify RDP')
     args = parser.parse_args()
     cfg = load_config(args.config)
     os.chdir(cfg.base_dir)
     Toolkit.init_option(str(cfg.base_dir))
     if args.zhaixiaomin:
         connect_saved_account(cfg)
+        return 0
+    if args.env_login:
+        connect_env_account(cfg)
         return 0
     if args.recover or args.simulate_reconnect:
         recover_idle_session(cfg, simulate_disconnect=args.simulate_reconnect)

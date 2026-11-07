@@ -30,6 +30,14 @@
 
 当前现场列表只有“上次登录”“手动输入”和“同名账号(wangsen05)”，搜索 `zhaixiaomin` 返回“暂无数据”，所以该分支尚未报告成功。先在 JumpServer 资产连接表单中保存一次该账号，密码由 JumpServer/浏览器凭据管理，之后即可运行该入口。仓库不包含密码或凭据文件。
 
+如果浏览器原生快速填充弹层不可见，可使用环境凭据入口：
+
+```powershell
+..\.psauto-runtime\venv\Scripts\python.exe recover_session.py --env-login
+```
+
+该入口从当前 Windows 用户的 `juser`、`jpswd` 环境变量（或用户环境注册表）读取凭据，填充用户名和密码后只通过 Pipeline 识别并点击 CONNECT，再核对 RDP 画布和 HRDEV 标题。密码不进入 Pipeline override、Maa 事件、截图或日志。2026-11-07 在当前 `t-wangsen05` 会话实测通过，证据保存在 `out/recovery/20261107_183630_250603`。
+
 ## 验证记录
 
 2026-11-04 又观察到一种无超时弹窗的断线：Guacamole tunnel 已 CLOSED，但画布仍保留 SQL 编辑器，clientState 字符串仍是 Connected。剪贴板按钮被禁用；键盘接口返回成功不能证明操作已到达远端。CLI 适配器现要求实时隧道 OPEN、客户端就绪及所需剪贴板通道可用，断线时拒绝截图和输入，避免 Maa 对旧图作出成功判决。截图失败也会释放已按下的修饰键。

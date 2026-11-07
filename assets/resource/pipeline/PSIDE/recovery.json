@@ -83,5 +83,10 @@
       {"recognition": "OCR", "expected": "Web GUI", "roi": [600, 450, 250, 100]}
     ],
     "action": "DoNothing", "next": ["JumpServer_SavedAccountConnectButton"], "on_error": [], "timeout": 5000
+  },
+  "JumpServer_EnvConnectButton": {
+    "recognition": "OCR", "expected": "CONNECT.*当前在线", "roi": [550, 500, 850, 320],
+    "action": "Click", "target_offset": [2, 2, -4, -4],
+    "post_delay": 5000, "timeout": 5000, "on_error": []
   }
 }

@@ -42,6 +42,16 @@ _BROWSER_BODY = """async (page) => {
     await page.mouse.click(x, y);
     return true;
   }
+  if (request.operation === 'fill_login') {
+    const username = page.locator('input[name="username"]');
+    const password = page.locator('input[type="password"]');
+    if (await username.count() !== 1 || await password.count() !== 1)
+      throw new Error('JumpServer connection form is unavailable');
+    await username.fill(request.username);
+    await password.fill(request.password);
+    return {username_filled: (await username.inputValue()) === request.username,
+            password_filled: (await password.inputValue()).length > 0};
+  }
   throw new Error('Recovery channel only supports screenshots and clicks');
 }"""
 
