@@ -54,5 +54,34 @@
   "JumpServer_SavedAccountConnectButton": {
     "recognition": "OCR", "expected": "连接.*当前在线", "roi": [550, 500, 850, 320],
     "action": "Click", "post_delay": 5000, "timeout": 5000, "on_error": []
+  },
+  "JumpServer_ZhaixiaominLogin": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "连接.*PS开发测试", "roi": [550, 80, 850, 200]},
+      {"recognition": "OCR", "expected": "选择账号", "roi": [600, 240, 180, 60]},
+      {"recognition": "OCR", "expected": "手动输入", "roi": [600, 270, 720, 70]},
+      {"recognition": "OCR", "expected": "Web GUI", "roi": [600, 450, 250, 100]}
+    ],
+    "action": "DoNothing", "next": ["JumpServer_ZhaixiaominOpenAccounts"], "on_error": [], "timeout": 5000
+  },
+  "JumpServer_ZhaixiaominOpenAccounts": {
+    "recognition": "OCR", "expected": "^选择账号$", "roi": [600, 240, 180, 60],
+    "action": "Click", "target": [630, 278, 662, 30], "post_delay": 250,
+    "next": ["JumpServer_ZhaixiaominAccountOption"], "on_error": [], "timeout": 5000
+  },
+  "JumpServer_ZhaixiaominAccountOption": {
+    "recognition": "OCR", "expected": "^zhaixiaomin$", "roi": [620, 300, 680, 170],
+    "action": "Click", "target_offset": [2, 1, -4, -2], "post_delay": 250,
+    "next": ["JumpServer_ZhaixiaominSelected"], "on_error": [], "timeout": 5000
+  },
+  "JumpServer_ZhaixiaominSelected": {
+    "recognition": "And",
+    "all_of": [
+      {"recognition": "OCR", "expected": "^zhaixiaomin$", "roi": [620, 335, 700, 55]},
+      {"recognition": "OCR", "expected": "密码", "roi": [600, 380, 120, 70]},
+      {"recognition": "OCR", "expected": "Web GUI", "roi": [600, 450, 250, 100]}
+    ],
+    "action": "DoNothing", "next": ["JumpServer_SavedAccountConnectButton"], "on_error": [], "timeout": 5000
   }
 }
