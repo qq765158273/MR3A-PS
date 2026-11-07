@@ -189,6 +189,19 @@ def connect_env_account(cfg):
         probe.stop()
 
 
+def recover_preflight(cfg, verbose=False):
+    """Recover an existing tunnel first; if the asset form needs credentials, use juser/jpswd."""
+    try:
+        recover_idle_session(cfg, verbose=verbose)
+    except Exception as recovery_error:
+        try:
+            connect_env_account(cfg)
+        except Exception as login_error:
+            raise RuntimeError(
+                'JumpServer preflight recovery and environment credential login both failed'
+            ) from login_error
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', default='config.json')

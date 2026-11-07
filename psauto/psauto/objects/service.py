@@ -143,8 +143,8 @@ class ObjectService:
                 try:
                     session, controller = connect_controller(cfg)
                 except RuntimeError:
-                    from recover_session import recover_idle_session
-                    recover_idle_session(cfg, verbose=False)
+                    from recover_session import recover_preflight
+                    recover_preflight(cfg, verbose=False)
                     session, controller = connect_controller(cfg)
                 with MR3AAgent(Path(__file__).resolve().parents[3]) as agent:
                     tasker = create_tasker(str(cfg.resolve_path(cfg.resource_dir)), controller, agent)

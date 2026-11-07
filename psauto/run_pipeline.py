@@ -39,8 +39,8 @@ def main() -> int:
     except RuntimeError:
         if cfg.connection_mode != 'cli' or args.no_recovery:
             raise
-        from recover_session import recover_idle_session
-        recover_idle_session(cfg)
+        from recover_session import recover_preflight
+        recover_preflight(cfg)
         session, controller = connect_controller(cfg)
     try:
         with MR3AAgent(Path(__file__).resolve().parent.parent) as agent_client:

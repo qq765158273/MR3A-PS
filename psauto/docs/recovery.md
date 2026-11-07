@@ -10,7 +10,7 @@
 ..\.psauto-runtime\venv\Scripts\python.exe recover_session.py --recover
 ```
 
-`run_pipeline.py` 在执行业务 Pipeline **之前**连接失败时，也会调用这条恢复路径。`--no-recovery` 可关闭。业务 Pipeline 一旦开始执行，失败后直接停止，不自动重放任务。尤其是保存动作超时时，不能因重连成功就认定原保存失败。
+`run_pipeline.py` 和 MCP 对象操作在执行业务 Pipeline **之前**连接失败时，会先尝试既有断线恢复；恢复失败且存在用户级 `juser/jpswd` 时，再执行环境凭据登录。`--no-recovery` 可关闭。业务 Pipeline 一旦开始执行，失败后直接停止，不自动重放任务。尤其是保存动作超时时，不能因重连成功就认定原保存失败。
 
 | 阶段 | 识别及检查 | 动作、等待和下一步 | 失败行为 |
 |---|---|---|---|
