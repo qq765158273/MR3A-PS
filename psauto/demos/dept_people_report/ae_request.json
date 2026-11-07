@@ -2,6 +2,7 @@
   "name": "GM_DEPT_PAE",
   "state_record": "GM_DEPT_AET",
   "disable_restart": true,
+  "temporary_table_instances": 3,
   "temporary_records": [
     "GM_DEPT_TMP"
   ],

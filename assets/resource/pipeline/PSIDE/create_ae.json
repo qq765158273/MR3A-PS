@@ -6965,6 +6965,70 @@
       "AEProp_OK"
     ]
   },
+  "AEProp_InstanceCountFocus": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "recognition": "OCR",
+    "expected": "^Instance Count$",
+    "roi": [
+      815,
+      625,
+      105,
+      24
+    ],
+    "action": "Click",
+    "target": [
+      928,
+      636,
+      24,
+      18
+    ],
+    "next": [
+      "AEProp_InstanceCountClear"
+    ]
+  },
+  "AEProp_InstanceCountClear": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "action": "ClickKey",
+    "key": 131137,
+    "next": [
+      "AEProp_InstanceCountPaste"
+    ]
+  },
+  "AEProp_InstanceCountPaste": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 100,
+    "action": "InputText",
+    "input_text": "__PARAM_temp_instances__",
+    "next": [
+      "AEProp_InstanceCountCheck"
+    ]
+  },
+  "AEProp_InstanceCountCheck": {
+    "on_error": [],
+    "timeout": 5000,
+    "pre_delay": 0,
+    "post_delay": 0,
+    "recognition": "OCR",
+    "expected": "__PARAM_temp_instances_regex__",
+    "roi": [
+      908,
+      622,
+      42,
+      28
+    ],
+    "action": "DoNothing",
+    "next": [
+      "AEProp_OK"
+    ]
+  },
   "AEProp_TempProjectPrompt": {
     "recognition": "And",
     "all_of": [

@@ -103,6 +103,9 @@ class AERequest(BaseModel):
     temporary_records: list[ExistingRecordName] | None = Field(
         default=None, min_length=1, max_length=10,
         description='Existing Temporary Table records to bind; omit to preserve the default empty list')
+    temporary_table_instances: int = Field(
+        default=3, ge=1, le=99,
+        description='Temporary Table instance count; PeopleTools creates the physical instance pool when the record is built')
 
     @model_validator(mode='after')
     def sequential_steps(self):

@@ -48,7 +48,7 @@ SQL View 的 Build 明确使用 Create Views，关闭 Create Tables/Create Index
 
 Disable Restart继续接受严格bool，省略保持默认；false与None不同。属性顺序为默认AET、临时表、Restart，再粘贴代码。AE结束改为完整父对象标题＋保存灰态＋活动关闭图标的定位点击，避免焦点不在MDI编辑器时Ctrl+F4无效；缺保存或错误前缀不会点关闭。
 
-临时表实例数本轮保持0；Share Tables/Continue/Abort等运行选项保持原生默认。表绑定不等于实例池已Build或AE已执行。本轮实测1表和2表；10是当前固定列表的接口上限，未做10表真实端到端。
+`create_ae` 的临时表实例数默认是3，可通过 `temporary_table_instances` 调整。绑定不等于实例池已经生成：Temporary Table Record 必须先 Build，PeopleTools 才会创建基础表和实例表；未 Build 直接运行会因物理实例表不存在而失败。Share Tables/Continue/Abort 等运行选项保持原生默认。本轮接口仍支持1–10张临时表；部门 AE 已实跑三实例池并验证 `%Table` 落到实例表，运行后数据保留。
 
 ## 完整 MCP 与 DBX 验收
 

@@ -11,4 +11,6 @@ The SQL was corrected in PSIDE and saved with `NVL(P.NAME, ' ')`, `NVL(P.LAST_NA
 - Duplicate report keys `0`; nullable target values `0`.
 - The one missing-personal-data employee was retained with three single-space name values.
 
-The run emitted warning `108,544`: no dedicated temporary-table instance was available, so PeopleTools used the `GM_DEPT_TMP` base table. The process still isolated by `PROCESS_INSTANCE` and cleaned the staging table after completion (`PS_GM_DEPT_TMP` row count `0`). For concurrent production scheduling, configure one or more temporary-table instances and recheck the allocation in DBX.
+The AE was then configured with `TEMPTBLINSTANCES=3` in PSIDE. Building `GM_DEPT_TMP` first generated `PS_GM_DEPT_TMP1` through `PS_GM_DEPT_TMP6`, each with a VALID unique index. A rerun ended normally (log: [success_log_instances3.png](success_log_instances3.png)); DBX identified process instance `397101`, report rows `17,136`, and staging rows in the assigned `PS_GM_DEPT_TMP4` instance (`74,762` rows for that process instance). The staging rows remain available for post-run inspection; the AE SQL does not truncate them. The extra physical tables are PeopleTools' base/instance pool layout, not six requested logical instances.
+
+The MCP request now defaults to `temporary_table_instances=3`. A Temporary Table must be built before execution so the physical instance pool exists; setting the AE property alone is insufficient and produced the observed `ORA-00942` on `PS_GM_DEPT_TMP4` before the Build.

@@ -37,10 +37,12 @@ def create_server(cfg):
     @server.tool()
     def create_ae(name: AEName, steps: list[AEStep], state_record: ExistingRecordName | None = None,
                   disable_restart: StrictBool | None = None,
-                  temporary_records: list[ExistingRecordName] | None = None) -> dict:
-        """Create a GM AE with 1–4 SQL/PeopleCode steps; optionally bind one default AET, 1–10 existing Temporary Table records and Disable Restart before code compilation. Temp instance/allocation settings keep their defaults. Save and close; DB verifies content. This tool does not execute the AE."""
+                  temporary_records: list[ExistingRecordName] | None = None,
+                  temporary_table_instances: int = 3) -> dict:
+        """Create a GM AE with 1–4 SQL/PeopleCode steps; optionally bind one default AET, 1–10 existing Temporary Table records, Disable Restart and the default three-instance pool before code compilation. Save and close; DB verifies content. This tool does not execute the AE."""
         return service.execute(AERequest(name=name, steps=steps,state_record=state_record,
-                                         disable_restart=disable_restart, temporary_records=temporary_records))
+                                         disable_restart=disable_restart, temporary_records=temporary_records,
+                                         temporary_table_instances=temporary_table_instances))
 
     @server.tool()
     def save_project(name: ProjectName, definitions: list[ProjectDefinition]) -> dict:

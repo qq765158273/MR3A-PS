@@ -120,7 +120,7 @@ CLI 输入适配器默认保持一个客户端进程，调用配置指定安装�
 
 还可传 `state_record: "GM_DEPT_AET"` 绑定已存在的唯一默认状态记录，以及严格布尔 `disable_restart: true/false` 设置 Disable Restart；省略参数保持默认行为。属性在代码粘贴前配置，成功返回还要求 `state_record_bound`、`restart_verified`、`properties_saved` 对应原生终态；工作台存在其他状态记录时停止，不覆盖。最终完整创建及 DBX 已验收，实际 Excel 导出尚受 JVM 运行环境阻塞，详见 [部门导出 demo](docs/department_export_demo.md)。
 
-`create_record` 还支持 SQL View、Dynamic View、Temporary Table；前两者要求 `view_sql`，Build仅用于SQL Table/SQL View/Temporary Table。字段列表最多支持 61 项，覆盖 `PS_DEPT_TBL` 的 60 个物理列加 Temporary Table 必需的 `PROCESS_INSTANCE` 键。`create_ae` 可传 `temporary_records` 绑定1–10张已有临时表，实例/分配策略保持默认；现有默认AET与Disable Restart独立。完整调用、类型编码、SQL与对象验收见 [常用类型](docs/common_types.md)。
+`create_record` 还支持 SQL View、Dynamic View、Temporary Table；前两者要求 `view_sql`，Build仅用于SQL Table/SQL View/Temporary Table。字段列表最多支持 61 项，覆盖 `PS_DEPT_TBL` 的 60 个物理列加 Temporary Table 必需的 `PROCESS_INSTANCE` 键。`create_ae` 可传 `temporary_records` 绑定1–10张已有临时表，并默认配置 `temporary_table_instances=3`；临时 Record 必须先 Build 以生成实例池，现有默认AET与Disable Restart独立。完整调用、类型编码、SQL与对象验收见 [常用类型](docs/common_types.md)。
 
 部门临时表导出示例见 [department_temp_export.md](docs/department_temp_export.md)，其中 Step01 用 SQL 把 `PS_DEPT_TBL` 全量插入 `%Table(GM_DEPT_TMP)`，Step02 用 PeopleCode 按当前 `PROCESS_INSTANCE` 查询后生成 Excel。
 

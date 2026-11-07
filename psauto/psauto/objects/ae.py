@@ -26,7 +26,12 @@ def build(request):
                 values[f'temp_{index}'] = name
                 values[f'temp_{index}_regex'] = r'^\s*' + identifier(name) + r'\s*$'
             patches[f'AEProp_Temp{len(temp_records) - 1}_Bound'] = {'next': ['AEProp_TempsBound']}
-            patches['AEProp_TempsBound'] = {'next': ['AEProp_AdvancedTab' if request.disable_restart is not None else 'AEProp_OK']}
+            values['temp_instances'] = str(request.temporary_table_instances)
+            values['temp_instances_regex'] = r'^\s*' + re.escape(str(request.temporary_table_instances)) + r'\s*$'
+            patches['AEProp_TempsBound'] = {'next': ['AEProp_InstanceCountFocus']}
+            patches['AEProp_InstanceCountCheck'] = {
+                'next': ['AEProp_AdvancedTab' if request.disable_restart is not None else 'AEProp_OK']
+            }
         if request.disable_restart is not None:
             selected = ['PSIDE/checkbox_selected.png', 'PSIDE/checkbox_selected_hover.png']
             unselected = ['PSIDE/checkbox_unchecked.png', 'PSIDE/checkbox_unchecked_hover.png']

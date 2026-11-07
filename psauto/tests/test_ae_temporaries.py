@@ -16,6 +16,7 @@ import test_image_recognition as native_vision
 class AETemporaryArgumentsTests(unittest.TestCase):
     def test_temp_names_count_and_uniqueness_are_validated(self):
         base = {'name': 'GM_TEMP_TEST', 'steps': [{'type': 'SQL', 'code': 'SELECT 1 FROM DUAL'}]}
+        self.assertEqual(AERequest(**base, temporary_records=['GM_A']).temporary_table_instances, 3)
         for names in [[], ['bad-name'], ['GM_A', 'GM_A'], ['GM_' + str(i) for i in range(11)]]:
             with self.subTest(names=names), self.assertRaises(ValidationError):
                 AERequest(**base, temporary_records=names)
@@ -40,9 +41,11 @@ class AETemporaryArgumentsTests(unittest.TestCase):
                         todo.extend(graph[name].get('next', []))
                     with self.subTest(state=state, temps=temps, restart=restart):
                         self.assertEqual('AEProp_TempTab' in seen, temps is not None)
+                        self.assertEqual('AEProp_InstanceCountFocus' in seen, temps is not None)
                         self.assertEqual('AEProp_StateTab' in seen, state is not None)
                         self.assertEqual('AEProp_AdvancedTab' in seen, restart is not None)
                         if temps:
+                            self.assertEqual(ov['AEProp_InstanceCountPaste']['input_text'], '3')
                             self.assertNotIn(f'AEProp_Temp{len(temps)}_Qualify', seen)
                             self.assertEqual(ov['AEProp_Temp0_Paste']['input_text'], sorted(temps)[0])
                             self.assertIn('AEProp_TempProjectPrompt', seen)
